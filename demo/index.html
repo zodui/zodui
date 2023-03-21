@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zod UI</title>
+  <style lang="css" data-name="message">
+    div.message {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translate(-50%, -150%);
+      padding: 1em;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transition: 0.3s ease-in-out;
+    }
+    div.message.show {
+      opacity: 1;
+      transform: translateX(-50%);
+    }
+  </style>
+  <style type="text/css">
+    body {
+      display: flex;
+      margin: 0;
+      padding-top: 50px;
+    }
+    #container {
+      width: 500px;
+    }
+    #root {
+      width: calc(100% - 500px);
+      height: calc(100vh - 50px);
+      overflow: overlay;
+    }
+  </style>
+
+  <script>
+    var require = { paths: { vs: './monaco/min/vs' } }
+  </script>
+  <link
+    rel="stylesheet"
+    data-name="vs/editor/editor.main"
+    href="/monaco/min/vs/editor/editor.main.css"
+  >
+  <script src="/monaco/min/vs/loader.js"></script>
+  <script src="/monaco/min/vs/editor/editor.main.nls.js"></script>
+  <script src="/monaco/min/vs/editor/editor.main.js"></script>
+
+  <template id="message-template">
+    <div class="message">
+      {{content}}
+    </div>
+  </template>
+  <script data-name="lib">
+    ;(function () {
+      const tmplCache = {}
+      /**
+       * create a template from a template node
+       *
+       * @param {string} tmplId
+       * @param {Record<string, any>} data
+       * @returns {Element}
+       */
+      window.createEleByTmpl = function (tmplId, data) {
+        const tmpl = tmplCache[tmplId] || (tmplCache[tmplId] = document.getElementById(tmplId).innerHTML.trim())
+
+        const div = document.createElement('div')
+        div.innerHTML = Object.keys(data).reduce((acc, key) => {
+          return acc.replace(new RegExp(`{{${key}}}`, 'g'), data[key])
+        }, tmpl)
+        return div.children[0]
+      }
+      /**
+       * copy content to clipboard
+       * @param {string} content
+       */
+      window.copyToClipboard = function (content) {
+        const input = document.createElement('input')
+        input.value = content
+        document.body.appendChild(input)
+        input.select()
+        document.execCommand('copy')
+        document.body.removeChild(input)
+      }
+      /**
+       * base64 encode and decode
+       * @param {string} str
+       * @param {boolean} isDecode
+       */
+      window.base64 = function (str, isDecode = true) {
+        return isDecode ? decodeURIComponent(atob(str)) : btoa(encodeURIComponent(str))
+      }
+      /**
+       * throttle
+       * @param {Function} fn
+       * @param {number} delay
+       */
+      window.throttle = function (fn, delay) {
+        let timer = null
+        return function (...args) {
+          if (timer) return
+          timer = setTimeout(() => {
+            fn.apply(this, args)
+            timer = null
+          }, delay)
+        }
+      }
+      /**
+       * debounce
+       * @param {Function} fn
+       * @param {number} delay
+       */
+      window.debounce = function (fn, delay) {
+        let timer = null
+        return function (...args) {
+          if (timer) clearTimeout(timer)
+          timer = setTimeout(() => {
+            fn.apply(this, args)
+            timer = null
+          }, delay)
+        }
+      }
+      let messages = []
+      /**
+       * display a message
+       * @param {string} content
+       * @param {number} duration
+       */
+      window.showMessage = function (content, duration = 3000) {
+        const message = createEleByTmpl('message-template', { content })
+        // compute message top
+        const top = messages.reduce((acc, msg) => {
+          return acc + msg.offsetHeight + 10
+        }, 10)
+        message.style.top = top + 'px'
+        document.body.appendChild(message)
+        messages.push(message)
+        setTimeout(() => {
+          message.classList.add('show')
+        }, 0)
+        setTimeout(() => {
+          message.classList.remove('show')
+          setTimeout(() => {
+            document.body.removeChild(message)
+            messages = messages.filter((m) => m !== message)
+          }, 300)
+        }, duration)
+      }
+    })()
+  </script>
+
+  <script data-name="monaco">
+    /**
+     * @type {monaco.editor.IStandaloneCodeEditor}
+     */
+    let editor
+    const changeListeners = []
+    window.onCodeChange = function (fn) {
+      const nfn = s => fn(`${s}
+;(window?.____DEFAULT_EXPORT_VALUE____)`
+        .replace('export default ', 'window.____DEFAULT_EXPORT_VALUE____ = ')
+        .replace(/import (.*) from 'zod'/g, 'var $1 = window.z')
+        .replace(/import .* from .*/g, ''))
+      changeListeners.push(nfn)
+      nfn(editor?.getValue())
+      const index = changeListeners.length - 1
+      return () => {
+        if (index > -1) changeListeners.splice(index, 1)
+      }
+    }
+    /**
+     * @param {string} s
+     */
+    function updateCode(s) {
+      changeListeners.forEach((fn) => fn(s))
+    }
+    window.addEventListener('load', function () {
+      function setCodeByUrl() {
+        const hash = location.hash.slice(1)
+        const code = hash ? base64(hash) : `
+import z from 'zod'
+
+export default z.object({
+  foo: z.string()
+})
+`.trim()
+        editor.setValue(code)
+        updateCode(code)
+      }
+
+      // watch hash change
+      window.addEventListener('hashchange', setCodeByUrl)
+      // add custom dts
+      monaco.languages.typescript.typescriptDefaults.setExtraLibs(<%- ZOD_DTS_FILES %>)
+      editor = monaco.editor.create(document.getElementById('container'), {
+        value: '',
+        language: 'typescript',
+        tabIndex: 2,
+        model: monaco.editor.createModel('', 'typescript', monaco.Uri.parse('file:///main.ts')),
+      })
+
+      setCodeByUrl()
+      const historyCodes = []
+      let historyIndex = -1
+      // watch editor value change
+      editor.onDidChangeModelContent(debounce(function () {
+        updateCode(editor.getValue())
+      }, 1500))
+      editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
+        const code = editor.getValue()
+        updateCode(code)
+        // save code to hash
+        location.hash = `#${base64(code, false)}`
+        // copy url to clipboard
+        copyToClipboard(location.href)
+        showMessage('<h3 style="margin: 0">url copied to clipboard, share it with your friends!</h3>')
+      })
+      editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.UpArrow, function () {
+        if (historyIndex === -1) {
+          historyIndex = historyCodes.length - 1
+        } else {
+          historyIndex--
+        }
+        if (historyIndex < 0) {
+          historyIndex = 0
+        }
+        editor.setValue(historyCodes[historyIndex].code)
+      })
+      editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.DownArrow, function () {
+        if (historyIndex === -1) {
+          historyIndex = historyCodes.length - 1
+        } else {
+          historyIndex++
+        }
+        if (historyIndex >= historyCodes.length) {
+          historyIndex = historyCodes.length - 1
+        }
+        editor.setValue(historyCodes[historyIndex].code)
+      })
+      editor.focus()
+    })
+  </script>
+</head>
+<body>
+<div id='container'></div>
+<div id="root"></div>
+<script type="module" src="/src/main.tsx"></script>
+</body>
+</html>
