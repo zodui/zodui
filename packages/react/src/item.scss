@@ -1,0 +1,41 @@
+.zodui-item {
+  position: relative;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 5px;
+  padding: 10px 20px 10px 50px;
+  width: calc(100% - 70px);
+  border-bottom: 1px solid var(--td-border-level-1-color);
+  transition: .3s;
+  &.wrap:not(.nowrap) {
+    align-items: start;
+    flex-direction: column;
+    .zodui-item__control {
+      width: 100%;
+    }
+  }
+  &:hover {
+    background-color: var(--td-bg-color-container-hover);
+  }
+  &__more {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+  &__label {
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+    line-height: 32px;
+    &-description {
+      font-size: 12px;
+      color: var(--td-text-color-placeholder);
+    }
+  }
+  &__control {
+    width: 200px;
+    min-height: 32px;
+    font-size: 14px;
+  }
+}

@@ -1,0 +1,44 @@
+.zodui-item {
+  .t-button.t-button--variant-outline.t-button--shape-square {
+    min-width: 32px;
+  }
+  &.union {
+    &.radio-inline > .zodui-item__control > div {
+      display: flex;
+      justify-content: space-between;
+    }
+    &.radio > .zodui-item__control > div > label {
+      width: 100%;
+    }
+  }
+  &__control {
+    &-list-item {
+      > &__container.t-switch {
+        width: auto !important;
+        margin: 0 calc((
+          200px - var(--td-comp-size-xxs) / 0.618
+        ) / 2);
+      }
+    }
+    .t-time-picker, .t-date-picker {
+      width: 200px !important;
+    }
+    .t-date-range-picker, .t-time-range-picker {
+      width: 284px !important;
+    }
+    .t-date-picker__panel-content {
+      justify-content: center;
+    }
+    .t-input-number.t-input-number--row {
+      width: 100%;
+    }
+    .t-slider__container {
+      width: 200px;
+    }
+    &:has(button.t-switch), &:has(.t-slider__container) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
