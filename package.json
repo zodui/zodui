@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "zodui-workspaces",
+  "description": "Zod UI workspaces",
+  "version": "0.1.0",
+  "scripts": {
+    "serve": "yarn workspace @zodui/demo serve:react"
+  },
+  "workspaces": [
+    "demo",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/node": "^18.15.5",
+    "typescript": "^4.9.5"
+  }
+}
