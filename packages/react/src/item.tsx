@@ -52,15 +52,14 @@ export function Item(props: ItemProps) {
     [schema._mode]
   )
   const Controller = useCallback((props: ControllerProps) =>
-    primitive.includes(schema.type)
+    primitive.includes(props.schema.type)
     ? <Primitive {...props} />
-    : schema.type === 'union'
+    : isWhatType(props.schema, ZodFirstPartyTypeKind.ZodUnion)
     ? <Union {...props} />
-    : ['array', 'tuple', 'dict', 'object'].includes(schema.type)
+    : ['array', 'tuple', 'dict', 'object'].includes(props.schema.type)
     ? <List {...props} />
-    : <>暂未支持的的类型 <code>{schema.type}</code></>, [
-    schema.type
-  ])
+    : <>暂未支持的的类型 <code>{props.schema.type}</code></>, [])
+
   return <div className={
     `zodui-item ${schema.type}`
     + (wrapDefault ? ' wrap' : '')

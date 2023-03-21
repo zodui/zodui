@@ -15,7 +15,8 @@ import { Icon } from './components'
 export const primitive = [
   'string',
   'number',
-  'boolean'
+  'boolean',
+  'date'
 ]
 
 export interface PrimitiveProps extends ControllerProps {
@@ -84,15 +85,10 @@ export function Primitive({
           >
             <Input {...props}/>
           </InputAdornment>
-        case modes.includes('date'):
-        case modes.includes('datetime'):
-          const nProps = {
-            ...props,
-            enableTimePicker: modes.includes('datetime')
-          }
-          if (modes.includes('panel'))
-            return <DatePickerPanel {...nProps}/>
-          return <DatePicker {...nProps}/>
+      }
+      return <Input {...props}/>
+    case 'date':
+      switch (true) {
         case modes.includes('time'):
           if (modes.includes('panel'))
             return <TimePickerPanel {...props}/>
@@ -100,7 +96,13 @@ export function Primitive({
             {...props}
           />
       }
-      return <Input {...props}/>
+      const nProps = {
+        ...props,
+        enableTimePicker: modes.includes('datetime')
+      }
+      if (modes.includes('panel'))
+        return <DatePickerPanel {...nProps}/>
+      return <DatePicker {...nProps}/>
     case 'boolean':
       return <Switch
         {...props}

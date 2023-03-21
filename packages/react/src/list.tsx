@@ -6,7 +6,7 @@ import { Button, DateRangePicker, Input, Slider, TimeRangePicker } from 'tdesign
 import { ControllerProps } from './controller'
 import { useModes } from './utils'
 import { primitive, Primitive } from './primitive'
-import { isDatetimeUnion, Union } from './union'
+import { Union } from './union'
 import { KeyEditableTypes, UseSchemasForList } from './configure'
 import { Icon } from './components'
 
@@ -96,31 +96,29 @@ export function List({
       let nl = list.length === 2 ? list : [undefined, undefined]
       if (isRange) {
         if (
-          schemas[0].type === 'union' && schemas[1].type === 'union'
+          schemas[0].type === 'date' && schemas[1].type === 'date'
         ) {
-          try {
-            const [s0, s1] = schemas.map(s => isDatetimeUnion(s))
-            switch (true) {
-              case modes.includes('date'):
-              case modes.includes('datetime'):
-                const nProps = {
-                  ...props,
-                  enableTimePicker: modes.includes('datetime')
-                }
-                return <DateRangePicker
-                  value={nl}
-                  onChange={setList}
-                  {...nProps}
-                />
-              case modes.includes('time'):
-                return <TimeRangePicker
-                  value={nl}
-                  onChange={setList}
-                  className='t-time-range-picker'
-                  {...props}
-                />
-            }
-          } catch (e) {}
+          const [s0, s1] = schemas
+          switch (true) {
+            case modes.includes('date'):
+            case modes.includes('datetime'):
+              const nProps = {
+                ...props,
+                enableTimePicker: modes.includes('datetime')
+              }
+              return <DateRangePicker
+                value={nl}
+                onChange={setList}
+                {...nProps}
+              />
+            case modes.includes('time'):
+              return <TimeRangePicker
+                value={nl}
+                onChange={setList}
+                className='t-time-range-picker'
+                {...props}
+              />
+          }
         }
         if (
           schemas[0].type === 'number' && schemas[1].type === 'number'

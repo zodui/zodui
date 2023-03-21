@@ -3,12 +3,12 @@ import { useMemo } from 'react'
 import { Select, RadioGroup } from 'tdesign-react/esm'
 import { ControllerProps } from './controller'
 import { NeedWrapModes } from './configure'
-import { Primitive } from './primitive'
 import { useModes } from './utils'
 
 NeedWrapModes.push('radio-inline')
 
-export interface UnionProps extends ControllerProps {
+export interface UnionProps<T extends z.ZodUnionOptions> extends ControllerProps {
+  schema: z.ZodUnion<T>
 }
 
 export interface Option {
@@ -17,41 +17,19 @@ export interface Option {
   value: any
 }
 
-function resolveSchemaList(schemas: z.Schema[]): Option[] {
+function resolveSchemaList(schemas: z.ZodUnionOptions): Option[] {
   return schemas.map(schema => ({
-    label: schema._def.label || schema._def.description,
+    label: schema._def.label || schema._def.description || schema._def.value,
     title: schema._def.description,
-    value: schema._def,
+    value: schema._def.value,
   }))
 }
 
-export const ISNOT_DATETIME_UNION = Symbol('ISNOT_DATETIME_UNION')
-
-export function isDatetimeUnion(schema: z.Schema) {
-  if (schema.list.length === 2) {
-    const [s0, s1] = schema.list
-    if (s0.type === 'is' && s1.type === 'transform') {
-      let original = s1.inner
-      original = original.mode(
-        original.meta.mode + (schema.meta.mode ? ` ${schema.meta.mode}` : '')
-      )
-      return original
-    }
-  }
-  throw ISNOT_DATETIME_UNION
-}
-
-export function Union({
+export function Union<T extends z.ZodUnionOptions>({
   schema,
   ...rest
-}: UnionProps) {
-  try {
-    return <Primitive schema={isDatetimeUnion(schema)} {...rest}/>
-  } catch (e) {
-    if (e !== ISNOT_DATETIME_UNION)
-      return <>{e.toString()}</>
-  }
-  const options = useMemo(() => resolveSchemaList(schema.list), [schema.list])
+}: UnionProps<T>) {
+  const options = useMemo(() => resolveSchemaList(schema.options), [schema.options])
   const props = {
     title: schema._def.description,
     ...rest
