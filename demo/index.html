@@ -196,7 +196,28 @@ export default z.object({
       // watch hash change
       window.addEventListener('hashchange', setCodeByUrl)
       // add custom dts
-      monaco.languages.typescript.typescriptDefaults.setExtraLibs(<%- ZOD_DTS_FILES %>)
+      /** @type {{
+       content: string;
+       filePath: string;
+      }[]} */
+      const zodDtsFile = <%- ZOD_DTS_FILES %>;
+      monaco.languages.typescript.typescriptDefaults.setExtraLibs(zodDtsFile)
+      monaco.languages.typescript.typescriptDefaults.addExtraLib(`import { ZodType } from 'zod'
+declare module 'zod' {
+  export interface ZodTypeDef {
+    mode: string
+    label: string
+  }
+  export interface ZodType<Output = any, Def extends ZodTypeDef = ZodTypeDef, Input = Output> {
+    readonly _mode: string
+    mode<T extends string>(mode: T): ZodType<Output, Def, Input>
+
+    readonly _label: string
+    label(mode: string): ZodType<Output, Def, Input>
+
+    readonly type: string
+  }
+}`, 'file:///env.d.ts')
       editor = monaco.editor.create(document.getElementById('container'), {
         value: '',
         language: 'typescript',
