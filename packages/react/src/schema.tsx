@@ -21,15 +21,14 @@ export function Schema(props: SchemaProps) {
       disabled={disabled}
     />
   }
-  return <></>
-  // return <>
-  //   {Object.entries(model.shape).map(([key, value]) => <Item
-  //     key={key}
-  //     label={value.meta.label || key}
-  //     schema={value}
-  //     disabled={disabled}
-  //   />)}
-  // </>
+  return <>
+    {Object.entries(model._def.shape()).map(([key, value]) => <Item
+      key={key}
+      label={value._def.label || key}
+      schema={value}
+      disabled={disabled}
+    />)}
+  </>
 }
 
 Schema.Item = Item
