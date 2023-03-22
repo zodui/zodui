@@ -26,17 +26,6 @@ const ZOD_DTS_FILES: { content: string, filePath: string }[] = []
 
 function addZodDtsFileContent(filePath: string) {
   let content = fs.readFileSync(filePath, 'utf-8')
-//   if (filePath.endsWith('zod/lib/index.d.ts')) {
-//     content += `
-// declare global {
-//   declare const some: string
-//   interface Window {
-//     z: z
-//   }
-// }
-//       `.trim()
-//     console.log(content)
-//   }
   ZOD_DTS_FILES.push({
     content,
     filePath: filePath.replace(zodPackagePath, 'file:///node_modules/@types/zod')
