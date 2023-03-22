@@ -1,14 +1,17 @@
 import './list.scss'
 
+import { ZodFirstPartyTypeKind, ZodRawShape, ZodTypeDef } from 'zod'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Button, DateRangePicker, Input, Slider, TimeRangePicker } from 'tdesign-react/esm'
 
 import { ControllerProps } from './controller'
-import { useModes } from './utils'
+import { getDefaultValue, isWhatType, useModes } from './utils'
 import { primitive, Primitive } from './primitive'
 import { Union } from './union'
 import { KeyEditableTypes, UseSchemasForList } from './configure'
 import { Icon } from './components'
+
+const prefix = 'zodui-item__control-list'
 
 export interface ListProps extends ControllerProps {
 }
@@ -17,21 +20,67 @@ export function List({
   schema,
   ...props
 }: ListProps) {
-  const prefix = 'zodui-item__control-list'
-  const { inner } = schema
-  const schemas = useMemo(() => {
-    if (schema.type === 'object') {
-      return Object.entries(schema.dict ?? {}).map(([key, s]) => {
-        if (s.meta.label === undefined)
-          return s.label(key)
-        if (s.meta.description === undefined)
-          return s.description(key)
-        return s
-      })
+  const commonDef: ZodTypeDef & {
+    typeName?: string
+  } = schema._def
+  const dict = useMemo(() => {
+    if (isWhatType(schema, ZodFirstPartyTypeKind.ZodObject)) {
+      const dict = schema._def.shape() ?? {}
+      return Object.entries(dict)
+        .reduce((acc, [key , s]) => {
+          let ns = s
+          if (s._def.label === undefined)
+            ns = s.label(key)
+          if (s._def.description === undefined)
+            ns = s.describe(key)
+          acc[key] = ns
+          return acc
+        }, {} as ZodRawShape)
     }
-    return schema.list
-  }, [ schema.type, schema.dict, schema.list ])
-  const dictKeys = useMemo(() => Object.keys(schema.dict ?? {}), [ schema.dict ])
+    return {}
+  }, [commonDef.typeName])
+  const getSchema = useCallback((index?: number) => {
+    if (isWhatType(schema, ZodFirstPartyTypeKind.ZodArray)) {
+      return schema._def.type
+    }
+    if (isWhatType(schema, ZodFirstPartyTypeKind.ZodTuple)) {
+      return schema._def.items[index]
+    }
+    if (
+      isWhatType(schema, ZodFirstPartyTypeKind.ZodSet)
+      || isWhatType(schema, ZodFirstPartyTypeKind.ZodRecord)
+      || isWhatType(schema, ZodFirstPartyTypeKind.ZodMap)
+    ) {
+      return schema._def.valueType
+    }
+    if (isWhatType(schema, ZodFirstPartyTypeKind.ZodObject)) {
+      return Object.values(dict)[index]
+    }
+    return null
+  }, [commonDef])
+  const [list, setList] = useState<any[]>()
+  useEffect(() => {
+    setList(
+      Object.keys(dict).length > 0
+        ? Object.values(dict).map(getDefaultValue)
+        : props.defaultValue ?? props.value
+          ? Object.entries(props.defaultValue ?? props.value).map(([, v]) => v)
+          : undefined
+    )
+  }, [dict, props.defaultValue, props.value])
+  const schemasLength = useMemo(() => {
+    if (isWhatType(schema, ZodFirstPartyTypeKind.ZodArray) || isWhatType(schema, ZodFirstPartyTypeKind.ZodSet)) {
+      return Infinity
+    }
+    if (isWhatType(schema, ZodFirstPartyTypeKind.ZodTuple)) {
+      return schema._def.items.length
+    }
+    if (isWhatType(schema, ZodFirstPartyTypeKind.ZodObject)) {
+      return Object.entries(schema._def.shape() ?? {}).length
+    }
+    return 0
+  }, [commonDef])
+  const dictKeys = useMemo(() => Object.keys(dict ?? {}), [ dict ])
   const [keys, setKeys] = useState<string[]>([])
 
   const Controller = useCallback((props: ControllerProps) => primitive.includes(props.schema.type)
@@ -49,33 +98,20 @@ export function List({
   const modes = useModes(schema)
   const isRange = useMemo(() => {
     return !modes.includes('no-range')
-      && schemas?.length === 2
-  }, [modes, schemas?.length])
+      && schemasLength === 2
+  }, [modes, schemasLength])
   const isSlider = useMemo(() => {
     return !modes.includes('no-slider')
-      && schemas?.length === 2
-  }, [modes, schemas?.length])
-
-  const [list, setList] = useState<any[]>()
-  useEffect(() => {
-    setList(
-      isSchemas
-        ? schemas.map(s => s.meta.default)
-        : props.defaultValue ?? props.value
-          ? Object.entries(props.defaultValue ?? props.value).map(([, v]) => v)
-          : undefined
-    )
-  }, [isSchemas, schemas, props.defaultValue, props.value])
+      && schemasLength === 2
+  }, [modes, schemasLength])
 
   const addNewItem = useCallback((type: 'append' | 'prepend' = 'append') => setList(l => {
-    const t = isSchemas ? [
-      schemas[l.length].meta.default
-    ] : [inner.meta.default]
+    const t = [getDefaultValue(getSchema())]
     if (l === undefined)
       return t
 
     return type === 'append' ? l.concat(t) : t.concat(l)
-  }), [isSchemas, inner, schemas])
+  }), [getSchema])
 
   const isEmpty = useMemo(() => (list?.length ?? 0) === 0, [list?.length])
   // TODO resolve tuple length is 0
@@ -94,11 +130,11 @@ export function List({
 
     if (isTuple) {
       let nl = list.length === 2 ? list : [undefined, undefined]
+      const [s0, s1] = [getSchema(0), getSchema(1)]
       if (isRange) {
         if (
-          schemas[0].type === 'date' && schemas[1].type === 'date'
+          s0.type === 'date' && s1.type === 'date'
         ) {
-          const [s0, s1] = schemas
           switch (true) {
             case modes.includes('date'):
             case modes.includes('datetime'):
@@ -121,14 +157,14 @@ export function List({
           }
         }
         if (
-          schemas[0].type === 'number' && schemas[1].type === 'number'
+          s0.type === 'number' && s1.type === 'number'
         ) {
           // TODO support number range input
         }
       }
       if (isSlider) {
         if (
-          schemas[0].type === 'number' && schemas[1].type === 'number'
+          s0.type === 'number' && s1.type === 'number'
         ) {
           return <Slider
             value={nl}
@@ -140,12 +176,12 @@ export function List({
     }
 
     return <>{list?.map((item, index) => {
-      const itemSchema = schemas?.[index]
+      const itemSchema = getSchema(index)
       const isKeyEditable = KeyEditableTypes.includes(schema.type)
 
       return <div className={`${prefix}-item`} key={index}>
         {(
-          (dictKeys[index] ?? itemSchema?.meta.label) || isKeyEditable
+          (dictKeys[index] ?? itemSchema?._def.label) || isKeyEditable
         ) && <div className={
           `${prefix}-item__label`
           + (isKeyEditable ? ' editable' : '')
@@ -161,7 +197,7 @@ export function List({
               placeholder='请输入键名'
               className='key-input'
             />
-            : itemSchema.meta.label ?? dictKeys[index]}
+            : itemSchema._def.label ?? dictKeys[index]}
         </div>}
         {/* TODO display description */}
         <div className={`${prefix}-item__index-tag`}>
@@ -206,9 +242,7 @@ export function List({
             />}
         </>}
         {React.cloneElement(<Controller
-          schema={
-            isSchemas ? itemSchema : inner
-          }
+          schema={itemSchema}
           value={item}
           onChange={value => {
             const newList = [...list]
@@ -216,9 +250,7 @@ export function List({
             setList(newList)
           }}
         />, {
-          defaultValue: (
-            isSchemas ? itemSchema : inner
-          ).meta.default,
+          defaultValue: getDefaultValue(itemSchema),
           disabled: props.disabled ?? false,
           className: `${prefix}-item__container`,
         })}
@@ -251,7 +283,7 @@ export function List({
         />
       </div>
     })}</>
-  }, [isEmpty, isSchemas, isRange, dictKeys, addNewItem, schemas])
+  }, [isEmpty, isSchemas, isRange, dictKeys, addNewItem])
   return <div className={
     prefix
     + ((list?.length ?? 0) === 0 ? ' empty' : '')

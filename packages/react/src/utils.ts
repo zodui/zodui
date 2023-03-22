@@ -16,7 +16,6 @@ import z, {
   ZodNaNDef, ZodNativeEnumDef,
   ZodNeverDef, ZodNullableDef,
   ZodNullDef,
-  ZodNumber,
   ZodNumberDef,
   ZodObjectDef, ZodOptionalDef,
   ZodPipelineDef,
