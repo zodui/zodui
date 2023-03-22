@@ -161,30 +161,28 @@ export function List({
       />
 
     if (isTuple) {
-      let nl = list.length === 2 ? list : [undefined, undefined]
       const [s0, s1] = [getSchema(0), getSchema(1)]
       if (isRange) {
         if (
           s0.type === 'date' && s1.type === 'date'
         ) {
           switch (true) {
-            case modes.includes('date'):
-            case modes.includes('datetime'):
+            case modes.includes('time'):
+              return <TimeRangePicker
+                value={list}
+                onChange={setList}
+                className='t-time-range-picker'
+                {...props}
+              />
+            default:
               const nProps = {
                 ...props,
                 enableTimePicker: modes.includes('datetime')
               }
               return <DateRangePicker
-                value={nl}
+                value={list}
                 onChange={setList}
                 {...nProps}
-              />
-            case modes.includes('time'):
-              return <TimeRangePicker
-                value={nl}
-                onChange={setList}
-                className='t-time-range-picker'
-                {...props}
               />
           }
         }
@@ -199,7 +197,7 @@ export function List({
           s0.type === 'number' && s1.type === 'number'
         ) {
           return <Slider
-            value={nl}
+            value={list}
             onChange={setList as (v: any) => void}
             range
           />
