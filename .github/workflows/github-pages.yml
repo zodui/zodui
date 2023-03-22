@@ -11,6 +11,8 @@ on:
 jobs:
   pages:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - uses: actions/checkout@v2
@@ -43,8 +45,6 @@ jobs:
           mv demo/dist/* dist/
 
       - name: Deploy to GitHub Pages
-        permissions:
-          contents: write
         uses: crazy-max/ghaction-github-pages@v3
         with:
           target_branch: gh-pages
