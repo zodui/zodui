@@ -96,11 +96,11 @@ export function List({
     setList(
       Object.keys(dict).length > 0
         ? Object.values(dict).map(getDefaultValue)
-        : isWhatType(schema, ZodFirstPartyTypeKind.ZodTuple)
-        ? schema._def.items
         : props.defaultValue ?? props.value
           ? Object.entries(props.defaultValue ?? props.value).map(([, v]) => v)
-          : undefined
+          : isWhatType(schema, ZodFirstPartyTypeKind.ZodTuple)
+            ? schema._def.items
+            : undefined
     )
   }, [
     dict,
