@@ -1,9 +1,6 @@
 # Temp files
 .temp.tsconfig.*
 
-# Lock
-*.lock
-
 # IDE
 .vscode
 .idea
