@@ -1,6 +1,16 @@
 import './list.scss'
 
-import { ZodFirstPartyTypeKind, ZodRawShape, ZodTypeDef } from 'zod'
+import {
+  ZodArrayDef,
+  ZodFirstPartyTypeKind,
+  ZodMapDef,
+  ZodObjectDef,
+  ZodRawShape,
+  ZodRecordDef,
+  ZodSetDef,
+  ZodTupleDef,
+  ZodTypeDef
+} from 'zod'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { Button, DateRangePicker, Input, Slider, TimeRangePicker } from 'tdesign-react/esm'
 
@@ -20,9 +30,14 @@ export function List({
   schema,
   ...props
 }: ListProps) {
-  const commonDef: ZodTypeDef & {
-    typeName?: string
-  } = schema._def
+  const commonDef = schema._def as (
+    & Partial<ZodArrayDef<any>>
+    & Partial<ZodTupleDef>
+    & Partial<ZodSetDef>
+    & Partial<ZodMapDef>
+    & Partial<ZodRecordDef>
+    & Partial<ZodObjectDef<any>>
+  ) & ZodTypeDef
   const dict = useMemo(() => {
     if (isWhatType(schema, ZodFirstPartyTypeKind.ZodObject)) {
       const dict = schema._def.shape() ?? {}
@@ -57,17 +72,12 @@ export function List({
       return Object.values(dict)[index]
     }
     return null
-  }, [commonDef])
-  const [list, setList] = useState<any[]>()
-  useEffect(() => {
-    setList(
-      Object.keys(dict).length > 0
-        ? Object.values(dict).map(getDefaultValue)
-        : props.defaultValue ?? props.value
-          ? Object.entries(props.defaultValue ?? props.value).map(([, v]) => v)
-          : undefined
-    )
-  }, [dict, props.defaultValue, props.value])
+  }, [
+    dict,
+    commonDef.items,
+    commonDef.valueType,
+    commonDef.typeName,
+  ])
   const schemasLength = useMemo(() => {
     if (isWhatType(schema, ZodFirstPartyTypeKind.ZodArray) || isWhatType(schema, ZodFirstPartyTypeKind.ZodSet)) {
       return Infinity
@@ -80,6 +90,25 @@ export function List({
     }
     return 0
   }, [commonDef])
+
+  const [list, setList] = useState<any[]>()
+  useEffect(() => {
+    setList(
+      Object.keys(dict).length > 0
+        ? Object.values(dict).map(getDefaultValue)
+        : isWhatType(schema, ZodFirstPartyTypeKind.ZodTuple)
+        ? schema._def.items
+        : props.defaultValue ?? props.value
+          ? Object.entries(props.defaultValue ?? props.value).map(([, v]) => v)
+          : undefined
+    )
+  }, [
+    dict,
+    commonDef.typeName,
+    props.defaultValue,
+    props.value
+  ])
+
   const dictKeys = useMemo(() => Object.keys(dict ?? {}), [ dict ])
   const [keys, setKeys] = useState<string[]>([])
 
