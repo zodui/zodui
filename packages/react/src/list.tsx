@@ -105,6 +105,7 @@ export function List({
   }, [
     dict,
     commonDef.typeName,
+    commonDef.items,
     props.defaultValue,
     props.value
   ])
