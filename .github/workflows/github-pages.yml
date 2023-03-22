@@ -43,7 +43,7 @@ jobs:
           mv demo/dist/* dist/
 
       - name: Deploy to GitHub Pages
-        uses: crazy-max/ghaction-github-pages@v2
+        uses: crazy-max/ghaction-github-pages@v3
         with:
           target_branch: gh-pages
           build_dir: dist
