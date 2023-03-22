@@ -37,7 +37,6 @@ jobs:
 
       - name: Build site
         run: |
-          yarn build
           yarn workspace @zodui/demo build
           cp demo/dist/index.html demo/dist/404.html
           mkdir dist
