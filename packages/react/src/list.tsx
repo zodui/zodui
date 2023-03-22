@@ -11,7 +11,7 @@ import {
   ZodTupleDef,
   ZodTypeDef
 } from 'zod'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { Button, DateRangePicker, Input, Slider, TimeRangePicker } from 'tdesign-react/esm'
 
 import { ControllerProps } from './controller'
@@ -209,6 +209,9 @@ export function List({
 
     return <>{list?.map((item, index) => {
       const itemSchema = getSchema(index)
+      // fix delete schema flashing
+      if (!itemSchema) return <Fragment key={index}></Fragment>;
+
       const isKeyEditable = KeyEditableTypes.includes(schema.type)
 
       return <div className={`${prefix}-item`} key={index}>
