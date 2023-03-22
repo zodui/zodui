@@ -1,15 +1,12 @@
 import './item.scss'
 
 import z, { ZodFirstPartyTypeKind } from 'zod'
-import React, { useCallback, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { Button } from 'tdesign-react/esm'
 
 import { NeedWrapModes } from './configure'
 import { getModes, isWhatType, useDefaultValue } from './utils'
-import { primitive, Primitive } from './primitive'
-import { Union } from './union'
-import { List } from './list'
-import { ControllerProps } from './controller'
+import { Controller } from './controller'
 import { Icon } from './components'
 
 export interface ItemProps {
@@ -51,14 +48,6 @@ export function Item(props: ItemProps) {
     }),
     [schema._mode]
   )
-  const Controller = useCallback((props: ControllerProps) =>
-    primitive.includes(props.schema.type)
-    ? <Primitive {...props} />
-    : isWhatType(props.schema, ZodFirstPartyTypeKind.ZodUnion)
-    ? <Union {...props} />
-    : ['array', 'tuple', 'dict', 'object'].includes(props.schema.type)
-    ? <List {...props} />
-    : <>暂未支持的的类型 <code>{props.schema.type}</code></>, [])
 
   return <div className={
     `zodui-item ${schema.type}`

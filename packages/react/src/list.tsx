@@ -14,10 +14,8 @@ import {
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { Button, DateRangePicker, Input, Slider, TimeRangePicker } from 'tdesign-react/esm'
 
-import { ControllerProps } from './controller'
+import { Controller, ControllerProps } from './controller'
 import { getDefaultValue, isWhatType, useModes } from './utils'
-import { primitive, Primitive } from './primitive'
-import { Union } from './union'
 import { KeyEditableTypes, UseSchemasForList } from './configure'
 import { Icon } from './components'
 
@@ -112,17 +110,6 @@ export function List({
 
   const dictKeys = useMemo(() => Object.keys(dict ?? {}), [ dict ])
   const [keys, setKeys] = useState<string[]>([])
-
-  const Controller = useCallback((props: ControllerProps) => !props.schema
-    ? null
-    : primitive.includes(props.schema.type)
-    ? <Primitive {...props}/>
-    : props.schema.type === 'union'
-    ? <Union {...props}/>
-    : ['array', 'tuple'].includes(props.schema.type)
-    ? <List {...props} />
-    : <>暂未支持的的类型 <code>{props.schema.type}</code></>, [
-  ])
 
   const isTuple = useMemo(() => schema.type === 'tuple', [schema.type])
   const isSchemas = useMemo(() => UseSchemasForList.includes(schema.type), [schema.type])
