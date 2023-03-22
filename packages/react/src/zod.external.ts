@@ -1,6 +1,31 @@
-import { ZodType } from 'zod'
+import { ZodDefaultDef, ZodFirstPartyTypeKind, ZodType, ZodTypeAny } from 'zod'
 
 export interface ModesMap {
+  [ZodFirstPartyTypeKind.ZodNumber]:
+    | 'slider'
+    | 'rate'
+  [ZodFirstPartyTypeKind.ZodString]:
+    | 'textarea'
+    | 'link'
+    | 'secrets'
+    | 'date'
+    | 'datetime'
+    | 'time'
+    | 'panel'
+  [ZodFirstPartyTypeKind.ZodBoolean]:
+    | 'checkbox'
+  [ZodFirstPartyTypeKind.ZodDate]:
+    | 'datetime'
+    | 'time'
+    | 'panel'
+  [ZodFirstPartyTypeKind.ZodTuple]:
+    | 'range'
+    | 'slider'
+    | 'no-range'
+    | 'no-slider'
+    | 'datetime'
+    | 'time'
+    | 'panel'
 }
 
 declare module 'zod' {
@@ -10,7 +35,13 @@ declare module 'zod' {
   }
   export interface ZodType<Output = any, Def extends ZodTypeDef = ZodTypeDef, Input = Output> {
     readonly _mode: string
-    mode<T extends string>(mode: T): ZodType<Output, Def, Input>
+    mode<T extends string>(
+      mode:
+        | Def extends ZodDefaultDef<infer InnerT extends ZodTypeAny>
+          ? ModesMap[InnerT['_def']['typeName']]
+          : ModesMap[Def['typeName']]
+        | (string & {})
+    ): ZodType<Output, Def, Input>
 
     readonly _label: string
     label(mode: string): ZodType<Output, Def, Input>

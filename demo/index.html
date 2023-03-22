@@ -232,7 +232,35 @@ export default z.object({
       }[]} */
       const zodDtsFile = <%- ZOD_DTS_FILES %>;
       monaco.languages.typescript.typescriptDefaults.setExtraLibs(zodDtsFile)
-      monaco.languages.typescript.typescriptDefaults.addExtraLib(`import { ZodType } from 'zod'
+      monaco.languages.typescript.typescriptDefaults.addExtraLib(`import z, { ZodDefaultDef, ZodFirstPartyTypeKind, ZodType, ZodTypeAny } from 'zod'
+export interface ModesMap {
+  [ZodFirstPartyTypeKind.ZodNumber]:
+    | 'slider'
+    | 'rate'
+  [ZodFirstPartyTypeKind.ZodString]:
+    | 'textarea'
+    | 'link'
+    | 'secrets'
+    | 'date'
+    | 'datetime'
+    | 'time'
+    | 'panel'
+  [ZodFirstPartyTypeKind.ZodBoolean]:
+    | 'checkbox'
+  [ZodFirstPartyTypeKind.ZodDate]:
+    | 'datetime'
+    | 'time'
+    | 'panel'
+  [ZodFirstPartyTypeKind.ZodTuple]:
+    | 'range'
+    | 'slider'
+    | 'no-range'
+    | 'no-slider'
+    | 'datetime'
+    | 'time'
+    | 'panel'
+}
+
 declare module 'zod' {
   export interface ZodTypeDef {
     mode: string
@@ -240,7 +268,13 @@ declare module 'zod' {
   }
   export interface ZodType<Output = any, Def extends ZodTypeDef = ZodTypeDef, Input = Output> {
     readonly _mode: string
-    mode<T extends string>(mode: T): ZodType<Output, Def, Input>
+    mode<T extends string>(
+      mode:
+        | Def extends ZodDefaultDef<infer InnerT>
+          ? ModesMap[InnerT['_def']['typeName']]
+          : ModesMap[Def['typeName']]
+        | (string & {})
+    ): ZodType<Output, Def, Input>
 
     readonly _label: string
     label(mode: string): ZodType<Output, Def, Input>
