@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Created with Vectornator (http://vectornator.io/) -->
-<svg height="100%" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 1024 1024" width="100%" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg height="1024.0px" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 1024 1024" width="1024.0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <defs>
 <radialGradient cx="468.79" cy="299.507" gradientTransform="matrix(1.57616 0 0 1.52337 -452.015 -187.713)" gradientUnits="userSpaceOnUse" id="RadialGradient" r="469.01">
 <stop offset="0" stop-color="#a2a2a2" stop-opacity="0.215373"/>
@@ -19,16 +17,16 @@
 <feDropShadow dx="15.4142" dy="25.7372" flood-color="#000000" flood-opacity="0.333" in="SourceGraphic" result="Shadow" stdDeviation="20"/>
 </filter>
 <radialGradient cx="335.604" cy="646.389" gradientTransform="matrix(1.03148 0 0 1.04572 -82.3544 5.87856)" gradientUnits="userSpaceOnUse" id="RadialGradient_3" r="170.003">
-<stop offset="0" stop-color="#7dc9ff" stop-opacity="0.361332"/>
-<stop offset="0.483221" stop-color="#2690dd" stop-opacity="0.514667"/>
-<stop offset="1" stop-color="#0072c4"/>
+<stop offset="0" stop-color="#8fd0ff" stop-opacity="0.731502"/>
+<stop offset="0.46085" stop-color="#0093fc" stop-opacity="0.705976"/>
+<stop offset="1" stop-color="#0080dd"/>
 </radialGradient>
 <filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="285.442" id="Filter_3" width="285" x="206.859" y="631.034">
 <feDropShadow dx="22.8362" dy="25.291" flood-color="#000000" flood-opacity="0.65114" in="SourceGraphic" result="Shadow" stdDeviation="25"/>
 </filter>
 <radialGradient cx="673.766" cy="557.348" gradientTransform="matrix(1.20145 0 0 1.51515 -209.826 -170.793)" gradientUnits="userSpaceOnUse" id="RadialGradient_4" r="221.457">
-<stop offset="0" stop-color="#8fd0ff" stop-opacity="0.475453"/>
-<stop offset="0.462161" stop-color="#0093fc" stop-opacity="0.833827"/>
+<stop offset="0" stop-color="#8fd0ff" stop-opacity="0.731502"/>
+<stop offset="0.46085" stop-color="#0093fc" stop-opacity="0.705976"/>
 <stop offset="1" stop-color="#0080dd"/>
 </radialGradient>
 <filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="225" id="Filter_4" width="561.185" x="445.216" y="646.933">
