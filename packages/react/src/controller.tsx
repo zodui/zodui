@@ -1,6 +1,6 @@
 import z, { ZodFirstPartyTypeKind } from 'zod'
 import { Primitive, primitive } from './primitive'
-import { isWhatType } from './utils'
+import { isWhatType, useDefaultValue } from './utils'
 import { Union } from './union'
 import { List } from './list'
 import React from 'react'
@@ -15,6 +15,21 @@ export interface ControllerProps {
 }
 
 export function Controller(props: ControllerProps) {
+  const defaultValue = useDefaultValue(props.schema) ?? props.defaultValue
+  if (isWhatType(props.schema, ZodFirstPartyTypeKind.ZodDefault)) {
+    const {
+      innerType,
+      defaultValue: _,
+      typeName: __,
+      ...assignDefFields
+    } = props.schema._def
+    Object.assign(innerType._def, assignDefFields)
+    return <Controller
+      {...props}
+      schema={innerType}
+      defaultValue={defaultValue}
+    />
+  }
   return primitive.includes(props.schema.type)
     ? <Primitive {...props} />
     : isWhatType(props.schema, ZodFirstPartyTypeKind.ZodUnion)

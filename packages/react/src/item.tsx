@@ -1,11 +1,11 @@
 import './item.scss'
 
-import z, { ZodFirstPartyTypeKind } from 'zod'
+import z from 'zod'
 import React, { useMemo } from 'react'
 import { Button } from 'tdesign-react/esm'
 
 import { NeedWrapModes } from './configure'
-import { getModes, isWhatType, useDefaultValue } from './utils'
+import { getModes } from './utils'
 import { Controller } from './controller'
 import { Icon } from './components'
 
@@ -24,20 +24,6 @@ export function Item(props: ItemProps) {
     schema,
     className
   } = props
-  const defaultValue = useDefaultValue(schema) ?? props.defaultValue
-  if (isWhatType(schema, ZodFirstPartyTypeKind.ZodDefault)) {
-    const {
-      innerType,
-      defaultValue: _,
-      typeName: __,
-      ...assignDefFields
-    } = schema._def
-    Object.assign(innerType._def, assignDefFields)
-    return <Item {...props}
-                 schema={innerType}
-                 defaultValue={defaultValue}
-    />
-  }
   const wrapDefault = useMemo(
     () => NeedWrapModes.some(mode => {
       const modes = getModes(schema._mode)
@@ -72,7 +58,6 @@ export function Item(props: ItemProps) {
       {/* TODO resolve defaultValue */}
       <Controller
         schema={schema}
-        defaultValue={defaultValue}
         disabled={props.disabled}
       />
     </div>
