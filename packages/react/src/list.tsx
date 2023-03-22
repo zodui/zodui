@@ -99,7 +99,7 @@ export function List({
         : props.defaultValue ?? props.value
           ? Object.entries(props.defaultValue ?? props.value).map(([, v]) => v)
           : isWhatType(schema, ZodFirstPartyTypeKind.ZodTuple)
-            ? schema._def.items
+            ? schema._def.items.map(getDefaultValue)
             : undefined
     )
   }, [
