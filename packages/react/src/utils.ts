@@ -88,12 +88,12 @@ export function isWhatType<T extends ZodFirstPartyTypeKind>(
   }, any>,
   type: T
 ): s is z.Schema<any, ZodTypeDefMap[T], any> {
-  return s._def.typeName === type
+  return s?._def?.typeName === type
 }
 
 export function getDefaultValue(s: z.Schema) {
   if (isWhatType(s, ZodFirstPartyTypeKind.ZodDefault)) {
-    return s._def.defaultValue()
+    return s?._def?.defaultValue()
   }
   return undefined
 }

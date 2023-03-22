@@ -113,7 +113,9 @@ export function List({
   const dictKeys = useMemo(() => Object.keys(dict ?? {}), [ dict ])
   const [keys, setKeys] = useState<string[]>([])
 
-  const Controller = useCallback((props: ControllerProps) => primitive.includes(props.schema.type)
+  const Controller = useCallback((props: ControllerProps) => !props.schema
+    ? null
+    : primitive.includes(props.schema.type)
     ? <Primitive {...props}/>
     : props.schema.type === 'union'
     ? <Union {...props}/>
