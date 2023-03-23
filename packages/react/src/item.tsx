@@ -1,7 +1,7 @@
 import './item.scss'
 
 import z from 'zod'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { Button } from 'tdesign-react/esm'
 
 import { NeedWrapModes } from './configure'
@@ -36,7 +36,11 @@ export function Item(props: ItemProps) {
     [schema._mode]
   )
 
-  const { error, ErrorHandler } = useErrorHandler()
+  const { reset, error, ErrorHandler } = useErrorHandler()
+
+  useEffect(() => {
+    if (error) reset()
+  }, [schema])
 
   return <ErrorHandler>
     <div className={

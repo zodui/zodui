@@ -41,6 +41,7 @@ export function useErrorHandler() {
   }), [])
 
   return {
+    reset: () => setE(undefined),
     error: e,
     ErrorHandler: useCallback(({ children }: PropsWithChildren) => <ErrorHandler.Provider value={errorHandler} >
       {children}
