@@ -45,6 +45,7 @@ export function Item(props: ItemProps) {
   return <ErrorHandler>
     <div className={
       `zodui-item ${schema.type}`
+      + (error ? ' error' : '')
       + (wrapDefault ? ' wrap' : '')
       + (schema._mode ? ` ${schema._mode}` : '')
       + (className ? ` ${className}` : '')

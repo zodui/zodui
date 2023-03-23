@@ -18,6 +18,10 @@
   &:hover {
     background-color: var(--td-bg-color-container-hover);
   }
+  &.error {
+    border-bottom: none;
+    background-color: var(--td-error-color-2);
+  }
   &__more {
     position: absolute;
     top: 10px;
@@ -43,5 +47,6 @@
     border-left: 4px solid var(--td-error-color);
     border-bottom: 1px solid var(--td-border-level-1-color);
     color: var(--td-error-color);
+    background-color: var(--td-error-color-2);
   }
 }
