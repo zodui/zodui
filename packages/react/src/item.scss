@@ -38,4 +38,10 @@
     min-height: 32px;
     font-size: 14px;
   }
+  &__error {
+    padding: 10px 5px;
+    border-left: 4px solid var(--td-error-color);
+    border-bottom: 1px solid var(--td-border-level-1-color);
+    color: var(--td-error-color);
+  }
 }

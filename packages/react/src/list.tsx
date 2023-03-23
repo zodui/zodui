@@ -18,6 +18,7 @@ import { Controller, ControllerProps } from './controller'
 import { getDefaultValue, isWhatType, useModes } from './utils'
 import { KeyEditableTypes, UseSchemasForList } from './configure'
 import { Icon } from './components'
+import { useErrorHandlerContext } from './error-handler'
 
 const prefix = 'zodui-item__control-list'
 
@@ -28,6 +29,8 @@ export function List({
   schema,
   ...props
 }: ListProps) {
+  const errorHandler = useErrorHandlerContext()
+
   const commonDef = schema._def as (
     & Partial<ZodArrayDef<any>>
     & Partial<ZodTupleDef>
@@ -133,12 +136,12 @@ export function List({
   }), [getSchema])
 
   const isEmpty = useMemo(() => (list?.length ?? 0) === 0, [list?.length])
-  // TODO resolve tuple length is 0
-  const Component = useCallback(({ keys, list }: {
+  const Component = useCallback(({ keys, list, schemasLength }: {
     keys: string[]
     list: any[]
+    schemasLength: number
   }) => {
-    if (isEmpty)
+    if (isEmpty && !isTuple)
       return <Button
         shape='square'
         variant='outline'
@@ -148,6 +151,9 @@ export function List({
       />
 
     if (isTuple) {
+      if (schemasLength === 0) {
+        return errorHandler.throwError(new Error('Tuple 类型必须包含一个元素'))
+      }
       const [s0, s1] = [getSchema(0), getSchema(1)]
       if (isRange) {
         if (
@@ -304,10 +310,11 @@ export function List({
       </div>
     })}</>
   }, [isEmpty, isSchemas, isRange, dictKeys, addNewItem])
+
   return <div className={
     prefix
     + ((list?.length ?? 0) === 0 ? ' empty' : '')
   }>
-    <Component keys={keys} list={list} />
+    <Component keys={keys} list={list} schemasLength={schemasLength}/>
   </div>
 }
