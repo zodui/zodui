@@ -62,17 +62,11 @@ export function Item(props: ItemProps) {
           {schema._def.description}
         </div>}
       </div>
-      {error
-        ? <div className='zodui-item__control'>
-          组件渲染异常
-        </div>
-        : <div className='zodui-item__control'>
-          {/* TODO resolve defaultValue */}
-          <Controller
-            schema={schema}
-            disabled={props.disabled}
-          />
-        </div>}
+      <div className='zodui-item__control'>
+        {error
+          ? '组件渲染异常'
+          : <Controller schema={schema} disabled={props.disabled} />}
+      </div>
     </div>
     {error &&
       <div className='zodui-item__error'>
