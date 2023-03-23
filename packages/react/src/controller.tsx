@@ -33,7 +33,7 @@ export function Controller(props: ControllerProps) {
   return primitive.includes(props.schema.type)
     ? <Primitive {...props} />
     : isWhatType(props.schema, ZodFirstPartyTypeKind.ZodUnion)
-    ? <Union {...props} />
+    ? <Union {...props as any} />
     : ['array', 'tuple', 'record', 'dict', 'object'].includes(props.schema.type)
     ? <List {...props} />
     : <>暂未支持的的类型 <code>{props.schema.type}</code></>
