@@ -1,12 +1,11 @@
-import z, { ZodFirstPartyTypeKind } from 'zod'
+import { Schema, ZodFirstPartyTypeKind } from 'zod'
 import { Primitive, primitive } from './primitive'
 import { isWhatType, useDefaultValue } from './utils'
 import { Union } from './union'
 import { List } from './list'
-import React from 'react'
 
 export interface ControllerProps {
-  schema: z.Schema
+  schema: Schema
   defaultValue?: any
   value?: any
   onChange?: (value: any) => void
