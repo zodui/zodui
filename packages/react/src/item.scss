@@ -20,7 +20,7 @@
   }
   &.error {
     border-bottom: none;
-    background-color: var(--td-error-color-2);
+    background-color: var(--td-error-color-1);
   }
   &__more {
     position: absolute;
@@ -47,6 +47,6 @@
     border-left: 4px solid var(--td-error-color);
     border-bottom: 1px solid var(--td-border-level-1-color);
     color: var(--td-error-color);
-    background-color: var(--td-error-color-2);
+    background-color: var(--td-error-color-1);
   }
 }
