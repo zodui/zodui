@@ -39,6 +39,7 @@ declare module 'zod' {
       mode:
         | Def extends ZodDefaultDef<infer InnerT extends ZodTypeAny>
           ? ModesMap[InnerT['_def']['typeName']]
+          // @ts-ignore
           : ModesMap[Def['typeName']]
         | (string & {})
     ): ZodType<Output, Def, Input>
