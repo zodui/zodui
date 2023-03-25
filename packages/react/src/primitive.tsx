@@ -2,7 +2,6 @@ import {
   DatePicker, DatePickerPanel, TimePickerPanel,
   Input, InputAdornment, InputNumber,
   Switch,
-  Slider,
   Textarea,
   TimePicker
 } from 'tdesign-react/esm'
@@ -58,12 +57,7 @@ export function Primitive({
   }
   switch (schema.type) {
     case 'number':
-      switch (true) {
-        case modes.includes('slider'):
-          return <Slider {...props} />
-        default:
-          return <InputNumber {...props} />
-      }
+      return <InputNumber {...props} />
     case 'string':
       switch (true) {
         case modes.includes('textarea'):

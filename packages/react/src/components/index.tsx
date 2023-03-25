@@ -2,7 +2,7 @@ import React, { CSSProperties, ReactElement, SVGAttributes } from 'react'
 import { useErrorHandlerContext } from '../error-handler'
 
 type CompsTree = {
-  [k: string]: (() => ReactElement) | CompsTree
+  [k: string]: ((props: any) => ReactElement) | CompsTree
 }
 
 const CONTROL_COMPS: CompsTree = {
@@ -44,7 +44,7 @@ const CONTROL_COMPS: CompsTree = {
   },
 }
 
-export function registerController(path: string, Controller: () => ReactElement) {
+export function registerController(path: string, Controller: (props: any) => ReactElement) {
   const pathArr = path.split('.')
   let target = CONTROL_COMPS
   for (let i = 0; i < pathArr.length; i++) {

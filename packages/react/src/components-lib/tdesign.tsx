@@ -11,7 +11,8 @@ import {
   RollbackIcon
 } from 'tdesign-icons-react'
 
-import { registerIcon } from '../components'
+import { registerController, registerIcon } from '../components'
+import { Slider } from 'tdesign-react/esm'
 
 initIcons: {
   registerIcon('Add', AddIcon)
@@ -27,4 +28,8 @@ initIcons: {
   }} />)
   registerIcon('ArrowUp', ArrowUpIcon)
   registerIcon('ArrowDown', ArrowDownIcon)
+}
+
+initComponents: {
+  registerController('Number.Slider', props => <Slider {...props} />)
 }
