@@ -191,11 +191,13 @@
     let editor
     const changeListeners = []
     window.onCodeChange = function (fn) {
+      // TODO refactor as import maps
       const nfn = s => fn(`${s}
 ;(window?.____DEFAULT_EXPORT_VALUE____)`
         .replace('export default ', 'window.____DEFAULT_EXPORT_VALUE____ = ')
-        .replace(/import (.*) from 'zod'/g, 'var $1 = window.z')
-        .replace(/import .* from .*/g, ''))
+        .replace(/import ([\s\S]*) from 'zod'/g, 'var $1 = window.z')
+        .replace(/\* as/g, '')
+        .replace(/import ([\s\S]*) from .*/g, ''))
       changeListeners.push(nfn)
       nfn(editor?.getValue())
       const index = changeListeners.length - 1
@@ -213,7 +215,7 @@
       function setCodeByUrl() {
         const hash = location.hash.slice(1)
         const code = hash ? base64(hash) : `
-import z from 'zod'
+import * as z from 'zod'
 
 export default z.object({
   foo: z.string()
@@ -232,7 +234,8 @@ export default z.object({
       }[]} */
       const zodDtsFile = <%- ZOD_DTS_FILES %>;
       monaco.languages.typescript.typescriptDefaults.setExtraLibs(zodDtsFile)
-      monaco.languages.typescript.typescriptDefaults.addExtraLib(`import z, { ZodDefaultDef, ZodFirstPartyTypeKind, ZodType, ZodTypeAny } from 'zod'
+      monaco.languages.typescript.typescriptDefaults.addExtraLib(`import z, { Schema, ZodDefaultDef, ZodFirstPartyTypeKind, ZodObject, ZodType, ZodTypeAny } from 'zod'
+
 export interface ModesMap {
   [ZodFirstPartyTypeKind.ZodNumber]:
     | 'slider'
@@ -281,6 +284,8 @@ declare module 'zod' {
 
     readonly type: string
   }
+  export function clazz<T>(clazz: { new(): T }): Schema<T>
+  export function asObejct<T extends any>(t: T): ZodObject<Record<string, ZodTypeAny> & T>
 }`, 'file:///env.d.ts')
       editor = monaco.editor.create(document.getElementById('container'), {
         // theme: 'vs-dark',
