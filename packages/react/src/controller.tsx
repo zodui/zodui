@@ -4,8 +4,8 @@ import { isWhatType, useDefaultValue } from './utils'
 import { Union } from './union'
 import { List } from './list'
 
-export interface ControllerProps {
-  schema: Schema
+export interface ControllerProps<T extends Schema = Schema> {
+  schema: T
   defaultValue?: any
   value?: any
   onChange?: (value: any) => void

@@ -1,36 +1,4 @@
-import z, {
-  ZodAnyDef,
-  ZodArrayDef,
-  ZodBigIntDef,
-  ZodBooleanDef,
-  ZodBrandedDef,
-  ZodCatchDef,
-  ZodDateDef, ZodDefaultDef,
-  ZodDiscriminatedUnionDef, ZodEffectsDef, ZodEnumDef,
-  ZodFirstPartyTypeKind,
-  ZodFunctionDef,
-  ZodIntersectionDef,
-  ZodLazyDef,
-  ZodLiteralDef,
-  ZodMapDef,
-  ZodNaNDef, ZodNativeEnumDef,
-  ZodNeverDef, ZodNullableDef,
-  ZodNullDef,
-  ZodNumberDef,
-  ZodObjectDef, ZodOptionalDef,
-  ZodPipelineDef,
-  ZodPromiseDef,
-  ZodRecordDef,
-  ZodSetDef,
-  ZodStringDef,
-  ZodSymbolDef,
-  ZodTupleDef,
-  ZodTypeDef,
-  ZodUndefinedDef,
-  ZodUnionDef,
-  ZodUnknownDef,
-  ZodVoidDef
-} from 'zod'
+import z, { ZodFirstPartyTypeKind, ZodTypeDef } from 'zod'
 import { useMemo } from 'react'
 
 export function getModes(mode: string) {
@@ -44,50 +12,94 @@ export function useModes<T extends z.ZodTypeAny>(schema: T) {
   return useMemo(() => getModes(schema._mode), [schema._mode])
 }
 
-export interface ZodTypeDefMap {
-  ZodString: ZodStringDef
-  ZodNumber: ZodNumberDef
-  ZodNaN: ZodNaNDef
-  ZodBigInt: ZodBigIntDef
-  ZodBoolean: ZodBooleanDef
-  ZodDate: ZodDateDef
-  ZodSymbol: ZodSymbolDef
-  ZodUndefined: ZodUndefinedDef
-  ZodNull: ZodNullDef
-  ZodAny: ZodAnyDef
-  ZodUnknown: ZodUnknownDef
-  ZodNever: ZodNeverDef
-  ZodVoid: ZodVoidDef
-  ZodArray: ZodArrayDef
-  ZodObject: ZodObjectDef
-  ZodUnion: ZodUnionDef
-  ZodDiscriminatedUnion: ZodDiscriminatedUnionDef<any>
-  ZodIntersection: ZodIntersectionDef
-  ZodTuple: ZodTupleDef
-  ZodRecord: ZodRecordDef
-  ZodMap: ZodMapDef
-  ZodSet: ZodSetDef
-  ZodFunction: ZodFunctionDef
-  ZodLazy: ZodLazyDef
-  ZodLiteral: ZodLiteralDef
-  ZodEnum: ZodEnumDef
-  ZodEffects: ZodEffectsDef
-  ZodNativeEnum: ZodNativeEnumDef
-  ZodOptional: ZodOptionalDef
-  ZodNullable: ZodNullableDef
-  ZodDefault: ZodDefaultDef
-  ZodCatch: ZodCatchDef
-  ZodPromise: ZodPromiseDef
-  ZodBranded: ZodBrandedDef<any>
-  ZodPipeline: ZodPipelineDef<any, any>
+export interface ZodTypeMap {
+  ZodString: z.ZodString
+  ZodNumber: z.ZodNumber
+  ZodNaN: z.ZodNaN
+  ZodBigInt: z.ZodBigInt
+  ZodBoolean: z.ZodBoolean
+  ZodDate: z.ZodDate
+  ZodSymbol: z.ZodSymbol
+  ZodUndefined: z.ZodUndefined
+  ZodNull: z.ZodNull
+  ZodAny: z.ZodAny
+  ZodUnknown: z.ZodUnknown
+  ZodNever: z.ZodNever
+  ZodVoid: z.ZodVoid
+  ZodArray: z.ZodArray<any>
+  ZodObject: z.ZodObject<any>
+  ZodUnion: z.ZodUnion<any>
+  ZodDiscriminatedUnion: z.ZodDiscriminatedUnion<any, any>
+  ZodIntersection: z.ZodIntersection<any, any>
+  ZodTuple: z.ZodTuple
+  ZodRecord: z.ZodRecord
+  ZodMap: z.ZodMap
+  ZodSet: z.ZodSet
+  ZodFunction: z.ZodFunction<any, any>
+  ZodLazy: z.ZodLazy<any>
+  ZodLiteral: z.ZodLiteral<any>
+  ZodEnum: z.ZodEnum<any>
+  ZodEffects: z.ZodEffects<any>
+  ZodNativeEnum: z.ZodNativeEnum<any>
+  ZodOptional: z.ZodOptional<any>
+  ZodNullable: z.ZodNullable<any>
+  ZodDefault: z.ZodDefault<any>
+  ZodCatch: z.ZodCatch<any>
+  ZodPromise: z.ZodPromise<any>
+  ZodBranded: z.ZodBranded<any, any>
+  ZodPipeline: z.ZodPipeline<any, any>
 }
 
-export function isWhatType<T extends ZodFirstPartyTypeKind>(
+export interface ZodTypeDefMap {
+  ZodString: z.ZodStringDef
+  ZodNumber: z.ZodNumberDef
+  ZodNaN: z.ZodNaNDef
+  ZodBigInt: z.ZodBigIntDef
+  ZodBoolean: z.ZodBooleanDef
+  ZodDate: z.ZodDateDef
+  ZodSymbol: z.ZodSymbolDef
+  ZodUndefined: z.ZodUndefinedDef
+  ZodNull: z.ZodNullDef
+  ZodAny: z.ZodAnyDef
+  ZodUnknown: z.ZodUnknownDef
+  ZodNever: z.ZodNeverDef
+  ZodVoid: z.ZodVoidDef
+  ZodArray: z.ZodArrayDef
+  ZodObject: z.ZodObjectDef
+  ZodUnion: z.ZodUnionDef
+  ZodDiscriminatedUnion: z.ZodDiscriminatedUnionDef<any>
+  ZodIntersection: z.ZodIntersectionDef
+  ZodTuple: z.ZodTupleDef
+  ZodRecord: z.ZodRecordDef
+  ZodMap: z.ZodMapDef
+  ZodSet: z.ZodSetDef
+  ZodFunction: z.ZodFunctionDef
+  ZodLazy: z.ZodLazyDef
+  ZodLiteral: z.ZodLiteralDef
+  ZodEnum: z.ZodEnumDef
+  ZodEffects: z.ZodEffectsDef
+  ZodNativeEnum: z.ZodNativeEnumDef
+  ZodOptional: z.ZodOptionalDef
+  ZodNullable: z.ZodNullableDef
+  ZodDefault: z.ZodDefaultDef
+  ZodCatch: z.ZodCatchDef
+  ZodPromise: z.ZodPromiseDef
+  ZodBranded: z.ZodBrandedDef<any>
+  ZodPipeline: z.ZodPipelineDef<any, any>
+}
+
+export interface TypeMap extends ZodTypeMap {}
+
+export interface TypeDefMap extends ZodTypeDefMap {}
+
+export type AllType = keyof TypeMap
+
+export function isWhatType<T extends AllType>(
   s: z.Schema<any, ZodTypeDef & {
-    typeName?: ZodFirstPartyTypeKind
+    typeName?: AllType
   }, any>,
   type: T
-): s is z.Schema<any, ZodTypeDefMap[T], any> {
+): s is TypeMap[T] {
   return s?._def?.typeName === type
 }
 
