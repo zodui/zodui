@@ -30,7 +30,7 @@ export function Controller(props: ControllerProps) {
     />
   }
   return primitive.includes(props.schema.type)
-    ? <Primitive {...props} />
+    ? <Primitive {...props as any} />
     : isWhatType(props.schema, ZodFirstPartyTypeKind.ZodUnion)
     ? <Union {...props as any} />
     : ['array', 'tuple', 'record', 'dict', 'object'].includes(props.schema.type)

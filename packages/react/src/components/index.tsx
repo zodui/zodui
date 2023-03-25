@@ -1,6 +1,11 @@
-import React, { CSSProperties, SVGAttributes } from 'react'
+import React, { CSSProperties, ReactElement, SVGAttributes } from 'react'
+import { useErrorHandlerContext } from '../error-handler'
 
-const CONTROL_COMPS = {
+type CompsTree = {
+  [k: string]: (() => ReactElement) | CompsTree
+}
+
+const CONTROL_COMPS: CompsTree = {
   Button: () => <></>,
 
   Switch: () => <></>,
@@ -37,6 +42,43 @@ const CONTROL_COMPS = {
     CheckBoxGroup: () => <></>,
     SelectMultiple: () => <></>
   },
+}
+
+export function registerController(path: string, Controller: () => ReactElement) {
+  const pathArr = path.split('.')
+  let target = CONTROL_COMPS
+  for (let i = 0; i < pathArr.length; i++) {
+    const key = pathArr[i]
+    if (i === pathArr.length - 1) {
+      target[key] = Controller
+    } else {
+      target = target[key] as any
+    }
+  }
+}
+
+export function ControllerRender({
+  target,
+  ...props
+}: {
+  target: string
+} & Record<string, any>) {
+  const errorHandler = useErrorHandlerContext()
+  const path = target.split('.')
+  let TargetComp = CONTROL_COMPS
+  for (let i = 0; i < path.length; i++) {
+    const key = path[i]
+    TargetComp = TargetComp[key] as any
+  }
+  if (!TargetComp) {
+    return errorHandler.throwError(`Controller ${target} not found`)
+  }
+  if (typeof TargetComp !== 'function') {
+    return errorHandler.throwError(`Controller ${target} is not a function`)
+  }
+  // TODO remove ignore? or maintain the status
+  // @ts-ignore
+  return <TargetComp {...props}/>
 }
 
 interface IconComponentProps extends SVGAttributes<SVGSVGElement> {

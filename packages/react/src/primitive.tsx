@@ -9,8 +9,11 @@ import {
 import { useEffect, useState } from 'react'
 import { ControllerProps } from './controller'
 import { NeedWrapModes } from './configure'
-import { useModes } from './utils'
+import { useModes, TypeMap } from './utils'
 import { Icon } from './components'
+
+import './plugins/common-primitive'
+import { plgMaster } from './plugins'
 
 export const primitive = [
   'string',
@@ -19,7 +22,11 @@ export const primitive = [
   'date'
 ]
 
-export interface PrimitiveProps extends ControllerProps {
+export interface PrimitiveProps extends ControllerProps<TypeMap[
+  | 'ZodNumber'
+  | 'ZodString'
+  | 'ZodBoolean'
+]> {
 }
 
 NeedWrapModes.push('textarea', 'panel')
@@ -41,6 +48,14 @@ export function Primitive({
     setValue(rest.defaultValue || rest.value)
   }, [rest.defaultValue || rest.value])
   const modes = useModes(schema)
+
+  const targetPlgs = plgMaster.plgs[schema._def.typeName]
+  for (const { compMatchers } of targetPlgs) {
+    for (const compMatcher of compMatchers) {
+      if (compMatcher.is(modes))
+        return <compMatcher.Component schema={schema} {...props} />
+    }
+  }
   switch (schema.type) {
     case 'number':
       switch (true) {
