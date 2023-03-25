@@ -92,6 +92,12 @@ export interface TypeMap extends ZodTypeMap {}
 
 export interface TypeDefMap extends ZodTypeDefMap {}
 
+export enum InnerTypes {}
+
+export type AllTypes = InnerTypes | ZodFirstPartyTypeKind
+
+export const AllTypes = { ...InnerTypes, ...ZodFirstPartyTypeKind }
+
 export type AllType = keyof TypeMap
 
 export function isWhatType<T extends AllType>(
