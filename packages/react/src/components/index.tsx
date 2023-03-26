@@ -1,31 +1,75 @@
-import React, { CSSProperties, ReactElement, SVGAttributes } from 'react'
+import {
+  ButtonHTMLAttributes,
+  ComponentType,
+  CSSProperties,
+  ReactElement,
+  SVGAttributes,
+  useMemo
+} from 'react'
 import { useErrorHandlerContext } from '../error-handler'
+
+type Element<T = undefined> = T extends undefined ? ReactElement : (props: T) => ReactElement;
+
+export interface BaseProps {
+  style?: CSSProperties
+  className?: string
+}
+
+export namespace BaseCompProps {
+  export type Input = BaseProps & {
+    value?: string
+    onChange?: (v: string) => void
+  }
+  export type Button = ButtonHTMLAttributes<HTMLButtonElement> & BaseProps & {
+    icon?: Element
+    shape?: 'square' | 'round' | 'circle'
+    variant?: 'text' | 'outline'
+    onClick?: () => void
+  }
+  // Switch: () => <></>
+  // Select: () => <></>
+  // RadioGroup: () => <></>
+  // Dialog: () => <></>
+  // Drawer: () => <></>
+}
+
+const BaseComps: {
+  Input?: (props: BaseCompProps.Input) => ReactElement
+  Button?: (props: BaseCompProps.Button) => ReactElement
+} = {}
+
+export function registerBaseComp<K extends keyof typeof BaseComps>(name: K, comp: (typeof BaseComps)[K]) {
+  BaseComps[name] = comp
+}
+
+export function Button({
+  icon,
+  ...props
+}: Omit<BaseCompProps.Button, 'icon'> & {
+  icon?: Icons | Element
+}) {
+  const wrapIcon = useMemo(() => typeof icon === 'string' && isInnerIcon(icon)
+    ? <Icon name={icon} />
+    : icon, [icon])
+  if (BaseComps.Button) {
+    return <BaseComps.Button
+      icon={wrapIcon}
+      {...props}
+    />
+  }
+  return <button {...props}>
+    {props.children ? props.children : wrapIcon}
+  </button>
+}
 
 type CompsTree = {
   [k: string]: ((props: any) => ReactElement) | CompsTree
 }
 
 const CONTROL_COMPS: CompsTree = {
-  Button: () => <></>,
-
-  Switch: () => <></>,
-
-  Select: () => <></>,
-  RadioGroup: () => <></>,
-
-  Input: () => <></>,
-  Textarea: () => <></>,
-  InputNumber: () => <></>,
-  InputAdornment: () => <></>,
-
-  Code: () => <></>,
-
-  Dialog: () => <></>,
-  Drawer: () => <></>,
-
   Number: {
-    Slider: () => <></>,
-    Rate: () => <></>
+    Rate: () => <></>,
+    Input: () => <></>
   },
   Datetime: {
     DatePicker: () => <></>,
@@ -101,9 +145,13 @@ export type Icons =
   | 'ArrowUp'
   | 'ArrowDown'
 
-const IconMap = new Map<Icons, React.ComponentType<IconComponentProps>>()
+const IconMap = new Map<Icons, ComponentType<IconComponentProps>>()
 
-export function registerIcon(name: Icons, Comp: React.ComponentType<IconComponentProps>) {
+export function isInnerIcon(name: Icons | string): name is Icons {
+  return IconMap.has(name as Icons)
+}
+
+export function registerIcon(name: Icons, Comp: ComponentType<IconComponentProps>) {
   IconMap.set(name, Comp)
 }
 

@@ -2,12 +2,11 @@ import './item.scss'
 
 import z from 'zod'
 import React, { useEffect, useMemo } from 'react'
-import { Button } from 'tdesign-react/esm'
 
 import { NeedWrapModes } from './configure'
 import { getModes } from './utils'
 import { Controller } from './controller'
-import { Icon } from './components'
+import { Button } from './components'
 import { useErrorHandler } from './error-handler'
 
 export interface ItemProps {
@@ -51,11 +50,7 @@ export function Item(props: ItemProps) {
       + (className ? ` ${className}` : '')
     }>
       <div className='zodui-item__more'>
-        <Button
-          shape='square'
-          variant='text'
-          icon={<Icon name='More' />}
-        />
+        <Button shape='square' variant='text' icon='More' />
       </div>
       <div className='zodui-item__label'>
         {props.label}

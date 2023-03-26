@@ -11,8 +11,8 @@ import {
   RollbackIcon
 } from 'tdesign-icons-react'
 
-import { registerController, registerIcon } from '../components'
-import { Slider, Textarea } from 'tdesign-react/esm'
+import { registerBaseComp, registerController, registerIcon } from '../components'
+import { Button, Slider, Textarea } from 'tdesign-react/esm'
 
 initIcons: {
   registerIcon('Add', AddIcon)
@@ -31,7 +31,9 @@ initIcons: {
 }
 
 initComponents: {
-  registerController('Number.Slider', props => <Slider {...props} />)
+  registerBaseComp('Button', Button)
+
+  registerController('Number.Slider', Slider)
   registerController('String.TextArea', props => <Textarea
     autosize={{
       minRows: 1,
