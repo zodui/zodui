@@ -1,4 +1,4 @@
-import z, { ZodFirstPartyTypeKind, ZodTypeDef } from 'zod'
+import z, { ZodFirstPartyTypeKind, ZodRawShape, ZodTypeDef } from 'zod'
 import { useMemo } from 'react'
 
 export function getModes(mode: string) {
@@ -27,7 +27,7 @@ export interface ZodTypeMap {
   ZodNever: z.ZodNever
   ZodVoid: z.ZodVoid
   ZodArray: z.ZodArray<any>
-  ZodObject: z.ZodObject<any>
+  ZodObject: z.ZodObject<ZodRawShape>
   ZodUnion: z.ZodUnion<any>
   ZodDiscriminatedUnion: z.ZodDiscriminatedUnion<any, any>
   ZodIntersection: z.ZodIntersection<any, any>

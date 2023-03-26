@@ -15,14 +15,21 @@ import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'reac
 import { Button, DateRangePicker, Input, Slider, TimeRangePicker } from 'tdesign-react/esm'
 
 import { Controller, ControllerProps } from './controller'
-import { getDefaultValue, isWhatType, useModes } from './utils'
+import { AllTypes, getDefaultValue, isWhatType, TypeMap, useModes } from './utils'
 import { KeyEditableTypes, UseSchemasForList } from './configure'
 import { Icon } from './components'
 import { useErrorHandlerContext } from './error-handler'
 
 const prefix = 'zodui-item__control-list'
 
-export interface ListProps extends ControllerProps {
+export interface ListProps extends ControllerProps<TypeMap[
+  | 'ZodArray'
+  | 'ZodTuple'
+  | 'ZodSet'
+  | 'ZodMap'
+  | 'ZodRecord'
+  | 'ZodObject'
+]> {
 }
 
 export function List({
@@ -37,7 +44,7 @@ export function List({
     & Partial<ZodSetDef>
     & Partial<ZodMapDef>
     & Partial<ZodRecordDef>
-    & Partial<ZodObjectDef<any>>
+    & Partial<ZodObjectDef>
   ) & ZodTypeDef
   const dict = useMemo(() => {
     if (isWhatType(schema, ZodFirstPartyTypeKind.ZodObject)) {
