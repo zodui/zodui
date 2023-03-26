@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, CSSProperties, ReactElement } from 'react'
+import { ButtonHTMLAttributes, CSSProperties, InputHTMLAttributes, ReactElement } from 'react'
 
 export type ZElement<T = undefined> = T extends undefined ? ReactElement : (props: T) => ReactElement;
 
@@ -8,9 +8,25 @@ export interface BaseProps {
 }
 
 export namespace BaseCompProps {
-  export type Input = BaseProps & {
-    value?: string
-    onChange?: (v: string) => void
+  export type InputValue = string | number | undefined
+  export type Input<T extends InputValue = string> = Omit<
+    InputHTMLAttributes<HTMLInputElement>,
+    | 'size'
+    | 'type'
+    | 'value'
+    | 'defaultValue'
+    | 'onChange'
+    // not need
+    | 'onBlur'
+    | 'onFocus'
+    | 'onClick'
+    | 'onPaste'
+    | 'onWheel'
+  > & BaseProps & {
+    type?: 'text' | 'password' | 'number' | 'email' | 'tel' | 'url' | 'search'
+    value?: T
+    defaultValue?: T
+    onChange?: (v: T) => void
   }
   export type Button = ButtonHTMLAttributes<HTMLButtonElement> & BaseProps & {
     icon?: ZElement
@@ -27,7 +43,7 @@ export namespace BaseCompProps {
 }
 
 export const BaseComps: {
-  Input?: (props: BaseCompProps.Input) => ReactElement
+  Input?: <T extends BaseCompProps.InputValue>(props: BaseCompProps.Input<T>) => ReactElement
   Button?: (props: BaseCompProps.Button) => ReactElement
 } = {}
 
@@ -35,4 +51,5 @@ export function registerBaseComp<K extends keyof typeof BaseComps>(name: K, comp
   BaseComps[name] = comp
 }
 
+export { Input } from './input'
 export { Button } from './button'

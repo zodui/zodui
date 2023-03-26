@@ -1,13 +1,13 @@
 import {
   DatePicker, DatePickerPanel, TimePickerPanel,
-  Input, InputAdornment, InputNumber,
+  InputAdornment, InputNumber,
   Switch,
   TimePicker
 } from 'tdesign-react/esm'
 import { useEffect, useState } from 'react'
 import { ControllerProps } from './controller'
 import { useModes, TypeMap } from './utils'
-import { Icon } from './components'
+import { Icon, Input } from './components'
 
 import './plugins/common-primitive'
 import { plgMaster } from './plugins'

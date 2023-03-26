@@ -12,12 +12,12 @@ import {
   ZodTypeDef
 } from 'zod'
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
-import { DateRangePicker, Input, Slider, TimeRangePicker } from 'tdesign-react/esm'
+import { DateRangePicker, Slider, TimeRangePicker } from 'tdesign-react/esm'
 
 import { Controller, ControllerProps } from './controller'
 import { getDefaultValue, isWhatType, TypeMap, useModes } from './utils'
 import { KeyEditableTypes, UseSchemasForList } from './configure'
-import { Icon, Button } from './components'
+import { Icon, Button, Input } from './components'
 import { useErrorHandlerContext } from './error-handler'
 
 const prefix = 'zodui-item__control-list'
@@ -221,14 +221,14 @@ export function List({
         }>
           {isKeyEditable
             ? <Input
+              className='key-input'
+              placeholder='请输入键名'
               value={keys[index]}
               onChange={v => setKeys(keys => {
                 const nKeys = keys.slice()
                 nKeys[index] = v
                 return nKeys
               })}
-              placeholder='请输入键名'
-              className='key-input'
             />
             : itemSchema._def.label ?? dictKeys[index]}
         </div>}

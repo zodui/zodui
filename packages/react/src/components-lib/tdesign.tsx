@@ -10,10 +10,11 @@ import {
   MoreIcon,
   RollbackIcon
 } from 'tdesign-icons-react'
-import { Button, Slider, Textarea } from 'tdesign-react/esm'
+import { Button, Slider, Input, Textarea } from 'tdesign-react/esm'
 
 import { registerController, registerIcon } from '../components'
 import { registerBaseComp } from '../components/base'
+import { Narrow } from '../utils'
 
 initIcons: {
   registerIcon('Add', AddIcon)
@@ -32,6 +33,27 @@ initIcons: {
 }
 
 initComponents: {
+  function isTargetType<T, Types extends T>(t: T | Types, types: Narrow<Types[]>): t is Types {
+    return types.includes(
+      // @ts-ignore
+      t
+    )
+  }
+  registerBaseComp('Input', ({
+    type,
+    value,
+    defaultValue,
+    onChange,
+    ...props
+  }) => {
+    if (isTargetType(type, ['email', 'tel', 'url', 'search'])) {
+      return <>Not support type {type}</>
+    }
+    return <Input
+      type={type}
+      {...props}
+    />
+  })
   registerBaseComp('Button', ({ theme, ...props }) => <Button
     theme={({
       info: 'default',

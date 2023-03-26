@@ -1,6 +1,14 @@
 import z, { ZodFirstPartyTypeKind, ZodRawShape, ZodTypeDef } from 'zod'
 import { useMemo } from 'react'
 
+type Cast<A, B> = A extends B ? A : B;
+
+type Primitive = string | number | boolean | bigint | symbol | undefined | null;
+
+export type Narrow<T> = Cast<T, [] | (T extends Primitive ? T : never) | ({
+  [K in keyof T]: Narrow<T[K]>
+})>;
+
 export function getModes(mode: string) {
   return mode
     ?.split(' ')
