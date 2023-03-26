@@ -2,7 +2,6 @@ import './list.scss'
 
 import {
   ZodArrayDef,
-  ZodFirstPartyTypeKind,
   ZodMapDef,
   ZodObjectDef,
   ZodRawShape,
@@ -15,7 +14,7 @@ import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'reac
 import { DateRangePicker, Slider, TimeRangePicker } from 'tdesign-react/esm'
 
 import { Controller, ControllerProps } from './controller'
-import { getDefaultValue, isWhatType, TypeMap, useModes } from './utils'
+import { AllTypes, getDefaultValue, isWhatType, TypeMap, useModes } from './utils'
 import { KeyEditableTypes, MultipleSchemas } from './configure'
 import { Icon, Button, Input } from './components'
 import { useErrorHandlerContext } from './error-handler'
@@ -47,7 +46,7 @@ export function List({
     & Partial<ZodObjectDef>
   ) & ZodTypeDef
   const dict = useMemo(() => {
-    if (isWhatType(schema, ZodFirstPartyTypeKind.ZodObject)) {
+    if (isWhatType(schema, AllTypes.ZodObject)) {
       const dict = schema._def.shape() ?? {}
       return Object.entries(dict)
         .reduce((acc, [key , s]) => {
@@ -63,20 +62,20 @@ export function List({
     return {}
   }, [commonDef.typeName])
   const getSchema = useCallback((index?: number) => {
-    if (isWhatType(schema, ZodFirstPartyTypeKind.ZodArray)) {
+    if (isWhatType(schema, AllTypes.ZodArray)) {
       return schema._def.type
     }
-    if (isWhatType(schema, ZodFirstPartyTypeKind.ZodTuple)) {
+    if (isWhatType(schema, AllTypes.ZodTuple)) {
       return schema._def.items[index]
     }
     if (
-      isWhatType(schema, ZodFirstPartyTypeKind.ZodSet)
-      || isWhatType(schema, ZodFirstPartyTypeKind.ZodRecord)
-      || isWhatType(schema, ZodFirstPartyTypeKind.ZodMap)
+      isWhatType(schema, AllTypes.ZodSet)
+      || isWhatType(schema, AllTypes.ZodRecord)
+      || isWhatType(schema, AllTypes.ZodMap)
     ) {
       return schema._def.valueType
     }
-    if (isWhatType(schema, ZodFirstPartyTypeKind.ZodObject)) {
+    if (isWhatType(schema, AllTypes.ZodObject)) {
       return Object.values(dict)[index]
     }
     return null
@@ -87,13 +86,13 @@ export function List({
     commonDef.typeName,
   ])
   const schemasLength = useMemo(() => {
-    if (isWhatType(schema, ZodFirstPartyTypeKind.ZodArray) || isWhatType(schema, ZodFirstPartyTypeKind.ZodSet)) {
+    if (isWhatType(schema, AllTypes.ZodArray) || isWhatType(schema, AllTypes.ZodSet)) {
       return Infinity
     }
-    if (isWhatType(schema, ZodFirstPartyTypeKind.ZodTuple)) {
+    if (isWhatType(schema, AllTypes.ZodTuple)) {
       return schema._def.items.length
     }
-    if (isWhatType(schema, ZodFirstPartyTypeKind.ZodObject)) {
+    if (isWhatType(schema, AllTypes.ZodObject)) {
       return Object.entries(schema._def.shape() ?? {}).length
     }
     return 0
@@ -106,7 +105,7 @@ export function List({
         ? Object.values(dict).map(getDefaultValue)
         : props.defaultValue ?? props.value
           ? Object.entries(props.defaultValue ?? props.value).map(([, v]) => v)
-          : isWhatType(schema, ZodFirstPartyTypeKind.ZodTuple)
+          : isWhatType(schema, AllTypes.ZodTuple)
             ? schema._def.items.map(getDefaultValue)
             : undefined
     )
