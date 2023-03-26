@@ -31,7 +31,15 @@ initIcons: {
 }
 
 initComponents: {
-  registerBaseComp('Button', Button)
+  registerBaseComp('Button', ({ theme, ...props }) => <Button
+    theme={({
+      info: 'default',
+      error: 'danger',
+      warning: 'warning',
+      success: 'success',
+    } as const)[theme]}
+    {...props}
+  />)
 
   registerController('Number.Slider', Slider)
   registerController('String.TextArea', props => <Textarea

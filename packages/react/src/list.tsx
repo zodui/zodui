@@ -12,12 +12,12 @@ import {
   ZodTypeDef
 } from 'zod'
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
-import { Button, DateRangePicker, Input, Slider, TimeRangePicker } from 'tdesign-react/esm'
+import { DateRangePicker, Input, Slider, TimeRangePicker } from 'tdesign-react/esm'
 
 import { Controller, ControllerProps } from './controller'
-import { AllTypes, getDefaultValue, isWhatType, TypeMap, useModes } from './utils'
+import { getDefaultValue, isWhatType, TypeMap, useModes } from './utils'
 import { KeyEditableTypes, UseSchemasForList } from './configure'
-import { Icon } from './components'
+import { Icon, Button } from './components'
 import { useErrorHandlerContext } from './error-handler'
 
 const prefix = 'zodui-item__control-list'
@@ -290,15 +290,13 @@ export function List({
         <Button
           shape='square'
           variant='outline'
-          theme='danger'
+          theme='error'
           disabled={
             isSchemas
               ? props.disabled ?? (item === undefined)
               : props.disabled
           }
-          icon={<Icon
-            name={isSchemas ? 'Clear' : 'Delete'}
-          />}
+          icon={isSchemas ? 'Clear' : 'Delete'}
           onClick={() => {
             if (isSchemas) {
               const newList = [...list]

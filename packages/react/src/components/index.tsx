@@ -22,6 +22,7 @@ export namespace BaseCompProps {
   }
   export type Button = ButtonHTMLAttributes<HTMLButtonElement> & BaseProps & {
     icon?: Element
+    theme?: 'error' | 'warning' | 'success' | 'info'
     shape?: 'square' | 'round' | 'circle'
     variant?: 'text' | 'outline'
     onClick?: () => void
