@@ -35,12 +35,7 @@ export function Union<T extends z.ZodUnionOptions>({
     ...rest
   }
   const modes = useModes(schema)
-  switch (modes[0] ?? 'select') {
-    case 'select':
-      return <Select
-        options={options}
-        {...props}
-      />
+  switch (modes[0]) {
     case 'radio':
     case 'radio-inline':
       return <RadioGroup
@@ -48,6 +43,8 @@ export function Union<T extends z.ZodUnionOptions>({
         {...props}
       />
   }
-  return <>
-  </>
+  return <Select
+    options={options}
+    {...props}
+  />
 }
