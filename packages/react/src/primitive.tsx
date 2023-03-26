@@ -6,7 +6,6 @@ import {
 } from 'tdesign-react/esm'
 import { useEffect, useState } from 'react'
 import { ControllerProps } from './controller'
-import { NeedWrapModes } from './configure'
 import { useModes, TypeMap } from './utils'
 import { Icon } from './components'
 
@@ -26,8 +25,6 @@ export interface PrimitiveProps extends ControllerProps<TypeMap[
   | 'ZodBoolean'
 ]> {
 }
-
-NeedWrapModes.push('textarea', 'panel')
 
 export function Primitive({
   schema,

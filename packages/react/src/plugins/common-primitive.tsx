@@ -1,6 +1,9 @@
 import { AllTypes } from '../utils'
 import { plgMaster, Plugin } from './index'
 import { ControllerRender } from '../components'
+import { NeedWrapModes } from '../configure'
+
+NeedWrapModes.push('textarea', 'panel')
 
 plgMaster.register(new Plugin()
   .addComp([AllTypes.ZodNumber], [
