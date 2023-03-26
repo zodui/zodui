@@ -2,10 +2,10 @@ import z from 'zod'
 import { useMemo } from 'react'
 import { Select, RadioGroup } from 'tdesign-react/esm'
 import { ControllerProps } from './controller'
-import { NeedWrapModes } from './configure'
+import { WrapModes } from './configure'
 import { useModes } from './utils'
 
-NeedWrapModes.push('radio-inline')
+WrapModes.push('radio-inline')
 
 export interface UnionProps<T extends z.ZodUnionOptions> extends ControllerProps {
   schema: z.ZodUnion<T>

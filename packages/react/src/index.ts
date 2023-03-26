@@ -1,4 +1,4 @@
 import './zod.external'
 
 export * from './schema'
-export { NeedWrapModes } from './configure'
+export { WrapModes } from './configure'

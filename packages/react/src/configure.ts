@@ -1,3 +1,5 @@
+import { AllTypes } from './utils'
+
 /**
  * 为了设置 wrap 的默认值
  *
@@ -9,14 +11,14 @@
  * NeedWrapModes.push('code', /^code/)
  * ```
  */
-export const NeedWrapModes: (string | RegExp)[] = []
+export const WrapModes: (string | RegExp)[] = []
 
 /**
- * 子元素可能包含多种 schema 的类型
+ * 复合 schema 的类型
  */
-export const UseSchemasForList = ['tuple', 'object']
+export const MultipleSchemas = [AllTypes.ZodTuple, AllTypes.ZodObject]
 
 /**
  * 可修改 key 的值的类型
  */
-export const KeyEditableTypes = ['dict']
+export const KeyEditableTypes = [AllTypes.ZodRecord, AllTypes.ZodMap]

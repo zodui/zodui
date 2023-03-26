@@ -16,7 +16,7 @@ import { DateRangePicker, Slider, TimeRangePicker } from 'tdesign-react/esm'
 
 import { Controller, ControllerProps } from './controller'
 import { getDefaultValue, isWhatType, TypeMap, useModes } from './utils'
-import { KeyEditableTypes, UseSchemasForList } from './configure'
+import { KeyEditableTypes, MultipleSchemas } from './configure'
 import { Icon, Button, Input } from './components'
 import { useErrorHandlerContext } from './error-handler'
 
@@ -122,7 +122,7 @@ export function List({
   const [keys, setKeys] = useState<string[]>([])
 
   const isTuple = useMemo(() => schema.type === 'tuple', [schema.type])
-  const isSchemas = useMemo(() => UseSchemasForList.includes(schema.type), [schema.type])
+  const isMultipleSchema = useMemo(() => MultipleSchemas.includes(schema._def.typeName), [schema._def.typeName])
 
   const modes = useModes(schema)
   const isRange = useMemo(() => {
@@ -210,7 +210,7 @@ export function List({
       // fix delete schema flashing
       if (!itemSchema) return <Fragment key={index}></Fragment>;
 
-      const isKeyEditable = KeyEditableTypes.includes(schema.type)
+      const isKeyEditable = KeyEditableTypes.includes(schema._def.typeName)
 
       return <div className={`${prefix}-item`} key={index}>
         {(
@@ -236,7 +236,7 @@ export function List({
         <div className={`${prefix}-item__index-tag`}>
           {index + 1}
         </div>
-        {!isSchemas && <>
+        {!isMultipleSchema && <>
           {index === 0
             ? <Button
               shape='square'
@@ -292,13 +292,13 @@ export function List({
           variant='outline'
           theme='error'
           disabled={
-            isSchemas
+            isMultipleSchema
               ? props.disabled ?? (item === undefined)
               : props.disabled
           }
-          icon={isSchemas ? 'Clear' : 'Delete'}
+          icon={isMultipleSchema ? 'Clear' : 'Delete'}
           onClick={() => {
-            if (isSchemas) {
+            if (isMultipleSchema) {
               const newList = [...list]
               newList[index] = undefined
               setList(newList)
@@ -314,7 +314,7 @@ export function List({
         />
       </div>
     })}</>
-  }, [isEmpty, isSchemas, isRange, dictKeys, addNewItem])
+  }, [isEmpty, isMultipleSchema, isRange, dictKeys, addNewItem])
 
   return <div className={
     prefix

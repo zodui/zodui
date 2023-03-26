@@ -3,7 +3,7 @@ import './item.scss'
 import z from 'zod'
 import React, { useEffect, useMemo } from 'react'
 
-import { NeedWrapModes } from './configure'
+import { WrapModes } from './configure'
 import { getModes } from './utils'
 import { Controller } from './controller'
 import { Button } from './components'
@@ -25,7 +25,7 @@ export function Item(props: ItemProps) {
     className
   } = props
   const wrapDefault = useMemo(
-    () => NeedWrapModes.some(mode => {
+    () => WrapModes.some(mode => {
       const modes = getModes(schema._mode)
       if (typeof mode === 'string')
         return modes.some(r => r?.startsWith(mode))
