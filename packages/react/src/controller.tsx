@@ -1,6 +1,6 @@
-import { Schema, ZodFirstPartyTypeKind } from 'zod'
+import { Schema } from 'zod'
 import { Primitive, primitive } from './primitive'
-import { isWhatType, useDefaultValue } from './utils'
+import { AllTypes, isWhatType, useDefaultValue } from './utils'
 import { Union } from './union'
 import { List } from './list'
 
@@ -15,7 +15,7 @@ export interface ControllerProps<T extends Schema = Schema> {
 
 export function Controller(props: ControllerProps) {
   const defaultValue = useDefaultValue(props.schema) ?? props.defaultValue
-  if (isWhatType(props.schema, ZodFirstPartyTypeKind.ZodDefault)) {
+  if (isWhatType(props.schema, AllTypes.ZodDefault)) {
     const {
       innerType,
       defaultValue: _,
@@ -32,7 +32,7 @@ export function Controller(props: ControllerProps) {
   return primitive.includes(props.schema.type)
     // TODO resolve any as right type
     ? <Primitive {...props as any} />
-    : isWhatType(props.schema, ZodFirstPartyTypeKind.ZodUnion)
+    : isWhatType(props.schema, AllTypes.ZodUnion)
     ? <Union {...props as any} />
     : ['array', 'tuple', 'record', 'dict', 'object'].includes(props.schema.type)
     ? <List {...props as any} />
