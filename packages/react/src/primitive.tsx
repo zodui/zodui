@@ -2,7 +2,6 @@ import {
   DatePicker, DatePickerPanel, TimePickerPanel,
   Input, InputAdornment, InputNumber,
   Switch,
-  Textarea,
   TimePicker
 } from 'tdesign-react/esm'
 import { useEffect, useState } from 'react'
@@ -60,13 +59,6 @@ export function Primitive({
       return <InputNumber {...props} />
     case 'string':
       switch (true) {
-        case modes.includes('textarea'):
-          return <Textarea
-            autosize={{
-              minRows: 1,
-            }}
-            {...props}
-          />
         case modes.includes('secret'):
           return <Input
             type='password'

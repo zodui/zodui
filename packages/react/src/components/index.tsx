@@ -52,6 +52,9 @@ export function registerController(path: string, Controller: (props: any) => Rea
     if (i === pathArr.length - 1) {
       target[key] = Controller
     } else {
+      if (typeof target[key] === 'undefined') {
+        target[key] = {}
+      }
       target = target[key] as any
     }
   }

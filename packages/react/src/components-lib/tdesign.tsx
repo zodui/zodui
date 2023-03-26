@@ -12,7 +12,7 @@ import {
 } from 'tdesign-icons-react'
 
 import { registerController, registerIcon } from '../components'
-import { Slider } from 'tdesign-react/esm'
+import { Slider, Textarea } from 'tdesign-react/esm'
 
 initIcons: {
   registerIcon('Add', AddIcon)
@@ -32,4 +32,10 @@ initIcons: {
 
 initComponents: {
   registerController('Number.Slider', props => <Slider {...props} />)
+  registerController('String.TextArea', props => <Textarea
+    autosize={{
+      minRows: 1,
+    }}
+    {...props}
+  />)
 }
