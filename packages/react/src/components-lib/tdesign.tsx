@@ -10,9 +10,10 @@ import {
   MoreIcon,
   RollbackIcon
 } from 'tdesign-icons-react'
-
-import { registerBaseComp, registerController, registerIcon } from '../components'
 import { Button, Slider, Textarea } from 'tdesign-react/esm'
+
+import { registerController, registerIcon } from '../components'
+import { registerBaseComp } from '../components/base'
 
 initIcons: {
   registerIcon('Add', AddIcon)
