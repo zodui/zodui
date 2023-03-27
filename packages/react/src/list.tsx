@@ -305,7 +305,7 @@ export function List({
         <Button icon='More' />
       </div>
     })}</>
-  }, [isEmpty, isMultipleSchema, isRange, dictKeys, addNewItem])
+  }, [isEmpty, isMultipleSchema, isTuple, isRange, dictKeys, addNewItem])
 
   return <div className={
     prefix
