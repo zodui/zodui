@@ -61,7 +61,7 @@ export function List({
         }, {} as ZodRawShape)
     }
     return {}
-  }, [commonDef.typeName])
+  }, [commonDef.typeName, commonDef.shape])
   const getSchema = useCallback((index?: number) => {
     if (isWhatType(schema, AllTypes.ZodArray)) {
       return schema._def.type
