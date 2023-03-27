@@ -2,6 +2,7 @@ import { ReactElement } from 'react'
 
 import { ControllerProps } from '../controller'
 import { AllType, AllTypes, TypeMap } from '../utils'
+import { ModesMap } from '../zod.external'
 
 export interface UnionOptions {
   label: string
@@ -17,6 +18,7 @@ export interface PluginComp<T extends AllType = AllType> {
   types: T[]
   is: (modes: string[]) => boolean
   Component: (props: & ControllerProps<TypeMap[T]>
+                     & { modes?: ModesMap[T][] }
                      & UnionProps<T>) => ReactElement
 }
 
