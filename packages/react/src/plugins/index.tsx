@@ -4,6 +4,8 @@ import { ControllerProps } from '../controller'
 import { AllType, AllTypes, TypeMap } from '../utils'
 import { ModesMap } from '../zod.external'
 
+import { ListType } from '../list'
+
 export interface UnionOptions {
   label: string
   title: string
@@ -14,12 +16,25 @@ export type UnionProps<T extends AllType> = T extends 'ZodUnion' ? {
   options: UnionOptions[]
 } : {}
 
+export type ListProps<T extends AllType> = T extends ListType ? {
+  schemas: TypeMap[AllType][]
+} : {}
+
+export type ListIsOptions<T extends AllType> = T extends ListType ? {
+  schemas: TypeMap[AllType][]
+} : {}
+
 export interface PluginComp<T extends AllType = AllType> {
   types: T[]
-  is: (modes: string[]) => boolean
+  is: (modes: string[], options?: & {}
+                                  & ListIsOptions<T>
+  ) => boolean
   Component: (props: & ControllerProps<TypeMap[T]>
+                     // @ts-ignore
                      & { modes?: ModesMap[T][] }
-                     & UnionProps<T>) => ReactElement
+                     & ListProps<T>
+                     & UnionProps<T>
+  ) => ReactElement
 }
 
 export class Plugin {
@@ -29,8 +44,10 @@ export class Plugin {
     array: [C['is'], C['Component']][]
   ) {
     array
-      .forEach(([isMatch, Component]) => this.compMatchers.push({
-        types, is: isMatch,
+      .forEach(([is, Component]) => this.compMatchers.push({
+        // @ts-ignore
+        is,
+        types,
         // @ts-ignore
         Component
       }))

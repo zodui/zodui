@@ -11,32 +11,33 @@ import {
   ZodTypeDef
 } from 'zod'
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
-import { DateRangePicker, Slider, TimeRangePicker } from 'tdesign-react/esm'
 
 import { Controller, ControllerProps } from './controller'
 import { AllTypes, getDefaultValue, isWhatType, TypeMap, useModes } from './utils'
 import { KeyEditableTypes, MultipleSchemas } from './configure'
 import { Icon, Button, Input } from './components'
+import { plgMaster } from './plugins'
+
+import './plugins/common-list'
 import { useErrorHandlerContext } from './error-handler'
 
 const prefix = 'zodui-item__control-list'
 
-export interface ListProps extends ControllerProps<TypeMap[
+export type ListType =
   | 'ZodArray'
   | 'ZodTuple'
   | 'ZodSet'
   | 'ZodMap'
   | 'ZodRecord'
   | 'ZodObject'
-]> {
+
+export interface ListProps extends ControllerProps<TypeMap[ListType]> {
 }
 
 export function List({
   schema,
   ...props
 }: ListProps) {
-  const errorHandler = useErrorHandlerContext()
-
   const commonDef = schema._def as (
     & Partial<ZodArrayDef<any>>
     & Partial<ZodTupleDef>
@@ -98,6 +99,24 @@ export function List({
     return 0
   }, [commonDef])
 
+  const schemas = useMemo(() => {
+    if (isWhatType(schema, AllTypes.ZodTuple)) {
+      return schema._def.items
+    }
+    if (isWhatType(schema, AllTypes.ZodObject)) {
+      return Object.values(dict)
+    }
+    if (
+      isWhatType(schema, AllTypes.ZodSet)
+      || isWhatType(schema, AllTypes.ZodRecord)
+      || isWhatType(schema, AllTypes.ZodMap)
+      || isWhatType(schema, AllTypes.ZodArray)
+    ) {
+      return Array.from({ length: schemasLength }).map((_, i) => getSchema(i))
+    }
+    return []
+  }, [dict, commonDef.typeName, commonDef.items, commonDef.valueType])
+
   const [list, setList] = useState<any[]>()
   useEffect(() => {
     setList(
@@ -120,18 +139,9 @@ export function List({
   const dictKeys = useMemo(() => Object.keys(dict ?? {}), [ dict ])
   const [keys, setKeys] = useState<string[]>([])
 
-  const isTuple = useMemo(() => schema.type === 'tuple', [schema.type])
   const isMultipleSchema = useMemo(() => MultipleSchemas.includes(schema._def.typeName), [schema._def.typeName])
 
   const modes = useModes(schema)
-  const isRange = useMemo(() => {
-    return !modes.includes('no-range')
-      && schemasLength === 2
-  }, [modes, schemasLength])
-  const isSlider = useMemo(() => {
-    return !modes.includes('no-slider')
-      && schemasLength === 2
-  }, [modes, schemasLength])
 
   const addNewItem = useCallback((type: 'append' | 'prepend' = 'append') => setList(l => {
     const t = [getDefaultValue(getSchema())]
@@ -142,65 +152,37 @@ export function List({
   }), [getSchema])
 
   const isEmpty = useMemo(() => (list?.length ?? 0) === 0, [list?.length])
+
+  const errorHandler = useErrorHandlerContext()
+  if (schemas.length === 0 && schema._def.typeName === AllTypes.ZodTuple) {
+    return errorHandler.throwError(new Error('Tuple 类型必须包含一个元素'))
+  }
+
+  const targetPlgs = plgMaster.plgs[schema._def.typeName]
+  for (const { compMatchers } of targetPlgs) {
+    for (const compMatcher of compMatchers) {
+      if (compMatcher.is(modes, { schemas }))
+        return <compMatcher.Component
+          {...props}
+          modes={modes}
+          schema={schema}
+          value={list}
+          onChange={setList}
+        />
+    }
+  }
+
   const Component = useCallback(({ keys, list, schemasLength }: {
     keys: string[]
     list: any[]
     schemasLength: number
   }) => {
-    if (isEmpty && !isTuple)
+    if (isEmpty)
       return <Button
         className={`${prefix}-create`}
         icon='Add'
         onClick={() => addNewItem()}
       />
-
-    if (isTuple) {
-      if (schemasLength === 0) {
-        return errorHandler.throwError(new Error('Tuple 类型必须包含一个元素'))
-      }
-      const [s0, s1] = [getSchema(0), getSchema(1)]
-      if (isRange) {
-        if (
-          s0.type === 'date' && s1.type === 'date'
-        ) {
-          switch (true) {
-            case modes.includes('time'):
-              return <TimeRangePicker
-                value={list}
-                onChange={setList}
-                className='t-time-range-picker'
-                {...props}
-              />
-            default:
-              const nProps = {
-                ...props,
-                enableTimePicker: modes.includes('datetime')
-              }
-              return <DateRangePicker
-                value={list}
-                onChange={setList}
-                {...nProps}
-              />
-          }
-        }
-        if (
-          s0.type === 'number' && s1.type === 'number'
-        ) {
-          // TODO support number range input
-        }
-      }
-      if (isSlider) {
-        if (
-          s0.type === 'number' && s1.type === 'number'
-        ) {
-          return <Slider
-            value={list}
-            onChange={setList as (v: any) => void}
-            range
-          />
-        }
-      }
-    }
 
     return <>{list?.map((item, index) => {
       const itemSchema = getSchema(index)
@@ -305,7 +287,7 @@ export function List({
         <Button icon='More' />
       </div>
     })}</>
-  }, [isEmpty, isMultipleSchema, isTuple, isRange, dictKeys, addNewItem])
+  }, [isEmpty, isMultipleSchema, dictKeys, addNewItem])
 
   return <div className={
     prefix
