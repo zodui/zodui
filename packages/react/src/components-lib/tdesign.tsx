@@ -67,7 +67,7 @@ initComponents: {
     {...props}
   />)
 
-  registerController('Number.Slider', Slider)
+  registerController('Number.Slider', props => <Slider {...props} />)
   registerController('String.TextArea', props => <Textarea
     autosize={{
       minRows: 1,
