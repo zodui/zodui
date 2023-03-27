@@ -8,6 +8,10 @@ export function Button({
 }: Omit<BaseCompProps.Button, 'icon'> & {
   icon?: Icons | ZElement
 }) {
+  props = Object.assign({
+    shape: 'square',
+    variant: 'outline',
+  }, props)
   const wrapIcon = useMemo(() => typeof icon === 'string' && isInnerIcon(icon)
     ? <Icon name={icon} />
     : icon, [icon])

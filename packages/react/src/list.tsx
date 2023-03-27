@@ -149,10 +149,8 @@ export function List({
   }) => {
     if (isEmpty && !isTuple)
       return <Button
-        shape='square'
-        variant='outline'
         className={`${prefix}-create`}
-        icon={<Icon name='Add' />}
+        icon='Add'
         onClick={() => addNewItem()}
       />
 
@@ -246,7 +244,7 @@ export function List({
             : <Button
               shape='square'
               variant='outline'
-              icon={<Icon name='ArrowUp' />}
+              icon='ArrowUp'
               onClick={() => {
                 const newList = [...list]
                 newList[index] = newList[index - 1]
@@ -264,7 +262,7 @@ export function List({
             : <Button
               shape='square'
               variant='outline'
-              icon={<Icon name='ArrowDown' />}
+              icon='ArrowDown'
               onClick={() => {
                 const newList = [...list]
                 newList[index] = newList[index + 1]
@@ -287,8 +285,6 @@ export function List({
           className: `${prefix}-item__container`,
         })}
         <Button
-          shape='square'
-          variant='outline'
           theme='error'
           disabled={
             isMultipleSchema
@@ -306,11 +302,7 @@ export function List({
             }
           }}
         />
-        <Button
-          shape='square'
-          variant='outline'
-          icon={<Icon name='More' />}
-        />
+        <Button icon='More' />
       </div>
     })}</>
   }, [isEmpty, isMultipleSchema, isRange, dictKeys, addNewItem])
