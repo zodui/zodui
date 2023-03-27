@@ -16,7 +16,8 @@ export type UnionProps<T extends AllType> = T extends 'ZodUnion' ? {
 export interface PluginComp<T extends AllType = AllType> {
   types: T[]
   is: (modes: string[]) => boolean
-  Component: (props: ControllerProps<TypeMap[T]> & UnionProps<T>) => ReactElement
+  Component: (props: & ControllerProps<TypeMap[T]>
+                     & UnionProps<T>) => ReactElement
 }
 
 export class Plugin {
