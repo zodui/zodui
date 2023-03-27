@@ -22,6 +22,7 @@ export const primitive = [
 export interface PrimitiveProps extends ControllerProps<TypeMap[
   | 'ZodNumber'
   | 'ZodString'
+  | 'ZodDate'
   | 'ZodBoolean'
 ]> {
 }
@@ -51,10 +52,10 @@ export function Primitive({
         return <compMatcher.Component schema={schema} {...props} />
     }
   }
-  switch (schema.type) {
-    case 'number':
+  switch (schema._def.typeName) {
+    case 'ZodNumber':
       return <InputNumber {...props} />
-    case 'string':
+    case 'ZodString':
       switch (true) {
         case modes.includes('secret'):
           return <Input
@@ -85,7 +86,7 @@ export function Primitive({
           </InputAdornment>
       }
       return <Input {...props}/>
-    case 'date':
+    case 'ZodDate':
       switch (true) {
         case modes.includes('time'):
           if (modes.includes('panel'))
@@ -101,7 +102,7 @@ export function Primitive({
       if (modes.includes('panel'))
         return <DatePickerPanel {...nProps}/>
       return <DatePicker {...nProps}/>
-    case 'boolean':
+    case 'ZodBoolean':
       return <Switch
         {...props}
       />
