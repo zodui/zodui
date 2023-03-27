@@ -16,6 +16,7 @@ type CompsTree = {
 }
 
 const CONTROL_COMPS: CompsTree = {
+  // TODO Custom type props when use ControllerRender to render component
   Number: {
     Rate: () => <></>,
     Input: () => <></>
