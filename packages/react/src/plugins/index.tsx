@@ -9,7 +9,7 @@ import { ListType } from '../list'
 export interface UnionOptions {
   label: string
   title: string
-  value: any
+  value: number
 }
 
 export type UnionProps<T extends AllType> = T extends 'ZodUnion' ? {
