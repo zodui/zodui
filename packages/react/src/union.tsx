@@ -1,8 +1,8 @@
 import z from 'zod'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { Select } from 'tdesign-react/esm'
-import { ControllerProps } from './controller'
-import { TypeMap, useModes } from './utils'
+import { Controller, ControllerProps } from './controller'
+import { AllTypes, TypeMap, useModes } from './utils'
 
 import './plugins/common-union'
 import { plgMaster, UnionOptions } from './plugins'
@@ -21,14 +21,21 @@ export function Union({
   ...rest
 }: ControllerProps<TypeMap['ZodUnion']>) {
   const options = useMemo(() => resolveSchemaList(schema.options), [schema.options])
+  const [index, setIndex] = useState<number>(0)
   const props = {
     title: schema._def.description,
     ...rest,
     onChange(v: any) {
+      setIndex(v)
       rest.onChange?.(schema.options[v]._def.value)
     }
   }
   const modes = useModes(schema)
+
+  const isSame = useMemo(() => {
+    const first = schema.options[0]
+    return schema.options.every(schema => schema._def.typeName === first._def.typeName)
+  }, [schema.options])
 
   const targetPlgs = plgMaster.plgs[schema._def.typeName]
   for (const { compMatchers } of targetPlgs) {
@@ -41,8 +48,22 @@ export function Union({
         />
     }
   }
-  return <Select
+
+  const select = useMemo(() => <Select
     options={options}
     {...props}
-  />
+  />, [options, props])
+  if (isSame)
+    return select
+
+  return <>
+    {select}
+    {schema.options[index]._def.typeName !== AllTypes.ZodLiteral && <>
+      <br/>
+      <Controller
+        schema={schema.options[index]}
+        {...rest}
+      />
+    </>}
+  </>
 }
