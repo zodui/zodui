@@ -2,14 +2,10 @@ import z from 'zod'
 import { useMemo } from 'react'
 import { Select } from 'tdesign-react/esm'
 import { ControllerProps } from './controller'
-import { useModes } from './utils'
+import { TypeMap, useModes } from './utils'
 
 import './plugins/common-union'
 import { plgMaster } from './plugins'
-
-export interface UnionProps<T extends z.ZodUnionOptions> extends ControllerProps {
-  schema: z.ZodUnion<T>
-}
 
 export interface Option {
   label: string
@@ -25,10 +21,10 @@ function resolveSchemaList(schemas: z.ZodUnionOptions): Option[] {
   }))
 }
 
-export function Union<T extends z.ZodUnionOptions>({
+export function Union({
   schema,
   ...rest
-}: UnionProps<T>) {
+}: ControllerProps<TypeMap['ZodUnion']>) {
   const options = useMemo(() => resolveSchemaList(schema.options), [schema.options])
   const props = {
     title: schema._def.description,

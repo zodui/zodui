@@ -1,4 +1,4 @@
-import z, { ZodFirstPartyTypeKind, ZodRawShape, ZodTypeDef } from 'zod'
+import z, { ZodFirstPartyTypeKind, ZodRawShape, ZodTypeDef, ZodUnionOptions } from 'zod'
 import { useMemo } from 'react'
 
 type Cast<A, B> = A extends B ? A : B;
@@ -36,7 +36,7 @@ export interface ZodTypeMap {
   ZodVoid: z.ZodVoid
   ZodArray: z.ZodArray<any>
   ZodObject: z.ZodObject<ZodRawShape>
-  ZodUnion: z.ZodUnion<any>
+  ZodUnion: z.ZodUnion<ZodUnionOptions>
   ZodDiscriminatedUnion: z.ZodDiscriminatedUnion<any, any>
   ZodIntersection: z.ZodIntersection<any, any>
   ZodTuple: z.ZodTuple
