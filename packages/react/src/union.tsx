@@ -8,6 +8,7 @@ import './plugins/common-union'
 import { plgMaster, UnionOptions } from './plugins'
 
 function resolveSchemaList(schemas: z.ZodUnionOptions): UnionOptions[] {
+  // TODO resolve not literal type, it not contain value
   return schemas.map((schema, index) => ({
     label: schema._def.label || schema._def.description || schema._def.value,
     title: schema._def.description,
