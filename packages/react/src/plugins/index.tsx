@@ -3,10 +3,20 @@ import { ReactElement } from 'react'
 import { ControllerProps } from '../controller'
 import { AllType, AllTypes, TypeMap } from '../utils'
 
+export interface UnionOptions {
+  label: string
+  title: string
+  value: any
+}
+
+export type UnionProps<T extends AllType> = T extends 'ZodUnion' ? {
+  options: UnionOptions[]
+} : {}
+
 export interface PluginComp<T extends AllType = AllType> {
   types: T[]
   is: (modes: string[]) => boolean
-  Component: (props: ControllerProps<TypeMap[T]>) => ReactElement
+  Component: (props: ControllerProps<TypeMap[T]> & UnionProps<T>) => ReactElement
 }
 
 export class Plugin {

@@ -127,3 +127,11 @@ export function getDefaultValue(s: z.Schema) {
 export function useDefaultValue(s: z.Schema) {
   return useMemo(() => getDefaultValue(s), [s._def])
 }
+
+export function containSome(a: string[], b: string[]) {
+  for (const item of a) {
+    if (b.includes(item)) {
+      return true
+    }
+  }
+}

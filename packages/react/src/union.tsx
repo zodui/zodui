@@ -1,11 +1,11 @@
 import z from 'zod'
 import { useMemo } from 'react'
-import { Select, RadioGroup } from 'tdesign-react/esm'
+import { Select } from 'tdesign-react/esm'
 import { ControllerProps } from './controller'
-import { WrapModes } from './configure'
 import { useModes } from './utils'
 
-WrapModes.push('radio-inline')
+import './plugins/common-union'
+import { plgMaster } from './plugins'
 
 export interface UnionProps<T extends z.ZodUnionOptions> extends ControllerProps {
   schema: z.ZodUnion<T>
@@ -35,13 +35,17 @@ export function Union<T extends z.ZodUnionOptions>({
     ...rest
   }
   const modes = useModes(schema)
-  switch (modes[0]) {
-    case 'radio':
-    case 'radio-inline':
-      return <RadioGroup
-        options={options}
-        {...props}
-      />
+
+  const targetPlgs = plgMaster.plgs[schema._def.typeName]
+  for (const { compMatchers } of targetPlgs) {
+    for (const compMatcher of compMatchers) {
+      if (compMatcher.is(modes))
+        return <compMatcher.Component
+          schema={schema}
+          options={options}
+          {...props}
+        />
+    }
   }
   return <Select
     options={options}
