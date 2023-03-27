@@ -172,22 +172,21 @@ export function List({
     }
   }
 
-  const Component = useCallback(({ keys, list, schemasLength }: {
-    keys: string[]
-    list: any[]
-    schemasLength: number
-  }) => {
-    if (isEmpty)
-      return <Button
-        className={`${prefix}-create`}
-        icon='Add'
-        onClick={() => addNewItem()}
-      />
+  if (isEmpty)
+    return <Button
+      className={`${prefix}-create`}
+      icon='Add'
+      onClick={() => addNewItem()}
+    />
 
-    return <>{list?.map((item, index) => {
+  return <div className={
+    prefix
+    + ((list?.length ?? 0) === 0 ? ' empty' : '')
+  }>
+    {list?.map((item, index) => {
       const itemSchema = getSchema(index)
       // fix delete schema flashing
-      if (!itemSchema) return <Fragment key={index}></Fragment>;
+      if (!itemSchema) return <Fragment key={index} />;
 
       const isKeyEditable = KeyEditableTypes.includes(schema._def.typeName)
 
@@ -286,13 +285,6 @@ export function List({
         />
         <Button icon='More' />
       </div>
-    })}</>
-  }, [isEmpty, isMultipleSchema, dictKeys, addNewItem])
-
-  return <div className={
-    prefix
-    + ((list?.length ?? 0) === 0 ? ' empty' : '')
-  }>
-    <Component keys={keys} list={list} schemasLength={schemasLength}/>
+    })}
   </div>
 }
