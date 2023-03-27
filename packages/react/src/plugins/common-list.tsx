@@ -1,9 +1,10 @@
 import { Schema } from 'zod'
-import { DateRangePicker, Slider, TimeRangePicker } from 'tdesign-react/esm'
+import { DateRangePicker, TimeRangePicker } from 'tdesign-react/esm'
 
 import { AllTypes } from '../utils'
 import { plgMaster, Plugin } from './index'
 import { WrapModes } from '../configure'
+import { ControllerRender } from '../components'
 
 WrapModes.push()
 
@@ -34,6 +35,6 @@ plgMaster.register(new Plugin()
       modes,
       schemas: _,
       ...props
-    }) => <Slider range {...props} />]
+    }) => <ControllerRender target='Number.Slider' range {...props} />]
   ])
 )
