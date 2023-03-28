@@ -24,10 +24,7 @@ export function useItemSerter() {
 
   const genRender = useCallback((set: Dispatch<SetStateAction<ReactNode>>) => ({ children, deps = [] }: RenderProps) => {
     // TODO let memo watch chidlren change, or let react manage itself dependencies
-    const memoChildren = useMemo(() => children, [...deps])
-    useEffect(() => {
-      set(memoChildren)
-    }, [memoChildren])
+    useEffect(() => set(children), [...deps])
     return null
   }, [])
 
