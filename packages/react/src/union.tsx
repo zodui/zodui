@@ -12,7 +12,7 @@ import { Schema } from './schema'
 function resolveSchemaList(schemas: z.ZodUnionOptions): UnionOptions[] {
   // TODO resolve not literal type, it not contain value
   return schemas.map((schema, index) => ({
-    label: schema._def.label || schema._def.description || schema._def.value,
+    label: schema._def.label || schema._def.description || schema._def.value || index.toString(),
     title: schema._def.description,
     value: index
   }))
