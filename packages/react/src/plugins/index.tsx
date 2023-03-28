@@ -13,9 +13,8 @@ export interface UnionOptions {
 }
 
 export type UnionProps<T extends AllType> = T extends 'ZodUnion' ? {
-  isSame: boolean
   options: UnionOptions[]
-  OptionRender: () => ReactElement
+  OptionRender: ReactElement
 } : {}
 
 export type ListProps<T extends AllType> = T extends ListType ? {

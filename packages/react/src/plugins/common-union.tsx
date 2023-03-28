@@ -10,7 +10,7 @@ plgMaster.register(new Plugin()
   .addComp([AllTypes.ZodUnion], [
     [
       modes => containSome(modes, ['radio', 'radio-inline', 'button']),
-      ({ modes, options, isSame, OptionRender, ...props }) => <>
+      ({ modes, options, OptionRender, ...props }) => <>
         {!modes?.includes('button')
           ? <RadioGroup
             options={options}
@@ -25,7 +25,7 @@ plgMaster.register(new Plugin()
               {label}
             </Radio.Button>)}
           </RadioGroup>}
-        {!isSame && <OptionRender/>}
+        {OptionRender}
       </>
     ]
   ])

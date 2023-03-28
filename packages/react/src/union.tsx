@@ -1,5 +1,5 @@
 import z from 'zod'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Select } from 'tdesign-react/esm'
 import { Controller, ControllerProps } from './controller'
 import { AllTypes, TypeMap, useModes } from './utils'
@@ -44,14 +44,9 @@ export function Union({
   }
   const modes = useModes(schema)
 
-  const isSame = useMemo(() => {
-    const first = schema.options[0]
-    return schema.options.every(schema => schema._def.typeName === first._def.typeName)
-  }, [schema.options])
-
   const ItemSerter = useItemSerterContext()
 
-  const OptionRender = useCallback(() => <>
+  const OptionRender = <>
     <ItemSerter.Append deps={[schema.options, index]}>
       {/* 在里面控制是因为在 modes 修改后，将 append 内容清空 */}
       {modes.includes('append') && schema.options[index]._def.typeName !== AllTypes.ZodLiteral
@@ -64,7 +59,7 @@ export function Union({
         {...rest}
       />
     </>}
-  </>, [schema.options, index, modes, rest])
+  </>
 
   const targetPlgs = plgMaster.plgs[schema._def.typeName]
   for (const { compMatchers } of targetPlgs) {
@@ -73,7 +68,6 @@ export function Union({
         return <compMatcher.Component
           modes={modes}
           schema={schema}
-          isSame={isSame}
           options={options}
           OptionRender={OptionRender}
           {...props}
@@ -86,6 +80,6 @@ export function Union({
       options={options}
       {...props}
     />
-    {!isSame && <OptionRender/>}
+    {OptionRender}
   </>
 }
