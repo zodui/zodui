@@ -1,5 +1,5 @@
 import z from 'zod'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { Select } from 'tdesign-react/esm'
 import { Controller, ControllerProps } from './controller'
 import { AllTypes, TypeMap, useModes } from './utils'
@@ -39,28 +39,9 @@ export function Union({
     return schema.options.every(schema => schema._def.typeName === first._def.typeName)
   }, [schema.options])
 
-  const targetPlgs = plgMaster.plgs[schema._def.typeName]
-  for (const { compMatchers } of targetPlgs) {
-    for (const compMatcher of compMatchers) {
-      if (compMatcher.is(modes))
-        return <compMatcher.Component
-          schema={schema}
-          options={options}
-          {...props}
-        />
-    }
-  }
-
-  const select = useMemo(() => <Select
-    options={options}
-    {...props}
-  />, [options, props])
-  if (isSame)
-    return select
-
   const ItemSerter = useItemSerterContext()
-  return <>
-    {select}
+
+  const OptionRender = useCallback(() => <>
     <ItemSerter.Append deps={[schema.options, index]}>
       {/* 在里面控制是因为在 modes 修改后，将 append 内容清空 */}
       {modes.includes('append') && schema.options[index]._def.typeName !== AllTypes.ZodLiteral
@@ -73,5 +54,25 @@ export function Union({
         {...rest}
       />
     </>}
+  </>, [schema.options, index, modes, rest])
+
+  const targetPlgs = plgMaster.plgs[schema._def.typeName]
+  for (const { compMatchers } of targetPlgs) {
+    for (const compMatcher of compMatchers) {
+      if (compMatcher.is(modes))
+        return <compMatcher.Component
+          schema={schema}
+          options={options}
+          {...props}
+        />
+    }
+  }
+
+  return <>
+    <Select
+      options={options}
+      {...props}
+    />
+    {!isSame && <OptionRender/>}
   </>
 }
