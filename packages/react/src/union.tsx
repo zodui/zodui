@@ -6,6 +6,8 @@ import { AllTypes, TypeMap, useModes } from './utils'
 
 import './plugins/common-union'
 import { plgMaster, UnionOptions } from './plugins'
+import { useItemSerterContext } from './item-serter'
+import { Schema } from './schema'
 
 function resolveSchemaList(schemas: z.ZodUnionOptions): UnionOptions[] {
   // TODO resolve not literal type, it not contain value
@@ -56,9 +58,15 @@ export function Union({
   if (isSame)
     return select
 
+  const ItemSerter = useItemSerterContext()
   return <>
     {select}
-    {schema.options[index]._def.typeName !== AllTypes.ZodLiteral && <>
+    <ItemSerter.Append deps={[schema.options, index]}>
+      {/* 在里面控制是因为在 modes 修改后，将 append 内容清空 */}
+      {modes.includes('append') && schema.options[index]._def.typeName !== AllTypes.ZodLiteral
+        && <Schema model={schema.options[index]} />}
+    </ItemSerter.Append>
+    {!modes.includes('append') && schema.options[index]._def.typeName !== AllTypes.ZodLiteral && <>
       <br/>
       <Controller
         schema={schema.options[index]}
