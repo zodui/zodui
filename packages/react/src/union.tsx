@@ -1,5 +1,5 @@
 import z from 'zod'
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Select } from 'tdesign-react/esm'
 import { Controller, ControllerProps } from './controller'
 import { AllTypes, TypeMap, useModes } from './utils'
@@ -20,13 +20,23 @@ function resolveSchemaList(schemas: z.ZodUnionOptions): UnionOptions[] {
 
 export function Union({
   schema,
+  value,
+  defaultValue,
   ...rest
 }: ControllerProps<TypeMap['ZodUnion']>) {
   const options = useMemo(() => resolveSchemaList(schema.options), [schema.options])
   const [index, setIndex] = useState<number>(0)
+  useEffect(() => {
+    const v = value ?? defaultValue
+    const index = schema.options.findIndex(schema => schema._def.value === v)
+    if (index === -1) return
+
+    setIndex(index)
+  }, [value, defaultValue])
   const props = {
     title: schema._def.description,
     ...rest,
+    value: index,
     onChange(v: any) {
       setIndex(v)
       rest.onChange?.(schema.options[v]._def.value)
