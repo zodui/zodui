@@ -13,7 +13,9 @@ export interface UnionOptions {
 }
 
 export type UnionProps<T extends AllType> = T extends 'ZodUnion' ? {
+  isSame: boolean
   options: UnionOptions[]
+  OptionRender: () => ReactElement
 } : {}
 
 export type ListProps<T extends AllType> = T extends ListType ? {
@@ -45,10 +47,10 @@ export class Plugin {
   ) {
     array
       .forEach(([is, Component]) => this.compMatchers.push({
-        // @ts-ignore
+        // @ts-ignore FIXME
         is,
         types,
-        // @ts-ignore
+        // @ts-ignore FIXME
         Component
       }))
     return this

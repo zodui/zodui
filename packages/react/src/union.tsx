@@ -61,8 +61,11 @@ export function Union({
     for (const compMatcher of compMatchers) {
       if (compMatcher.is(modes))
         return <compMatcher.Component
+          modes={modes}
           schema={schema}
+          isSame={isSame}
           options={options}
+          OptionRender={OptionRender}
           {...props}
         />
     }
