@@ -1,11 +1,11 @@
 import './schema.scss'
-import z, { ZodFirstPartyTypeKind } from 'zod'
+import type { Schema as ZodSchema } from 'zod'
 
 import { Item } from './item'
-import { isWhatType } from './utils'
+import { AllTypes, isWhatType } from './utils'
 
 export interface SchemaProps {
-  model: z.Schema
+  model: ZodSchema
   disabled?: boolean
 }
 
@@ -17,7 +17,7 @@ export function Schema(props: SchemaProps) {
     disabled
   } = props
 
-  if (!isWhatType(model, ZodFirstPartyTypeKind.ZodObject)) {
+  if (!isWhatType(model, AllTypes.ZodObject)) {
     return <Item
       label={model._label || model._def.description || model.type}
       schema={model}
