@@ -110,7 +110,6 @@ export function List({
       isWhatType(schema, AllTypes.ZodSet)
       || isWhatType(schema, AllTypes.ZodRecord)
       || isWhatType(schema, AllTypes.ZodMap)
-      || isWhatType(schema, AllTypes.ZodArray)
     ) {
       return Array.from({ length: schemasLength }).map((_, i) => getSchema(i))
     }
