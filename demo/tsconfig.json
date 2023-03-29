@@ -11,7 +11,9 @@
     }
   },
   "include": [
-    "src", "vite.config.ts",
+    "src",
+    "public/monaco",
+    "vite.config.ts",
     "../packages/react/src",
     "../packages/vue/src"
   ]

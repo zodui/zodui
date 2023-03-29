@@ -105,10 +105,6 @@
         }, tmpl)
         return div.children[0]
       }
-      /**
-       * copy content to clipboard
-       * @param {string} content
-       */
       window.copyToClipboard = function (content) {
         const input = document.createElement('input')
         input.value = content
@@ -117,19 +113,9 @@
         document.execCommand('copy')
         document.body.removeChild(input)
       }
-      /**
-       * base64 encode and decode
-       * @param {string} str
-       * @param {boolean} isDecode
-       */
       window.base64 = function (str, isDecode = true) {
         return isDecode ? decodeURIComponent(atob(str)) : btoa(encodeURIComponent(str))
       }
-      /**
-       * throttle
-       * @param {Function} fn
-       * @param {number} delay
-       */
       window.throttle = function (fn, delay) {
         let timer = null
         return function (...args) {
@@ -140,11 +126,6 @@
           }, delay)
         }
       }
-      /**
-       * debounce
-       * @param {Function} fn
-       * @param {number} delay
-       */
       window.debounce = function (fn, delay) {
         let timer = null
         return function (...args) {
@@ -184,158 +165,10 @@
     })()
   </script>
 
-  <script data-name="monaco">
-    /**
-     * @type {monaco.editor.IStandaloneCodeEditor}
-     */
-    let editor
-    const changeListeners = []
-    window.onCodeChange = function (fn) {
-      // TODO refactor as import maps
-      const nfn = s => fn(`${s}
-;(window?.____DEFAULT_EXPORT_VALUE____)`
-        .replace('export default ', 'window.____DEFAULT_EXPORT_VALUE____ = ')
-        .replace(/import ([\s\S]*) from 'zod'/g, 'var $1 = window.z')
-        .replace(/\* as/g, '')
-        .replace(/import ([\s\S]*) from .*/g, ''))
-      changeListeners.push(nfn)
-      nfn(editor?.getValue())
-      const index = changeListeners.length - 1
-      return () => {
-        if (index > -1) changeListeners.splice(index, 1)
-      }
-    }
-    /**
-     * @param {string} s
-     */
-    function updateCode(s) {
-      changeListeners.forEach((fn) => fn(s))
-    }
-    window.addEventListener('load', function () {
-      function setCodeByUrl() {
-        const hash = location.hash.slice(1)
-        const code = hash ? base64(hash) : `
-import * as z from 'zod'
-
-export default z.object({
-  foo: z.string()
-})
-`.trim()
-        editor.setValue(code)
-        updateCode(code)
-      }
-
-      // watch hash change
-      window.addEventListener('hashchange', setCodeByUrl)
-      // add custom dts
-      /** @type {{
-       content: string;
-       filePath: string;
-      }[]} */
-      const zodDtsFile = <%- ZOD_DTS_FILES %>;
-      monaco.languages.typescript.typescriptDefaults.setExtraLibs(zodDtsFile)
-      monaco.languages.typescript.typescriptDefaults.addExtraLib(`import z, { Schema, ZodDefaultDef, ZodFirstPartyTypeKind, ZodObject, ZodType, ZodTypeAny } from 'zod'
-
-export interface ModesMap {
-  [ZodFirstPartyTypeKind.ZodNumber]:
-    | 'slider'
-    | 'rate'
-  [ZodFirstPartyTypeKind.ZodString]:
-    | 'textarea'
-    | 'link'
-    | 'secrets'
-    | 'date'
-    | 'datetime'
-    | 'time'
-    | 'panel'
-  [ZodFirstPartyTypeKind.ZodBoolean]:
-    | 'checkbox'
-  [ZodFirstPartyTypeKind.ZodDate]:
-    | 'datetime'
-    | 'time'
-    | 'panel'
-  [ZodFirstPartyTypeKind.ZodTuple]:
-    | 'range'
-    | 'slider'
-    | 'no-range'
-    | 'no-slider'
-    | 'datetime'
-    | 'time'
-    | 'panel'
-}
-
-declare module 'zod' {
-  export interface ZodTypeDef {
-    mode: string
-    label: string
-  }
-  export interface ZodType<Output = any, Def extends ZodTypeDef = ZodTypeDef, Input = Output> {
-    readonly _mode: string
-    mode<T extends string>(
-      mode:
-        | Def extends ZodDefaultDef<infer InnerT>
-          ? ModesMap[InnerT['_def']['typeName']]
-          : ModesMap[Def['typeName']]
-        | (string & {})
-    ): ZodType<Output, Def, Input>
-
-    readonly _label: string
-    label(mode: string): ZodType<Output, Def, Input>
-
-    readonly type: string
-  }
-  export function clazz<T>(clazz: { new(): T }): Schema<T>
-  export function asObejct<T extends any>(t: T): ZodObject<Record<string, ZodTypeAny> & T>
-}`, 'file:///env.d.ts')
-      editor = monaco.editor.create(document.getElementById('container'), {
-        // theme: 'vs-dark',
-        value: '',
-        language: 'typescript',
-        tabIndex: 2,
-        model: monaco.editor.createModel('', 'typescript', monaco.Uri.parse('file:///main.ts')),
-      })
-
-      setCodeByUrl()
-      const historyCodes = []
-      let historyIndex = -1
-      // watch editor value change
-      editor.onDidChangeModelContent(debounce(function () {
-        updateCode(editor.getValue())
-      }, 1500))
-      editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
-        const code = editor.getValue()
-        updateCode(code)
-        // save code to hash
-        location.hash = `#${base64(code, false)}`
-        // copy url to clipboard
-        copyToClipboard(location.href)
-        showMessage('<h3 style="margin: 0">url copied to clipboard, share it with your friends!</h3>')
-      })
-      editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.UpArrow, function () {
-        if (historyIndex === -1) {
-          historyIndex = historyCodes.length - 1
-        } else {
-          historyIndex--
-        }
-        if (historyIndex < 0) {
-          historyIndex = 0
-        }
-        editor.setValue(historyCodes[historyIndex].code)
-      })
-      editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.DownArrow, function () {
-        if (historyIndex === -1) {
-          historyIndex = historyCodes.length - 1
-        } else {
-          historyIndex++
-        }
-        if (historyIndex >= historyCodes.length) {
-          historyIndex = historyCodes.length - 1
-        }
-        editor.setValue(historyCodes[historyIndex].code)
-      })
-      editor.focus()
-    })
+  <script>
+    const ZOD_DTS_FILES = <%- ZOD_DTS_FILES %>;
   </script>
+  <script data-name="monaco" type="module" src="/src/monaco.ts"></script>
 </head>
 <body>
 <div class='header'>
