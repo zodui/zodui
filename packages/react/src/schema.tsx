@@ -25,7 +25,6 @@ export function Schema(props: SchemaProps) {
     />
   }
 
-  // TODO resolve object lbale
   return <>
     <div className={`${prefix}__header`}>
       {props.model._def.label && <h3 className={`${prefix}__label`}>
