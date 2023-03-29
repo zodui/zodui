@@ -21,6 +21,8 @@ export function Schema(props: SchemaProps) {
       disabled={disabled}
     />
   }
+
+  // TODO resolve object lbale
   return <>
     {Object.entries(model._def.shape()).map(([key, value]) => <Item
       key={key}

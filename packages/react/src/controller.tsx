@@ -29,6 +29,8 @@ export function Controller(props: ControllerProps) {
       defaultValue={defaultValue}
     />
   }
+
+  // TODO support literal type display
   return primitive.includes(props.schema.type)
     // TODO resolve any as right type
     ? <Primitive {...props as any} />
