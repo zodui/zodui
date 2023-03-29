@@ -150,8 +150,6 @@ export function List({
     return type === 'append' ? l.concat(t) : t.concat(l)
   }), [getSchema])
 
-  const isEmpty = useMemo(() => (list?.length ?? 0) === 0, [list?.length])
-
   const errorHandler = useErrorHandlerContext()
   if (schemas.length === 0 && schema._def.typeName === AllTypes.ZodTuple) {
     return errorHandler.throwError(new Error('Tuple 类型必须包含一个元素'))
@@ -171,17 +169,15 @@ export function List({
     }
   }
 
-  if (isEmpty)
-    return <Button
-      className={`${prefix}-create`}
-      icon='Add'
-      onClick={() => addNewItem()}
-    />
-
   return <div className={
     prefix
     + ((list?.length ?? 0) === 0 ? ' empty' : '')
   }>
+    {(list?.length ?? 0) === 0 && <Button
+      className={`${prefix}-create`}
+      icon='Add'
+      onClick={() => addNewItem()}
+    />}
     {list?.map((item, index) => {
       const itemSchema = getSchema(index)
       // fix delete schema flashing
