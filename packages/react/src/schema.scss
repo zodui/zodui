@@ -1,0 +1,13 @@
+.zodui-schema {
+  &__header {
+    padding: 5px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
+  }
+  &__label {
+    margin: 8px 0;
+  }
+  &__desc {
+    font-size: 14px;
+    color: var(--td-text-color-placeholder);
+  }
+}
