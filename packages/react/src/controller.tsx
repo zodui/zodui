@@ -36,5 +36,5 @@ export function Controller(props: ControllerProps) {
     ? <Union {...props as any} />
     : ['array', 'tuple', 'record', 'dict', 'object'].includes(props.schema.type)
     ? <List {...props as any} />
-    : <>暂未支持的的类型 <code>{props.schema.type}</code></>
+    : <span style={{ width: '100%' }}>暂未支持的的类型 <code>{props.schema.type}</code></span>
 }
