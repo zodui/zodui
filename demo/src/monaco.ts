@@ -1,3 +1,13 @@
+const DEFAULT_CODE = `import * as z from 'zod'
+
+export default z
+  .object({
+    foo: z.string()
+  })
+  .label('Object')
+  .describe('This is a Object Configuration')
+`
+
 let editor: monaco.editor.IStandaloneCodeEditor
 const changeListeners: Function[] = []
 window.onCodeChange = function (fn) {
@@ -21,13 +31,7 @@ function updateCode(s: string) {
 window.addEventListener('load', function () {
   function setCodeByUrl() {
     const hash = location.hash.slice(1)
-    const code = hash ? base64(hash) : `
-import * as z from 'zod'
-
-export default z.object({
-  foo: z.string()
-})
-`.trim()
+    const code = hash ? base64(hash) : DEFAULT_CODE
     editor.setValue(code)
     updateCode(code)
   }
@@ -93,7 +97,7 @@ declare module 'zod' {
     // theme: 'vs-dark',
     value: '',
     language: 'typescript',
-    tabIndex: 2,
+    tabSize: 2,
     model: monaco.editor.createModel('', 'typescript', monaco.Uri.parse('file:///main.ts')),
   })
 
