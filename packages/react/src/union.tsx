@@ -1,7 +1,7 @@
 import z from 'zod'
 import { useEffect, useMemo, useState } from 'react'
 import { Select } from 'tdesign-react/esm'
-import { Controller, ControllerProps } from './controller'
+import { Controller, ControllerProps } from './controllers'
 import { AllTypes, TypeMap, useModes } from './utils'
 
 import './plugins/common-union'

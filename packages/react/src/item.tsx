@@ -5,7 +5,7 @@ import React, { useEffect, useMemo } from 'react'
 
 import { WrapModes } from './configure'
 import { getModes } from './utils'
-import { Controller } from './controller'
+import { Controller } from './controllers'
 import { Button } from './components'
 import { useErrorHandler } from './error-handler'
 import { useItemSerter } from './item-serter'

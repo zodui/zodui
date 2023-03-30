@@ -12,7 +12,7 @@ import {
 } from 'zod'
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 
-import { Controller, ControllerProps } from './controller'
+import { Controller, ControllerProps } from './controllers'
 import { AllTypes, getDefaultValue, isWhatType, TypeMap, useModes } from './utils'
 import { KeyEditableTypes, MultipleSchemas } from './configure'
 import { Icon, Button, Input } from './components'

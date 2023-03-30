@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 
-import { ControllerProps } from '../controller'
+import { ControllerProps } from '../controllers'
 import { AllType, AllTypes, TypeMap } from '../utils'
 import { ModesMap } from '../zod.external'
 
