@@ -43,7 +43,7 @@ export function Schema(props: SchemaProps) {
       {props.model._def.description
         && <pre
           className={`${prefix}__desc inline-md`}
-          dangerouslySetInnerHTML={{ __html: inlineMarkdown(props.model._def.description.trim()) }}
+          dangerouslySetInnerHTML={{ __html: inlineMarkdown(props.model._def.description) }}
         />}
     </div>
     {Object.entries(model._def.shape()).map(([key, value]) => <Item
