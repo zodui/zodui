@@ -12,14 +12,14 @@ import {
 } from 'zod'
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 
-import { Controller, ControllerProps } from './controllers'
-import { AllTypes, getDefaultValue, isWhatType, TypeMap, useModes } from './utils'
-import { KeyEditableTypes, MultipleSchemas } from './configure'
-import { Icon, Button, Input } from './components'
-import { plgMaster } from './plugins'
+import { Controller, ControllerProps } from './index'
+import { AllTypes, getDefaultValue, isWhatType, TypeMap, useModes } from '../utils'
+import { KeyEditableTypes, MultipleSchemas } from '../configure'
+import { Icon, Button, Input } from '../components'
+import { plgMaster } from '../plugins'
 
-import './plugins/common-list'
-import { useErrorHandlerContext } from './error-handler'
+import '../plugins/common-list'
+import { useErrorHandlerContext } from '../error-handler'
 
 const prefix = 'zodui-item__control-list'
 

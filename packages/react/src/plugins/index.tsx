@@ -4,7 +4,7 @@ import { ControllerProps } from '../controllers'
 import { AllType, AllTypes, TypeMap } from '../utils'
 import { ModesMap } from '../zod.external'
 
-import { ListType } from '../list'
+import { ListType } from '../controllers/list'
 
 export interface UnionOptions {
   label: string

@@ -5,12 +5,12 @@ import {
   TimePicker
 } from 'tdesign-react/esm'
 import { useEffect, useState } from 'react'
-import { ControllerProps } from './controllers'
-import { useModes, TypeMap } from './utils'
-import { Icon, Input } from './components'
+import { ControllerProps } from './index'
+import { useModes, TypeMap } from '../utils'
+import { Icon, Input } from '../components'
 
-import './plugins/common-primitive'
-import { plgMaster } from './plugins'
+import '../plugins/common-primitive'
+import { plgMaster } from '../plugins'
 
 export const primitive = [
   'string',

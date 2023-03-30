@@ -1,8 +1,8 @@
 import { Schema } from 'zod'
-import { Primitive, primitive } from '../primitive'
+import { Primitive, primitive } from './primitive'
 import { AllTypes, isWhatType, useDefaultValue } from '../utils'
-import { Union } from '../union'
-import { List } from '../list'
+import { Union } from './union'
+import { List } from './list'
 
 export interface ControllerProps<T extends Schema = Schema> {
   schema: T
