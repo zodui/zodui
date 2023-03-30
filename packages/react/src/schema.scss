@@ -2,6 +2,9 @@
   &__header {
     padding: 6px 0 6px 14px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    &:empty {
+      display: none;
+    }
   }
   &__label {
     margin: 0;
