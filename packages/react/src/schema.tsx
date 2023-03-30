@@ -17,6 +17,16 @@ export function Schema(props: SchemaProps) {
     disabled
   } = props
 
+  if (isWhatType(model, AllTypes.ZodIntersection)) {
+    return <>
+      <Schema disabled={disabled}
+              model={model._def.left}
+      />
+      <Schema disabled={disabled}
+              model={model._def.right}
+      />
+    </>
+  }
   if (!isWhatType(model, AllTypes.ZodObject)) {
     return <Item
       label={model._label || model._def.description || model.type}
@@ -25,13 +35,13 @@ export function Schema(props: SchemaProps) {
     />
   }
 
-  return <>
+  return <div className={prefix}>
     <div className={`${prefix}__header`}>
-      {props.model._def.label && <h3 className={`${prefix}__label`}>
+      {props.model._def.label && <h2 className={`${prefix}__label`}>
         {props.model._def.label}
-      </h3>}
+      </h2>}
       {props.model._def.description
-        && <div className={`${prefix}__desc`}>{props.model._def.description}</div>}
+        && <pre className={`${prefix}__desc`}>{props.model._def.description}</pre>}
     </div>
     {Object.entries(model._def.shape()).map(([key, value]) => <Item
       key={key}
@@ -39,7 +49,7 @@ export function Schema(props: SchemaProps) {
       schema={value}
       disabled={disabled}
     />)}
-  </>
+  </div>
 }
 
 Schema.Item = Item
