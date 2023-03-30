@@ -4,7 +4,7 @@ import {
   SVGAttributes,
   ReactElement
 } from 'react'
-import { useErrorHandlerContext } from '../error-handler'
+import { useErrorHandlerContext } from '../contexts/error-handler'
 
 export {
   Input,

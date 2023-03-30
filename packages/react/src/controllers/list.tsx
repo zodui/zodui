@@ -19,7 +19,7 @@ import { Icon, Button, Input } from '../components'
 import { plgMaster } from '../plugins'
 
 import '../plugins/common-list'
-import { useErrorHandlerContext } from '../error-handler'
+import { useErrorHandlerContext } from '../contexts/error-handler'
 
 const prefix = 'zodui-item__control-list'
 

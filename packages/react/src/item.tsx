@@ -7,8 +7,8 @@ import { WrapModes } from './configure'
 import { getModes } from './utils'
 import { Controller } from './controllers'
 import { Button } from './components'
-import { useErrorHandler } from './error-handler'
-import { useItemSerter } from './item-serter'
+import { useErrorHandler } from './contexts/error-handler'
+import { useItemSerter } from './contexts/item-serter'
 
 export interface ItemProps {
   label: string
