@@ -135,3 +135,13 @@ export function containSome(a: string[], b: string[]) {
     }
   }
 }
+
+export function inlineMarkdown(md: string) {
+  return md
+    .replace(/\[([^\]]+)]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>')
+    .replace(/`([^`]+)`/g, '<code>$1</code')
+    .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*([^*]+)\*/g, '<em>$1</em>')
+    .replace(/~~([^~]+)~~/g, '<del>$1</del>')
+    .replace(/\n/g, '<br />')
+}

@@ -2,7 +2,7 @@ import './schema.scss'
 import type { Schema as ZodSchema } from 'zod'
 
 import { Item } from './item'
-import { AllTypes, isWhatType } from './utils'
+import { AllTypes, inlineMarkdown, isWhatType } from './utils'
 
 export interface SchemaProps {
   model: ZodSchema
@@ -41,7 +41,10 @@ export function Schema(props: SchemaProps) {
         {props.model._def.label}
       </h2>}
       {props.model._def.description
-        && <pre className={`${prefix}__desc`}>{props.model._def.description}</pre>}
+        && <pre
+          className={`${prefix}__desc inline-md`}
+          dangerouslySetInnerHTML={{ __html: inlineMarkdown(props.model._def.description.trim()) }}
+        />}
     </div>
     {Object.entries(model._def.shape()).map(([key, value]) => <Item
       key={key}

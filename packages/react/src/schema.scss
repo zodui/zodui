@@ -12,4 +12,17 @@
     font-size: 14px;
     color: var(--td-text-color-placeholder);
   }
+  .inline-md {
+    line-height: 22px;
+    code {
+      margin: 0 5px 0 -3px;
+      padding: 1px 3px;
+      font-size: 14px;
+      border-radius: 4px;
+      background-color: var(--td-bg-color-component);
+    }
+    a {
+      text-decoration: none;
+    }
+  }
 }
