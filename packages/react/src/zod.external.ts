@@ -1,6 +1,7 @@
 import { ZodDefaultDef, ZodFirstPartyTypeKind, ZodType, ZodTypeAny } from 'zod'
+import { AllTypes } from './utils'
 
-export interface ModesMap {
+export interface ModesMap extends Record<AllTypes, string> {
   [ZodFirstPartyTypeKind.ZodNumber]:
     | 'slider'
     | 'rate'
@@ -18,6 +19,11 @@ export interface ModesMap {
     | 'datetime'
     | 'time'
     | 'panel'
+  [ZodFirstPartyTypeKind.ZodUnion]:
+    | 'append'
+    | 'radio'
+    | 'radio-inline'
+    | 'button'
   [ZodFirstPartyTypeKind.ZodTuple]:
     | 'range'
     | 'slider'
@@ -49,7 +55,27 @@ declare module 'zod' {
 
     readonly type: string
   }
+  // export function clazz<T>(clazz: { new(): T }): Schema<T>
+  // export function asObejct<T extends any>(t: T): ZodObject<Record<string, ZodTypeAny> & T>
 }
+
+// function addExport(key: string, declare: any) {
+//   try {
+//     // let z enable to define
+//     !Object.hasOwn(z, key)
+//       && Object.defineProperty(z, key, {
+//         get() {
+//           return declare
+//         }
+//       })
+//   } catch (e) {
+//     console.error(e)
+//   }
+// }
+//
+// addExport('clazz', (clazz: { new(): any }) => {
+//   return z.object(new clazz())
+// })
 
 function defineMetaField(key: string) {
   try {
