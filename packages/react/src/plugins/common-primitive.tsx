@@ -1,6 +1,6 @@
 import { AllTypes } from '../utils'
 import { plgMaster, Plugin } from './index'
-import { ControllerRender } from '../components'
+import { ControllerRender, Input } from '../components'
 import { WrapModes } from '../configure'
 
 WrapModes.push('textarea', 'panel')
@@ -10,12 +10,20 @@ plgMaster.register(new Plugin()
     [
       modes => modes.includes('slider'),
       props => <ControllerRender target='Number.Slider' {...props} />
+    ],
+    [
+      modes => modes.includes('split'),
+      props => <Input type='number' mode='split' {...props} />
     ]
   ])
   .addComp([AllTypes.ZodString], [
     [
       modes => modes.includes('textarea'),
       props => <ControllerRender target='String.TextArea' {...props} />
+    ],
+    [
+      modes => modes.includes('secret'),
+      props => <Input type='password' {...props} />
     ]
   ])
 )

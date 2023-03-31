@@ -1,6 +1,6 @@
 import {
   DatePicker, DatePickerPanel, TimePickerPanel,
-  InputAdornment, InputNumber,
+  InputAdornment,
   Switch,
   TimePicker
 } from 'tdesign-react/esm'
@@ -54,14 +54,9 @@ export function Primitive({
   }
   switch (schema._def.typeName) {
     case 'ZodNumber':
-      return <InputNumber {...props} />
+      return <Input type='number' {...props} />
     case 'ZodString':
       switch (true) {
-        case modes.includes('secret'):
-          return <Input
-            type='password'
-            {...props}
-          />
         case modes.includes('link'):
           return <InputAdornment
             append={<div

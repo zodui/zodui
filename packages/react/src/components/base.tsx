@@ -27,7 +27,12 @@ export namespace BaseCompProps {
     value?: T
     defaultValue?: T
     onChange?: (v: T) => void
-  }
+  } & ({
+    mode?: string
+  } | {
+    type?: 'number'
+    mode?: 'split'
+  })
   export type Button = ButtonHTMLAttributes<HTMLButtonElement> & BaseProps & {
     icon?: ZElement
     theme?: 'error' | 'warning' | 'success' | 'info'

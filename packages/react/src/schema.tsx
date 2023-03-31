@@ -29,7 +29,7 @@ export function Schema(props: SchemaProps) {
   }
   if (!isWhatType(model, AllTypes.ZodObject)) {
     return <Item
-      label={model._label || model._def.description || model.type}
+      label={model._label || model._def?.description || model.type}
       schema={model}
       disabled={disabled}
     />

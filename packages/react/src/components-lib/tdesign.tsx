@@ -10,7 +10,7 @@ import {
   MoreIcon,
   RollbackIcon
 } from 'tdesign-icons-react'
-import { Button, Slider, Select, Input, Textarea } from 'tdesign-react/esm'
+import { Button, Slider, Select, Input, InputNumber, Textarea } from 'tdesign-react/esm'
 
 import { registerController, registerIcon } from '../components'
 import { registerBaseComp } from '../components/base'
@@ -41,6 +41,7 @@ initComponents: {
   }
   registerBaseComp('Input', ({
     type,
+    mode,
     value,
     defaultValue,
     onChange,
@@ -48,6 +49,15 @@ initComponents: {
   }) => {
     if (isTargetType(type, ['email', 'tel', 'url', 'search'])) {
       return <>Not support type {type}</>
+    }
+    if (type === 'number' && mode === 'split') {
+      const parseNumberValue = (t: any) => t !== undefined ? +t : undefined
+      // TODO resolve NAN, Infinity, -Infinity
+      return <InputNumber
+        value={parseNumberValue(value)}
+        defaultValue={parseNumberValue(defaultValue)}
+        onChange={onChange as any}
+      />
     }
     return <Input
       type={type}
