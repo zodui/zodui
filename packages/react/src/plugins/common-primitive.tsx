@@ -19,7 +19,7 @@ declare module '@zodui/react' {
 WrapModes.push('textarea', 'panel')
 
 plgMaster.register(new Plugin()
-  .addComp([AllTypes.ZodNumber], [
+  .addSubController([AllTypes.ZodNumber], [
     [
       modes => modes.includes('slider'),
       props => <ControllerRender target='Number.Slider' {...props} />
@@ -29,7 +29,7 @@ plgMaster.register(new Plugin()
       props => <Input type='number' mode='split' {...props} />
     ]
   ])
-  .addComp([AllTypes.ZodString], [
+  .addSubController([AllTypes.ZodString], [
     [
       modes => modes.includes('textarea'),
       props => <ControllerRender target='String.TextArea' {...props} />
@@ -63,7 +63,7 @@ plgMaster.register(new Plugin()
       </InputAdornment>
     ]
   ])
-  .addComp([AllTypes.ZodDate], [
+  .addSubController([AllTypes.ZodDate], [
     [
       modes => modes.includes('datetime') || modes.includes('time') || modes.includes('date'),
       ({ modes, ...props }) => <ControllerRender

@@ -28,7 +28,7 @@ function isEqual(schemas: Schema[], types: AllTypes[]) {
 }
 
 plgMaster.register(new Plugin()
-  .addComp([AllTypes.ZodTuple], [
+  .addSubController([AllTypes.ZodTuple], [
     [(modes, { schemas }) =>!modes.includes('no-range') && isEqual(schemas, [AllTypes.ZodDate, AllTypes.ZodDate]), ({
       modes,
       schemas: _,

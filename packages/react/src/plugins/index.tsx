@@ -20,7 +20,7 @@ export type ListIsOptions<T extends AllType> = T extends ListType ? {
   schemas: TypeMap[AllType][]
 } : {}
 
-export interface PluginComp<T extends AllType = AllType> {
+export interface ComponentMatcher<T extends AllType = AllType> {
   types: T[]
   is: (modes: string[], options?: & {}
                                   & ListIsOptions<T>
@@ -34,13 +34,13 @@ export interface PluginComp<T extends AllType = AllType> {
 }
 
 export class Plugin {
-  compMatchers: PluginComp[] = []
-  addComp<T extends AllType, C extends PluginComp<T> = PluginComp<T>>(
+  componentMatchers: ComponentMatcher[] = []
+  addSubController<T extends AllType, C extends ComponentMatcher<T> = ComponentMatcher<T>>(
     types: C['types'],
     array: [C['is'], C['Component']][]
   ) {
     array
-      .forEach(([is, Component]) => this.compMatchers.push({
+      .forEach(([is, Component]) => this.componentMatchers.push({
         // @ts-ignore FIXME
         is,
         types,
@@ -57,7 +57,7 @@ export class PlgMaster {
       ...acc, [key]: [],
     }), {} as Record<AllType, Plugin[]>)
   register(plg: Plugin) {
-    plg.compMatchers.forEach((comp) => {
+    plg.componentMatchers.forEach((comp) => {
       comp.types.forEach((type) => {
         this.plgs[type].push(plg as any)
       })

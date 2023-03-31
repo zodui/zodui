@@ -156,8 +156,8 @@ export function List({
   }
 
   const targetPlgs = plgMaster.plgs[schema._def.typeName]
-  for (const { compMatchers } of targetPlgs) {
-    for (const compMatcher of compMatchers) {
+  for (const { componentMatchers } of targetPlgs) {
+    for (const compMatcher of componentMatchers) {
       if (compMatcher.is(modes, { schemas }))
         return <compMatcher.Component
           {...props}

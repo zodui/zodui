@@ -8,7 +8,7 @@ import { WrapModes } from '../configure'
 WrapModes.push('radio-inline', 'button')
 
 plgMaster.register(new Plugin()
-  .addComp([AllTypes.ZodUnion], [
+  .addSubController([AllTypes.ZodUnion], [
     [
       modes => containSome(modes, ['radio', 'radio-inline', 'button']),
       ({ modes, options, OptionRender, ...props }) => <>
