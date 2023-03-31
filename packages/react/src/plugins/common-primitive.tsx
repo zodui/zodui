@@ -3,6 +3,7 @@ import { plgMaster, Plugin } from './index'
 import { Icon, Input, InputAdornment } from '../components'
 import { ControllerRender } from '../controllers'
 import { WrapModes } from '../configure'
+import { DatePicker, DatePickerPanel, TimePicker, TimePickerPanel } from 'tdesign-react/esm'
 
 WrapModes.push('textarea', 'panel')
 
@@ -49,6 +50,26 @@ plgMaster.register(new Plugin()
       >
         <Input {...props}/>
       </InputAdornment>
+    ]
+  ])
+  .addComp([AllTypes.ZodDate], [
+    [
+      modes => modes.includes('time'),
+      ({ modes, ...props }) => modes.includes('panel')
+        ? <TimePickerPanel onChange={() => {}} {...props} />
+        : <TimePicker {...props} />
+    ],
+    [
+      modes => modes.includes('date'),
+      ({ modes, ...props }) => {
+        const nProps = {
+          ...props,
+          enableTimePicker: modes.includes('datetime')
+        }
+        if (modes.includes('panel'))
+          return <DatePickerPanel {...nProps} />
+        return <DatePicker {...nProps} />
+      }
     ]
   ])
 )

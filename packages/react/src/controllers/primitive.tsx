@@ -1,7 +1,3 @@
-import {
-  DatePicker, DatePickerPanel, TimePickerPanel,
-  TimePicker
-} from 'tdesign-react/esm'
 import { useEffect, useState } from 'react'
 import { ControllerProps } from './index'
 import { useModes, TypeMap } from '../utils'
@@ -47,34 +43,18 @@ export function Primitive({
   for (const { compMatchers } of targetPlgs) {
     for (const compMatcher of compMatchers) {
       if (compMatcher.is(modes))
-        return <compMatcher.Component schema={schema} {...props} />
+        return <compMatcher.Component modes={modes} schema={schema} {...props} />
     }
   }
   switch (schema._def.typeName) {
     case 'ZodNumber':
       return <Input type='number' {...props} />
     case 'ZodString':
-      return <Input {...props}/>
+      return <Input {...props} />
     case 'ZodDate':
-      switch (true) {
-        case modes.includes('time'):
-          if (modes.includes('panel'))
-            return <TimePickerPanel {...props}/>
-          return <TimePicker
-            {...props}
-          />
-      }
-      const nProps = {
-        ...props,
-        enableTimePicker: modes.includes('datetime')
-      }
-      if (modes.includes('panel'))
-        return <DatePickerPanel {...nProps}/>
-      return <DatePicker {...nProps}/>
+      return <Input {...props} />
     case 'ZodBoolean':
-      return <Switch
-        {...props}
-      />
+      return <Switch {...props} />
   }
   return <></>
 }
