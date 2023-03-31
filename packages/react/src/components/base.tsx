@@ -18,8 +18,7 @@ export namespace BaseCompProps {
   export type InputValue = string | number | undefined
   export type Input<T extends InputValue = string> =
     & BaseProps
-    & Omit<
-      InputHTMLAttributes<HTMLInputElement>,
+    & Omit<InputHTMLAttributes<HTMLInputElement>,
       | 'size'
       | 'type'
       | 'value'
@@ -30,8 +29,7 @@ export namespace BaseCompProps {
       | 'onFocus'
       | 'onClick'
       | 'onPaste'
-      | 'onWheel'
-    >
+      | 'onWheel'>
     & {
       type?: 'text' | 'password' | 'number' | 'email' | 'tel' | 'url' | 'search'
       value?: T
@@ -71,8 +69,7 @@ export namespace BaseCompProps {
   // TODO support multiple select
   export type Select<T extends SelectValue> =
     & BaseProps
-    & Omit<
-      SelectHTMLAttributes<HTMLSelectElement>,
+    & Omit<SelectHTMLAttributes<HTMLSelectElement>,
       | 'size'
       | 'value'
       | 'defaultValue'
@@ -84,8 +81,7 @@ export namespace BaseCompProps {
       | 'onFocus'
       | 'onClick'
       | 'onPaste'
-      | 'onWheel'
-    >
+      | 'onWheel'>
     & {
       options?: SelectOptions[]
       value?: T
