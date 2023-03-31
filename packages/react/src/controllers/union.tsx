@@ -7,7 +7,8 @@ import '../plugins/common-union'
 import { plgMaster } from '../plugins'
 import { useItemSerterContext } from '../contexts/item-serter'
 import { Schema } from '../schema'
-import { BaseCompProps, BaseComps } from '../components/base'
+import { Select } from '../components'
+import { BaseCompProps } from '../components/base'
 
 function resolveSchemaList(schemas: ZodUnionOptions): BaseCompProps.SelectOptions[] {
   // TODO resolve not literal type, it not contain value
@@ -78,7 +79,7 @@ export function Union({
   // TODO support `'' | (string & {})` type
   //      display select input
   return <>
-    <BaseComps.Select
+    <Select
       options={options}
       {...props}
     />
