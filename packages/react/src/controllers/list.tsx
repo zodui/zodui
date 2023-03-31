@@ -194,7 +194,10 @@ export function List({
           + (isKeyEditable ? ' editable' : '')
         }>
           {isKeyEditable
-            /* TODO when key is union literal type transform to select and resolve disable hiden logic */
+            /*
+             * TODO use select when key is union literal type
+             *      disable or hidden optioin when it selected
+             */
             ? <Input
               className='key-input'
               placeholder='请输入键名'
