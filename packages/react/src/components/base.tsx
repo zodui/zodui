@@ -41,6 +41,8 @@ export namespace BaseCompProps {
     title: string
     value: number
   }
+  // TODO support input select
+  // TODO support multiple select
   export type Select<T extends SelectValue> = Omit<
     SelectHTMLAttributes<HTMLSelectElement>,
     | 'size'
