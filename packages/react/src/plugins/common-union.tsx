@@ -1,8 +1,9 @@
+import { RadioGroup, Radio } from 'tdesign-react/esm'
+
 import { AllTypes, containSome } from '../utils'
 import { plgMaster, Plugin } from './index'
 import { ControllerRender } from '../controllers'
 import { WrapModes } from '../configure'
-import { RadioGroup, Radio } from 'tdesign-react/esm'
 
 WrapModes.push('radio-inline', 'button')
 
