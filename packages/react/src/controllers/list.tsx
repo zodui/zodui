@@ -186,6 +186,7 @@ export function List({
       const isKeyEditable = KeyEditableTypes.includes(schema._def.typeName)
 
       return <div className={`${prefix}-item`} key={index}>
+        {/* TODO display description */}
         {(
           (dictKeys[index] ?? itemSchema?._def.label) || isKeyEditable
         ) && <div className={
@@ -193,6 +194,7 @@ export function List({
           + (isKeyEditable ? ' editable' : '')
         }>
           {isKeyEditable
+            /* TODO when key is union literal type transform to select and resolve disable hiden logic */
             ? <Input
               className='key-input'
               placeholder='请输入键名'
@@ -205,7 +207,6 @@ export function List({
             />
             : itemSchema._def.label ?? dictKeys[index]}
         </div>}
-        {/* TODO display description */}
         <div className={`${prefix}-item__index-tag`}>
           {index + 1}
         </div>
