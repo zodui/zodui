@@ -64,7 +64,7 @@ plgMaster.register(new Plugin()
   ])
   .addComp([AllTypes.ZodDate], [
     [
-      modes => modes.includes('time') || modes.includes('date'),
+      modes => modes.includes('datetime') || modes.includes('time') || modes.includes('date'),
       ({ modes, ...props }) => <ControllerRender
         target='Date:Picker'
         isPanel={modes.includes('panel')}
