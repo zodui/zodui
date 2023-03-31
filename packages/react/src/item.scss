@@ -38,6 +38,9 @@
     }
   }
   &__control {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 200px;
     min-height: 32px;
     font-size: 14px;
