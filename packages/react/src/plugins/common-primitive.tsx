@@ -22,7 +22,7 @@ plgMaster.register(new Plugin()
       props => <ControllerRender target='String.TextArea' {...props} />
     ],
     [
-      modes => modes.includes('secret'),
+      modes => modes.includes('secrets'),
       props => <Input type='password' {...props} />
     ]
   ])
