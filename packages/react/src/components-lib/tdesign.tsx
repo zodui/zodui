@@ -102,7 +102,7 @@ initComponents: {
     }}
     {...props}
   />)
-  addController('Date:Piker', ({
+  addController('Date:Picker', ({
     isPanel,
     datetime: [enableDate, enableTime] = [true, true],
     ...props

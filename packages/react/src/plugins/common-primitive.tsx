@@ -7,7 +7,7 @@ import { WrapModes } from '../configure'
 declare module '@zodui/react' {
   interface ControllerPropsMap {
     Date: {
-      Piker: AsProps<{
+      Picker: AsProps<{
         isPanel?: boolean
         datetime?: [true, true] | [true, false] | [false, true]
       }>

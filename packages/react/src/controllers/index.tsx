@@ -159,7 +159,7 @@ export function ControllerRender<
   target: P | (string & {})
 } & Props) {
   const errorHandler = useErrorHandlerContext()
-  const path = target.split('.')
+  const path = target.replace(':', '.').split('.')
   let TargetComp = ControllerMap as (() => ReactElement) | Record<string, () => ReactElement>
   for (let i = 0; i < path.length; i++) {
     const key = path[i]
