@@ -8,6 +8,9 @@ import { ControllerRender } from '../controllers'
 import { AsProps } from '../controllers'
 
 declare module '@zodui/react' {
+  interface ControllerPropsMapDate {
+    PickerRange: ControllerPropsMapDate['Picker']
+  }
   interface ControllerPropsMap {
     Number: {
       Slider: AsProps<{ range?: boolean }>
@@ -31,11 +34,13 @@ plgMaster.register(new Plugin()
       schemas: _,
       ...props
     }) => {
-      if (modes.includes('time'))
-        return <TimeRangePicker {...props}/>
-
-      return <DateRangePicker
-        enableTimePicker={modes.includes('datetime')}
+      return <ControllerRender
+        target='Date:PickerRange'
+        isPanel={modes.includes('panel')}
+        datetime={[
+          modes.includes('datetime') || modes.includes('date'),
+          modes.includes('datetime') || modes.includes('time')
+        ]}
         {...props}
       />
     }],

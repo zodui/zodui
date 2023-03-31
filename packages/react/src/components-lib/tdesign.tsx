@@ -18,7 +18,7 @@ import {
   InputAdornment,
   InputNumber,
   Textarea,
-  TimePickerPanel, TimePicker, DatePickerPanel, DatePicker
+  TimePickerPanel, TimePicker, DatePickerPanel, DateRangePickerPanel, DatePicker, TimeRangePicker, DateRangePicker
 } from 'tdesign-react/esm'
 
 import { registerIcon } from '../components'
@@ -119,5 +119,23 @@ initComponents: {
     return isPanel
       ? <DatePickerPanel {...nProps} />
       : <DatePicker {...nProps} />
+  })
+  addController('Date:PickerRange', ({
+    isPanel,
+    datetime: [enableDate, enableTime] = [true, true],
+    ...props
+  }) => {
+    if (!enableDate) {
+      return isPanel
+        ? <>TDesign unable support&nbsp;<code>TimePickerPanel</code>.</>
+        : <TimeRangePicker {...props} />
+    }
+    const nProps = {
+      ...props,
+      enableTimePicker: enableDate && enableTime
+    }
+    return isPanel
+      ? <DateRangePickerPanel {...nProps} />
+      : <DateRangePicker {...nProps} />
   })
 }

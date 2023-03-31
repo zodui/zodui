@@ -31,6 +31,7 @@ export interface ModesMap extends Record<AllTypes, string> {
     | 'no-range'
     | 'no-slider'
     | 'datetime'
+    | 'date'
     | 'time'
     | 'panel'
 }

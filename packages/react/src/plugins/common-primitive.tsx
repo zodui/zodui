@@ -5,13 +5,14 @@ import { AsProps, ControllerRender } from '../controllers'
 import { WrapModes } from '../configure'
 
 declare module '@zodui/react' {
+  interface ControllerPropsMapDate {
+    Picker: AsProps<{
+      isPanel?: boolean
+      datetime?: [true, true] | [true, false] | [false, true]
+    }>
+  }
   interface ControllerPropsMap {
-    Date: {
-      Picker: AsProps<{
-        isPanel?: boolean
-        datetime?: [true, true] | [true, false] | [false, true]
-      }>
-    }
+    Date: ControllerPropsMapDate
   }
 }
 
