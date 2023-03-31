@@ -75,6 +75,8 @@ export function Union({
     }
   }
 
+  // TODO support `'' | (string & {})` type
+  //      display select input
   return <>
     <BaseComps.Select
       options={options}
