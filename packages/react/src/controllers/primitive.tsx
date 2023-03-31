@@ -1,13 +1,12 @@
 import {
   DatePicker, DatePickerPanel, TimePickerPanel,
-  InputAdornment,
   Switch,
   TimePicker
 } from 'tdesign-react/esm'
 import { useEffect, useState } from 'react'
 import { ControllerProps } from './index'
 import { useModes, TypeMap } from '../utils'
-import { Icon, Input } from '../components'
+import { Icon, Input, InputAdornment } from '../components'
 
 import '../plugins/common-primitive'
 import { plgMaster } from '../plugins'
@@ -59,7 +58,7 @@ export function Primitive({
       switch (true) {
         case modes.includes('link'):
           return <InputAdornment
-            append={<div
+            next={<div
               style={{
                 display: 'flex',
                 alignItems: 'center',

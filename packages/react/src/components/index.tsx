@@ -7,7 +7,7 @@ import {
 import { useErrorHandlerContext } from '../contexts/error-handler'
 
 export {
-  Input,
+  Input, InputAdornment,
   Button,
   Select,
 } from './base'

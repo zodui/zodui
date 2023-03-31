@@ -21,3 +21,18 @@ export function Input<T extends BaseCompProps.InputValue>(props: BaseCompProps.I
     {...rest}
   />
 }
+
+export function InputAdornment(props: BaseCompProps.InputAdornment) {
+  if (BaseComps.InputAdornment) {
+    return <BaseComps.InputAdornment {...props} />
+  }
+  const { prev, next, children, className, style } = props
+  return <span
+    className={'zodui-input-adornment' + (className ? ' ' + className : '')}
+    style={style}
+  >
+    {prev}
+    {children}
+    {next}
+  </span>
+}

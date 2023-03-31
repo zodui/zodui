@@ -48,8 +48,8 @@ export namespace BaseCompProps {
     & BaseProps
     & PropsWithChildren
     & {
-      prev: ZElement
-      next: ZElement
+      prev?: ZElement
+      next?: ZElement
     }
   export type Button =
     & BaseProps
@@ -109,6 +109,6 @@ export function registerBaseComp<K extends keyof typeof BaseComps>(name: K, comp
   BaseComps[name] = comp
 }
 
-export { Input } from './input'
+export { Input, InputAdornment } from './input'
 export { Button } from './button'
 export { Select } from './select'

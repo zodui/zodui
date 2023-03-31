@@ -10,7 +10,7 @@ import {
   MoreIcon,
   RollbackIcon
 } from 'tdesign-icons-react'
-import { Button, Slider, Select, Input, InputNumber, Textarea } from 'tdesign-react/esm'
+import { Button, Slider, Select, Input, InputAdornment, InputNumber, Textarea } from 'tdesign-react/esm'
 
 import { registerController, registerIcon } from '../components'
 import { registerBaseComp } from '../components/base'
@@ -67,6 +67,7 @@ initComponents: {
       {...props}
     />
   })
+  registerBaseComp('InputAdornment', ({ prev, next, ...props }) => <InputAdornment prepend={prev} append={next} {...props} />)
   registerBaseComp('Button', ({ theme, ...props }) => <Button
     theme={({
       info: 'default',
