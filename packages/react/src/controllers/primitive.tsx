@@ -6,7 +6,7 @@ import {
 import { useEffect, useState } from 'react'
 import { ControllerProps } from './index'
 import { useModes, TypeMap } from '../utils'
-import { Icon, Input, InputAdornment } from '../components'
+import { Input } from '../components'
 
 import '../plugins/common-primitive'
 import { plgMaster } from '../plugins'
