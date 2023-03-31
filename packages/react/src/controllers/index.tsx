@@ -71,16 +71,15 @@ type InnerControllerPropsMap =
 export type AllPaths<Map = ControllerPropsMap, PrevK extends string = never> = Map extends AsProps
   ? PrevK
   : {
-    [K in keyof Map]: K extends (keyof Map & string)
-      ? | [K] extends [never] ? never : PrevK
-        | AllPaths<Map[K], [PrevK] extends [never] ? K : `${PrevK}.${K}`>
-      : never
-  }[keyof Map]
+    [K in (keyof Map & string)]:
+      | [K] extends [never] ? never : PrevK
+      | AllPaths<Map[K], [PrevK] extends [never] ? K : `${PrevK}.${K}`>
+  }[keyof Map & string]
 
-type T0 = AllPaths<InnerControllerPropsMap>
+type T0 = AllPaths<BuiltinControllerPropsMap> | AllPaths
 //   ^?
 
-const t0: AllPaths = 'Number.Slider'
+const t0: T0 = 'Number.Slider'
 
 type RevealPropsByPath<Path extends string, Map = InnerControllerPropsMap> = Path extends `${infer Key}.${infer Rest}`
   ? Key extends keyof Map
