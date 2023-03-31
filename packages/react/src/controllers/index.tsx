@@ -4,6 +4,7 @@ import { AllTypes, isWhatType, TypeMap, useDefaultValue } from '../utils'
 import { Union } from './union'
 import { List } from './list'
 import { ReactElement } from 'react'
+import { useErrorHandlerContext } from '../contexts/error-handler'
 
 export interface ControllerProps<T extends Schema = Schema> {
   schema: T
@@ -68,29 +69,55 @@ type InnerControllerPropsMap =
       : {}
   }
 
-export type AllPaths<Map = ControllerPropsMap, PrevK extends string = never> = Map extends AsProps
+export type CalcPaths<Map = ControllerPropsMap, PrevK extends string = never> = Map extends AsProps
   ? PrevK
   : {
     [K in (keyof Map & string)]:
       | [K] extends [never] ? never : PrevK
-      | AllPaths<Map[K], [PrevK] extends [never] ? K : `${PrevK}.${K}`>
+      | CalcPaths<Map[K], [PrevK] extends [never] ? K : `${PrevK}${
+        // Equal
+        (<G>() => G extends K ? 1 : 2) extends (<G>() => G extends string ? 1 : 2)
+          ? `.${K}`
+          : `:${K}`
+      }`>
   }[keyof Map & string]
 
-type T0 = AllPaths<BuiltinControllerPropsMap> | AllPaths
-//   ^?
+// export type AllPathsTuple<Map = ControllerPropsMap, PrevK extends string[] = never> = Map extends AsProps
+//   ? PrevK
+//   : {
+//     [K in (keyof Map & string)]:
+//       | [K] extends [never] ? never : PrevK
+//       | AllPathsTuple<Map[K], [PrevK] extends [never] ? [K] : [...PrevK, K]>
+//   }[keyof Map & string]
+//
+// export type JoinString<T extends unknown[], RootCall = false> =
+//   T extends [infer First extends string, ...infer Rest]
+//     ? `${
+//       RootCall extends false
+//         ? (<G>() => G extends First ? 1 : 2) extends (<G>() => G extends string ? 1 : 2)
+//           ? `:${First}` : `.${First}`
+//         : First
+//     }${JoinString<Rest>}`
+//     : ''
+//
+// export type AllPaths<Map = ControllerPropsMap> = AllPathsTuple<Map> extends infer T extends string[]
+//   ? JoinString<T, true>
+//   : never
 
-const t0: T0 = 'Number.Slider'
+type AllPaths = CalcPaths | CalcPaths<BuiltinControllerPropsMap>
 
-type RevealPropsByPath<Path extends string, Map = InnerControllerPropsMap> = Path extends `${infer Key}.${infer Rest}`
+type RevealPropsByPath<Path extends string, Map = InnerControllerPropsMap> = Path extends `${infer Key}${'.' | ':'}${infer Rest}`
   ? Key extends keyof Map
     ? Map[Key] extends Record<string, any>
-      ? RevealPropsByPath<Rest>
+      ? RevealPropsByPath<Rest, Map[Key]>
       : never
     : never
   : Path extends keyof Map
-    ? Map[Path] extends Record<string, any>
-      ? Map[Path][string]
-      : Map[Path]
+    ? Map[Path] extends AsProps
+      ? Map[Path]
+      : Map[Path] extends Record<string, any>
+        ? Map[Path][string]
+        : never
     : never
 
 type ResolveAsMap<M = InnerControllerPropsMap> = Partial<{
@@ -101,41 +128,51 @@ type ResolveAsMap<M = InnerControllerPropsMap> = Partial<{
 
 const ControllerMap: ResolveAsMap = {}
 
-// export function registerController<P extends AllPaths>(path: P | (string & {}), Controller: (props: RevealPropsByPath<P>) => ReactElement) {
-//   const pathArr = path.split('.')
-//   let target = ControllerMap
-//   for (let i = 0; i < pathArr.length; i++) {
-//     const key = pathArr[i]
-//     if (i === pathArr.length - 1) {
-//       target[key] = Controller
-//     } else {
-//       if (typeof target[key] === 'undefined') {
-//         target[key] = {}
-//       }
-//       target = target[key] as any
-//     }
-//   }
-// }
+export function addController<
+  P extends AllPaths,
+  InnerProps = RevealPropsByPath<P>,
+  Props = InnerProps extends AsProps<infer P> ? P : never
+>(path: P | (string & {}), Controller: (props: Props) => ReactElement) {
+  const pathArr = path.replace(':', '.').split('.')
+  let target = ControllerMap as any
+  for (let i = 0; i < pathArr.length; i++) {
+    const key = pathArr[i]
+    if (i === pathArr.length - 1) {
+      target[key] = Controller
+    } else {
+      if (typeof target[key] === 'undefined') {
+        target[key] = {}
+      }
+      target = target[key]
+    }
+  }
+}
 
-// export function ControllerRender({
-//   target,
-//   ...props
-// }: {
-//   target: string
-// } & Record<string, any>) {
-//   const errorHandler = useErrorHandlerContext()
-//   const path = target.split('.')
-//   let TargetComp = ControllerMap
-//   for (let i = 0; i < path.length; i++) {
-//     const key = path[i]
-//     TargetComp = TargetComp[key] as any
-//   }
-//   if (!TargetComp) {
-//     return errorHandler.throwError(`Controller ${target} not found`)
-//   }
-//   if (typeof TargetComp !== 'function') {
-//     return errorHandler.throwError(`Controller ${target} is not a function`)
-//   }
-//   // @ts-ignore FIXME
-//   return <TargetComp {...props}/>
-// }
+export function ControllerRender<
+  P extends AllPaths,
+  InnerProps = RevealPropsByPath<P>,
+  Props = InnerProps extends AsProps<infer P> ? P : never
+>({
+  target,
+  ...props
+}: {
+  target: P | (string & {})
+} & Props) {
+  const errorHandler = useErrorHandlerContext()
+  const path = target.split('.')
+  let TargetComp = ControllerMap as (() => ReactElement) | Record<string, () => ReactElement>
+  for (let i = 0; i < path.length; i++) {
+    const key = path[i]
+    if (typeof TargetComp === 'object') {
+      TargetComp = TargetComp[key]
+    }
+  }
+  if (!TargetComp) {
+    return errorHandler.throwError(`Controller ${target} not found`)
+  }
+  if (typeof TargetComp !== 'function') {
+    return errorHandler.throwError(`Controller ${target} is not a function`)
+  }
+  // @ts-ignore FIXME
+  return <TargetComp {...props}/>
+}

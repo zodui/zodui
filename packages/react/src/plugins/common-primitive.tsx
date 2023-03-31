@@ -1,6 +1,7 @@
 import { AllTypes } from '../utils'
 import { plgMaster, Plugin } from './index'
-import { ControllerRender, Icon, Input, InputAdornment } from '../components'
+import { Icon, Input, InputAdornment } from '../components'
+import { ControllerRender } from '../controllers'
 import { WrapModes } from '../configure'
 
 WrapModes.push('textarea', 'panel')

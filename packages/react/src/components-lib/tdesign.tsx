@@ -12,10 +12,11 @@ import {
 } from 'tdesign-icons-react'
 import { Button, Slider, Select, Input, InputAdornment, InputNumber, Textarea } from 'tdesign-react/esm'
 
-import { registerController, registerIcon } from '../components'
+import { registerIcon } from '../components'
 import { registerBaseComp } from '../components/base'
 import { Narrow } from '../utils'
 import { Switch } from 'tdesign-react'
+import { addController } from '../controllers'
 
 initIcons: {
   registerIcon('Add', AddIcon)
@@ -85,8 +86,8 @@ initComponents: {
   />)
   registerBaseComp('Switch', ({ ...props }) => <Switch {...props}/>)
 
-  registerController('Number.Slider', props => <Slider {...props} />)
-  registerController('String.TextArea', props => <Textarea
+  addController('Number:Slider', props => <Slider {...props} />)
+  addController('String.TextArea', props => <Textarea
     autosize={{
       minRows: 1,
     }}

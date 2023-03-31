@@ -4,16 +4,13 @@ import { DateRangePicker, TimeRangePicker } from 'tdesign-react/esm'
 import { AllTypes } from '../utils'
 import { plgMaster, Plugin } from './index'
 import { WrapModes } from '../configure'
-import { ControllerRender } from '../components'
+import { ControllerRender } from '../controllers'
 import { AsProps } from '../controllers'
 
 declare module '@zodui/react' {
   interface ControllerPropsMap {
     Number: {
       Slider: AsProps<{ range?: boolean }>
-      Foo: {
-        Bar: AsProps<{ a?: string }>
-      }
     }
   }
 }
