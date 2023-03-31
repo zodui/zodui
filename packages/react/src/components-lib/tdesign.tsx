@@ -125,6 +125,9 @@ initComponents: {
     datetime: [enableDate, enableTime] = [true, true],
     ...props
   }) => {
+    if (props.value === undefined)
+      props.value = []
+
     if (!enableDate) {
       return isPanel
         ? <>TDesign unable support&nbsp;<code>TimePickerPanel</code>.</>
