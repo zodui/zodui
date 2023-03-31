@@ -1,4 +1,4 @@
-import './list.scss'
+import './multiple.scss'
 
 import {
   ZodArrayDef,
@@ -13,7 +13,7 @@ import {
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 
 import { Controller, ControllerProps } from './index'
-import { AllTypes, getDefaultValue, isWhatType, TypeMap, useModes } from '../utils'
+import { AllTypes, getDefaultValue, isWhatType, Mutable, TypeMap, useModes } from '../utils'
 import { KeyEditableTypes, MultipleSchemas } from '../configure'
 import { Icon, Button, Input } from '../components'
 import { plgMaster } from '../plugins'
@@ -23,21 +23,26 @@ import { useErrorHandlerContext } from '../contexts/error-handler'
 
 const prefix = 'zodui-item__control-list'
 
-export type ListType =
-  | 'ZodArray'
-  | 'ZodTuple'
-  | 'ZodSet'
-  | 'ZodMap'
-  | 'ZodRecord'
-  | 'ZodObject'
+const innerMultipleTypes = [
+  AllTypes.ZodArray,
+  AllTypes.ZodTuple,
+  AllTypes.ZodSet,
+  AllTypes.ZodMap,
+  AllTypes.ZodRecord,
+  AllTypes.ZodObject,
+] as const
 
-export interface ListProps extends ControllerProps<TypeMap[ListType]> {
+export const multiple = innerMultipleTypes as Mutable<typeof innerMultipleTypes>
+
+export type MultipleType = (typeof multiple)[number]
+
+export interface MultipleProps extends ControllerProps<TypeMap[MultipleType]> {
 }
 
-export function List({
+export function Multiple({
   schema,
   ...props
-}: ListProps) {
+}: MultipleProps) {
   const commonDef = schema._def as (
     & Partial<ZodArrayDef<any>>
     & Partial<ZodTupleDef>

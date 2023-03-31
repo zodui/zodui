@@ -10,7 +10,7 @@ import { Schema } from '../schema'
 import { Select } from '../components'
 import { BaseCompProps } from '../components/base'
 
-function resolveSchemaList(schemas: ZodUnionOptions): BaseCompProps.SelectOptions[] {
+function resolveSchemas(schemas: ZodUnionOptions): BaseCompProps.SelectOptions[] {
   // TODO resolve not literal type, it not contain value
   return schemas.map((schema, index) => ({
     label: schema._def.label || schema._def.description || schema._def.value || index.toString(),
@@ -19,13 +19,13 @@ function resolveSchemaList(schemas: ZodUnionOptions): BaseCompProps.SelectOption
   }))
 }
 
-export function Union({
+export function Complex({
   schema,
   value,
   defaultValue,
   ...rest
 }: ControllerProps<TypeMap['ZodUnion']>) {
-  const options = useMemo(() => resolveSchemaList(schema.options), [schema.options])
+  const options = useMemo(() => resolveSchemas(schema.options), [schema.options])
   const [index, setIndex] = useState<number>(0)
   useEffect(() => {
     const v = value ?? defaultValue

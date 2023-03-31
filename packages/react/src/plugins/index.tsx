@@ -4,7 +4,7 @@ import { ControllerProps } from '../controllers'
 import { AllType, AllTypes, TypeMap } from '../utils'
 import { ModesMap } from '../zod.external'
 
-import { ListType } from '../controllers/list'
+import { MultipleType } from '../controllers/multiple'
 import { BaseCompProps } from '../components/base'
 
 export type UnionProps<T extends AllType> = T extends 'ZodUnion' ? {
@@ -12,11 +12,11 @@ export type UnionProps<T extends AllType> = T extends 'ZodUnion' ? {
   OptionRender: ReactElement
 } : {}
 
-export type ListProps<T extends AllType> = T extends ListType ? {
+export type ListProps<T extends AllType> = T extends MultipleType ? {
   schemas: TypeMap[AllType][]
 } : {}
 
-export type ListIsOptions<T extends AllType> = T extends ListType ? {
+export type ListIsOptions<T extends AllType> = T extends MultipleType ? {
   schemas: TypeMap[AllType][]
 } : {}
 

@@ -1,8 +1,8 @@
 import { Schema } from 'zod'
-import { Primitive, primitive } from './primitive'
+import { Monad, monad } from './monad'
 import { AllTypes, isWhatType, TypeMap, useDefaultValue } from '../utils'
-import { Union } from './union'
-import { List } from './list'
+import { Complex } from './complex'
+import { Multiple } from './multiple'
 import { ReactElement } from 'react'
 import { useErrorHandlerContext } from '../contexts/error-handler'
 
@@ -33,13 +33,13 @@ export function Controller(props: ControllerProps) {
   }
 
   // TODO support literal type display
-  return primitive.includes(props.schema.type)
+  return monad.includes(props.schema.type)
     // TODO resolve any as right type
-    ? <Primitive {...props as any} />
+    ? <Monad {...props as any} />
     : isWhatType(props.schema, AllTypes.ZodUnion)
-    ? <Union {...props as any} />
+    ? <Complex {...props as any} />
     : ['array', 'tuple', 'record', 'dict', 'object'].includes(props.schema.type)
-    ? <List {...props as any} />
+    ? <Multiple {...props as any} />
     : <span style={{ width: '100%' }}>暂未支持的的类型 <code>{props.schema.type}</code></span>
 }
 

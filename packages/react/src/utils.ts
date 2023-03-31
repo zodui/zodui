@@ -9,6 +9,10 @@ export type Narrow<T> = Cast<T, [] | (T extends Primitive ? T : never) | ({
   [K in keyof T]: Narrow<T[K]>
 })>;
 
+export type Mutable<T> = {
+  -readonly [P in keyof T]: T[P];
+}
+
 export function getModes(mode: string) {
   return mode
     ?.split(' ')

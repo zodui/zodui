@@ -6,7 +6,7 @@ import { Input, Switch } from '../components'
 import '../plugins/common-primitive'
 import { plgMaster } from '../plugins'
 
-export const primitive = [
+export const monad = [
   'string',
   'number',
   'boolean',
@@ -21,7 +21,7 @@ export interface PrimitiveProps extends ControllerProps<TypeMap[
 ]> {
 }
 
-export function Primitive({
+export function Monad({
   schema,
   ...rest
 }: PrimitiveProps) {
