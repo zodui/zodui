@@ -148,4 +148,5 @@ export function inlineMarkdown(md: string) {
     .replace(/\*([^*]+)\*/g, '<em>$1</em>')
     .replace(/~~([^~]+)~~/g, '<del>$1</del>')
     .replace(/\n/g, '<br />')
+    .replace(/\|\|([^|]+)\|\|/g, '<span class="spoiler">$1</span>')
 }

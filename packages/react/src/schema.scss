@@ -27,5 +27,26 @@
     a {
       text-decoration: none;
     }
+    span.spoiler {
+      display: inline-block;
+      position: relative;
+      padding: 0 4px;
+      border-radius: 4px;
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+        background-color: var(--td-bg-color-component);
+        color: var(--td-text-color-placeholder);
+        transition: .3s;
+      }
+      &:hover::after {
+        opacity: .3;
+      }
+    }
   }
 }
