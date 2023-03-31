@@ -15,6 +15,7 @@ import { Button, Slider, Select, Input, InputAdornment, InputNumber, Textarea } 
 import { registerController, registerIcon } from '../components'
 import { registerBaseComp } from '../components/base'
 import { Narrow } from '../utils'
+import { Switch } from 'tdesign-react'
 
 initIcons: {
   registerIcon('Add', AddIcon)
@@ -82,6 +83,7 @@ initComponents: {
     value={props.value}
     onChange={v => props.onChange?.(v as any)}
   />)
+  registerBaseComp('Switch', ({ ...props }) => <Switch {...props}/>)
 
   registerController('Number.Slider', props => <Slider {...props} />)
   registerController('String.TextArea', props => <Textarea
