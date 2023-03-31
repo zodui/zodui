@@ -1,15 +1,15 @@
-import z from 'zod'
+import type { ZodUnionOptions } from 'zod'
 import { useEffect, useMemo, useState } from 'react'
-import { Select } from 'tdesign-react/esm'
 import { Controller, ControllerProps } from './index'
 import { AllTypes, TypeMap, useModes } from '../utils'
 
 import '../plugins/common-union'
-import { plgMaster, UnionOptions } from '../plugins'
+import { plgMaster } from '../plugins'
 import { useItemSerterContext } from '../contexts/item-serter'
 import { Schema } from '../schema'
+import { BaseCompProps, BaseComps } from '../components/base'
 
-function resolveSchemaList(schemas: z.ZodUnionOptions): UnionOptions[] {
+function resolveSchemaList(schemas: ZodUnionOptions): BaseCompProps.SelectOptions[] {
   // TODO resolve not literal type, it not contain value
   return schemas.map((schema, index) => ({
     label: schema._def.label || schema._def.description || schema._def.value || index.toString(),
@@ -76,7 +76,7 @@ export function Union({
   }
 
   return <>
-    <Select
+    <BaseComps.Select
       options={options}
       {...props}
     />

@@ -10,7 +10,7 @@ import {
   MoreIcon,
   RollbackIcon
 } from 'tdesign-icons-react'
-import { Button, Slider, Input, Textarea } from 'tdesign-react/esm'
+import { Button, Slider, Select, Input, Textarea } from 'tdesign-react/esm'
 
 import { registerController, registerIcon } from '../components'
 import { registerBaseComp } from '../components/base'
@@ -65,6 +65,11 @@ initComponents: {
       success: 'success',
     } as const)[theme]}
     {...props}
+  />)
+  registerBaseComp('Select', ({ ...props }) => <Select
+    {...props}
+    value={props.value}
+    onChange={v => props.onChange?.(v as any)}
   />)
 
   registerController('Number.Slider', props => <Slider {...props} />)

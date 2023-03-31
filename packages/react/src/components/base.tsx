@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, CSSProperties, InputHTMLAttributes, ReactElement } from 'react'
+import { ButtonHTMLAttributes, CSSProperties, InputHTMLAttributes, ReactElement, SelectHTMLAttributes } from 'react'
 
 export type ZElement<T = undefined> = T extends undefined ? ReactElement : (props: T) => ReactElement;
 
@@ -35,8 +35,33 @@ export namespace BaseCompProps {
     variant?: 'text' | 'outline'
     onClick?: () => void
   }
+  export type SelectValue = string | number | undefined | (string | number)[]
+  export type SelectOptions = {
+    label: string
+    title: string
+    value: number
+  }
+  export type Select<T extends SelectValue> = Omit<
+    SelectHTMLAttributes<HTMLSelectElement>,
+    | 'size'
+    | 'value'
+    | 'defaultValue'
+    | 'onChange'
+    // not need
+    | 'onBlur'
+    | 'onMouseEnter'
+    | 'onMouseLeave'
+    | 'onFocus'
+    | 'onClick'
+    | 'onPaste'
+    | 'onWheel'
+  > & BaseProps & {
+    options?: SelectOptions[]
+    value?: T
+    defaultValue?: T
+    onChange?: (v: T) => void
+  }
   // Switch: () => <></>
-  // Select: () => <></>
   // RadioGroup: () => <></>
   // Dialog: () => <></>
   // Drawer: () => <></>
@@ -45,6 +70,7 @@ export namespace BaseCompProps {
 export const BaseComps: {
   Input?: <T extends BaseCompProps.InputValue>(props: BaseCompProps.Input<T>) => ReactElement
   Button?: (props: BaseCompProps.Button) => ReactElement
+  Select?: <T extends BaseCompProps.SelectValue>(props: BaseCompProps.Select<T>) => ReactElement
 } = {}
 
 export function registerBaseComp<K extends keyof typeof BaseComps>(name: K, comp: (typeof BaseComps)[K]) {
@@ -53,3 +79,4 @@ export function registerBaseComp<K extends keyof typeof BaseComps>(name: K, comp
 
 export { Input } from './input'
 export { Button } from './button'
+export { Select } from './select'

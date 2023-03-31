@@ -5,15 +5,10 @@ import { AllType, AllTypes, TypeMap } from '../utils'
 import { ModesMap } from '../zod.external'
 
 import { ListType } from '../controllers/list'
-
-export interface UnionOptions {
-  label: string
-  title: string
-  value: number
-}
+import { BaseCompProps } from '../components/base'
 
 export type UnionProps<T extends AllType> = T extends 'ZodUnion' ? {
-  options: UnionOptions[]
+  options: BaseCompProps.SelectOptions[]
   OptionRender: ReactElement
 } : {}
 

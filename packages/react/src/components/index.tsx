@@ -9,6 +9,7 @@ import { useErrorHandlerContext } from '../contexts/error-handler'
 export {
   Input,
   Button,
+  Select,
 } from './base'
 
 type CompsTree = {
