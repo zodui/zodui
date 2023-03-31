@@ -1,12 +1,11 @@
 import {
   DatePicker, DatePickerPanel, TimePickerPanel,
-  Switch,
   TimePicker
 } from 'tdesign-react/esm'
 import { useEffect, useState } from 'react'
 import { ControllerProps } from './index'
 import { useModes, TypeMap } from '../utils'
-import { Input } from '../components'
+import { Input, Switch } from '../components'
 
 import '../plugins/common-primitive'
 import { plgMaster } from '../plugins'

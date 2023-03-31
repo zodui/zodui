@@ -88,7 +88,13 @@ export namespace BaseCompProps {
       defaultValue?: T
       onChange?: (v: T) => void
     }
-  // Switch: () => <></>
+  export type Switch =
+    & BaseProps
+    & {
+      value?: boolean
+      defaultValue?: boolean
+      onChange?: (v: boolean) => void
+    }
   // RadioGroup: () => <></>
   // Dialog: () => <></>
   // Drawer: () => <></>
@@ -99,6 +105,7 @@ export const BaseComps: {
   InputAdornment?: (props: BaseCompProps.InputAdornment) => ReactElement
   Button?: (props: BaseCompProps.Button) => ReactElement
   Select?: <T extends BaseCompProps.SelectValue>(props: BaseCompProps.Select<T>) => ReactElement
+  Switch?: (props: BaseCompProps.Switch) => ReactElement
 } = {}
 
 export function registerBaseComp<K extends keyof typeof BaseComps>(name: K, comp: (typeof BaseComps)[K]) {
@@ -108,3 +115,4 @@ export function registerBaseComp<K extends keyof typeof BaseComps>(name: K, comp
 export { Input, InputAdornment } from './input'
 export { Button } from './button'
 export { Select } from './select'
+export { Switch } from './switch'

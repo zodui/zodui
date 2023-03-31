@@ -10,6 +10,7 @@ export {
   Input, InputAdornment,
   Button,
   Select,
+  Switch,
 } from './base'
 
 type CompsTree = {
