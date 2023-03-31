@@ -55,30 +55,6 @@ export function Primitive({
     case 'ZodNumber':
       return <Input type='number' {...props} />
     case 'ZodString':
-      switch (true) {
-        case modes.includes('link'):
-          return <InputAdornment
-            next={<div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                width: 32,
-                height: 32,
-                fontSize: 20,
-                cursor: 'pointer',
-              }}
-              onClick={() => {
-                if (!value)
-                  return
-
-                window.open(value, '_blank')
-              }}
-            ><Icon name='Link' /></div>}
-          >
-            <Input {...props}/>
-          </InputAdornment>
-      }
       return <Input {...props}/>
     case 'ZodDate':
       switch (true) {
