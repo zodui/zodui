@@ -1,17 +1,18 @@
-import {
-  ComponentType,
-  CSSProperties,
-  SVGAttributes,
-  ReactElement
-} from 'react'
+import { ReactElement } from 'react'
 import { useErrorHandlerContext } from '../contexts/error-handler'
 
 export {
   Input, InputAdornment,
   Button,
   Select,
-  Switch,
+  Switch
 } from './base'
+
+export {
+  type Icons,
+  Icon,
+  registerIcon
+} from './icon'
 
 type CompsTree = {
   [k: string]: ((props: any) => ReactElement) | CompsTree
@@ -20,8 +21,7 @@ type CompsTree = {
 const CONTROL_COMPS: CompsTree = {
   // TODO Custom type props when use ControllerRender to render component
   Number: {
-    Rate: () => <></>,
-    Input: () => <></>
+    Rate: () => <></>
   },
   Datetime: {
     DatePicker: () => <></>,
@@ -78,41 +78,4 @@ export function ControllerRender({
   // TODO remove ignore? or maintain the status
   // @ts-ignore
   return <TargetComp {...props}/>
-}
-
-interface IconComponentProps extends SVGAttributes<SVGSVGElement> {
-  style?: CSSProperties;
-  className?: string;
-  size?: 'small' | 'medium' | 'large' | string | number;
-}
-
-export type Icons =
-  | 'Add'
-  | 'More'
-  | 'Link'
-  | 'Clear'
-  | 'Delete'
-  | 'Append'
-  | 'Prepend'
-  | 'ArrowUp'
-  | 'ArrowDown'
-
-const IconMap = new Map<Icons, ComponentType<IconComponentProps>>()
-
-export function isInnerIcon(name: Icons | string): name is Icons {
-  return IconMap.has(name as Icons)
-}
-
-export function registerIcon(name: Icons, Comp: ComponentType<IconComponentProps>) {
-  IconMap.set(name, Comp)
-}
-
-export function Icon(props: IconComponentProps & { name: Icons }) {
-  const { name, ...rest } = props
-  const Comp = IconMap.get(name)
-  if (!Comp) {
-    console.warn(`Icon ${name} not found`)
-    return null
-  }
-  return <Comp {...rest} />
 }

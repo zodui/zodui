@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { Icon, Icons, isInnerIcon } from './index'
+import { Icon, Icons, isInnerIcon } from './icon'
 import { BaseCompProps, BaseComps, ZElement } from './base'
 
 export function Button({
