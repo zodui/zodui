@@ -10,7 +10,16 @@ import {
   MoreIcon,
   RollbackIcon
 } from 'tdesign-icons-react'
-import { Button, Slider, Select, Input, InputAdornment, InputNumber, Textarea } from 'tdesign-react/esm'
+import {
+  Button,
+  Slider,
+  Select,
+  Input,
+  InputAdornment,
+  InputNumber,
+  Textarea,
+  TimePickerPanel, TimePicker, DatePickerPanel, DatePicker
+} from 'tdesign-react/esm'
 
 import { registerIcon } from '../components'
 import { registerBaseComp } from '../components/base'
@@ -79,12 +88,12 @@ initComponents: {
     } as const)[theme]}
     {...props}
   />)
-  registerBaseComp('Select', ({ ...props }) => <Select
+  registerBaseComp('Select', (props) => <Select
     {...props}
     value={props.value}
     onChange={v => props.onChange?.(v as any)}
   />)
-  registerBaseComp('Switch', ({ ...props }) => <Switch {...props}/>)
+  registerBaseComp('Switch', (props) => <Switch {...props}/>)
 
   addController('Number:Slider', props => <Slider {...props} />)
   addController('String.TextArea', props => <Textarea
@@ -93,4 +102,22 @@ initComponents: {
     }}
     {...props}
   />)
+  addController('Date:Piker', ({
+    isPanel,
+    datetime: [enableDate, enableTime] = [true, true],
+    ...props
+  }) => {
+    if (!enableDate) {
+      return isPanel
+        ? <TimePickerPanel onChange={() => {}} {...props} />
+        : <TimePicker {...props} />
+    }
+    const nProps = {
+      ...props,
+      enableTimePicker: enableDate && enableTime
+    }
+    return isPanel
+      ? <DatePickerPanel {...nProps} />
+      : <DatePicker {...nProps} />
+  })
 }

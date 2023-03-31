@@ -56,7 +56,7 @@ interface BuiltinControllerPropsMap {
   String: Record<string, AsProps<ControllerProps<TypeMap['ZodString']>>>
   Number: Record<string, AsProps<ControllerProps<TypeMap['ZodNumber']>>>
   Boolean: Record<string, AsProps<ControllerProps<TypeMap['ZodBoolean']>>>
-  Datetime: Record<string, AsProps<ControllerProps<TypeMap['ZodDate']>>>
+  Date: Record<string, AsProps<ControllerProps<TypeMap['ZodDate']>>>
 }
 
 type InnerControllerPropsMap =

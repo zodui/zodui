@@ -17,6 +17,7 @@ export interface ModesMap extends Record<AllTypes, string> {
     | 'checkbox'
   [ZodFirstPartyTypeKind.ZodDate]:
     | 'datetime'
+    | 'date'
     | 'time'
     | 'panel'
   [ZodFirstPartyTypeKind.ZodUnion]:

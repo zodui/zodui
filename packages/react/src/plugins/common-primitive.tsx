@@ -1,9 +1,19 @@
 import { AllTypes } from '../utils'
 import { plgMaster, Plugin } from './index'
 import { Icon, Input, InputAdornment } from '../components'
-import { ControllerRender } from '../controllers'
+import { AsProps, ControllerRender } from '../controllers'
 import { WrapModes } from '../configure'
-import { DatePicker, DatePickerPanel, TimePicker, TimePickerPanel } from 'tdesign-react/esm'
+
+declare module '@zodui/react' {
+  interface ControllerPropsMap {
+    Date: {
+      Piker: AsProps<{
+        isPanel?: boolean
+        datetime?: [true, true] | [true, false] | [false, true]
+      }>
+    }
+  }
+}
 
 WrapModes.push('textarea', 'panel')
 
@@ -54,22 +64,16 @@ plgMaster.register(new Plugin()
   ])
   .addComp([AllTypes.ZodDate], [
     [
-      modes => modes.includes('time'),
-      ({ modes, ...props }) => modes.includes('panel')
-        ? <TimePickerPanel onChange={() => {}} {...props} />
-        : <TimePicker {...props} />
-    ],
-    [
-      modes => modes.includes('date'),
-      ({ modes, ...props }) => {
-        const nProps = {
-          ...props,
-          enableTimePicker: modes.includes('datetime')
-        }
-        if (modes.includes('panel'))
-          return <DatePickerPanel {...nProps} />
-        return <DatePicker {...nProps} />
-      }
+      modes => modes.includes('time') || modes.includes('date'),
+      ({ modes, ...props }) => <ControllerRender
+        target='Date:Picker'
+        isPanel={modes.includes('panel')}
+        datetime={[
+          modes.includes('datetime') || modes.includes('date'),
+          modes.includes('datetime') || modes.includes('time')
+        ]}
+        {...props}
+      />
     ]
   ])
 )
