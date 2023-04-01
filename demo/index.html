@@ -37,6 +37,7 @@
       width: 100%;
     }
     #container {
+      width: 0;
       flex-grow: 1;
     }
     #root {
@@ -45,7 +46,7 @@
       height: calc(100vh - 60px);
       overflow: overlay;
     }
-    #root:after {
+    #root::after {
       content: ' ';
       background-color: #ccc;
       position: absolute;
@@ -54,6 +55,7 @@
       width: 4px;
       height: 100%;
       cursor: ew-resize;
+      transition: .3s;
     }
   </style>
   <style data-name='theme-switch'>
