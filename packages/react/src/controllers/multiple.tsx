@@ -21,7 +21,7 @@ import { plgMaster } from '../plugins'
 import '../plugins/common-list'
 import { useErrorHandlerContext } from '../contexts/error-handler'
 
-const prefix = 'zodui-item__control-list'
+const prefix = 'zodui-item__control-multiple'
 
 const innerMultipleTypes = [
   AllTypes.ZodArray,

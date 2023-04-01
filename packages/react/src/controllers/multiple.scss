@@ -1,6 +1,6 @@
 .zodui-item {
   &.dict, &.object {
-    .zodui-item__control-list-item {
+    .zodui-item__control-multiple-item {
       > &__index-tag {
         display: none;
       }
@@ -10,7 +10,7 @@
     &:hover {
       background-color: inherit;
     }
-    .zodui-item__control-list {
+    .zodui-item__control-multiple {
       width: 100%;
       gap: 0;
       &-item {
@@ -41,10 +41,10 @@
     }
   }
   &__control {
-    &:has(&-list) {
+    &:has(&-multiple) {
       width: auto;
     }
-    > &-list {
+    > &-multiple {
       display: flex;
       justify-content: right;
       gap: 10px;
