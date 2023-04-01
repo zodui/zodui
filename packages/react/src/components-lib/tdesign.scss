@@ -1,3 +1,26 @@
+.zodui-schema {
+  --zodui-text-color: var(--td-text-color-primary);
+  --zodui-text-color-placeholder: var(--td-text-color-placeholder);
+
+  --zodui-bg-color: var(--td-bg-color-container);
+  --zodui-bg-color__hover: var(--td-bg-color-container-hover);
+  --zodui-bg-color-component: var(--td-bg-color-component);
+  --zodui-bg-color-component__hover: var(--td-bg-color-component-hover);
+
+  --zodui-border-color: var(--td-border-level-1-color);
+  --zodui-border: 1px solid var(--td-border-level-1-color);
+
+  --zodui-error-color: var(--td-error-color);
+  --zodui-error-color__bg: var(--td-error-color-1);
+  --zodui-error-color__hover: var(--td-error-color-hover);
+
+  --zodui-warning-color: var(--td-warning-color);
+  --zodui-warning-color__hover: var(--td-warning-color-hover);
+
+  --zodui-success-color: var(--td-success-color);
+  --zodui-success-color__hover: var(--td-success-color-hover);
+}
+
 .zodui-item {
   .t-button.t-button--variant-outline.t-button--shape-square {
     min-width: 32px;

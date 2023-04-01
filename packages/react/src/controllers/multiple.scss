@@ -19,10 +19,10 @@
         gap: 10px;
         padding: 10px 5px;
         margin-right: -5px;
-        border-bottom: 1px solid var(--td-border-level-1-color);
+        border-bottom: var(--zodui-border);
         transition: .3s;
         &:hover {
-          background-color: var(--td-bg-color-container-hover);
+          background-color: var(--zodui-bg-color__hover);
         }
         > &__label {
           top: 10px;
@@ -92,9 +92,9 @@
           user-select: none;
           text-align: center;
           line-height: 16px;
-          background-color: var(--td-bg-color-container);
+          background-color: var(--zodui-bg-color);
           border-radius: var(--td-radius-default);
-          border: 1px solid var(--td-border-level-1-color);
+          border: var(--zodui-border);
         }
       }
       > &-item > &-item__container {

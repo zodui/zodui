@@ -13,7 +13,7 @@
   &__desc {
     margin: 0;
     font-size: 14px;
-    color: var(--td-text-color-placeholder);
+    color: var(--zodui-text-color-placeholder);
   }
   .inline-md {
     line-height: 22px;
@@ -22,7 +22,7 @@
       padding: 1px 3px;
       font-size: 14px;
       border-radius: 4px;
-      background-color: var(--td-bg-color-component);
+      background-color: var(--zodui-bg-color-component);
     }
     a {
       text-decoration: none;
@@ -40,8 +40,8 @@
         width: 100%;
         height: 100%;
         border-radius: 4px;
-        background-color: var(--td-bg-color-component);
-        color: var(--td-text-color-placeholder);
+        background-color: var(--zodui-bg-color-component);
+        color: var(--zodui-text-color-placeholder);
         transition: .3s;
       }
       &:hover::after {

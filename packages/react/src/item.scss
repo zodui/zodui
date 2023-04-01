@@ -6,7 +6,7 @@
   gap: 5px;
   padding: 10px 20px 10px 50px;
   width: calc(100% - 70px);
-  border-bottom: 1px solid var(--td-border-level-1-color);
+  border-bottom: var(--zodui-border);
   transition: .3s;
   &.wrap:not(.nowrap) {
     align-items: start;
@@ -16,11 +16,11 @@
     }
   }
   &:hover {
-    background-color: var(--td-bg-color-container-hover);
+    background-color: var(--zodui-bg-color__hover);
   }
   &.error {
     border-bottom: none;
-    background-color: var(--td-error-color-1);
+    background-color: var(--zodui-error-color__bg);
   }
   &__more {
     position: absolute;
@@ -34,7 +34,7 @@
     line-height: 32px;
     &-description {
       font-size: 12px;
-      color: var(--td-text-color-placeholder);
+      color: var(--zodui-text-color-placeholder);
     }
   }
   &__control {
@@ -47,9 +47,9 @@
   }
   &__error {
     padding: 10px 5px;
-    border-left: 4px solid var(--td-error-color);
-    border-bottom: 1px solid var(--td-border-level-1-color);
-    color: var(--td-error-color);
-    background-color: var(--td-error-color-1);
+    border-left: 4px solid var(--zodui-error-color);
+    border-bottom: var(--zodui-border);
+    color: var(--zodui-error-color);
+    background-color: var(--zodui-error-color__bg);
   }
 }
