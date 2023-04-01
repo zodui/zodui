@@ -62,8 +62,27 @@ declare module 'zod' {
   export function asObejct<T extends any>(t: T): ZodObject<Record<string, ZodTypeAny> & T>
 }`
 
+const mediaQueryListDark = window.matchMedia('(prefers-color-scheme: dark)')
+
+if (mediaQueryListDark.matches) {
+  window.theme = 'dark'
+  document.documentElement.setAttribute('theme-mode', 'dark')
+} else {
+  window.theme = 'light'
+  document.documentElement.removeAttribute('theme-mode')
+}
+
+mediaQueryListDark.addListener(function handleChange (mediaQueryListEvent) {
+  if (mediaQueryListEvent.matches) {
+    monaco.editor.setTheme('vs-dark')
+  } else {
+    monaco.editor.setTheme('vs')
+  }
+})
+
 let editor: monaco.editor.IStandaloneCodeEditor
 const changeListeners: Function[] = []
+
 window.onCodeChange = function (fn) {
   // TODO refactor as import maps
   const nfn = (s: string) => fn(`${s}
@@ -98,7 +117,7 @@ window.addEventListener('load', function () {
       .concat([{ content: ZOD_EXTERNAL, filePath: 'file:///env.d.ts' }])
   )
   editor = monaco.editor.create(document.getElementById('container')!, {
-    // theme: 'vs-dark',
+    theme: window.theme === 'dark' ? 'vs-dark' : 'vs',
     value: '',
     language: 'typescript',
     tabSize: 2,

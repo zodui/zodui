@@ -29,8 +29,10 @@ export declare global {
    * display a message
    */
   function showMessage(content: string, duration = 3000): void
+  const theme: 'light' | 'dark' | (string & {})
   interface Window {
     z: z
+    theme: typeof theme
     base64: typeof base64
     onCodeChange: typeof onCodeChange
     ZOD_DTS_FILES: typeof ZOD_DTS_FILES
