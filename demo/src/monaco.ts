@@ -8,39 +8,7 @@ export default z
   .describe('This is a Object Configuration')
 `
 
-let editor: monaco.editor.IStandaloneCodeEditor
-const changeListeners: Function[] = []
-window.onCodeChange = function (fn) {
-  // TODO refactor as import maps
-  const nfn = (s: string) => fn(`${s}
-;(window?.____DEFAULT_EXPORT_VALUE____)`
-    .replace('export default ', 'window.____DEFAULT_EXPORT_VALUE____ = ')
-    .replace(/import ([\s\S]*) from 'zod'/g, 'var $1 = window.z')
-    .replace(/\* as/g, '')
-    .replace(/import ([\s\S]*) from .*/g, ''))
-  changeListeners.push(nfn)
-  nfn(editor?.getValue())
-  const index = changeListeners.length - 1
-  return () => {
-    if (index > -1) changeListeners.splice(index, 1)
-  }
-}
-function updateCode(s: string) {
-  changeListeners.forEach((fn) => fn(s))
-}
-window.addEventListener('load', function () {
-  function setCodeByUrl() {
-    const hash = location.hash.slice(1)
-    const code = hash ? base64(hash) : DEFAULT_CODE
-    editor.setValue(code)
-    updateCode(code)
-  }
-
-  // watch hash change
-  window.addEventListener('hashchange', setCodeByUrl)
-  // add custom dts
-  monaco.languages.typescript.typescriptDefaults.setExtraLibs(ZOD_DTS_FILES)
-  monaco.languages.typescript.typescriptDefaults.addExtraLib(`import z, { Schema, ZodDefaultDef, ZodFirstPartyTypeKind, ZodObject, ZodType, ZodTypeAny } from 'zod'
+const ZOD_EXTERNAL = `import z, { Schema, ZodDefaultDef, ZodFirstPartyTypeKind, ZodObject, ZodType, ZodTypeAny } from 'zod'
 
 export interface ModesMap {
   [ZodFirstPartyTypeKind.ZodNumber]:
@@ -92,7 +60,43 @@ declare module 'zod' {
   }
   export function clazz<T>(clazz: { new(): T }): Schema<T>
   export function asObejct<T extends any>(t: T): ZodObject<Record<string, ZodTypeAny> & T>
-}`, 'file:///env.d.ts')
+}`
+
+let editor: monaco.editor.IStandaloneCodeEditor
+const changeListeners: Function[] = []
+window.onCodeChange = function (fn) {
+  // TODO refactor as import maps
+  const nfn = (s: string) => fn(`${s}
+;(window?.____DEFAULT_EXPORT_VALUE____)`
+    .replace('export default ', 'window.____DEFAULT_EXPORT_VALUE____ = ')
+    .replace(/import ([\s\S]*) from 'zod'/g, 'var $1 = window.z')
+    .replace(/\* as/g, '')
+    .replace(/import ([\s\S]*) from .*/g, ''))
+  changeListeners.push(nfn)
+  nfn(editor?.getValue())
+  const index = changeListeners.length - 1
+  return () => {
+    if (index > -1) changeListeners.splice(index, 1)
+  }
+}
+function updateCode(s: string) {
+  changeListeners.forEach((fn) => fn(s))
+}
+window.addEventListener('load', function () {
+  function setCodeByUrl() {
+    const hash = location.hash.slice(1)
+    const code = hash ? base64(hash) : DEFAULT_CODE
+    editor.setValue(code)
+    updateCode(code)
+  }
+
+  // watch hash change
+  window.addEventListener('hashchange', setCodeByUrl)
+  // add custom dts
+  monaco.languages.typescript.typescriptDefaults.setExtraLibs(
+    ZOD_DTS_FILES
+      .concat([{ content: ZOD_EXTERNAL, filePath: 'file:///env.d.ts' }])
+  )
   editor = monaco.editor.create(document.getElementById('container')!, {
     // theme: 'vs-dark',
     value: '',
