@@ -40,6 +40,79 @@
       overflow: overlay;
     }
   </style>
+  <style data-name='theme-switch'>
+    #themeSwitch {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 4px;
+      background-color: rgba(255, 255, 255, .6);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    #themeSwitch.light > .cur-card {
+      left: 4px;
+      background-color: rgba(255, 255, 255, .8);
+    }
+    #themeSwitch.dark > .cur-card {
+      left: calc((100% - 8px) / 3 * 1 + 4px);
+    }
+    #themeSwitch.auto > .cur-card {
+      left: calc((100% - 8px) / 3 * 2 + 4px);
+    }
+    #themeSwitch > .cur-card {
+      z-index: 9;
+      position: absolute;
+      left: -100px;
+      width: calc((100% - 8px) / 3);
+      height: calc(100% - 8px);
+      background-color: rgba(142, 142, 142, .55);
+      border-radius: 4px;
+      transition: .3s;
+    }
+    #themeSwitch > .light,
+    #themeSwitch > .dark,
+    #themeSwitch > .auto {
+      z-index: 10;
+      display: flex;
+      padding: 2px;
+      cursor: pointer;
+    }
+    #themeSwitch > .light > svg,
+    #themeSwitch > .dark > svg,
+    #themeSwitch > .auto > svg {
+      transition: .3s;
+    }
+    #themeSwitch > .light {
+      color: orange;
+    }
+    #themeSwitch > .light:hover > svg {
+      filter: drop-shadow(0 0 4px orange);
+    }
+    #themeSwitch > .dark {
+      color: yellow;
+    }
+    #themeSwitch > .dark:hover > svg {
+      filter: drop-shadow(0 0 4px yellow);
+    }
+    #themeSwitch > .auto {
+      position: relative;
+      width: 20px;
+      height: 20px;
+    }
+    #themeSwitch > .auto > svg:first-child {
+      border-right: 2px dashed white;
+      color: orange;
+    }
+    #themeSwitch > .auto > svg:last-child {
+      color: yellow;
+    }
+    body > .header > .header-right > a {
+      display: flex;
+      align-items: center;
+      transition: .3s;
+    }
+  </style>
   <style data-name='header'>
     body > .header {
       position: absolute;
@@ -71,77 +144,7 @@
       display: flex;
       gap: 10px;
     }
-    body > .header > .header-right > div.theme-switch {
-      position: relative;
-      display: flex;
-      align-items: center;
-      padding: 4px;
-      background-color: rgba(255, 255, 255, .6);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    body > .header > .header-right > div.theme-switch.light > .cur-card {
-      left: 4px;
-      background-color: rgba(255, 255, 255, .8);
-    }
-    body > .header > .header-right > div.theme-switch.dark > .cur-card {
-      left: calc((100% - 8px) / 3 * 1 + 4px);
-    }
-    body > .header > .header-right > div.theme-switch.auto > .cur-card {
-      left: calc((100% - 8px) / 3 * 2 + 4px);
-    }
-    body > .header > .header-right > div.theme-switch > .cur-card {
-      z-index: 9;
-      position: absolute;
-      left: -100px;
-      width: calc((100% - 8px) / 3);
-      height: calc(100% - 8px);
-      background-color: rgba(142, 142, 142, .55);
-      border-radius: 4px;
-      transition: .3s;
-    }
-    body > .header > .header-right > div.theme-switch > .light,
-    body > .header > .header-right > div.theme-switch > .dark,
-    body > .header > .header-right > div.theme-switch > .auto {
-      z-index: 10;
-      display: flex;
-      padding: 2px;
-      cursor: pointer;
-    }
-    body > .header > .header-right > div.theme-switch > .light > svg,
-    body > .header > .header-right > div.theme-switch > .dark > svg,
-    body > .header > .header-right > div.theme-switch > .auto > svg {
-      transition: .3s;
-    }
-    body > .header > .header-right > div.theme-switch > .light {
-      color: orange;
-    }
-    body > .header > .header-right > div.theme-switch > .light:hover > svg {
-      filter: drop-shadow(0 0 4px orange);
-    }
-    body > .header > .header-right > div.theme-switch > .dark {
-      color: yellow;
-    }
-    body > .header > .header-right > div.theme-switch > .dark:hover > svg {
-      filter: drop-shadow(0 0 4px yellow);
-    }
-    body > .header > .header-right > div.theme-switch > .auto {
-      position: relative;
-      width: 20px;
-      height: 20px;
-    }
-    body > .header > .header-right > div.theme-switch > .auto > svg:first-child {
-      border-right: 2px dashed white;
-      color: orange;
-    }
-    body > .header > .header-right > div.theme-switch > .auto > svg:last-child {
-      color: yellow;
-    }
-    body > .header > .header-right > a {
-      display: flex;
-      align-items: center;
-      transition: .3s;
-    }
+
     body > .header > .header-right > a:active,
     body > .header > .header-right > a:hover {
       filter: drop-shadow(0 0 8px lightgray);
