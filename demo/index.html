@@ -41,6 +41,9 @@
     }
   </style>
   <style data-name='theme-switch'>
+    html[theme-mode='dark'] #themeSwitch {
+      background-color: rgba(80, 80, 80, .8);
+    }
     #themeSwitch {
       position: relative;
       display: flex;
@@ -49,6 +52,7 @@
       background-color: rgba(255, 255, 255, .6);
       border-radius: 4px;
       overflow: hidden;
+      transition: .3s;
     }
     #themeSwitch.light > .cur-card {
       left: 4px;
@@ -56,9 +60,11 @@
     }
     #themeSwitch.dark > .cur-card {
       left: calc((100% - 8px) / 3 * 1 + 4px);
+      background-color: rgba(142, 142, 142, .55);
     }
     #themeSwitch.auto > .cur-card {
       left: calc((100% - 8px) / 3 * 2 + 4px);
+      background-color: #4766AC88;
     }
     #themeSwitch > .cur-card {
       z-index: 9;
@@ -66,7 +72,6 @@
       left: -100px;
       width: calc((100% - 8px) / 3);
       height: calc(100% - 8px);
-      background-color: rgba(142, 142, 142, .55);
       border-radius: 4px;
       transition: .3s;
     }
@@ -114,6 +119,10 @@
     }
   </style>
   <style data-name='header'>
+    html[theme-mode='dark'] body > .header {
+      background-color: #31518c;
+      box-shadow: 0 0 6px lightgray;
+    }
     body > .header {
       position: absolute;
       top: 0;
@@ -126,6 +135,7 @@
       height: 50px;
       background-color: #3E67B1;
       box-shadow: 0 0 10px gray;
+      transition: .3s;
     }
     body > .header > .header-left > a {
       display: flex;
