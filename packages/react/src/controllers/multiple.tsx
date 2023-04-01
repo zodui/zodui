@@ -14,7 +14,7 @@ import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'reac
 
 import { Controller, ControllerProps } from './index'
 import { AllTypes, getDefaultValue, isWhatType, Mutable, TypeMap, useModes } from '../utils'
-import { KeyEditableTypes, MultipleSchemas } from '../configure'
+import { KeyEditableTypes, ComplexMultipleTypes } from '../configure'
 import { Icon, Button, Input } from '../components'
 import { plgMaster } from '../plugins'
 
@@ -143,7 +143,7 @@ export function Multiple({
   const dictKeys = useMemo(() => Object.keys(dict ?? {}), [ dict ])
   const [keys, setKeys] = useState<string[]>([])
 
-  const isMultipleSchema = useMemo(() => MultipleSchemas.includes(schema._def.typeName), [schema._def.typeName])
+  const isComplex = useMemo(() => ComplexMultipleTypes.includes(schema._def.typeName), [schema._def.typeName])
 
   const modes = useModes(schema)
 
@@ -218,7 +218,7 @@ export function Multiple({
         <div className={`${prefix}-item__index-tag`}>
           {index + 1}
         </div>
-        {!isMultipleSchema && <>
+        {!isComplex && <>
           {index === 0
             ? <Button
               shape='square'
@@ -272,13 +272,13 @@ export function Multiple({
         <Button
           theme='error'
           disabled={
-            isMultipleSchema
+            isComplex
               ? props.disabled ?? (item === undefined)
               : props.disabled
           }
-          icon={isMultipleSchema ? 'Clear' : 'Delete'}
+          icon={isComplex ? 'Clear' : 'Delete'}
           onClick={() => {
-            if (isMultipleSchema) {
+            if (isComplex) {
               const newList = [...list]
               newList[index] = undefined
               setList(newList)

@@ -16,7 +16,7 @@ export const WrapModes: (string | RegExp)[] = []
 /**
  * 复合 schema 的类型
  */
-export const MultipleSchemas = [AllTypes.ZodTuple, AllTypes.ZodObject]
+export const ComplexMultipleTypes = [AllTypes.ZodTuple, AllTypes.ZodObject]
 
 /**
  * 可修改 key 的值的类型
