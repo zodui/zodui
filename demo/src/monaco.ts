@@ -227,9 +227,16 @@ window.addEventListener('load', () => {
     root.style.width = newWidth + 'px'
   }
 
+  let isClick = false
   root.addEventListener('mousedown', e => {
     if (e.offsetX < BORDER_SIZE) {
       mPos = e.x
+      if (!isClick) {
+        isClick = true
+        setTimeout(() => isClick = false, 1000)
+      } else {
+        root.style.width = '700px'
+      }
       document.addEventListener('mousemove', resize, false)
       root.style.userSelect = 'none'
     }
