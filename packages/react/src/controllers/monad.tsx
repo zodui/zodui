@@ -1,24 +1,23 @@
 import { useEffect, useState } from 'react'
 import { ControllerProps } from './index'
-import { useModes, TypeMap } from '../utils'
+import { useModes, TypeMap, AllTypes, Mutable } from '../utils'
 import { Input, Switch } from '../components'
 
 import '../plugins/common-primitive'
 import { plgMaster } from '../plugins'
 
-export const monad = [
-  'string',
-  'number',
-  'boolean',
-  'date'
-]
+const innerMonad = [
+  AllTypes.ZodString,
+  AllTypes.ZodNumber,
+  AllTypes.ZodBoolean,
+  AllTypes.ZodDate
+] as const
 
-export interface PrimitiveProps extends ControllerProps<TypeMap[
-  | 'ZodNumber'
-  | 'ZodString'
-  | 'ZodDate'
-  | 'ZodBoolean'
-]> {
+export const monad = innerMonad as Mutable<typeof innerMonad>
+
+export type MonadType = (typeof monad)[number]
+
+export interface PrimitiveProps extends ControllerProps<TypeMap[MonadType]> {
 }
 
 export function Monad({

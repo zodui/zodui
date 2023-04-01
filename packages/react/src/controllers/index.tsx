@@ -1,10 +1,23 @@
-import { Schema } from 'zod'
+import z, { Schema, ZodTypeDef } from 'zod'
 import { Monad, monad } from './monad'
-import { AllTypes, isWhatType, TypeMap, useDefaultValue } from '../utils'
-import { Complex } from './complex'
-import { Multiple } from './multiple'
+import { AllType, AllTypes, isWhatType, isWhatTypes, TypeMap, useDefaultValue } from '../utils'
+import { complex, Complex } from './complex'
+import { multiple, Multiple } from './multiple'
 import { ReactElement } from 'react'
 import { useErrorHandlerContext } from '../contexts/error-handler'
+
+function isMatchSubControllerisWhatTypes<T extends AllType>(
+  types: T[],
+  tuple: readonly [
+    z.Schema<any, ZodTypeDef & {
+      typeName?: AllType
+    }, any>,
+    (props: ControllerProps<any>) => ReactElement
+  ]
+): tuple is [TypeMap[T], (props: ControllerProps<TypeMap[T]>) => ReactElement] {
+  const [ s ] = tuple
+  return isWhatTypes(s, types)
+}
 
 export interface ControllerProps<T extends Schema = Schema> {
   schema: T
@@ -32,15 +45,25 @@ export function Controller(props: ControllerProps) {
     />
   }
 
+  const { schema, ...rest } = props
+
   // TODO support literal type display
-  return monad.includes(props.schema.type)
-    // TODO resolve any as right type
-    ? <Monad {...props as any} />
-    : isWhatType(props.schema, AllTypes.ZodUnion)
-    ? <Complex {...props as any} />
-    : ['array', 'tuple', 'record', 'dict', 'object'].includes(props.schema.type)
-    ? <Multiple {...props as any} />
-    : <span style={{ width: '100%' }}>暂未支持的的类型 <code>{props.schema.type}</code></span>
+  const subControllers = [
+    [monad, Monad],
+    [complex, Complex],
+    [multiple, Multiple]
+  ] as const
+
+  for (const [types, SubController] of subControllers) {
+    // let ts happy
+    const checkTuple = [schema, SubController] as const
+    if (isMatchSubControllerisWhatTypes(types, checkTuple)) {
+      const [schema, SubController] = checkTuple
+      return <SubController schema={schema} {...rest} />
+    }
+  }
+
+  return <span style={{ width: '100%' }}>暂未支持的的类型 <code>{props.schema.type}</code></span>
 }
 
 const PropsSymbol = Symbol('props')

@@ -121,6 +121,15 @@ export function isWhatType<T extends AllType>(
   return s?._def?.typeName === type
 }
 
+export function isWhatTypes<T extends AllType>(
+  s: z.Schema<any, ZodTypeDef & {
+    typeName?: AllType
+  }, any>,
+  types: T[]
+): s is TypeMap[T] {
+  return types.includes(s?._def?.typeName as any)
+}
+
 export function getDefaultValue(s: z.Schema) {
   if (isWhatType(s, ZodFirstPartyTypeKind.ZodDefault)) {
     return s?._def?.defaultValue()

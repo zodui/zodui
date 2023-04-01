@@ -1,7 +1,7 @@
 import type { ZodUnionOptions } from 'zod'
 import { useEffect, useMemo, useState } from 'react'
 import { Controller, ControllerProps } from './index'
-import { AllTypes, TypeMap, useModes } from '../utils'
+import { AllTypes, Mutable, TypeMap, useModes } from '../utils'
 
 import '../plugins/common-union'
 import { plgMaster } from '../plugins'
@@ -19,12 +19,20 @@ function resolveSchemas(schemas: ZodUnionOptions): BaseCompProps.SelectOptions[]
   }))
 }
 
+const innerComplexTypes = [
+  AllTypes.ZodUnion
+] as const
+
+export const complex = innerComplexTypes as Mutable<typeof innerComplexTypes>
+
+export type ComplexType = (typeof complex)[number]
+
 export function Complex({
   schema,
   value,
   defaultValue,
   ...rest
-}: ControllerProps<TypeMap['ZodUnion']>) {
+}: ControllerProps<TypeMap[ComplexType]>) {
   const options = useMemo(() => resolveSchemas(schema.options), [schema.options])
   const [index, setIndex] = useState<number>(0)
   useEffect(() => {
