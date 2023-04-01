@@ -13,7 +13,7 @@ import { BaseCompProps } from '../components/base'
 function resolveSchemas(schemas: ZodUnionOptions): BaseCompProps.SelectOptions[] {
   // TODO resolve not literal type, it not contain value
   return schemas.map((schema, index) => ({
-    label: schema._def.label || schema._def.description || schema._def.value || index.toString(),
+    label: schema._def.label || schema._def.description || schema._def.value || `[${index}]`,
     title: schema._def.description,
     value: index
   }))
@@ -26,6 +26,8 @@ const innerComplexTypes = [
 export const complex = innerComplexTypes as Mutable<typeof innerComplexTypes>
 
 export type ComplexType = (typeof complex)[number]
+
+const prefix = 'zodui-item__control-complex'
 
 export function Complex({
   schema,
@@ -86,11 +88,11 @@ export function Complex({
 
   // TODO support `'' | (string & {})` type
   //      display select input
-  return <>
+  return <div className={prefix}>
     <Select
       options={options}
       {...props}
     />
     {OptionRender}
-  </>
+  </div>
 }
