@@ -78,14 +78,27 @@
       padding: 4px;
       background-color: rgba(255, 255, 255, .6);
       border-radius: 4px;
+      overflow: hidden;
+    }
+    body > .header > .header-right > div.theme-switch.light > .cur-card {
+      left: 4px;
+      background-color: rgba(255, 255, 255, .8);
+    }
+    body > .header > .header-right > div.theme-switch.dark > .cur-card {
+      left: calc((100% - 8px) / 3 * 1 + 4px);
+    }
+    body > .header > .header-right > div.theme-switch.auto > .cur-card {
+      left: calc((100% - 8px) / 3 * 2 + 4px);
     }
     body > .header > .header-right > div.theme-switch > .cur-card {
       z-index: 9;
       position: absolute;
+      left: -100px;
       width: calc((100% - 8px) / 3);
       height: calc(100% - 8px);
-      background-color: rgba(255, 255, 255, 1);
+      background-color: rgba(142, 142, 142, .55);
       border-radius: 4px;
+      transition: .3s;
     }
     body > .header > .header-right > div.theme-switch > .light,
     body > .header > .header-right > div.theme-switch > .dark,
@@ -104,13 +117,13 @@
       color: orange;
     }
     body > .header > .header-right > div.theme-switch > .light:hover > svg {
-      filter: drop-shadow(0 0 6px orange);
+      filter: drop-shadow(0 0 4px orange);
     }
     body > .header > .header-right > div.theme-switch > .dark {
       color: yellow;
     }
     body > .header > .header-right > div.theme-switch > .dark:hover > svg {
-      filter: drop-shadow(0 0 6px yellow);
+      filter: drop-shadow(0 0 4px yellow);
     }
     body > .header > .header-right > div.theme-switch > .auto {
       position: relative;
@@ -250,7 +263,7 @@
       </a>
     </div>
     <div class='header-right'>
-      <div class='theme-switch'>
+      <div class='theme-switch' id='themeSwitch'>
         <div class='light'>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path fill="currentColor" d="M9.99996 3.15217C10.5252 3.15217 10.951 2.72636 10.951 2.20109C10.951 1.67582 10.5252 1.25 9.99996 1.25C9.47469 1.25 9.04887 1.67582 9.04887 2.20109C9.04887 2.72636 9.47469 3.15217 9.99996 3.15217Z"></path>
