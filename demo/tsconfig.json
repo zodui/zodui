@@ -3,6 +3,7 @@
   "compilerOptions": {
     "rootDir": "..",
     "jsx": "react-jsx",
+    "module": "ES2020",
     "baseUrl": ".",
     "paths": {
       "zodui": ["../packages/zodui/src"],
