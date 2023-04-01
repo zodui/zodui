@@ -64,20 +64,20 @@ declare module 'zod' {
 
 const mediaQueryListDark = window.matchMedia('(prefers-color-scheme: dark)')
 
-if (mediaQueryListDark.matches) {
-  window.theme = 'dark'
-  document.documentElement.setAttribute('theme-mode', 'dark')
-} else {
-  window.theme = 'light'
-  document.documentElement.removeAttribute('theme-mode')
-}
-
-mediaQueryListDark.addListener(function handleChange (mediaQueryListEvent) {
-  if (mediaQueryListEvent.matches) {
+function changeThemeBy(mode: string) {
+  if (mode === 'dark') {
     monaco.editor.setTheme('vs-dark')
+    document.documentElement.setAttribute('theme-mode', 'dark')
   } else {
     monaco.editor.setTheme('vs')
+    document.documentElement.removeAttribute('theme-mode')
   }
+}
+
+changeThemeBy(mediaQueryListDark.matches ? 'dark' : '')
+
+mediaQueryListDark.addListener((mediaQueryListEvent) => {
+  changeThemeBy(mediaQueryListEvent.matches ? 'dark' : '')
 })
 
 let editor: monaco.editor.IStandaloneCodeEditor
