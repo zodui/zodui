@@ -64,6 +64,8 @@ declare module 'zod' {
 
 const THEME_STORE_KEY = 'theme'
 
+let editor: monaco.editor.IStandaloneCodeEditor
+
 function updateTheme(mode?: string) {
   const theme = localStorage.getItem(THEME_STORE_KEY) ?? 'auto'
   if (theme !== 'auto') {
@@ -75,10 +77,28 @@ function updateTheme(mode?: string) {
     }
   }
   if (mode === 'dark') {
-    monaco.editor.setTheme('vs-dark')
+    if (editor) {
+      monaco.editor.setTheme('vs-dark')
+    } else {
+      let i = setInterval(() => {
+        if (editor) {
+          monaco.editor.setTheme('vs-dark')
+          clearInterval(i)
+        }
+      }, 100)
+    }
     document.documentElement.setAttribute('theme-mode', 'dark')
   } else {
-    monaco.editor.setTheme('vs')
+    if (editor) {
+      monaco.editor.setTheme('vs')
+    } else {
+      let i = setInterval(() => {
+        if (editor) {
+          monaco.editor.setTheme('vs')
+          clearInterval(i)
+        }
+      }, 100)
+    }
     document.documentElement.removeAttribute('theme-mode')
   }
 }
@@ -107,7 +127,6 @@ window.addEventListener('load', () => {
   })
 })
 
-let editor: monaco.editor.IStandaloneCodeEditor
 const changeListeners: Function[] = []
 
 window.onCodeChange = function (fn) {
