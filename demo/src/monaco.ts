@@ -147,7 +147,7 @@ window.onCodeChange = function (fn) {
 function updateCode(s: string) {
   changeListeners.forEach((fn) => fn(s))
 }
-window.addEventListener('load', function () {
+window.addEventListener('load', () => {
   function setCodeByUrl() {
     const hash = location.hash.slice(1)
     const code = hash ? base64(hash) : DEFAULT_CODE
@@ -167,6 +167,7 @@ window.addEventListener('load', function () {
     value: '',
     language: 'typescript',
     tabSize: 2,
+    automaticLayout: true,
     model: monaco.editor.createModel('', 'typescript', monaco.Uri.parse('file:///main.ts')),
   })
 
@@ -209,4 +210,32 @@ window.addEventListener('load', function () {
     editor.setValue(historyCodes[historyIndex].code)
   })
   editor.focus()
+})
+
+window.addEventListener('load', () => {
+  const root = document.getElementById('root')!
+  const BORDER_SIZE = 4
+
+  let mPos: number
+  function resize(e: MouseEvent) {
+    const dx = mPos - e.x
+    const newWidth = (parseInt(getComputedStyle(root, '').width) + dx)
+    if (newWidth < 550)
+      return
+
+    mPos = e.x
+    root.style.width = newWidth + 'px'
+  }
+
+  root.addEventListener('mousedown', e => {
+    if (e.offsetX < BORDER_SIZE) {
+      mPos = e.x
+      document.addEventListener('mousemove', resize, false)
+      root.style.userSelect = 'none'
+    }
+  }, false)
+  document.addEventListener('mouseup', () => {
+    root.style.userSelect = 'auto'
+    document.removeEventListener('mousemove', resize, false)
+  })
 })

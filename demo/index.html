@@ -32,13 +32,28 @@
       padding-top: 60px;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
+    div.main {
+      display: flex;
+      width: 100%;
+    }
     #container {
-      width: 500px;
+      flex-grow: 1;
     }
     #root {
-      width: calc(100% - 500px);
+      position: relative;
+      width: 700px;
       height: calc(100vh - 60px);
       overflow: overlay;
+    }
+    #root:after {
+      content: ' ';
+      background-color: #ccc;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      cursor: ew-resize;
     }
   </style>
   <style data-name='theme-switch'>
@@ -323,8 +338,10 @@
       </a>
     </div>
   </div>
-  <div id='container'></div>
-  <div id='root'></div>
+  <div class='main'>
+    <div id='container'></div>
+    <div id='root'></div>
+  </div>
   <script type='module' src='/src/main.tsx'></script>
 </body>
 </html>
