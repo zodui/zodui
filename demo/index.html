@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="alternate icon" class="js-site-favicon" type="image/png" href="/zodui.png">
-  <link rel="icon" class="js-site-favicon" type="image/svg+xml" href="/zodui.svg">
+  <meta charset='UTF-8' />
+  <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+  <link rel='alternate icon' class='js-site-favicon' type='image/png' href='/zodui.png'>
+  <link rel='icon' class='js-site-favicon' type='image/svg+xml' href='/zodui.svg'>
   <title>Zod UI</title>
-  <style lang="css" data-name="message">
+  <style lang='css' data-name='message'>
     div.message {
       position: fixed;
       top: 10px;
@@ -25,7 +25,7 @@
       transform: translateX(-50%);
     }
   </style>
-  <style type="text/css">
+  <style type='text/css'>
     body {
       display: flex;
       margin: 0;
@@ -40,7 +40,7 @@
       overflow: overlay;
     }
   </style>
-  <style lang="css" data-name="header">
+  <style lang='css' data-name='header'>
     body > .header {
       position: absolute;
       top: 0;
@@ -73,20 +73,20 @@
     var require = { paths: { vs: './monaco/min/vs' } }
   </script>
   <link
-    rel="stylesheet"
-    data-name="vs/editor/editor.main"
-    href="/monaco/min/vs/editor/editor.main.css"
+    rel='stylesheet'
+    data-name='vs/editor/editor.main'
+    href='/monaco/min/vs/editor/editor.main.css'
   >
-  <script src="/monaco/min/vs/loader.js"></script>
-  <script src="/monaco/min/vs/editor/editor.main.nls.js"></script>
-  <script src="/monaco/min/vs/editor/editor.main.js"></script>
+  <script src='/monaco/min/vs/loader.js'></script>
+  <script src='/monaco/min/vs/editor/editor.main.nls.js'></script>
+  <script src='/monaco/min/vs/editor/editor.main.js'></script>
 
-  <template id="message-template">
-    <div class="message">
+  <template id='message-template'>
+    <div class='message'>
       {{content}}
     </div>
   </template>
-  <script data-name="lib">
+  <script data-name='lib'>
     ;(function () {
       const tmplCache = {}
       /**
@@ -168,7 +168,7 @@
   <script>
     const ZOD_DTS_FILES = <%- ZOD_DTS_FILES %>;
   </script>
-  <script data-name="monaco" type="module" src="/src/monaco.ts"></script>
+  <script data-name='monaco' type='module' src='/src/monaco.ts'></script>
 </head>
 <body>
 <div class='header'>
@@ -184,17 +184,17 @@
     </a>
   </div>
   <div class='header-right'>
-    <a href='https://github.com/zodui/zodui' target='_blank'>
+    <a href='https://github.com/zodui/zodui' target='_blank' style='display: flex'>
       <img src='https://github.githubassets.com/favicons/favicon.svg'
            alt='GitHub ZodUI Repsitory'
-           width='32'
-           height='32'
+           width='28'
+           height='28'
       >
     </a>
   </div>
 </div>
 <div id='container'></div>
-<div id="root"></div>
-<script type="module" src="/src/main.tsx"></script>
+<div id='root'></div>
+<script type='module' src='/src/main.tsx'></script>
 </body>
 </html>
