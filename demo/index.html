@@ -29,14 +29,14 @@
     body {
       display: flex;
       margin: 0;
-      padding-top: 50px;
+      padding-top: 70px;
     }
     #container {
       width: 500px;
     }
     #root {
       width: calc(100% - 500px);
-      height: calc(100vh - 50px);
+      height: calc(100vh - 70px);
       overflow: overlay;
     }
   </style>
@@ -48,7 +48,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 20px;
+      padding: 10px 20px;
       width: calc(100vw - 40px);
       height: 50px;
       background-color: #3E67B1;
@@ -61,11 +61,18 @@
       font-weight: bold;
       text-decoration: none;
       color: #18263F;;
-      transition: .1s;
+      transition: .3s;
     }
     body > .header > .header-left > a:active,
     body > .header > .header-left > a:hover {
       text-shadow: 0 0 16px lightgray;
+    }
+    body > .header > .header-right > a {
+      transition: .3s;
+    }
+    body > .header > .header-right > a:active,
+    body > .header > .header-right > a:hover {
+      filter: drop-shadow(0 0 8px lightgray);
     }
   </style>
 
