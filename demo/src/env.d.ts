@@ -4,7 +4,6 @@
 export declare global {
   import z from 'zod'
   const z: z
-  function onCodeChange(fn: (code: string) => void): () => void
   const ZOD_DTS_FILES: {
     content: string;
     filePath: string;
@@ -29,11 +28,18 @@ export declare global {
    * display a message
    */
   function showMessage(content: string, duration = 3000): void
+
   const theme: 'light' | 'dark' | (string & {})
+  function onThemeChange(fn: (t: typeof theme) => void)
+
+  function onCodeChange(fn: (code: string) => void): () => void
   interface Window {
     z: z
+
     theme: typeof theme
     base64: typeof base64
+
+    onThemeChange: typeof onThemeChange
     onCodeChange: typeof onCodeChange
     ZOD_DTS_FILES: typeof ZOD_DTS_FILES
   }

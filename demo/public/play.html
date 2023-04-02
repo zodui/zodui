@@ -30,15 +30,15 @@
       transition: .3s;
     }
   </style>
+</head>
+<body>
+  <%- HEADER %>
   <%- MONACO %>
 
   <script>
     const ZOD_DTS_FILES = <%- ZOD_DTS_FILES %>;
   </script>
   <script data-name='monaco' type='module' src='/src/monaco.ts'></script>
-</head>
-<body>
-  <%- HEADER %>
   <div class='main'>
     <div id='container'></div>
     <div id='root'></div>
