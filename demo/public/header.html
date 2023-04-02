@@ -70,18 +70,18 @@
   #themeSwitch > .auto > svg:last-child {
     color: yellow;
   }
-  body > .header > .header-right > a {
+  #header > .header-right > a {
     display: flex;
     align-items: center;
     transition: .3s;
   }
 </style>
 <style data-name='header'>
-  html[theme-mode='dark'] body > .header {
+  html[theme-mode='dark'] #header {
     background-color: #31518c;
     box-shadow: 0 0 6px lightgray;
   }
-  body > .header {
+  #header {
     position: absolute;
     top: 0;
     left: 0;
@@ -95,7 +95,7 @@
     box-shadow: 0 0 10px gray;
     transition: .3s;
   }
-  body > .header > .header-left > a {
+  #header > .header-left > a {
     display: flex;
     align-items: center;
     font-size: 20px;
@@ -104,22 +104,22 @@
     color: #18263F;;
     transition: .3s;
   }
-  body > .header > .header-left > a:active,
-  body > .header > .header-left > a:hover {
+  #header > .header-left > a:active,
+  #header > .header-left > a:hover {
     text-shadow: 0 0 16px lightgray;
   }
-  body > .header > .header-right {
+  #header > .header-right {
     display: flex;
     gap: 10px;
   }
 
-  body > .header > .header-right > a:active,
-  body > .header > .header-right > a:hover {
+  #header > .header-right > a:active,
+  #header > .header-right > a:hover {
     filter: drop-shadow(0 0 8px lightgray);
   }
 </style>
 
-<div class='header'>
+<div id='header'>
   <div class='header-left'>
     <a href='/'>
       <img src='/zodui.svg'
@@ -130,6 +130,8 @@
       &nbsp;
       Zod&nbsp;<span style='color: white'>UI</span>
     </a>
+    <div class='tabs'>
+    </div>
   </div>
   <div class='header-right'>
     <div class='theme-switch' id='themeSwitch'>
