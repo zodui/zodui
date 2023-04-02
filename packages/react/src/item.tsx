@@ -4,7 +4,7 @@ import z from 'zod'
 import React, { useEffect, useMemo } from 'react'
 
 import { WrapModes } from './configure'
-import { getModes } from './utils'
+import { getModes, inlineMarkdown } from './utils'
 import { Controller } from './controllers'
 import { Button } from './components'
 import { useErrorHandler } from './contexts/error-handler'
@@ -58,9 +58,11 @@ export function Item(props: ItemProps) {
         </div>
         <div className='zodui-item__label'>
           {props.label}
-          {schema._def.description && <div className='zodui-item__label-description'>
-            {schema._def.description}
-          </div>}
+          {schema._def.description
+            && <pre
+              className='zodui-item__label-description inline-md'
+              dangerouslySetInnerHTML={{ __html: inlineMarkdown(schema._def.description) }}
+            />}
         </div>
         <div className='zodui-item__control'>
           {error
