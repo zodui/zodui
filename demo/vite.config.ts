@@ -36,6 +36,47 @@ initZOD_DTS_FILES: {
   findZodDtsFiles(zodPackagePath)
 }
 
+const base = '/zodui/'
+
+const pages = [
+  {
+    title: 'Docs',
+    filename: 'docs',
+    template: 'public/docs.html',
+    // TODO auto analysis dep files
+    depFiles: [/templates/],
+    disabled: true,
+  },
+  {
+    title: 'Handbook',
+    filename: 'handbook',
+    template: 'public/handbook.html',
+    // TODO auto analysis dep files
+    depFiles: [/templates/],
+    disabled: true,
+  },
+  {
+    title: 'Playground',
+    filename: 'play',
+    template: 'public/play.html',
+    // TODO auto analysis dep files
+    depFiles: [/templates/],
+  },
+  {
+    title: 'Community',
+    filename: 'docs',
+    template: 'public/community.html',
+    // TODO auto analysis dep files
+    depFiles: [/templates/],
+    disabled: true,
+  }
+]
+
+const TABS = pages.map(({ depFiles, ...rest }) => ({
+  ...rest,
+  href: `${base}${rest.filename}.html`
+}))
+
 const ejsOptions: EJSOptions = {
   includer(originalPath, parsedPath) {
     return { filename: path.resolve(process.cwd(), `public/${originalPath}.html`) }
@@ -43,7 +84,7 @@ const ejsOptions: EJSOptions = {
 }
 
 export default defineConfig({
-  base: '/zodui/',
+  base,
   plugins: [
     react(),
     tsconfigPaths(),
@@ -54,6 +95,8 @@ export default defineConfig({
           template: 'index.html',
           injectOptions: {
             data: () => ({
+              TABS,
+              ZOD_DTS_FILES: JSON.stringify(ZOD_DTS_FILES),
             }),
             ejsOptions
           },
@@ -61,18 +104,21 @@ export default defineConfig({
           // TODO auto analysis dep files
           depFiles: [/templates/]
         },
-        {
-          filename: 'play',
-          template: 'public/play.html',
-          injectOptions: {
-            data: () => ({
-              TITLE: 'Playground',
-              ZOD_DTS_FILES: JSON.stringify(ZOD_DTS_FILES)
-            }),
-            ejsOptions
-          },
-          depFiles: [/templates/]
-        }
+        ...pages
+          .filter(p => !p.disabled)
+          .map(p => ({
+            filename: p.filename,
+            template: p.template,
+            depFiles: p.depFiles,
+            injectOptions: {
+              data: () => ({
+                TABS,
+                TITLE: p.title,
+                ZOD_DTS_FILES: JSON.stringify(ZOD_DTS_FILES),
+              }),
+              ejsOptions
+            }
+          }))
       ]
     })
   ],

@@ -100,6 +100,7 @@
     display: flex;
     align-items: center;
     gap: 80px;
+    overflow: hidden;
   }
   #header > .header-left > .tabs {
     position: relative;
@@ -111,7 +112,7 @@
   }
   #header > .header-left > .tabs > .active-bar {
     position: absolute;
-    bottom: -20px;
+    bottom: -25px;
     left: 0;
     width: 100px;
     height: 5px;
@@ -125,7 +126,17 @@
     cursor: pointer;
     transition: .3s;
   }
-  #header > .header-left > .tabs > .tab:hover {
+  #header > .header-left > .tabs > .tab > a {
+    color: white;
+    text-decoration: none;
+  }
+  #header > .header-left > a:active,
+  #header > .header-left > a:hover {
+  }
+  #header > .header-left > .tabs > .tab.disabled {
+    cursor: not-allowed;
+  }
+  #header > .header-left > .tabs > .tab:not(.disabled):hover {
     text-shadow: 0 0 16px lightgray;
   }
   #header > .header-left > a {
@@ -134,7 +145,7 @@
     font-size: 20px;
     font-weight: bold;
     text-decoration: none;
-    color: #18263F;;
+    color: #18263F;
     transition: .3s;
   }
   #header > .header-left > a:active,
@@ -165,10 +176,15 @@
     </a>
     <div class='tabs'>
       <div class='active-bar'></div>
-      <div class='tab'>Docs</div>
-      <div class='tab'>Handbook</div>
-      <div class='tab'>Playround</div>
-      <div class='tab'>Community</div>
+      <% for (tab of TABS) { %>
+        <div class="tab<%= tab.disabled ? ' disabled' : '' %>">
+          <% if (tab.disabled) { %>
+            <%= tab.title %>
+          <% } else { %>
+            <a href='<%= tab.href %>'><%= tab.title %></a>
+          <% } %>
+        </div>
+      <% } %>
     </div>
   </div>
   <div class='header-right'>
@@ -218,14 +234,9 @@
     </a>
   </div>
 </div>
-
 <script data-name='tab-controller'>
   window.addEventListener('load', () => {
-    this.tabs = document.querySelectorAll('#header .tab');
-    this.tabs.forEach(tab => {
-      tab.addEventListener('click', event => {
-      })
-    })
+    const activeBar = document.querySelector('#header .tabs .active-bar')
   })
 </script>
 
