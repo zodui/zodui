@@ -8,34 +8,6 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 
 import { Options as EJSOptions } from 'ejs'
 
-const ZOD_DTS_FILES: { content: string, filePath: string }[] = []
-
-initZOD_DTS_FILES: {
-  const nodeModulesPath = path.join(__dirname, '../node_modules')
-  const zodPackagePath = path.join(nodeModulesPath, 'zod/lib')
-
-  function addZodDtsFileContent(filePath: string) {
-    let content = fs.readFileSync(filePath, 'utf-8')
-    ZOD_DTS_FILES.push({
-      content,
-      filePath: filePath.replace(zodPackagePath, 'file:///node_modules/@types/zod')
-    })
-  }
-  function findZodDtsFiles(dirPath: string) {
-    const files = fs.readdirSync(dirPath)
-    for (const file of files) {
-      const filePath = path.join(dirPath, file)
-      const stats = fs.statSync(filePath)
-      if (stats.isDirectory()) {
-        findZodDtsFiles(filePath)
-      } else if (stats.isFile() && path.basename(filePath).endsWith('.d.ts')) {
-        addZodDtsFileContent(filePath)
-      }
-    }
-  }
-  findZodDtsFiles(zodPackagePath)
-}
-
 const base = '/zodui/'
 
 const pages = [
@@ -83,6 +55,38 @@ const ejsOptions: EJSOptions = {
   }
 }
 
+function commonInjectOptionsData() {
+  const ZOD_DTS_FILES: { content: string, filePath: string }[] = []
+
+  initZOD_DTS_FILES: {
+    const nodeModulesPath = path.join(__dirname, '../node_modules')
+    const zodPackagePath = path.join(nodeModulesPath, 'zod/lib')
+
+    function addZodDtsFileContent(filePath: string) {
+      let content = fs.readFileSync(filePath, 'utf-8')
+      ZOD_DTS_FILES.push({
+        content,
+        filePath: filePath.replace(zodPackagePath, 'file:///node_modules/@types/zod')
+      })
+    }
+    function findZodDtsFiles(dirPath: string) {
+      const files = fs.readdirSync(dirPath)
+      for (const file of files) {
+        const filePath = path.join(dirPath, file)
+        const stats = fs.statSync(filePath)
+        if (stats.isDirectory()) {
+          findZodDtsFiles(filePath)
+        } else if (stats.isFile() && path.basename(filePath).endsWith('.d.ts')) {
+          addZodDtsFileContent(filePath)
+        }
+      }
+    }
+    findZodDtsFiles(zodPackagePath)
+  }
+
+  return { TABS, ZOD_DTS_FILES: JSON.stringify(ZOD_DTS_FILES) }
+}
+
 export default defineConfig({
   base,
   plugins: [
@@ -95,8 +99,7 @@ export default defineConfig({
           template: 'index.html',
           injectOptions: {
             data: () => ({
-              TABS,
-              ZOD_DTS_FILES: JSON.stringify(ZOD_DTS_FILES),
+              ...commonInjectOptionsData()
             }),
             ejsOptions
           },
@@ -112,9 +115,8 @@ export default defineConfig({
             depFiles: p.depFiles,
             injectOptions: {
               data: () => ({
-                TABS,
-                TITLE: p.title,
-                ZOD_DTS_FILES: JSON.stringify(ZOD_DTS_FILES),
+                ...commonInjectOptionsData(),
+                TITLE: p.title
               }),
               ejsOptions
             }
