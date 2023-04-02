@@ -57,6 +57,8 @@ export default defineConfig({
             }),
             ejsOptions
           },
+          // TODO when file change only update target page
+          // TODO auto analysis dep files
           depFiles: [/templates/]
         },
         {
