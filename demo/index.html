@@ -3,11 +3,61 @@
 <head>
   <%- include('templates/meta') %>
   <%- include('templates/lib') %>
+  <style data-name='main'>
+    html[theme-mode='dark'] .main > .p1 {
+      color: white;
+      background-color: #31518c;
+    }
+    html[theme-mode='dark'] .main > .p1 > h1 > span {
+      color: #628ad3;
+    }
+    .main {
+      height: calc(100vh - 60px);
+    }
+    .main > .p1 {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      background-color: #cfd7ea;
+      transition: .3s;
+    }
+    .main > .p1 > h1 {
+      position: relative;
+      font-size: 100px;
+    }
+    .main > .p1 > h1 > span {
+      color: #3E67B1;
+    }
+    .main > .p1 > h1 > pre {
+      position: absolute;
+      right: 0;
+      font-size: 1rem;
+    }
+    .main > .p1 > .start-button {
+      position: absolute;
+      bottom: 100px;
+      font-size: 20px;
+      font-weight: bold;
+      user-select: none;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
   <%- include('templates/header') %>
   <div class='main'>
-    <h1>Zod UI</h1>
+    <div class='p1'>
+      <h1>
+        <span>Zod</span> UI
+        <pre>drive your UI by zod.</pre>
+      </h1>
+      <div class='start-button' onclick='location.href = "/zodui/play"'>
+        Start
+      </div>
+    </div>
   </div>
 </body>
 </html>
