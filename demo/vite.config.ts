@@ -23,7 +23,6 @@ const pages = [
     title: 'Handbook',
     filename: 'handbook',
     template: 'public/handbook.html',
-    // TODO auto analysis dep files
     depFiles: [/templates/],
     disabled: true,
   },
@@ -31,14 +30,12 @@ const pages = [
     title: 'Playground',
     filename: 'play',
     template: 'public/play.html',
-    // TODO auto analysis dep files
     depFiles: [/templates/],
   },
   {
     title: 'Community',
     filename: 'docs',
     template: 'public/community.html',
-    // TODO auto analysis dep files
     depFiles: [/templates/],
     disabled: true,
   }
@@ -46,7 +43,7 @@ const pages = [
 
 const TABS = pages.map(({ depFiles, ...rest }) => ({
   ...rest,
-  href: `${base}${rest.filename}.html`
+  href: `${base}${rest.filename}`
 }))
 
 const ejsOptions: EJSOptions = {

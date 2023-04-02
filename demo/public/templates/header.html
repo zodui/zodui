@@ -95,12 +95,12 @@
     background-color: #3E67B1;
     box-shadow: 0 0 10px gray;
     transition: .3s;
+    overflow: hidden;
   }
   #header > .header-left {
     display: flex;
     align-items: center;
     gap: 80px;
-    overflow: hidden;
   }
   #header > .header-left > .tabs {
     position: relative;
@@ -235,8 +235,16 @@
   </div>
 </div>
 <script data-name='tab-controller'>
-  window.addEventListener('load', () => {
+  window.TABS = <%- JSON.stringify(TABS) %>
+
+  ;window.addEventListener('load', () => {
+    /** @type {HTMLDivElement} */
     const activeBar = document.querySelector('#header .tabs .active-bar')
+    const index = window.TABS.findIndex(t => t.href === window.location.pathname)
+    if (index > -1) {
+      activeBar.style.bottom = '-20px'
+      activeBar.style.left = `${index * 120}px`
+    }
   })
 </script>
 

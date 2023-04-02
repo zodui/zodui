@@ -33,6 +33,14 @@ export declare global {
   function onThemeChange(fn: (t: typeof theme) => void)
 
   function onCodeChange(fn: (code: string) => void): () => void
+
+  interface Tab {
+    href: string
+    title: string
+    disabled?: boolean
+  }
+  const TABS: Tab[]
+
   interface Window {
     z: z
 
@@ -41,6 +49,8 @@ export declare global {
 
     onThemeChange: typeof onThemeChange
     onCodeChange: typeof onCodeChange
+
+    TABS: typeof TABS
     ZOD_DTS_FILES: typeof ZOD_DTS_FILES
   }
 }
