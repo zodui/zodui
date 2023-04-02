@@ -11,6 +11,17 @@ export function Select<T extends BaseCompProps.SelectValue>({
       {...props}
     />
   }
-  // TODO support protogenesis select
-  return <></>
+  const { onChange, ...rest } = props
+  // @ts-ignore FIXME
+  return <select
+    {...rest}
+    onChange={e => onChange(e.target.options.selectedIndex as T)}
+  >
+    {props.options.map((opt) => <option
+      key={opt.value}
+      value={opt.value}
+      title={opt.title}>
+      {opt.label}
+    </option>)}
+  </select>
 }
