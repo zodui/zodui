@@ -6,19 +6,6 @@ import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { createHtmlPlugin } from 'vite-plugin-html'
 
-function traverseDirectory(dirPath: string, fileHandler: (filePath: string) => void) {
-  const files = fs.readdirSync(dirPath)
-  for (const file of files) {
-    const filePath = path.join(dirPath, file)
-    const stats = fs.statSync(filePath)
-    if (stats.isDirectory()) {
-      traverseDirectory(filePath, fileHandler)
-    } else if (stats.isFile()) {
-      fileHandler(filePath)
-    }
-  }
-}
-
 const nodeModulesPath = path.join(__dirname, '../node_modules')
 const zodPackagePath = path.join(nodeModulesPath, 'zod/lib')
 
@@ -47,19 +34,32 @@ function findZodDtsFiles(dirPath: string) {
 
 findZodDtsFiles(zodPackagePath)
 
-// ZOD_DTS_FILES[0].content = `declare module 'zod' { ${ZOD_DTS_FILES[0].content} }`
-
 export default defineConfig({
   base: '/zodui/',
   plugins: [
     react(),
     tsconfigPaths(),
     createHtmlPlugin({
-      inject: {
-        data: {
-          ZOD_DTS_FILES: JSON.stringify(ZOD_DTS_FILES)
+      pages: [
+        {
+          filename: 'index.html',
+          template: 'index.html',
+          injectOptions: {
+            data: {
+              ZOD_DTS_FILES: JSON.stringify([])
+            }
+          }
+        },
+        {
+          filename: 'play',
+          template: 'public/play.html',
+          injectOptions: {
+            data: {
+              ZOD_DTS_FILES: JSON.stringify(ZOD_DTS_FILES)
+            }
+          }
         }
-      }
+      ]
     })
   ],
 })

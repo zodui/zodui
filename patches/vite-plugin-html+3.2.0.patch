@@ -1,0 +1,31 @@
+diff --git a/node_modules/vite-plugin-html/dist/index.cjs b/node_modules/vite-plugin-html/dist/index.cjs
+index 704d055..935d5d4 100644
+--- a/node_modules/vite-plugin-html/dist/index.cjs
++++ b/node_modules/vite-plugin-html/dist/index.cjs
+@@ -128,7 +128,7 @@ function createPlugin(userOptions = {}) {
+       let indexPage = null;
+       for (const page of _pages) {
+         if (page.filename !== "index.html") {
+-          rewrites.push(createRewire(page.template, page, baseUrl, keys));
++          rewrites.push(createRewire(baseUrl + page.filename, page, baseUrl, keys));
+         } else {
+           indexPage = page;
+         }
+@@ -147,7 +147,7 @@ function createPlugin(userOptions = {}) {
+       async transform(html, ctx) {
+         const url = ctx.filename;
+         const base = viteConfig.base;
+-        const excludeBaseUrl = url.replace(base, "/");
++        const excludeBaseUrl = url;
+         const htmlName = path__default.relative(process.cwd(), excludeBaseUrl);
+         const page = getPage(userOptions, htmlName, viteConfig);
+         const { injectOptions = {} } = page;
+@@ -285,7 +285,7 @@ function getPageConfig(htmlName, pages, defaultPage) {
+ }
+ function createRewire(reg, page, baseUrl, proxyUrlKeys) {
+   return {
+-    from: new RegExp(`^/${reg}*`),
++    from: new RegExp(`${reg}.*`),
+     to({ parsedUrl }) {
+       const pathname = parsedUrl.pathname;
+       const excludeBaseUrl = pathname.replace(baseUrl, "/");
