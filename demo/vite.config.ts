@@ -34,12 +34,17 @@ initZOD_DTS_FILES: {
   findZodDtsFiles(zodPackagePath)
 }
 
-const commonInjectData: Record<string, string> = {
-  LIB: fs.readFileSync(path.resolve(process.cwd(), './public/lib.html')).toString(),
-  META: fs.readFileSync(path.resolve(process.cwd(), './public/meta.html')).toString(),
-  HEADER: fs.readFileSync(path.resolve(process.cwd(), './public/header.html')).toString(),
-  MONACO: fs.readFileSync(path.resolve(process.cwd(), './public/monaco.html')).toString(),
+const innerHTMLFiles = {
+  LIB: './public/lib.html',
+  META: './public/meta.html',
+  HEADER: './public/header.html',
+  MONACO: './public/monaco.html'
 }
+
+const commonInjectData: Record<string, string> = Object.entries(innerHTMLFiles).reduce((acc, [key, p]) => ({
+  [key]: fs.readFileSync(path.resolve(process.cwd(), p)).toString(),
+  ...acc
+}), {})
 
 export default defineConfig({
   base: '/zodui/',
@@ -53,8 +58,7 @@ export default defineConfig({
           template: 'index.html',
           injectOptions: {
             data: {
-              ...commonInjectData,
-              ZOD_DTS_FILES: JSON.stringify([])
+              ...commonInjectData
             }
           }
         },
