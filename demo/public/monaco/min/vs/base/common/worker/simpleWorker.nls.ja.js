@@ -5,4 +5,4 @@
  * https://github.com/microsoft/vscode/blob/main/LICENSE.txt
  *-----------------------------------------------------------*/define("vs/base/common/worker/simpleWorker.nls.ja",{"vs/base/common/platform":["_"]});
 
-//# sourceMappingURL=../../../../../min-maps/vs/base/common/worker/simpleWorker.nls.ja.js.map
+//# sourceMappingURL=../../../../monaco/min-maps/vs/base/common/worker/simpleWorker.nls.ja.js.map
