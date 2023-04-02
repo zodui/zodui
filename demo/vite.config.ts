@@ -35,6 +35,7 @@ initZOD_DTS_FILES: {
 }
 
 const commonInjectData: Record<string, string> = {
+  LIB: fs.readFileSync(path.resolve(process.cwd(), './public/lib.html')).toString(),
   META: fs.readFileSync(path.resolve(process.cwd(), './public/meta.html')).toString(),
   HEADER: fs.readFileSync(path.resolve(process.cwd(), './public/header.html')).toString(),
   MONACO: fs.readFileSync(path.resolve(process.cwd(), './public/monaco.html')).toString(),
