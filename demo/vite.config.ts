@@ -6,6 +6,8 @@ import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { createHtmlPlugin } from 'vite-plugin-html'
 
+import { Options as EJSOptions } from 'ejs'
+
 const ZOD_DTS_FILES: { content: string, filePath: string }[] = []
 
 initZOD_DTS_FILES: {
@@ -34,17 +36,11 @@ initZOD_DTS_FILES: {
   findZodDtsFiles(zodPackagePath)
 }
 
-const innerHTMLFiles = {
-  LIB: 'public/lib.html',
-  META: 'public/meta.html',
-  HEADER: 'public/header.html',
-  MONACO: 'public/monaco.html'
+const ejsOptions: EJSOptions = {
+  includer(originalPath, parsedPath) {
+    return { filename: path.resolve(process.cwd(), `public/${originalPath}.html`) }
+  }
 }
-
-const commonInjectData = () => Object.entries(innerHTMLFiles).reduce((acc, [key, p]) => ({
-  [key]: fs.readFileSync(path.resolve(process.cwd(), p)).toString(),
-  ...acc
-}), {} as Record<string, string>)
 
 export default defineConfig({
   base: '/zodui/',
@@ -58,10 +54,9 @@ export default defineConfig({
           template: 'index.html',
           injectOptions: {
             data: () => ({
-              ...commonInjectData()
-            })
-          },
-          depFiles: Object.values(innerHTMLFiles)
+            }),
+            ejsOptions
+          }
         },
         {
           filename: 'play',
@@ -69,11 +64,10 @@ export default defineConfig({
           injectOptions: {
             data: () => ({
               TITLE: 'Playground',
-              ...commonInjectData(),
               ZOD_DTS_FILES: JSON.stringify(ZOD_DTS_FILES)
-            })
-          },
-          depFiles: Object.values(innerHTMLFiles)
+            }),
+            ejsOptions
+          }
         }
       ]
     })

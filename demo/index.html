@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-  <%- META %>
-  <title>Zod UI<% if(locals.TITLE){ %>
-    - <%- TITLE %>
-  <% } %></title>
-  <%- LIB %>
+  <%- include('meta') %>
+  <%- include('lib') %>
 </head>
 <body>
-  <%- HEADER %>
+  <%- include('header') %>
   <div class='main'>
     <h1>Zod UI</h1>
   </div>
