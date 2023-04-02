@@ -1,10 +1,32 @@
 diff --git a/node_modules/vite-plugin-html/dist/index.cjs b/node_modules/vite-plugin-html/dist/index.cjs
-index 704d055..595376e 100644
+index 704d055..997ba83 100644
 --- a/node_modules/vite-plugin-html/dist/index.cjs
 +++ b/node_modules/vite-plugin-html/dist/index.cjs
-@@ -128,13 +128,13 @@ function createPlugin(userOptions = {}) {
+@@ -118,7 +118,8 @@ function createPlugin(userOptions = {}) {
+         _pages = pages.map((page) => {
+           return {
+             filename: page.filename || DEFAULT_TEMPLATE,
+-            template: page.template || DEFAULT_TEMPLATE
++            template: page.template || DEFAULT_TEMPLATE,
++            depFiles: page.depFiles ?? []
+           };
+         });
+       }
+@@ -126,28 +127,54 @@ function createPlugin(userOptions = {}) {
+       const baseUrl = viteConfig.base ?? "/";
+       const keys = Object.keys(proxy);
        let indexPage = null;
++
++      /** @type {{
++        filename: string;
++        depFiles: (string | RegExp)[];
++      }[]} */
++      let reloadEffects = [];
        for (const page of _pages) {
++        reloadEffects.push({
++          filename: page.filename,
++          depFiles: page.depFiles
++        });
          if (page.filename !== "index.html") {
 -          rewrites.push(createRewire(page.template, page, baseUrl, keys));
 +          rewrites.push(createRewire(baseUrl + page.filename, page, baseUrl, keys));
@@ -18,7 +40,28 @@ index 704d055..595376e 100644
        }
        server.middlewares.use(history__default({
          disableDotRule: void 0,
-@@ -147,7 +147,7 @@ function createPlugin(userOptions = {}) {
+         htmlAcceptHeaders: ["text/html", "application/xhtml+xml"],
+         rewrites
+       }));
++      server.watcher.on('change', file => {
++        reloadEffects.forEach(({ filename, depFiles }) => {
++          if (depFiles.some(depFile => {
++            if (typeof depFile === 'string') {
++              return file.includes(depFile)
++            } else {
++              return depFile.test(file)
++            }
++          })) {
++            server.ws.send({
++              type: 'full-reload',
++              path: filename === 'index.html' ? '*' : `${baseUrl}${filename}*`
++            })
++          }
++        })
++      });
+     },
+     transformIndexHtml: {
+       enforce: "pre",
        async transform(html, ctx) {
          const url = ctx.filename;
          const base = viteConfig.base;
@@ -27,7 +70,16 @@ index 704d055..595376e 100644
          const htmlName = path__default.relative(process.cwd(), excludeBaseUrl);
          const page = getPage(userOptions, htmlName, viteConfig);
          const { injectOptions = {} } = page;
-@@ -285,7 +285,7 @@ function getPageConfig(htmlName, pages, defaultPage) {
+@@ -227,7 +254,7 @@ async function renderHtml(html, config) {
+     ...viteConfig?.env ?? {},
+     ...viteConfig?.define ?? {},
+     ...env || {},
+-    ...data
++    ...(typeof data === 'function' ? await data() : data)
+   };
+   let result = await ejs.render(html, ejsData, ejsOptions);
+   if (entry) {
+@@ -285,7 +312,7 @@ function getPageConfig(htmlName, pages, defaultPage) {
  }
  function createRewire(reg, page, baseUrl, proxyUrlKeys) {
    return {
@@ -36,3 +88,24 @@ index 704d055..595376e 100644
      to({ parsedUrl }) {
        const pathname = parsedUrl.pathname;
        const excludeBaseUrl = pathname.replace(baseUrl, "/");
+diff --git a/node_modules/vite-plugin-html/dist/index.d.ts b/node_modules/vite-plugin-html/dist/index.d.ts
+index 0925ff6..b6c8e82 100644
+--- a/node_modules/vite-plugin-html/dist/index.d.ts
++++ b/node_modules/vite-plugin-html/dist/index.d.ts
+@@ -6,7 +6,7 @@ interface InjectOptions {
+     /**
+      *  @description Data injected into the html template
+      */
+-    data?: Record<string, any>;
++    data?: Record<string, any> | (() => Record<string, any>);
+     tags?: HtmlTagDescriptor[];
+     /**
+      * @description esj options configuration
+@@ -18,6 +18,7 @@ interface PageOption {
+     template: string;
+     entry?: string;
+     injectOptions?: InjectOptions;
++    depFiles?: (string | RegExp)[];
+ }
+ declare type Pages = PageOption[];
+ interface UserOptions {

@@ -35,16 +35,16 @@ initZOD_DTS_FILES: {
 }
 
 const innerHTMLFiles = {
-  LIB: './public/lib.html',
-  META: './public/meta.html',
-  HEADER: './public/header.html',
-  MONACO: './public/monaco.html'
+  LIB: 'public/lib.html',
+  META: 'public/meta.html',
+  HEADER: 'public/header.html',
+  MONACO: 'public/monaco.html'
 }
 
-const commonInjectData: Record<string, string> = Object.entries(innerHTMLFiles).reduce((acc, [key, p]) => ({
+const commonInjectData = () => Object.entries(innerHTMLFiles).reduce((acc, [key, p]) => ({
   [key]: fs.readFileSync(path.resolve(process.cwd(), p)).toString(),
   ...acc
-}), {})
+}), {} as Record<string, string>)
 
 export default defineConfig({
   base: '/zodui/',
@@ -57,21 +57,23 @@ export default defineConfig({
           filename: 'index.html',
           template: 'index.html',
           injectOptions: {
-            data: {
-              ...commonInjectData
-            }
-          }
+            data: () => ({
+              ...commonInjectData()
+            })
+          },
+          depFiles: Object.values(innerHTMLFiles)
         },
         {
           filename: 'play',
           template: 'public/play.html',
           injectOptions: {
-            data: {
+            data: () => ({
               TITLE: 'Playground',
-              ...commonInjectData,
+              ...commonInjectData(),
               ZOD_DTS_FILES: JSON.stringify(ZOD_DTS_FILES)
-            }
-          }
+            })
+          },
+          depFiles: Object.values(innerHTMLFiles)
         }
       ]
     })
