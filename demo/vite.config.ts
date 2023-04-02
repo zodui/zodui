@@ -5,6 +5,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { createHtmlPlugin } from 'vite-plugin-html'
+import * as process from 'process'
 
 const nodeModulesPath = path.join(__dirname, '../node_modules')
 const zodPackagePath = path.join(nodeModulesPath, 'zod/lib')
@@ -55,6 +56,7 @@ export default defineConfig({
           template: 'public/play.html',
           injectOptions: {
             data: {
+              HEADER: fs.readFileSync(path.resolve(process.cwd(), './public/header.html')),
               ZOD_DTS_FILES: JSON.stringify(ZOD_DTS_FILES)
             }
           }
