@@ -58,18 +58,6 @@
     }
   </style>
 
-  <script>
-    var require = { paths: { vs: './monaco/min/vs' } }
-  </script>
-  <link
-    rel='stylesheet'
-    data-name='vs/editor/editor.main'
-    href='/monaco/min/vs/editor/editor.main.css'
-  >
-  <script src='/monaco/min/vs/loader.js'></script>
-  <script src='/monaco/min/vs/editor/editor.main.nls.js'></script>
-  <script src='/monaco/min/vs/editor/editor.main.js'></script>
-
   <template id='message-template'>
     <div class='message'>
       {{content}}
@@ -153,6 +141,8 @@
       }
     })()
   </script>
+
+  <%- MONACO %>
 
   <script>
     const ZOD_DTS_FILES = <%- ZOD_DTS_FILES %>;
