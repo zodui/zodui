@@ -1,8 +1,8 @@
 diff --git a/node_modules/vite-plugin-html/dist/index.cjs b/node_modules/vite-plugin-html/dist/index.cjs
-index 704d055..935d5d4 100644
+index 704d055..595376e 100644
 --- a/node_modules/vite-plugin-html/dist/index.cjs
 +++ b/node_modules/vite-plugin-html/dist/index.cjs
-@@ -128,7 +128,7 @@ function createPlugin(userOptions = {}) {
+@@ -128,13 +128,13 @@ function createPlugin(userOptions = {}) {
        let indexPage = null;
        for (const page of _pages) {
          if (page.filename !== "index.html") {
@@ -11,6 +11,13 @@ index 704d055..935d5d4 100644
          } else {
            indexPage = page;
          }
+       }
+       if (indexPage) {
+-        rewrites.push(createRewire("", indexPage, baseUrl, keys));
++        rewrites.push(createRewire(`${baseUrl}(index(.html)?)?`, indexPage, baseUrl, keys));
+       }
+       server.middlewares.use(history__default({
+         disableDotRule: void 0,
 @@ -147,7 +147,7 @@ function createPlugin(userOptions = {}) {
        async transform(html, ctx) {
          const url = ctx.filename;
