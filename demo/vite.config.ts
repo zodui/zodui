@@ -56,7 +56,8 @@ export default defineConfig({
             data: () => ({
             }),
             ejsOptions
-          }
+          },
+          depFiles: [/templates/]
         },
         {
           filename: 'play',
@@ -67,7 +68,8 @@ export default defineConfig({
               ZOD_DTS_FILES: JSON.stringify(ZOD_DTS_FILES)
             }),
             ejsOptions
-          }
+          },
+          depFiles: [/templates/]
         }
       ]
     })

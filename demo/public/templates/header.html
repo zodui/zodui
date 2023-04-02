@@ -96,6 +96,38 @@
     box-shadow: 0 0 10px gray;
     transition: .3s;
   }
+  #header > .header-left {
+    display: flex;
+    align-items: center;
+    gap: 80px;
+  }
+  #header > .header-left > .tabs {
+    position: relative;
+    display: flex;
+    gap: 20px;
+    height: 100%;
+    color: white;
+    font-size: 16px;
+  }
+  #header > .header-left > .tabs > .active-bar {
+    position: absolute;
+    bottom: -20px;
+    left: 0;
+    width: 100px;
+    height: 5px;
+    background-color: #6f92e3;
+    transition: .3s;
+  }
+  #header > .header-left > .tabs > .tab {
+    width: 100px;
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
+    transition: .3s;
+  }
+  #header > .header-left > .tabs > .tab:hover {
+    text-shadow: 0 0 16px lightgray;
+  }
   #header > .header-left > a {
     display: flex;
     align-items: center;
@@ -132,6 +164,11 @@
       Zod&nbsp;<span style='color: white'>UI</span>
     </a>
     <div class='tabs'>
+      <div class='active-bar'></div>
+      <div class='tab'>Docs</div>
+      <div class='tab'>Handbook</div>
+      <div class='tab'>Playround</div>
+      <div class='tab'>Community</div>
     </div>
   </div>
   <div class='header-right'>
@@ -182,4 +219,14 @@
   </div>
 </div>
 
-<script data-name='monaco' type='module' src='/src/theme-switcher.ts'></script>
+<script data-name='tab-controller'>
+  window.addEventListener('load', () => {
+    this.tabs = document.querySelectorAll('#header .tab');
+    this.tabs.forEach(tab => {
+      tab.addEventListener('click', event => {
+      })
+    })
+  })
+</script>
+
+<script data-name='theme-switcher' type='module' src='/src/theme-switcher.ts'></script>

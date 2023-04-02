@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-  <%- include('meta') %>
-  <%- include('lib') %>
+  <%- include('templates/meta') %>
+  <%- include('templates/lib') %>
 
   <style data-name='main'>
     #container {
@@ -29,13 +29,8 @@
   </style>
 </head>
 <body>
-  <%- include('header') %>
-  <%- include('monaco') %>
-
-  <script>
-    const ZOD_DTS_FILES = <%- ZOD_DTS_FILES %>;
-  </script>
-  <script data-name='monaco' type='module' src='/src/monaco.ts'></script>
+  <%- include('templates/header') %>
+  <%- include('templates/monaco') %>
   <div class='main'>
     <div id='container'></div>
     <div id='root'></div>
