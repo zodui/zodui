@@ -37,6 +37,7 @@ window.addEventListener('load', () => {
   const defaultTheme = localStorage.getItem(THEME_STORE_KEY) ?? 'auto'
   themeSwitch.className = 'theme-switch ' + defaultTheme
 
+  updateTheme()
   themeSwitch.addEventListener('click', function (e) {
     let switchChild = e.target as HTMLElement
     while (switchChild.parentNode !== this) {
