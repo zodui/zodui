@@ -35,6 +35,7 @@ initZOD_DTS_FILES: {
 }
 
 const commonInjectData: Record<string, string> = {
+  META: fs.readFileSync(path.resolve(process.cwd(), './public/meta.html')).toString(),
   HEADER: fs.readFileSync(path.resolve(process.cwd(), './public/header.html')).toString(),
 }
 
@@ -60,6 +61,7 @@ export default defineConfig({
           template: 'public/play.html',
           injectOptions: {
             data: {
+              TITLE: 'Playground',
               ...commonInjectData,
               ZOD_DTS_FILES: JSON.stringify(ZOD_DTS_FILES)
             }
