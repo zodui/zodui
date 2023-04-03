@@ -39,6 +39,17 @@
       right: 0;
       font-size: 1rem;
     }
+    @keyframes upAndDown {
+      0% {
+        bottom: 80px;
+      }
+      50% {
+        bottom: 100px;
+      }
+      100% {
+        bottom: 80px;
+      }
+    }
     .main > .p1 > .start-button {
       display: flex;
       align-items: start;
@@ -50,30 +61,19 @@
       user-select: none;
       cursor: pointer;
     }
+    .main > .p1 > .start-button:not(:hover) {
+      animation: upAndDown 1s infinite;
+    }
     .main > .p1 > .start-button > span.content {
       color: #ccc;
       z-index: 2;
       transition: .3s;
-    }
-    @keyframes upAndDown {
-      0% {
-        top: 0;
-      }
-      50% {
-        top: 10px;
-      }
-      100% {
-        top: 0;
-      }
     }
     .main > .p1 > .start-button > .zod {
       position: absolute;
       top: 0;
       left: -25px;
       transition: .3s;
-    }
-    .main > .p1 > .start-button:not(:hover) > .zod {
-      animation: upAndDown 1s infinite;
     }
     .main > .p1 > .start-button:hover > .zod {
       left: calc(-25px * 2);
