@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Created with Vectornator (http://vectornator.io/) -->
+<svg height="1024.0px" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 1024 1024" width="1024.0px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<defs>
+<radialGradient cx="468.79" cy="299.507" gradientTransform="matrix(1.57616 0 0 1.52337 -452.015 -187.713)" gradientUnits="userSpaceOnUse" id="RadialGradient" r="469.01">
+<stop offset="0" stop-color="#a2a2a2" stop-opacity="0.215373"/>
+<stop offset="1" stop-color="#5a5a5a"/>
+</radialGradient>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="834.265" id="Filter" width="820.307" x="96.491" y="125.393">
+<feDropShadow dx="13.4034" dy="14.8442" flood-color="#000000" flood-opacity="0.333" in="SourceGraphic" result="Shadow" stdDeviation="20"/>
+</filter>
+<radialGradient cx="267.022" cy="170.058" gradientTransform="matrix(1.55515 0 0 1.61047 -310.255 -140.609)" gradientUnits="userSpaceOnUse" id="RadialGradient_2" r="406.394">
+<stop offset="0" stop-color="#4a6493"/>
+<stop offset="0.505593" stop-color="#293852"/>
+<stop offset="1" stop-color="#000000"/>
+</radialGradient>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="616.246" id="Filter_2" width="588.443" x="38.0684" y="92.8942">
+<feDropShadow dx="15.4142" dy="25.7372" flood-color="#000000" flood-opacity="0.333" in="SourceGraphic" result="Shadow" stdDeviation="20"/>
+</filter>
+<radialGradient cx="335.604" cy="646.389" gradientTransform="matrix(1.03148 0 0 1.04572 -82.3544 5.87856)" gradientUnits="userSpaceOnUse" id="RadialGradient_3" r="170.003">
+<stop offset="0" stop-color="#8fd0ff" stop-opacity="0.731502"/>
+<stop offset="0.46085" stop-color="#0093fc" stop-opacity="0.705976"/>
+<stop offset="1" stop-color="#0080dd"/>
+</radialGradient>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="285.442" id="Filter_3" width="285" x="206.859" y="631.034">
+<feDropShadow dx="22.8362" dy="25.291" flood-color="#000000" flood-opacity="0.65114" in="SourceGraphic" result="Shadow" stdDeviation="25"/>
+</filter>
+<radialGradient cx="645.522" cy="563.022" gradientTransform="matrix(1.20145 0 0 1.51515 -209.826 -170.793)" gradientUnits="userSpaceOnUse" id="RadialGradient_4" r="223.233">
+<stop offset="0" stop-color="#8fd0ff" stop-opacity="0.731502"/>
+<stop offset="0.46085" stop-color="#0093fc" stop-opacity="0.705976"/>
+<stop offset="1" stop-color="#0080dd"/>
+</radialGradient>
+<filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="225" id="Filter_4" width="561.185" x="445.216" y="646.933">
+<feDropShadow dx="13.457" dy="14.9035" flood-color="#000000" flood-opacity="0.333" in="SourceGraphic" result="Shadow" stdDeviation="15"/>
+</filter>
+</defs>
+<g id="图层-1">
+<path d="M213.108 160.549L773.374 160.549C817.568 160.549 853.395 195.175 853.395 237.889L853.395 817.473C853.395 860.187 817.568 894.814 773.374 894.814L213.108 894.814C168.914 894.814 133.088 860.187 133.088 817.473L133.088 237.889C133.088 195.175 168.914 160.549 213.108 160.549Z" fill="url(#RadialGradient)" fill-rule="nonzero" filter="url(#Filter)" stroke="none"/>
+<path d="M72.6542 312.115C72.6542 212.053 115.303 157.433 190.846 137.379C298.72 108.742 323.424 115.149 418.15 128.329C528.789 143.722 563.469 214.438 560.973 300.842C558.083 400.858 435.594 633.403 330.81 633.403C226.025 633.403 72.6542 412.177 72.6542 312.115Z" fill="url(#RadialGradient_2)" fill-rule="nonzero" filter="url(#Filter_2)" stroke="none"/>
+<path d="M246.523 748.464C246.523 704.159 282.34 668.243 326.523 668.243C370.705 668.243 406.523 704.159 406.523 748.464C406.523 792.769 370.705 828.685 326.523 828.685C282.34 828.685 246.523 792.769 246.523 748.464Z" fill="url(#RadialGradient_3)" fill-rule="nonzero" filter="url(#Filter_3)" stroke="none"/>
+<path d="M503.655 669.53L921.049 669.53C940.045 669.53 955.444 685.665 955.444 705.569L955.444 783.491C955.444 803.395 940.045 819.53 921.049 819.53L503.655 819.53C484.659 819.53 469.259 803.395 469.259 783.491L469.259 705.569C469.259 685.665 484.659 669.53 503.655 669.53Z" fill="url(#RadialGradient_4)" fill-rule="nonzero" filter="url(#Filter_4)" stroke="none"/>
+</g>
+</svg>

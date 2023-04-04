@@ -10,7 +10,8 @@
   },
   "workspaces": [
     "demo",
-    "packages/*"
+    "packages/*",
+    "pages"
   ],
   "devDependencies": {
     "@types/node": "^18.15.5",
