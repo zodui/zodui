@@ -84,6 +84,7 @@ document.querySelectorAll<HTMLDivElement>('.monaco-editor')
 
     const changeListeners: Function[] = []
 
+    // resolve multiple editor
     window.onCodeChange = function (fn) {
       // TODO refactor as import maps
       const nfn = (s: string) => fn(
