@@ -62,6 +62,8 @@ declare module 'zod' {
   export function asObejct<T extends any>(t: T): ZodObject<Record<string, ZodTypeAny> & T>
 }`
 
+const BORDER_SIZE = 4
+
 document.querySelectorAll<HTMLDivElement>('.monaco-editor')
   .forEach(el => {
 
@@ -167,4 +169,33 @@ document.querySelectorAll<HTMLDivElement>('.monaco-editor')
       editor.setValue(historyCodes[historyIndex].code)
     })
     editor.focus()
+
+    let mPos: number
+    function resize(e: MouseEvent) {
+      const dx = e.x - mPos
+      const newWidth = (parseInt(getComputedStyle(el, '').width) + dx)
+
+      mPos = e.x
+      el.style.width = newWidth + 'px'
+      el.style.minWidth = '5px'
+    }
+
+    let isClick = false
+    el.addEventListener('mousedown', e => {
+      if (e.offsetX > el.offsetWidth - BORDER_SIZE) {
+        mPos = e.x
+        if (!isClick) {
+          isClick = true
+          setTimeout(() => isClick = false, 1000)
+        } else {
+          el.style.width = '500px'
+        }
+        document.addEventListener('mousemove', resize, false)
+        el.style.userSelect = 'none'
+      }
+    }, false)
+    document.addEventListener('mouseup', () => {
+      el.style.userSelect = 'auto'
+      document.removeEventListener('mousemove', resize, false)
+    })
   })

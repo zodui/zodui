@@ -3,14 +3,41 @@ import type { HTMLAttributes } from 'astro/types'
 
 export interface Props extends HTMLAttributes<'div'> {
   key: string;
+  minWidth?: string;
+  resizeable?: boolean;
 }
 
-const { key, ...rest } = Astro.props;
+const { key, minWidth = '500px', resizeable = false, class: clazz, 'class:list': clazzList, ...rest } = Astro.props;
 ---
 
-<div class={'monaco-editor' + (
-  rest.class ? ' ' + rest.class : ''
-)} data-key={key} {...rest}>
-</div>
+<style lang='scss' define:vars={{ minWidth }}>
+  .monaco-editor {
+    min-width: var(--minWidth);
+    &.resizeable::after {
+      content: ' ';
+      background-color: #ccc;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 4px;
+      height: 100%;
+      cursor: ew-resize;
+      transition: .3s;
+    }
+  }
+</style>
+
+<div
+  data-key={key}
+  {...rest}
+  class:list={[
+    'monaco-editor',
+    clazz,
+    clazzList,
+    {
+      resizeable,
+    }
+  ]}
+/>
 
 <script src='./Monaco.ts' />
