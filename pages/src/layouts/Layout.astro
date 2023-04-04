@@ -1,10 +1,11 @@
 ---
+import Header from './Header.astro'
 export interface Props {
-	title?: number;
-  includeMonaco?: boolean;
+	title?: number
+  includeMonaco?: boolean
 }
 
-const { title, includeMonaco = false } = Astro.props;
+const { title, includeMonaco = false } = Astro.props
 ---
 
 <!DOCTYPE html>
@@ -39,6 +40,7 @@ const { title, includeMonaco = false } = Astro.props;
       />}
 	</head>
 	<body>
+    <Header />
 		<slot />
 	</body>
 </html>
