@@ -1,8 +1,11 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../layouts/Layout.astro'
+import Monaco from '../components/Monaco.astro'
 ---
 
-<Layout>
+<Layout includeMonaco>
 	<main>
+    <Monaco key="playground0"/>
+    <Monaco key="playground1"/>
   </main>
 </Layout>
