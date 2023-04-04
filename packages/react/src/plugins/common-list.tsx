@@ -1,5 +1,4 @@
 import { Schema } from 'zod'
-import { DateRangePicker, TimeRangePicker } from 'tdesign-react/esm'
 
 import { AllTypes } from '../utils'
 import { plgMaster, Plugin } from './index'
