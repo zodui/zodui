@@ -7,34 +7,67 @@ import Monaco from '../components/Monaco.astro'
   main {
     display: flex;
   }
-  .container {
-    width: 0;
-    flex-grow: 1;
-  }
-  #root {
-    position: relative;
-    width: 700px;
-    height: 100%;
-    overflow: overlay;
+  #container {
+    min-width: 500px;
     &::after {
       content: ' ';
       background-color: #ccc;
       position: absolute;
       top: 0;
-      left: 0;
+      right: 0;
       width: 4px;
       height: 100%;
       cursor: ew-resize;
       transition: .3s;
     }
   }
+  #root {
+    position: relative;
+    min-width: 300px;
+    height: 100%;
+    overflow: overlay;
+  }
 </style>
 
 <Layout includeMonaco>
 	<main>
-    <Monaco key='playground0' class='container' />
+    <Monaco key='playground0' id='container' />
     <div id='root'>
     </div>
     <!-- <Monaco key="playground1"/> -->
   </main>
 </Layout>
+
+<script>
+  const container = document.getElementById('container')!
+  const BORDER_SIZE = 4
+
+  let mPos: number
+  function resize(e: MouseEvent) {
+    const dx = e.x - mPos
+    const newWidth = (parseInt(getComputedStyle(container, '').width) + dx)
+
+    mPos = e.x
+    container.style.width = newWidth + 'px'
+    container.style.minWidth = '5px'
+  }
+
+  let isClick = false
+  container.addEventListener('mousedown', e => {
+    if (e.offsetX > container.offsetWidth - BORDER_SIZE) {
+      mPos = e.x
+      if (!isClick) {
+        isClick = true
+        setTimeout(() => isClick = false, 1000)
+      } else {
+        container.style.width = '500px'
+      }
+      document.addEventListener('mousemove', resize, false)
+      container.style.userSelect = 'none'
+    }
+  }, false)
+  document.addEventListener('mouseup', () => {
+    container.style.userSelect = 'auto'
+    document.removeEventListener('mousemove', resize, false)
+  })
+</script>
