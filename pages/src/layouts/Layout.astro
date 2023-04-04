@@ -46,12 +46,12 @@ const { title, includeMonaco = false } = Astro.props
 </html>
 <style is:global lang='scss'>
 	:root {
-		--accent: 124, 58, 237;
-		--accent-gradient: linear-gradient(45deg, rgb(var(--accent)), #da62c4 30%, white 60%);
 	}
+  html[theme-mode='dark'] body > main {
+    background-color: #385088;
+  }
 	html {
-		font-family: system-ui, sans-serif;
-		background-color: #F6F6F6;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 	}
   body {
     display: flex;
@@ -67,6 +67,30 @@ const { title, includeMonaco = false } = Astro.props
 			Bitstream Vera Sans Mono, Courier New, monospace;
 	}
 </style>
+<style is:global>
+  div.message {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translate(-50%, -150%);
+    padding: 1em;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    transition: 0.3s ease-in-out;
+  }
+  div.message.show {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+</style>
+<template id='message-template'>
+  <div class='message' is:raw>
+    {{content}}
+  </div>
+</template>
 <script is:inline>
   ;(function () {
     const tmplCache = {}
