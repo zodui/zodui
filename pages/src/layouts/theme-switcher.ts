@@ -32,19 +32,17 @@ window
     updateTheme(mediaQueryListEvent.matches ? 'dark' : '')
   })
 
-window.addEventListener('load', () => {
-  const themeSwitch = document.getElementById('themeSwitch')!
-  const defaultTheme = localStorage.getItem(THEME_STORE_KEY) ?? 'auto'
-  themeSwitch.dataset.mode = defaultTheme
+const themeSwitch = document.getElementById('themeSwitch')!
+const defaultTheme = localStorage.getItem(THEME_STORE_KEY) ?? 'auto'
+themeSwitch.dataset.mode = defaultTheme
 
+updateTheme()
+themeSwitch.addEventListener('click', function (e) {
+  let switchChild = e.target as HTMLElement
+  while (switchChild.parentNode !== this) {
+    switchChild = switchChild.parentNode as HTMLElement
+  }
+  themeSwitch.dataset.mode = switchChild.dataset.mode
+  localStorage.setItem(THEME_STORE_KEY, switchChild.dataset.mode ?? 'auto')
   updateTheme()
-  themeSwitch.addEventListener('click', function (e) {
-    let switchChild = e.target as HTMLElement
-    while (switchChild.parentNode !== this) {
-      switchChild = switchChild.parentNode as HTMLElement
-    }
-    themeSwitch.dataset.mode = switchChild.dataset.mode
-    localStorage.setItem(THEME_STORE_KEY, switchChild.dataset.mode ?? 'auto')
-    updateTheme()
-  })
 })
