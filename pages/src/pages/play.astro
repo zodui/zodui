@@ -3,9 +3,38 @@ import Layout from '../layouts/Layout.astro'
 import Monaco from '../components/Monaco.astro'
 ---
 
+<style lang='scss'>
+  main {
+    display: flex;
+  }
+  .container {
+    width: 0;
+    flex-grow: 1;
+  }
+  #root {
+    position: relative;
+    width: 700px;
+    height: 100%;
+    overflow: overlay;
+    &::after {
+      content: ' ';
+      background-color: #ccc;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      cursor: ew-resize;
+      transition: .3s;
+    }
+  }
+</style>
+
 <Layout includeMonaco>
 	<main>
-    <Monaco key="playground0"/>
-    <Monaco key="playground1"/>
+    <Monaco key='playground0' class='container' />
+    <div id='root'>
+    </div>
+    <!-- <Monaco key="playground1"/> -->
   </main>
 </Layout>

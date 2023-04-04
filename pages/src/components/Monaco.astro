@@ -1,11 +1,16 @@
 ---
-export interface Props {
+import type { HTMLAttributes } from 'astro/types'
+
+export interface Props extends HTMLAttributes<'div'> {
   key: string;
 }
 
-const { key } = Astro.props;
+const { key, ...rest } = Astro.props;
 ---
 
-<span>{key}</span>
+<div class={'monaco-editor' + (
+  rest.class ? ' ' + rest.class : ''
+)} data-key={key} {...rest}>
+</div>
 
 <script src='./Monaco.ts' />

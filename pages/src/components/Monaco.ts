@@ -62,137 +62,109 @@ declare module 'zod' {
   export function asObejct<T extends any>(t: T): ZodObject<Record<string, ZodTypeAny> & T>
 }`
 
-let editor: monaco.editor.IStandaloneCodeEditor
+document.querySelectorAll<HTMLDivElement>('.monaco-editor')
+  .forEach(el => {
 
-window.onThemeChange(theme => {
-  if (editor) {
-    monaco.editor.setTheme(theme === 'dark' ? 'vs-dark' : 'vs')
-  } else {
-    let i = setInterval(() => {
+    let editor: monaco.editor.IStandaloneCodeEditor
+
+    window.onThemeChange(theme => {
       if (editor) {
         monaco.editor.setTheme(theme === 'dark' ? 'vs-dark' : 'vs')
-        clearInterval(i)
-      }
-    }, 100)
-  }
-})
-
-const changeListeners: Function[] = []
-
-window.onCodeChange = function (fn) {
-  // TODO refactor as import maps
-  const nfn = (s: string) => fn(`${s}
-;(window?.____DEFAULT_EXPORT_VALUE____)`
-    .replace('export default ', 'window.____DEFAULT_EXPORT_VALUE____ = ')
-    .replace(/import ([\s\S]*) from 'zod'/g, 'var $1 = window.z')
-    .replace(/\* as/g, '')
-    .replace(/import ([\s\S]*) from .*/g, ''))
-  changeListeners.push(nfn)
-  nfn(editor?.getValue())
-  const index = changeListeners.length - 1
-  return () => {
-    if (index > -1) changeListeners.splice(index, 1)
-  }
-}
-function updateCode(s: string) {
-  changeListeners.forEach((fn) => fn(s))
-}
-window.addEventListener('load', () => {
-  function setCodeByUrl() {
-    const hash = location.hash.slice(1)
-    const code = hash ? base64(hash) : DEFAULT_CODE
-    editor.setValue(code)
-    updateCode(code)
-  }
-
-  // watch hash change
-  window.addEventListener('hashchange', setCodeByUrl)
-  // add custom dts
-  monaco.languages.typescript.typescriptDefaults.setExtraLibs(
-    ZOD_DTS_FILES
-      .concat([{ content: ZOD_EXTERNAL, filePath: 'file:///env.d.ts' }])
-  )
-  editor = monaco.editor.create(document.getElementById('container')!, {
-    theme: window.theme === 'dark' ? 'vs-dark' : 'vs',
-    value: '',
-    language: 'typescript',
-    tabSize: 2,
-    automaticLayout: true,
-    model: monaco.editor.createModel('', 'typescript', monaco.Uri.parse('file:///main.ts')),
-  })
-
-  setCodeByUrl()
-  const historyCodes: { code: string }[] = []
-  let historyIndex = -1
-  // watch editor value change
-  editor.onDidChangeModelContent(debounce(function () {
-    updateCode(editor.getValue())
-  }, 1500))
-  editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
-    const code = editor.getValue()
-    updateCode(code)
-    // save code to hash
-    location.hash = `#${base64(code, false)}`
-    // copy url to clipboard
-    copyToClipboard(location.href)
-    showMessage('<h3 style="margin: 0">url copied to clipboard, share it with your friends!</h3>')
-  })
-  editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.UpArrow, function () {
-    if (historyIndex === -1) {
-      historyIndex = historyCodes.length - 1
-    } else {
-      historyIndex--
-    }
-    if (historyIndex < 0) {
-      historyIndex = 0
-    }
-    editor.setValue(historyCodes[historyIndex].code)
-  })
-  editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.DownArrow, function () {
-    if (historyIndex === -1) {
-      historyIndex = historyCodes.length - 1
-    } else {
-      historyIndex++
-    }
-    if (historyIndex >= historyCodes.length) {
-      historyIndex = historyCodes.length - 1
-    }
-    editor.setValue(historyCodes[historyIndex].code)
-  })
-  editor.focus()
-})
-
-window.addEventListener('load', () => {
-  const root = document.getElementById('root')!
-  const BORDER_SIZE = 4
-
-  let mPos: number
-  function resize(e: MouseEvent) {
-    const dx = mPos - e.x
-    const newWidth = (parseInt(getComputedStyle(root, '').width) + dx)
-    if (newWidth < 550)
-      return
-
-    mPos = e.x
-    root.style.width = newWidth + 'px'
-  }
-
-  let isClick = false
-  root.addEventListener('mousedown', e => {
-    if (e.offsetX < BORDER_SIZE) {
-      mPos = e.x
-      if (!isClick) {
-        isClick = true
-        setTimeout(() => isClick = false, 1000)
       } else {
-        root.style.width = '700px'
+        let i = setInterval(() => {
+          if (editor) {
+            monaco.editor.setTheme(theme === 'dark' ? 'vs-dark' : 'vs')
+            clearInterval(i)
+          }
+        }, 100)
       }
-      document.addEventListener('mousemove', resize, false)
-      root.style.userSelect = 'none'
+    })
+
+    const changeListeners: Function[] = []
+
+    window.onCodeChange = function (fn) {
+      // TODO refactor as import maps
+      const nfn = (s: string) => fn(
+        `${s};(window?.____DEFAULT_EXPORT_VALUE____)`
+          .replace('export default ', 'window.____DEFAULT_EXPORT_VALUE____ = ')
+          .replace(/import ([\s\S]*) from 'zod'/g, 'var $1 = window.z')
+          .replace(/\* as/g, '')
+          .replace(/import ([\s\S]*) from .*/g, '')
+        )
+      changeListeners.push(nfn)
+      nfn(editor?.getValue())
+      const index = changeListeners.length - 1
+      return () => {
+        if (index > -1) changeListeners.splice(index, 1)
+      }
     }
-  }, false)
-  document.addEventListener('mouseup', () => {
-    root.style.userSelect = 'auto'
-    document.removeEventListener('mousemove', resize, false)
+    function updateCode(s: string) {
+      changeListeners.forEach((fn) => fn(s))
+    }
+
+    function setCodeByUrl() {
+      const hash = location.hash.slice(1)
+      const code = hash ? base64(hash) : DEFAULT_CODE
+      editor.setValue(code)
+      updateCode(code)
+    }
+
+    // watch hash change
+    window.addEventListener('hashchange', setCodeByUrl)
+
+    editor = monaco.editor.create(el, {
+      theme: window.theme === 'dark' ? 'vs-dark' : 'vs',
+      value: '',
+      language: 'typescript',
+      tabSize: 2,
+      automaticLayout: true,
+      model: monaco.editor.createModel('', 'typescript', monaco.Uri.parse('file:///main.ts')),
+    })
+
+    setCodeByUrl()
+
+    // add custom dts
+    // monaco.languages.typescript.typescriptDefaults.setExtraLibs(
+    //   ZOD_DTS_FILES
+    //     .concat([{ content: ZOD_EXTERNAL, filePath: 'file:///env.d.ts' }])
+    // )
+
+    const historyCodes: { code: string }[] = []
+    let historyIndex = -1
+    // watch editor value change
+    editor.onDidChangeModelContent(debounce(function () {
+      updateCode(editor.getValue())
+    }, 1500))
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
+      const code = editor.getValue()
+      updateCode(code)
+      // save code to hash
+      location.hash = `#${base64(code, false)}`
+      // copy url to clipboard
+      copyToClipboard(location.href)
+      showMessage('<h3 style="margin: 0">url copied to clipboard, share it with your friends!</h3>')
+    })
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.UpArrow, function () {
+      if (historyIndex === -1) {
+        historyIndex = historyCodes.length - 1
+      } else {
+        historyIndex--
+      }
+      if (historyIndex < 0) {
+        historyIndex = 0
+      }
+      editor.setValue(historyCodes[historyIndex].code)
+    })
+    editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.DownArrow, function () {
+      if (historyIndex === -1) {
+        historyIndex = historyCodes.length - 1
+      } else {
+        historyIndex++
+      }
+      if (historyIndex >= historyCodes.length) {
+        historyIndex = historyCodes.length - 1
+      }
+      editor.setValue(historyCodes[historyIndex].code)
+    })
+    editor.focus()
   })
-})
