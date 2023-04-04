@@ -57,19 +57,15 @@ const { title, includeMonaco = false } = Astro.props
     display: flex;
     margin: 0;
     padding-top: 60px;
-    > div.main {
-      display: flex;
+    > main {
       width: 100%;
+      height: calc(100vh - 60px);
     }
   }
 	code {
 		font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
 			Bitstream Vera Sans Mono, Courier New, monospace;
 	}
-  main {
-    width: 100%;
-    height: calc(100vh - 60px);
-  }
 </style>
 <script is:inline>
   ;(function () {
