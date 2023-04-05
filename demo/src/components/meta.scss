@@ -1,0 +1,21 @@
+:root {
+}
+html[theme-mode='dark'] body > main {
+  background-image: linear-gradient(120deg, #1d3259 20%, #354e7e 80%);
+}
+html {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+body {
+  display: flex;
+  margin: 0;
+  padding-top: 60px;
+  > main {
+    width: 100%;
+    height: calc(100vh - 60px);
+    background-image: linear-gradient(120deg, #cfd7ea 20%, #a1c4fd 80%);
+  }
+}
+code {
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+}

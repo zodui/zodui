@@ -1,40 +1,45 @@
 <!DOCTYPE html>
 <html lang='en'>
 <head>
-  <%- include('templates/meta') %>
+  <%- include('components/meta') %>
   <%- include('templates/lib') %>
 
-  <style data-name='main'>
+  <style data-name='play'>
+    body > main {
+      display: flex;
+    }
     #container {
-      width: 0;
-      flex-grow: 1;
+      min-width: 412px !important;
+      max-width: 100%;
+      height: calc(100% - 50px);
     }
-    #root {
-      position: relative;
-      width: 700px;
-      height: calc(100vh - 60px);
-      overflow: overlay;
-    }
-    #root::after {
+    #container::after {
       content: ' ';
       background-color: #ccc;
       position: absolute;
       top: 0;
-      left: 0;
+      right: 0;
       width: 4px;
       height: 100%;
       cursor: ew-resize;
       transition: .3s;
+    }
+    #root {
+      position: relative;
+      flex-grow: 1;
+      min-width: 300px;
+      height: 100%;
+      overflow: overlay;
     }
   </style>
 </head>
 <body>
   <%- include('templates/header') %>
   <%- include('templates/monaco') %>
-  <div class='main'>
-    <div id='container'></div>
+  <main>
+    <div id='container' class='monaco-editor'></div>
     <div id='root'></div>
-  </div>
+  </main>
   <script type='module' src='/src/play.tsx'></script>
 </body>
 </html>
