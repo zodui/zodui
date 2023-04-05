@@ -1,0 +1,65 @@
+html[theme-mode='dark'] .theme-switch {
+  background-color: rgba(80, 80, 80, .8);
+}
+.theme-switch {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  background-color: rgba(255, 255, 255, .6);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: .3s;
+  &[data-mode=light] > .cur-card {
+    left: 4px;
+    background-color: rgba(255, 255, 255, .8);
+  }
+  &[data-mode=dark] > .cur-card {
+    left: calc((100% - 8px) / 3 * 1 + 4px);
+    background-color: rgba(142, 142, 142, .55);
+  }
+  &[data-mode=auto] > .cur-card {
+    left: calc((100% - 8px) / 3 * 2 + 4px);
+    background-color: #4766AC88;
+  }
+  > .cur-card {
+    z-index: 9;
+    position: absolute;
+    left: -100px;
+    width: calc((100% - 8px) / 3);
+    height: calc(100% - 8px);
+    border-radius: 4px;
+    transition: .3s;
+  }
+  & > .light, & > .dark, & > .auto {
+    z-index: 10;
+    display: flex;
+    padding: 2px;
+    cursor: pointer;
+    & > svg {
+      transition: .3s;
+    }
+  }
+  & > .light {
+    color: orange;
+    &:hover > svg { filter: drop-shadow(0 0 4px orange); }
+  }
+  & > .dark {
+    color: yellow;
+    &:hover > svg { filter: drop-shadow(0 0 4px yellow); }
+  }
+  & > .auto {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    > svg {
+      &:first-child {
+        border-right: 2px dashed white;
+        color: orange;
+      }
+      &:last-child {
+        color: yellow;
+      }
+    }
+  }
+}
