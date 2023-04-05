@@ -17,27 +17,27 @@ const pages = [
     template: 'public/docs.html',
     // TODO auto analysis dep files
     depFiles: [/templates/],
-    disabled: true,
+    disabled: true
   },
   {
     title: 'Handbook',
     filename: 'handbook',
     template: 'public/handbook.html',
-    depFiles: [/templates/],
-    disabled: true,
+    depFiles: [/templates/, /components/],
+    disabled: true
   },
   {
     title: 'Playground',
     filename: 'play',
     template: 'public/play.html',
-    depFiles: [/templates/],
+    depFiles: [/templates/, /components/]
   },
   {
     title: 'Community',
     filename: 'docs',
     template: 'public/community.html',
-    depFiles: [/templates/],
-    disabled: true,
+    depFiles: [/templates/, /components/],
+    disabled: true
   }
 ]
 
@@ -48,7 +48,14 @@ const TABS = pages.map(({ depFiles, ...rest }) => ({
 
 const ejsOptions: EJSOptions = {
   includer(originalPath, parsedPath) {
-    return { filename: path.resolve(process.cwd(), `public/${originalPath}.html`) }
+    const paths = [
+      path.resolve(process.cwd(), `public/${originalPath}.html`),
+      path.resolve(process.cwd(), `src/${originalPath}.html`),
+    ]
+    for (const path of paths) {
+      if (fs.existsSync(path)) return { filename: path }
+    }
+    return { filename: originalPath }
   }
 }
 
@@ -102,7 +109,7 @@ export default defineConfig({
           },
           // TODO when file change only update target page
           // TODO auto analysis dep files
-          depFiles: [/templates/]
+          depFiles: [/templates/, /components/]
         },
         ...pages
           .filter(p => !p.disabled)
