@@ -11,5 +11,12 @@
   },
   "dependencies": {
     "astro": "^2.1.9"
+  },
+  "devDependencies": {
+    "@astrojs/react": "^2.1.0",
+    "@astrojs/vue": "^2.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "vue": "^3.2.47"
   }
 }
