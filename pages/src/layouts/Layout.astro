@@ -38,6 +38,7 @@ const { title, includeMonaco = false } = Astro.props
         src={`${import.meta.env.BASE_URL}monaco/min/vs/editor/editor.main.js`}
         is:inline
       />}
+    <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'>
 	</head>
 	<body>
     <Header />
@@ -48,7 +49,7 @@ const { title, includeMonaco = false } = Astro.props
 	:root {
 	}
   html[theme-mode='dark'] body > main {
-    background-color: #385088;
+    background-image: linear-gradient(120deg, #1d3259 20%, #354e7e 80%);
   }
 	html {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -60,6 +61,7 @@ const { title, includeMonaco = false } = Astro.props
     > main {
       width: 100%;
       height: calc(100vh - 60px);
+      background-image: linear-gradient(120deg, #cfd7ea 20%, #a1c4fd 80%);
     }
   }
 	code {
