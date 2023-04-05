@@ -1,9 +1,12 @@
 const THEME_STORE_KEY = 'theme'
 
+let curThemeMode: string | null = null
+
 const themeChangeListeners: Function[] = []
 
-window.onThemeChange = function (listener: Function) {
+window.onThemeChange = function (listener) {
   themeChangeListeners.push(listener)
+  curThemeMode && listener(curThemeMode)
 }
 
 function updateTheme(mode?: string) {
@@ -17,6 +20,7 @@ function updateTheme(mode?: string) {
     }
   }
   themeChangeListeners.forEach((listener) => listener(mode))
+  curThemeMode = mode
   if (mode === 'dark') {
     document.documentElement.setAttribute('theme-mode', 'dark')
   } else {
