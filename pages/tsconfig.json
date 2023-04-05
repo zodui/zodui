@@ -1,3 +1,20 @@
 {
-  "extends": "astro/tsconfigs/strict"
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "rootDir": "..",
+    "baseUrl": ".",
+    "paths": {
+      "~/assets/*": ["src/assets/*"],
+      "zodui": ["../packages/zodui/src"],
+      "@zodui/*": ["../packages/*/src"],
+      "@zodui/vue/*": ["../packages/react/src/*"],
+      "@zodui/react/*": ["../packages/react/src/*"]
+    }
+  },
+  "include": [
+    "src",
+    "vite.config.ts",
+    "../packages/vue/src/**/*",
+    "../packages/react/src/**/*",
+  ]
 }
