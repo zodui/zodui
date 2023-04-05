@@ -14,6 +14,7 @@ import {
   Button,
   Slider,
   Select,
+  Switch,
   Input,
   InputAdornment,
   InputNumber,
@@ -24,7 +25,6 @@ import {
 import { registerIcon } from '../components'
 import { registerBaseComp } from '../components/base'
 import { Narrow } from '../utils'
-import { Switch } from 'tdesign-react'
 import { addController } from '../controllers'
 
 initIcons: {
