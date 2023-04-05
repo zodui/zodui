@@ -1,0 +1,24 @@
+---
+import z from 'zod'
+import { SchemaReact } from './SchemaReact.tsx'
+
+interface Props {
+  key: string
+}
+
+const { key } = Astro.props
+---
+
+<div class='schema-eval' data-key={key}>
+  <SchemaReact client:only='react' model={z.string()} />
+</div>
+
+<script>
+  import z from 'zod'
+
+  window.z = z
+  document.querySelectorAll('schema-eval').forEach((el) => {
+    const key = el.getAttribute('data-key')
+    console.log('key', key)
+  })
+</script>

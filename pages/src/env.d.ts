@@ -9,8 +9,8 @@ interface ImportMeta {
 }
 
 export declare global {
-  import z from 'zod'
-  const z: z
+  // import z from 'zod'
+  // const z: z
   const ZOD_DTS_FILES: {
     content: string;
     filePath: string;
@@ -49,7 +49,7 @@ export declare global {
   const TABS: Tab[]
 
   interface Window {
-    z: z
+    // z: z
 
     theme: typeof theme
     base64: typeof base64

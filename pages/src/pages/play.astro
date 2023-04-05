@@ -1,10 +1,7 @@
 ---
-import z from 'zod'
-import '@zodui/react/components-lib/tdesign'
-import { Schema } from '@zodui/react'
-
 import Layout from '../layouts/Layout.astro'
 import Monaco from '../components/Monaco.astro'
+import SchemaEval from '../components/SchemaEval.astro'
 ---
 
 <style lang='scss'>
@@ -20,6 +17,7 @@ import Monaco from '../components/Monaco.astro'
     display: flex;
   }
   .code-editor {
+    position: relative;
     max-width: 70vw;
     height: 100%;
     > div.menu {
@@ -48,6 +46,14 @@ import Monaco from '../components/Monaco.astro'
         }
       }
     }
+    > div.menu-page {
+      position: absolute;
+      top: 53px;
+      width: 100%;
+      height: calc(100% - 53px);
+      background-color: #333;
+      transition: .3s;
+    }
     > div.monaco-editor {
       min-width: 412px !important;
       max-width: 100%;
@@ -72,25 +78,42 @@ import Monaco from '../components/Monaco.astro'
           Settings
         </span>
 
-        <span class='item right'>
+        <span class='item right' id='foldCodeEditor'>
           <span class='material-icons' style='transform: rotate(180deg)'>double_arrow</span>
         </span>
-        <span class='item right'>
+        <span class='item right' style='display: none;'>
           Components Lib
           &
           Framework
         </span>
       </div>
       <Monaco key='playground' resizeable />
+      <div class='menu-page' style='display: none'>
+        <div class='settings'>
+          {/*
+          <Schema model={z.object({
+            version: z
+              .union([
+                z.literal('0.1.0'),
+                z.literal('0.1.1'),
+              ])
+              .describe('The version of the zodui library'),
+            mode: z
+              .union([
+                z.literal('list'),
+                z.literal('card'),
+              ])
+              .describe('The mode of the list'),
+          })} />
+          */}
+        </div>
+      </div>
     </div>
     <div class='schema-container'>
-      <Schema model={z.object({
-        foo: z.string().label('Foo'),
-        bar: z.array(
-          z.string()
-        ).label('Bar'),
-      })}/>
+      <SchemaEval key='playground' />
     </div>
-    <!-- <Monaco key="playground1"/> -->
   </main>
 </Layout>
+
+<script is:inline>
+</script>
