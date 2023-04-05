@@ -13,4 +13,21 @@
 <script>
   const ZOD_DTS_FILES = <%- ZOD_DTS_FILES %>;
 </script>
-<script data-name='monaco' type='module' src='/src/monaco.ts'></script>
+<style>
+  .monaco-editor {
+    min-width: 412px !important;
+    max-width: 100%;
+    height: calc(100% - 50px);
+  }
+  .monaco-editor.resizeable::after {
+    content: ' ';
+    background-color: #ccc;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 4px;
+    height: 100%;
+    cursor: ew-resize;
+    transition: .3s;
+  }
+</style>

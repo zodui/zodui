@@ -4,41 +4,38 @@
   <%- include('components/meta') %>
   <%- include('templates/lib') %>
 
-  <style data-name='play'>
-    body > main {
-      display: flex;
-    }
-    #container {
-      min-width: 412px !important;
-      max-width: 100%;
-      height: calc(100% - 50px);
-    }
-    #container::after {
-      content: ' ';
-      background-color: #ccc;
-      position: absolute;
-      top: 0;
-      right: 0;
-      width: 4px;
-      height: 100%;
-      cursor: ew-resize;
-      transition: .3s;
-    }
-    #root {
-      position: relative;
-      flex-grow: 1;
-      min-width: 300px;
-      height: 100%;
-      overflow: overlay;
-    }
-  </style>
+  <script type='module'>import '/src/play.scss'</script>
 </head>
 <body>
   <%- include('templates/header') %>
   <%- include('templates/monaco') %>
   <main>
-    <div id='container' class='monaco-editor'></div>
-    <div id='root'></div>
+    <div class='code-editor'>
+      <div class='menu'>
+        <span class='item'>
+          <span class='material-icons'>settings</span>
+          Settings
+        </span>
+
+        <span class='item right' id='foldCodeEditor'>
+          <span class='material-icons' style='transform: rotate(180deg)'>double_arrow</span>
+        </span>
+        <span class='item right' style='display: none;'>
+          Components Lib
+          &
+          Framework
+        </span>
+      </div>
+      <%- include('components/monaco', {
+        key: 'playground',
+        resizeable: true
+      }) %>
+      <div class='menu-page' style='display: none'>
+        <div class='settings'>
+        </div>
+      </div>
+    </div>
+    <div class='schema-container'></div>
   </main>
   <script type='module' src='/src/play.tsx'></script>
 </body>

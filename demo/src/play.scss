@@ -1,0 +1,63 @@
+
+html[theme-mode='dark'] .code-editor > .menu {
+  color: white;
+  background-color: #333;
+  border-bottom: 1px solid #252526;
+  > span.item:hover {
+    background: rgba(0, 0, 0, 0.2);
+  }
+}
+main {
+  display: flex;
+}
+.code-editor {
+  position: relative;
+  max-width: 70vw;
+  height: 100%;
+  > div.menu {
+    height: 52px;
+    background-color: #fff;
+    border-bottom: 1px solid lightgray;
+    > span.item {
+      float: left;
+      display: flex;
+      align-items: center;
+      justify-self: center;
+      gap: 8px;
+      padding: 0 20px;
+      height: 100%;
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+      &:hover {
+        background: rgba(0, 0, 0, 0.1);
+      }
+      &.right {
+        float: right;
+      }
+      > span.material-icons {
+        user-select: none;
+      }
+    }
+  }
+  > div.menu-page {
+    position: absolute;
+    top: 53px;
+    width: 100%;
+    height: calc(100% - 53px);
+    background-color: #333;
+    transition: .3s;
+  }
+  > div.monaco-editor {
+    min-width: 412px !important;
+    max-width: 100%;
+    height: calc(100% - 50px);
+  }
+}
+.schema-container {
+  position: relative;
+  flex-grow: 1;
+  min-width: 300px;
+  height: 100%;
+  overflow: overlay;
+}

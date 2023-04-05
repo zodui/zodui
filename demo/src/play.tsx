@@ -23,7 +23,7 @@ function Demo() {
 }
 
 ReactDOM
-  .createRoot(document.querySelector('#root')!)
+  .createRoot(document.querySelector('.schema-container')!)
   .render(
     <React.StrictMode>
       <Demo />
