@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Controller, ControllerProps } from './index'
 import { AllTypes, Mutable, TypeMap, useModes } from '../utils'
 
-import '../plugins/common-union'
+import '../plugins/common-complex'
 import { plgMaster } from '../plugins'
 import { useItemSerterContext } from '../contexts/item-serter'
 import { Schema } from '../schema'

@@ -18,7 +18,7 @@ import { KeyEditableTypes, ComplexMultipleTypes } from '../configure'
 import { Icon, Button, Input } from '../components'
 import { plgMaster } from '../plugins'
 
-import '../plugins/common-list'
+import '../plugins/common-multiple'
 import { useErrorHandlerContext } from '../contexts/error-handler'
 
 const prefix = 'zodui-item__control-multiple'

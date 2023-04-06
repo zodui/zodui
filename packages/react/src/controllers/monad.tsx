@@ -3,7 +3,7 @@ import { ControllerProps } from './index'
 import { useModes, TypeMap, AllTypes, Mutable } from '../utils'
 import { Input, Switch } from '../components'
 
-import '../plugins/common-primitive'
+import '../plugins/common-monad'
 import { plgMaster } from '../plugins'
 
 const innerMonad = [
