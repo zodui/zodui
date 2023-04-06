@@ -59,6 +59,7 @@ declare module 'zod' {
   }
   export function clazz<T>(clazz: { new(): T }): Schema<T>
   export function asObejct<T extends any>(t: T): ZodObject<Record<string, ZodTypeAny> & T>
+  // TODO resolve default type
 }
 
 function defineMetaField(key: string) {
