@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 
-import z from 'zod'
+import { ZodSchema } from 'zod'
 import { Schema } from '@zodui/react'
 import '@zodui/react/components-lib/tdesign'
-
-window.z = z
 
 function Demo({ k = '' }) {
   const [code, setCode] = useState<string>()
   useEffect(() => onCodeChange(k, setCode), [])
 
-  const [[schema] = [], setSchema] = useState<[z.Schema]>()
+  const [[schema] = [], setSchema] = useState<[ZodSchema]>()
   useEffect(() => {
     if (!code) return
 

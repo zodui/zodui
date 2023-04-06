@@ -1,4 +1,4 @@
-const DEFAULT_CODE = `import * as z from 'zod'
+const DEFAULT_CODE = `import z from 'zodui/external'
 
 export default z
   .object({
