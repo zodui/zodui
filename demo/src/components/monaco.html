@@ -1,5 +1,13 @@
 <div
   data-key='<%- key %>'
   class='monaco-editor<%- resizeable ? " resizeable" : "" %>'
+  <% if (locals.byHash) { %>
+    data-by-hash='true'
+  <% } %>
 ></div>
+<script type='module'>
+  import z from 'zod'
+
+  console.log(z)
+</script>
 <script type='module' src='/src/components/monaco.ts'></script>

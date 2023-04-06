@@ -93,7 +93,7 @@ window.onCodeChange = function (key, fn) {
 
 document.querySelectorAll<HTMLDivElement>('.monaco-editor')
   .forEach(el => {
-    const { key = '' } = el.dataset
+    const { key = '', byHash = false, enableHistory = false } = el.dataset
 
     let editor: monaco.editor.IStandaloneCodeEditor
 
@@ -119,19 +119,9 @@ document.querySelectorAll<HTMLDivElement>('.monaco-editor')
       }, 100)
     }
 
-    function setCodeByUrl() {
-      const hash = location.hash.slice(1)
-      const code = hash ? base64(hash) : DEFAULT_CODE
-      editor.setValue(code)
-      updateCode(code)
-    }
-
-    // watch hash change
-    window.addEventListener('hashchange', setCodeByUrl)
-
     editor = monaco.editor.create(el, {
       theme: window.theme === 'dark' ? 'vs-dark' : 'vs',
-      value: '',
+      value: DEFAULT_CODE,
       language: 'typescript',
       tabSize: 2,
       automaticLayout: true,
@@ -139,7 +129,18 @@ document.querySelectorAll<HTMLDivElement>('.monaco-editor')
     })
     editors[key] = editor
 
-    setCodeByUrl()
+    if (byHash) {
+      function setCodeByUrl() {
+        const hash = location.hash.slice(1)
+        const code = hash ? base64(hash) : DEFAULT_CODE
+        editor.setValue(code)
+        updateCode(code)
+      }
+
+      window.addEventListener('hashchange', setCodeByUrl)
+
+      setCodeByUrl()
+    }
 
     // add custom dts
     monaco.languages.typescript.typescriptDefaults.setExtraLibs(
@@ -156,11 +157,13 @@ document.querySelectorAll<HTMLDivElement>('.monaco-editor')
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
       const code = editor.getValue()
       updateCode(code)
-      // save code to hash
-      location.hash = `#${base64(code, false)}`
-      // copy url to clipboard
-      copyToClipboard(location.href)
-      showMessage('<h3 style="margin: 0">url copied to clipboard, share it with your friends!</h3>')
+      if (byHash) {
+        // save code to hash
+        location.hash = `#${base64(code, false)}`
+        // copy url to clipboard
+        copyToClipboard(location.href)
+        showMessage('<h3 style="margin: 0">url copied to clipboard, share it with your friends!</h3>')
+      }
     })
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.UpArrow, function () {
       if (historyIndex === -1) {
