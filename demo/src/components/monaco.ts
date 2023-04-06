@@ -1,8 +1,10 @@
-const DEFAULT_CODE = `import z from 'zodui/external'
+// TODO use to import zodui external by `zodui/external`
+const DEFAULT_CODE = `import * as z from 'zod'
 
 export default z
   .object({
-    foo: z.string()
+    foo: z.string(),
+    bar: z.number().mode('split')
   })
   .label('Object')
   .describe('This is a Object Configuration')
@@ -137,7 +139,7 @@ document.querySelectorAll<HTMLDivElement>('.monaco-editor')
     // add custom dts
     monaco.languages.typescript.typescriptDefaults.setExtraLibs(
       MONACO_DTS_FILES
-        .concat([{ content: ZOD_EXTERNAL, filePath: 'file:///env.d.ts' }])
+        // .concat([{ content: ZOD_EXTERNAL, filePath: 'file:///env.d.ts' }])
     )
 
     const historyCodes: { code: string }[] = []
