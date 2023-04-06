@@ -1,6 +1,8 @@
 import * as fs from 'fs'
 import * as path from 'path'
 
+import { buildSync } from 'esbuild'
+
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
@@ -101,7 +103,7 @@ function commonInjectOptionsData() {
 
   const zoduiExternalPath = process.env.NODE_ENV === 'development'
     ? path.join(__dirname, '../packages/react/src/zod.external.ts')
-    : `${base}assets/external-${hash}.js`
+    : `${base}assets/zodui.external-${hash}.js`
 
   return {
     TABS,
@@ -115,23 +117,21 @@ function commonInjectOptionsData() {
   }
 }
 
+process.env.NODE_ENV === 'production' && buildSync({
+  target: 'es2020',
+  format: 'esm',
+  entryPoints: [
+    path.resolve(__dirname, '../packages/react/src/zod.external.ts')
+  ],
+  outfile: `./dist/assets/zodui.external-${hash}.js`,
+  bundle: true,
+  minify: true,
+  sourcemap: 'inline',
+})
+
 export default defineConfig({
   base,
-  build: {
-    rollupOptions: {
-      input: {
-        'zodui/external': path.resolve(__dirname, '../packages/react/src/zod.external.ts')
-      },
-      output: {
-        entryFileNames({ name }) {
-          if (name === 'zodui/external') {
-            return `assets/external-${hash}.js`
-          }
-          return '[name]-[hash].js'
-        }
-      }
-    }
-  },
+  build: { emptyOutDir: false },
   plugins: [
     react(),
     tsconfigPaths(),

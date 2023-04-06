@@ -6,7 +6,7 @@
   "version": "0.1.0",
   "scripts": {
     "postinstall": "patch-package",
-    "serve": "yarn workspace @zodui/demo serve:react"
+    "serve": "yarn workspace @zodui/demo serve"
   },
   "workspaces": [
     "demo",

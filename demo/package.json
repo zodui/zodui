@@ -2,8 +2,8 @@
   "name": "@zodui/demo",
   "version": "0.1.0",
   "scripts": {
-    "serve:vue": "vite",
-    "serve:react": "vite",
+    "serve": "vite",
+    "preview": "vite preview",
     "build": "vite build"
   },
   "devDependencies": {

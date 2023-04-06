@@ -1,4 +1,5 @@
-import z, { Schema, ZodDefaultDef, ZodFirstPartyTypeKind, ZodObject, ZodRawShape, ZodType, ZodTypeAny } from 'zod'
+import * as z from 'zod'
+import { Schema, ZodDefaultDef, ZodFirstPartyTypeKind, ZodObject, ZodRawShape, ZodType, ZodTypeAny } from 'zod'
 import { AllTypes } from './utils'
 
 export interface ModesMap extends Record<AllTypes, string> {
@@ -116,5 +117,7 @@ export function asObejct<T extends ZodRawShape>(t: T): ZodObject<Record<string, 
 }
 // @ts-ignore
 nz.asObejct = asObejct
+
+export { nz as z }
 
 export * from 'zod'
