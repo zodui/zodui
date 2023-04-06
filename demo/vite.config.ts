@@ -90,9 +90,22 @@ function commonInjectOptionsData() {
 
   importDTSFiles('zod', path.join(__dirname, '../node_modules', 'zod/lib'))
 
+  let filePath = path.join(__dirname, '../packages/react/src/zod.external.ts')
+  let content = fs.readFileSync(filePath, 'utf-8')
+  MONACO_DTS_FILES.push({
+    content,
+    filePath: `file:///node_modules/@types/zodui/external.ts`
+  })
+
   return {
     TABS,
-    MONACO_DTS_FILES: JSON.stringify(MONACO_DTS_FILES)
+    MONACO_DTS_FILES: JSON.stringify(MONACO_DTS_FILES),
+    IMPORT_MAP: JSON.stringify({
+      imports: {
+        'zod': '/zodui/@fs/Users/yijie/codes/projects/zod/zodui/packages/react/src/zod.external.ts',
+        'zodui/external': '/zodui/@fs/Users/yijie/codes/projects/zod/zodui/packages/react/src/zod.external.ts'
+      }
+    })
   }
 }
 
