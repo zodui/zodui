@@ -69,21 +69,13 @@ const editors: Record<string, monaco.editor.IStandaloneCodeEditor> = {}
 const codeChangeListeners: Record<string, Function[]> = {}
 
 window.onCodeChange = function (key, fn) {
-  // TODO refactor as import maps
-  const nfn = (s: string) => fn(
-    `${s};(window?.____DEFAULT_EXPORT_VALUE____)`
-      .replace('export default ', 'window.____DEFAULT_EXPORT_VALUE____ = ')
-      .replace(/import ([\s\S]*) from 'zod'/g, 'var $1 = window.z')
-      .replace(/\* as/g, '')
-      .replace(/import ([\s\S]*) from .*/g, '')
-  )
   if (!codeChangeListeners[key]) {
     codeChangeListeners[key] = []
   }
   const curCodeChangeListeners = codeChangeListeners[key]
-  curCodeChangeListeners.push(nfn)
+  curCodeChangeListeners.push(fn)
 
-  nfn(editors[key]?.getValue() ?? DEFAULT_CODE)
+  fn(editors[key]?.getValue() ?? DEFAULT_CODE)
 
   const index = curCodeChangeListeners.length - 1
   return () => {
@@ -125,7 +117,7 @@ document.querySelectorAll<HTMLDivElement>('.monaco-editor')
       language: 'typescript',
       tabSize: 2,
       automaticLayout: true,
-      model: monaco.editor.createModel('', 'typescript', monaco.Uri.parse('file:///main.ts')),
+      model: monaco.editor.createModel('', 'typescript', monaco.Uri.parse(`file:///${key ?? 'main'}.ts`)),
     })
     editors[key] = editor
 

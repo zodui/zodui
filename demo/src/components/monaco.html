@@ -5,9 +5,11 @@
     data-by-hash='true'
   <% } %>
 ></div>
-<script type='module'>
-  import z from 'zod'
-
-  console.log(z)
+<script type='importmap'>
+  {
+    "imports": {
+      "zod": "/zodui/node_modules/.vite/deps/zod.js"
+    }
+  }
 </script>
 <script type='module' src='/src/components/monaco.ts'></script>
