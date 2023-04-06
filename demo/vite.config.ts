@@ -101,7 +101,7 @@ function commonInjectOptionsData() {
 
   const zoduiExternalPath = process.env.NODE_ENV === 'development'
     ? path.join(__dirname, '../packages/react/src/zod.external.ts')
-    : `${base}/assets/external${hash}.js`
+    : `${base}assets/external${hash}.js`
 
   return {
     TABS,
