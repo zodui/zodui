@@ -62,31 +62,33 @@ const ejsOptions: EJSOptions = {
 function commonInjectOptionsData() {
   const MONACO_DTS_FILES: { content: string, filePath: string }[] = []
 
-  initMONACO_DTS_FILES: {
-    const nodeModulesPath = path.join(__dirname, '../node_modules')
-    const zodPackagePath = path.join(nodeModulesPath, 'zod/lib')
-
-    function addZodDtsFileContent(filePath: string) {
+  function importDTSFiles(module: string, targetPath: string) {
+    function addDtsFileContent(filePath: string) {
       let content = fs.readFileSync(filePath, 'utf-8')
       MONACO_DTS_FILES.push({
         content,
-        filePath: filePath.replace(zodPackagePath, 'file:///node_modules/@types/zod')
+        filePath: filePath.replace(targetPath, `file:///node_modules/@types/${module}`)
       })
     }
-    function findZodDtsFiles(dirPath: string) {
+    function findDtsFiles(dirPath: string) {
       const files = fs.readdirSync(dirPath)
       for (const file of files) {
         const filePath = path.join(dirPath, file)
         const stats = fs.statSync(filePath)
         if (stats.isDirectory()) {
-          findZodDtsFiles(filePath)
-        } else if (stats.isFile() && path.basename(filePath).endsWith('.d.ts')) {
-          addZodDtsFileContent(filePath)
+          findDtsFiles(filePath)
+        } else if (stats.isFile() && (
+          path.basename(filePath).endsWith('.d.ts')
+          || path.basename(filePath).endsWith('.ts')
+        )) {
+          addDtsFileContent(filePath)
         }
       }
     }
-    findZodDtsFiles(zodPackagePath)
+    findDtsFiles(targetPath)
   }
+
+  importDTSFiles('zod', path.join(__dirname, '../node_modules', 'zod/lib'))
 
   return {
     TABS,
