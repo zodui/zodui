@@ -60,15 +60,15 @@ const ejsOptions: EJSOptions = {
 }
 
 function commonInjectOptionsData() {
-  const ZOD_DTS_FILES: { content: string, filePath: string }[] = []
+  const MONACO_DTS_FILES: { content: string, filePath: string }[] = []
 
-  initZOD_DTS_FILES: {
+  initMONACO_DTS_FILES: {
     const nodeModulesPath = path.join(__dirname, '../node_modules')
     const zodPackagePath = path.join(nodeModulesPath, 'zod/lib')
 
     function addZodDtsFileContent(filePath: string) {
       let content = fs.readFileSync(filePath, 'utf-8')
-      ZOD_DTS_FILES.push({
+      MONACO_DTS_FILES.push({
         content,
         filePath: filePath.replace(zodPackagePath, 'file:///node_modules/@types/zod')
       })
@@ -88,7 +88,10 @@ function commonInjectOptionsData() {
     findZodDtsFiles(zodPackagePath)
   }
 
-  return { TABS, ZOD_DTS_FILES: JSON.stringify(ZOD_DTS_FILES) }
+  return {
+    TABS,
+    MONACO_DTS_FILES: JSON.stringify(MONACO_DTS_FILES)
+  }
 }
 
 export default defineConfig({

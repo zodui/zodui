@@ -4,7 +4,7 @@
 export declare global {
   import z from 'zod'
   const z: z
-  const ZOD_DTS_FILES: {
+  const MONACO_DTS_FILES: {
     content: string;
     filePath: string;
   }[]
@@ -51,6 +51,6 @@ export declare global {
     onCodeChange: typeof onCodeChange
 
     TABS: typeof TABS
-    ZOD_DTS_FILES: typeof ZOD_DTS_FILES
+    MONACO_DTS_FILES: typeof MONACO_DTS_FILES
   }
 }

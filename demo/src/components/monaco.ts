@@ -136,7 +136,7 @@ document.querySelectorAll<HTMLDivElement>('.monaco-editor')
 
     // add custom dts
     monaco.languages.typescript.typescriptDefaults.setExtraLibs(
-      ZOD_DTS_FILES
+      MONACO_DTS_FILES
         .concat([{ content: ZOD_EXTERNAL, filePath: 'file:///env.d.ts' }])
     )
 
