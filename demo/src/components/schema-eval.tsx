@@ -22,10 +22,9 @@ function Demo() {
   return schema ? <Schema model={schema} /> : null
 }
 
-ReactDOM
-  .createRoot(document.querySelector('.schema-container')!)
-  .render(
-    <React.StrictMode>
-      <Demo />
-    </React.StrictMode>,
-  )
+document.querySelectorAll('.schema-eval-container')
+  .forEach(el => {
+    ReactDOM
+      .createRoot(el)
+      .render(<React.StrictMode><Demo /></React.StrictMode>)
+  })

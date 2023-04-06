@@ -5,6 +5,7 @@
   <%- include('templates/lib') %>
 
   <script type='module'>import '/src/play.scss'</script>
+  <script type='module' src='/src/components/schema-eval.tsx'></script>
 </head>
 <body>
   <%- include('templates/header') %>
@@ -35,8 +36,9 @@
         </div>
       </div>
     </div>
-    <div class='schema-container'></div>
+    <%- include('components/schema-eval', {
+      key: 'playground'
+    }) %>
   </main>
-  <script type='module' src='/src/play.tsx'></script>
 </body>
 </html>
