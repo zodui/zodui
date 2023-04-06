@@ -59,6 +59,8 @@ const ejsOptions: EJSOptions = {
   }
 }
 
+const hash = Date.now()
+
 function commonInjectOptionsData() {
   const MONACO_DTS_FILES: { content: string, filePath: string }[] = []
 
@@ -97,13 +99,17 @@ function commonInjectOptionsData() {
     filePath: `file:///node_modules/@types/zodui/external.ts`
   })
 
+  const zoduiExternalPath = process.env.NODE_ENV === 'development'
+    ? path.join(__dirname, '../packages/react/src/zod.external.ts')
+    : `${base}/assets/external${hash}.js`
+
   return {
     TABS,
     MONACO_DTS_FILES: JSON.stringify(MONACO_DTS_FILES),
     IMPORT_MAP: JSON.stringify({
       imports: {
-        'zod': '/zodui/@fs/Users/yijie/codes/projects/zod/zodui/packages/react/src/zod.external.ts',
-        'zodui/external': '/zodui/@fs/Users/yijie/codes/projects/zod/zodui/packages/react/src/zod.external.ts'
+        'zod': zoduiExternalPath,
+        'zodui/external': zoduiExternalPath
       }
     })
   }
@@ -111,6 +117,21 @@ function commonInjectOptionsData() {
 
 export default defineConfig({
   base,
+  build: {
+    rollupOptions: {
+      input: {
+        'zodui/external': path.resolve(__dirname, '../packages/react/src/zod.external.ts')
+      },
+      output: {
+        entryFileNames({ name }) {
+          if (name === 'zodui/external') {
+            return `assets/external-${hash}.js`
+          }
+          return '[name]-[hash].js'
+        }
+      }
+    }
+  },
   plugins: [
     react(),
     tsconfigPaths(),
