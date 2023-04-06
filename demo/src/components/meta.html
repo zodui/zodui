@@ -2,8 +2,6 @@
 <meta name='viewport' content='width=device-width, initial-scale=1.0' />
 <link rel='alternate icon' class='js-site-favicon' type='image/png' href='/favicon.png'>
 <link rel='icon' class='js-site-favicon' type='image/svg+xml' href='/favicon.svg'>
-<title>Zod UI<% if(locals.TITLE){ %>
-  - <%- TITLE %>
-<% } %></title>
+<title>Zod UI<%- locals.TITLE ? ` - ${TITLE}` : '' %></title>
 <script type='module'>import '/src/components/meta.scss'</script>
 <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons' >
