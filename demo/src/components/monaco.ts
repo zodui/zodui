@@ -64,8 +64,36 @@ declare module 'zod' {
 
 const BORDER_SIZE = 4
 
+const editors: Record<string, monaco.editor.IStandaloneCodeEditor> = {}
+
+const codeChangeListeners: Record<string, Function[]> = {}
+
+window.onCodeChange = function (key, fn) {
+  // TODO refactor as import maps
+  const nfn = (s: string) => fn(
+    `${s};(window?.____DEFAULT_EXPORT_VALUE____)`
+      .replace('export default ', 'window.____DEFAULT_EXPORT_VALUE____ = ')
+      .replace(/import ([\s\S]*) from 'zod'/g, 'var $1 = window.z')
+      .replace(/\* as/g, '')
+      .replace(/import ([\s\S]*) from .*/g, '')
+  )
+  if (!codeChangeListeners[key]) {
+    codeChangeListeners[key] = []
+  }
+  const curCodeChangeListeners = codeChangeListeners[key]
+  curCodeChangeListeners.push(nfn)
+
+  nfn(editors[key]?.getValue() ?? DEFAULT_CODE)
+
+  const index = curCodeChangeListeners.length - 1
+  return () => {
+    if (index > -1) curCodeChangeListeners.splice(index, 1)
+  }
+}
+
 document.querySelectorAll<HTMLDivElement>('.monaco-editor')
   .forEach(el => {
+    const { key = '' } = el.dataset
 
     let editor: monaco.editor.IStandaloneCodeEditor
 
@@ -82,27 +110,13 @@ document.querySelectorAll<HTMLDivElement>('.monaco-editor')
       }
     })
 
-    const changeListeners: Function[] = []
-
-    // resolve multiple editors
-    window.onCodeChange = function (fn) {
-      // TODO refactor as import maps
-      const nfn = (s: string) => fn(
-        `${s};(window?.____DEFAULT_EXPORT_VALUE____)`
-          .replace('export default ', 'window.____DEFAULT_EXPORT_VALUE____ = ')
-          .replace(/import ([\s\S]*) from 'zod'/g, 'var $1 = window.z')
-          .replace(/\* as/g, '')
-          .replace(/import ([\s\S]*) from .*/g, '')
-      )
-      changeListeners.push(nfn)
-      nfn(editor?.getValue())
-      const index = changeListeners.length - 1
-      return () => {
-        if (index > -1) changeListeners.splice(index, 1)
-      }
-    }
     function updateCode(s: string) {
-      changeListeners.forEach((fn) => fn(s))
+      let i = setInterval(() => {
+        if (codeChangeListeners[key]) {
+          codeChangeListeners[key].forEach((fn) => fn(s))
+          clearInterval(i)
+        }
+      }, 100)
     }
 
     function setCodeByUrl() {
@@ -123,6 +137,7 @@ document.querySelectorAll<HTMLDivElement>('.monaco-editor')
       automaticLayout: true,
       model: monaco.editor.createModel('', 'typescript', monaco.Uri.parse('file:///main.ts')),
     })
+    editors[key] = editor
 
     setCodeByUrl()
 

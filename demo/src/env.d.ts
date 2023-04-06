@@ -32,7 +32,7 @@ export declare global {
   const theme: 'light' | 'dark' | (string & {})
   function onThemeChange(fn: (t: typeof theme) => void)
 
-  function onCodeChange(fn: (code: string) => void): () => void
+  function onCodeChange(key: string, fn: (code: string) => void): () => void
 
   interface Tab {
     href: string

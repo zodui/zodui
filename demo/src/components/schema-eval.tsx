@@ -7,10 +7,10 @@ import '@zodui/react/components-lib/tdesign'
 
 window.z = z
 
-function Demo() {
+function Demo({ k = '' }) {
   const [[schema] = [], setSchema] = React.useState<[z.Schema]>()
   useEffect(() => {
-    return onCodeChange(function (code: string) {
+    return onCodeChange(k, function (code: string) {
       try {
         const s = eval(code)
         setSchema([s])
@@ -22,9 +22,12 @@ function Demo() {
   return schema ? <Schema model={schema} /> : null
 }
 
-document.querySelectorAll('.schema-eval-container')
+document.querySelectorAll<HTMLDivElement>('.schema-eval-container')
   .forEach(el => {
+    const { key } = el.dataset
     ReactDOM
       .createRoot(el)
-      .render(<React.StrictMode><Demo /></React.StrictMode>)
+      .render(<React.StrictMode>
+        <Demo k={key} />
+      </React.StrictMode>)
   })
