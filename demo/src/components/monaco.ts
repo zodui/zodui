@@ -23,7 +23,8 @@ window.onCodeChange = function (key, fn) {
   const curCodeChangeListeners = codeChangeListeners[key]
   curCodeChangeListeners.push(fn)
 
-  fn(editors[key]?.getValue() ?? DEFAULT_CODE)
+  const codeContent = editors[key]?.getValue()
+  codeContent && fn(codeContent)
 
   const index = curCodeChangeListeners.length - 1
   return () => {
