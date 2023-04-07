@@ -90,24 +90,21 @@ export default z.object({
       }
     ])
 
-    const isFold = new URLSearchParams(location.search).get('fold') === '1'
-    if (isFold) {
-      codeEditor.classList.add('fold')
-    }
-    window.addEventListener('popstate', () => {
-      const isFold = new URLSearchParams(location.search).get('fold') === '1'
-      if (isFold) {
+    function toggleEdiorFold(is = new URLSearchParams(location.search).get('fold') === '1') {
+      if (is) {
         codeEditor.classList.add('fold')
         codeEditor.style.marginLeft = '-' + codeEditor.scrollWidth + 'px'
       } else {
         codeEditor.classList.remove('fold')
         codeEditor.style.marginLeft = '0'
       }
+    }
+    window.addEventListener('popstate', () => {
+      toggleEdiorFold()
     })
+    toggleEdiorFold()
     menu.querySelector('.item.fold').addEventListener('click', () => {
-      codeEditor.classList.toggle('fold')
-      // set margin-left to codeEditor element width
-      codeEditor.style.marginLeft = '-' + codeEditor.scrollWidth + 'px'
+      toggleEdiorFold(true)
       const hash = location.hash
       history.pushState(null, '', `?${new URLSearchParams({
         fold: codeEditor.classList.contains('fold') ? '1' : '0'
