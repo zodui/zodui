@@ -126,6 +126,8 @@
 </template>
 
 <script type='module'>
+  import { createPopper } from '@popperjs/core'
+
   const tmplCache = {}
   /**
    * create a template from a template node
@@ -216,7 +218,7 @@
       content: menu.map((item) => `<div class='menu-item'>${item.title}</div>`).join(''),
     })
     document.body.appendChild(menuEle)
-    const popper = Popper.createPopper(target, menuEle, {
+    const popper = createPopper(target, menuEle, {
       placement: 'bottom-start',
       modifiers: [
         {
