@@ -13,7 +13,7 @@
   <main>
     <div class='code-editor'>
       <div class='menu'>
-        <span class='item'>
+        <span class='item settings'>
           <span class='material-icons'>settings</span>
           Settings
         </span>
@@ -22,7 +22,7 @@
           Share
         </span>
 
-        <span class='item right' id='foldCodeEditor'>
+        <span class='item right fold'>
           <span class='material-icons' style='transform: rotate(180deg)'>double_arrow</span>
         </span>
         <span class='item right' style='display: none;'>
@@ -36,8 +36,21 @@
         resizeable: true,
         byHash: true
       }) %>
-      <div class='menu-page' style='display: none'>
+      <div class='menu-page'>
         <div class='settings'>
+          <%- include('components/schema-eval', {
+            key: 'settings',
+            code: `import z from 'zod'
+export default z.object({
+  mode: z
+    .union([
+      z.literal('default').label('Default'),
+      z.literal('card').label('Card'),
+    ])
+    .label('Mode')
+    .describe('Controls the style of the form'),
+})`
+          }) %>
         </div>
       </div>
     </div>
@@ -45,5 +58,21 @@
       key: 'playground'
     }) %>
   </main>
+  <script>
+    const codeEditor = document.querySelector('.code-editor')
+    const menu = codeEditor.querySelector('.menu')
+
+    const menuPage = codeEditor.querySelector('.menu-page')
+
+    const settingsPage = menuPage.querySelector('.settings')
+    menu.querySelector('.item.settings').addEventListener('click', () => {
+      menuPage.classList.toggle('show')
+      settingsPage.classList.toggle('show')
+    })
+
+    menu.querySelector('.item.fold').addEventListener('click', () => {
+      codeEditor.classList.toggle('fold')
+    })
+  </script>
 </body>
 </html>

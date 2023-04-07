@@ -1,1 +1,7 @@
-<div class='schema-eval-container' data-key='<%- key %>'></div>
+<div
+  class='schema-eval-container'
+  data-key='<%- key %>'
+  <% if (locals.code) { %>
+    data-code='<%= code %>'
+  <% } %>
+></div>

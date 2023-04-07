@@ -5,8 +5,8 @@ import { ZodSchema } from 'zod'
 import { Schema } from '@zodui/react'
 import '@zodui/react/components-lib/tdesign'
 
-function Demo({ k = '' }) {
-  const [code, setCode] = useState<string>()
+function Demo({ k = '', c = undefined as string | undefined }) {
+  const [code, setCode] = useState<string>(c ?? '')
   useEffect(() => onCodeChange(k, setCode), [])
 
   const [[schema] = [], setSchema] = useState<[ZodSchema]>()
@@ -30,11 +30,11 @@ function Demo({ k = '' }) {
 
 document.querySelectorAll<HTMLDivElement>('.schema-eval-container')
   .forEach(el => {
-    const { key = '' } = el.dataset
+    const { key = '', code } = el.dataset
 
     ReactDOM
       .createRoot(el)
       .render(<React.StrictMode>
-        <Demo k={key} />
+        <Demo k={key} c={code} />
       </React.StrictMode>)
   })
