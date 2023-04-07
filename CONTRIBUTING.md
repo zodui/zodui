@@ -31,8 +31,8 @@ yarn
 然后你需要先启动 demo，这样你就可以在 demo 中进行开发调试
 
 ```bash
-# 假设你在开发 react，那么运行下面这段命令
-yarn workspace @zodui/demo serve:react
+# 运行下面这段命令
+yarn workspace @zodui/demo serve
 ```
 
 在 `packages` 目录下的相应目录下进行开发，vite 会自动热载对应模块下的内容
