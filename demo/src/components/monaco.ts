@@ -10,60 +10,6 @@ export default z
   .describe('This is a Object Configuration')
 `
 
-const ZOD_EXTERNAL = `import z, { Schema, ZodDefaultDef, ZodFirstPartyTypeKind, ZodObject, ZodType, ZodTypeAny } from 'zod'
-
-export interface ModesMap {
-  [ZodFirstPartyTypeKind.ZodNumber]:
-    | 'slider'
-    | 'rate'
-  [ZodFirstPartyTypeKind.ZodString]:
-    | 'textarea'
-    | 'link'
-    | 'secrets'
-    | 'date'
-    | 'datetime'
-    | 'time'
-    | 'panel'
-  [ZodFirstPartyTypeKind.ZodBoolean]:
-    | 'checkbox'
-  [ZodFirstPartyTypeKind.ZodDate]:
-    | 'datetime'
-    | 'time'
-    | 'panel'
-  [ZodFirstPartyTypeKind.ZodTuple]:
-    | 'range'
-    | 'slider'
-    | 'no-range'
-    | 'no-slider'
-    | 'datetime'
-    | 'time'
-    | 'panel'
-}
-
-declare module 'zod' {
-  export interface ZodTypeDef {
-    mode: string
-    label: string
-  }
-  export interface ZodType<Output = any, Def extends ZodTypeDef = ZodTypeDef, Input = Output> {
-    readonly _mode: string
-    mode<T extends string>(
-      mode:
-        | Def extends ZodDefaultDef<infer InnerT>
-          ? ModesMap[InnerT['_def']['typeName']]
-          : ModesMap[Def['typeName']]
-        | (string & {})
-    ): ZodType<Output, Def, Input>
-
-    readonly _label: string
-    label(mode: string): ZodType<Output, Def, Input>
-
-    readonly type: string
-  }
-  export function clazz<T>(clazz: { new(): T }): Schema<T>
-  export function asObejct<T extends any>(t: T): ZodObject<Record<string, ZodTypeAny> & T>
-}`
-
 const BORDER_SIZE = 4
 
 const editors: Record<string, monaco.editor.IStandaloneCodeEditor> = {}
@@ -139,7 +85,6 @@ document.querySelectorAll<HTMLDivElement>('.monaco-editor')
     // add custom dts
     monaco.languages.typescript.typescriptDefaults.setExtraLibs(
       MONACO_DTS_FILES
-        // .concat([{ content: ZOD_EXTERNAL, filePath: 'file:///env.d.ts' }])
     )
 
     const historyCodes: { code: string }[] = []
