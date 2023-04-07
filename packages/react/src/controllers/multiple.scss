@@ -1,4 +1,4 @@
-.zodui-item {
+.zodui-controller.multiple {
   &.dict, &.object {
     .zodui-item__control-multiple-item {
       > &__index-tag {
@@ -40,66 +40,62 @@
       }
     }
   }
-  &__control {
-    &:has(&-multiple) {
-      width: auto;
-    }
-    > &-multiple {
-      display: flex;
-      justify-content: right;
-      gap: 10px;
-      &:not(.empty) {
-        flex-direction: column;
-      }
-      > &-item {
-        position: relative;
-        gap: 10px;
+
+  display: flex;
+  justify-content: right;
+  flex-direction: column;
+  gap: 10px;
+  width: 368px;
+  &:has(.multiple-create) {
+    flex-direction: row;
+  }
+  .multiple-item {
+    position: relative;
+    gap: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    > &__label {
+      z-index: 10;
+      position: absolute;
+      top: 5px;
+      font-size: 13px;
+      &:not(.editable) {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        > &__label {
-          z-index: 10;
-          position: absolute;
-          top: 5px;
-          font-size: 13px;
-          &:not(.editable) {
-            display: flex;
-            align-items: center;
-            right: 300px;
-            width: 100px;
-            height: calc(100% - 10px);
-            overflow: hidden;
-            // TODO fix unable display ellipsis when text overflow
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          }
-          &.editable {
-            top: 0;
-            left: -200px;
-            > .key-input {
-              width: 190px;
-            }
-          }
-        }
-        > &__index-tag {
-          z-index: 10;
-          position: absolute;
-          bottom: -8px;
-          right: -8px;
-          width: 16px;
-          height: 16px;
-          font-size: 12px;
-          user-select: none;
-          text-align: center;
-          line-height: 16px;
-          background-color: var(--zodui-bg-color);
-          border-radius: var(--td-radius-default);
-          border: var(--zodui-border);
-        }
+        right: 300px;
+        width: 100px;
+        height: calc(100% - 10px);
+        overflow: hidden;
+        // TODO fix unable display ellipsis when text overflow
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
-      > &-item > &-item__container {
-        width: 200px !important;
+      &.editable {
+        top: 0;
+        left: -200px;
+        > .key-input {
+          width: 190px;
+        }
       }
     }
+    > &__index-tag {
+      z-index: 10;
+      position: absolute;
+      bottom: -8px;
+      right: -8px;
+      width: 16px;
+      height: 16px;
+      font-size: 12px;
+      user-select: none;
+      text-align: center;
+      line-height: 16px;
+      background-color: var(--zodui-bg-color);
+      border-radius: var(--td-radius-default);
+      border: var(--zodui-border);
+    }
+  }
+  > .multiple-item > .multiple-item__container {
+    width: 200px !important;
   }
 }

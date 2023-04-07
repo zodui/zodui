@@ -27,8 +27,6 @@ export const complex = innerComplexTypes as Mutable<typeof innerComplexTypes>
 
 export type ComplexType = (typeof complex)[number]
 
-const prefix = 'zodui-item__control-complex'
-
 export function Complex({
   schema,
   value,
@@ -88,11 +86,11 @@ export function Complex({
 
   // TODO support `'' | (string & {})` type
   //      display select input
-  return <div className={prefix}>
+  return <>
     <Select
       options={options}
       {...props}
     />
     {OptionRender}
-  </div>
+  </>
 }

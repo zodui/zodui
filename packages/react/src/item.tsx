@@ -64,11 +64,9 @@ export function Item(props: ItemProps) {
               dangerouslySetInnerHTML={{ __html: inlineMarkdown(schema._def.description) }}
             />}
         </div>
-        <div className='zodui-item__control'>
-          {error
-            ? '组件渲染异常'
-            : <Controller schema={schema} disabled={props.disabled} />}
-        </div>
+        {error
+          ? '组件渲染异常'
+          : <Controller schema={schema} disabled={props.disabled} />}
       </div>
     </ErrorHandler>
     <Append />

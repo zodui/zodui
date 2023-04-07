@@ -1,9 +1,11 @@
+import './index.scss'
+
+import { ReactElement } from 'react'
 import z, { Schema, ZodTypeDef } from 'zod'
 import { Monad, monad } from './monad'
 import { AllType, AllTypes, isWhatType, isWhatTypes, TypeMap, useDefaultValue } from '../utils'
 import { complex, Complex } from './complex'
 import { multiple, Multiple } from './multiple'
-import { ReactElement } from 'react'
 import { useErrorHandlerContext } from '../contexts/error-handler'
 
 function isMatchSubControllerisWhatTypes<T extends AllType>(
@@ -49,21 +51,25 @@ export function Controller(props: ControllerProps) {
 
   // TODO support literal type display
   const subControllers = [
-    [monad, Monad],
-    [complex, Complex],
-    [multiple, Multiple]
+    ['monad', monad, Monad],
+    ['complex', complex, Complex],
+    ['multiple', multiple, Multiple]
   ] as const
 
-  for (const [types, SubController] of subControllers) {
+  for (const [name, types, SubController] of subControllers) {
     // let ts happy
     const checkTuple = [schema, SubController] as const
     if (isMatchSubControllerisWhatTypes(types, checkTuple)) {
       const [schema, SubController] = checkTuple
-      return <SubController schema={schema} {...rest} />
+      return <div className={`zodui-controller ${name} ${schema.type}`}>
+        <SubController schema={schema} {...rest} />
+      </div>
     }
   }
 
-  return <span style={{ width: '100%' }}>暂未支持的的类型 <code>{props.schema.type}</code></span>
+  return <div className='zodui-controller'>
+    <span style={{ width: '100%' }}>暂未支持的的类型 <code>{props.schema.type}</code></span>
+  </div>
 }
 
 const PropsSymbol = Symbol('props')

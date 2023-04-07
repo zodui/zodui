@@ -21,7 +21,7 @@ import { plgMaster } from '../plugins'
 import '../plugins/common-multiple'
 import { useErrorHandlerContext } from '../contexts/error-handler'
 
-const prefix = 'zodui-item__control-multiple'
+const prefix = 'multiple'
 
 const innerMultipleTypes = [
   AllTypes.ZodArray,
@@ -174,10 +174,7 @@ export function Multiple({
     }
   }
 
-  return <div className={
-    prefix
-    + ((list?.length ?? 0) === 0 ? ' empty' : '')
-  }>
+  return <>
     {(list?.length ?? 0) === 0 && <Button
       className={`${prefix}-create`}
       icon='Add'
@@ -290,5 +287,5 @@ export function Multiple({
         <Button icon='More' />
       </div>
     })}
-  </div>
+  </>
 }
