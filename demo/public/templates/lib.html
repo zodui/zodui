@@ -42,6 +42,13 @@
     color: white;
     box-shadow: 0 0 4px rgba(255, 255, 255, 0.1);
   }
+  html[theme-mode='dark'] .popper .menu-item {
+    border-color: #4d4d4d;
+  }
+  html[theme-mode='dark'] .popper .menu-item:hover {
+    background-color: #2d2d2d;
+  }
+
   .popper {
     background-color: white;
     color: black;
@@ -50,12 +57,14 @@
     font-size: 13px;
     border-radius: 4px;
     opacity: 0;
+    pointer-events: none;
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
     transition: .3s ease-in-out;
   }
 
   .popper[data-show] {
     opacity: 1;
+    pointer-events: auto;
   }
   .popper[data-popper-reference-hidden] {
     visibility: hidden;
