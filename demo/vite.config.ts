@@ -131,7 +131,14 @@ process.env.NODE_ENV === 'production' && buildSync({
 
 export default defineConfig({
   base,
-  build: { emptyOutDir: false },
+  build: {
+    emptyOutDir: false,
+    rollupOptions: {
+      external: [
+        '@popperjs/core'
+      ],
+    }
+  },
   plugins: [
     react(),
     tsconfigPaths(),

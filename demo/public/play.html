@@ -17,7 +17,7 @@
           <span class='material-icons'>settings</span>
           Settings
         </span>
-        <span class='item'>
+        <span class='item share'>
           <span class='material-icons'>share</span>
           Share
         </span>
@@ -58,7 +58,7 @@ export default z.object({
       key: 'playground'
     }) %>
   </main>
-  <script>
+  <script type='module'>
     const codeEditor = document.querySelector('.code-editor')
     const menu = codeEditor.querySelector('.menu')
 
@@ -69,6 +69,26 @@ export default z.object({
       menuPage.classList.toggle('show')
       settingsPage.classList.toggle('show')
     })
+
+    const share = menu.querySelector('.item.share')
+
+    attachMenu(share, [
+      {
+        title: 'Copy as Markdown Issue',
+      },
+      {
+        title: 'Copy as Markdown Link',
+      },
+      {
+        title: 'Copy as Markdown Link with Preview',
+      },
+      {
+        title: 'Open in CodeSandbox',
+      },
+      {
+        title: 'Open in StackBlitz',
+      }
+    ])
 
     const isFold = new URLSearchParams(location.search).get('fold') === '1'
     if (isFold) {

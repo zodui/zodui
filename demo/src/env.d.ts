@@ -2,6 +2,9 @@
 /// <reference path="../public/monaco/monaco" />
 
 export declare global {
+  import * as Popper from '@popperjs/core'
+  const Popper: typeof Popper
+
   import z from 'zod'
   const z: z
   const MONACO_DTS_FILES: {
@@ -42,6 +45,8 @@ export declare global {
   const TABS: Tab[]
 
   interface Window {
+    Popper: typeof Popper
+
     z: z
 
     theme: typeof theme

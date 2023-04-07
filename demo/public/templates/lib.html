@@ -35,81 +35,213 @@
     {{content}}
   </div>
 </template>
-<script data-name='lib'>
-  ;(function () {
-    const tmplCache = {}
-    /**
-     * create a template from a template node
-     *
-     * @param {string} tmplId
-     * @param {Record<string, any>} data
-     * @returns {Element}
-     */
-    window.createEleByTmpl = function (tmplId, data) {
-      const tmpl = tmplCache[tmplId] || (tmplCache[tmplId] = document.getElementById(tmplId).innerHTML.trim())
 
-      const div = document.createElement('div')
-      div.innerHTML = Object.keys(data).reduce((acc, key) => {
-        return acc.replace(new RegExp(`{{${key}}}`, 'g'), data[key])
-      }, tmpl)
-      return div.children[0]
+<style data-name='popper'>
+  html[theme-mode='dark'] .popper {
+    background-color: #3d3d3d;
+    color: white;
+    box-shadow: 0 0 4px rgba(255, 255, 255, 0.1);
+  }
+  .popper {
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    padding: 4px 8px;
+    font-size: 13px;
+    border-radius: 4px;
+    opacity: 0;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+    transition: .3s ease-in-out;
+  }
+
+  .popper[data-show] {
+    opacity: 1;
+  }
+  .popper[data-popper-reference-hidden] {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  .popper > .arrow,
+  .popper > .arrow::before {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: inherit;
+  }
+
+  .popper > .arrow {
+    visibility: hidden;
+  }
+
+  .popper > .arrow::before {
+    visibility: visible;
+    content: '';
+    transform: rotate(45deg);
+  }
+
+  .popper[data-popper-placement^='top'] > .arrow {
+    bottom: -4px;
+  }
+
+  .popper[data-popper-placement^='bottom'] > .arrow {
+    top: -4px;
+  }
+
+  .popper[data-popper-placement^='left'] > .arrow {
+    right: -4px;
+  }
+
+  .popper[data-popper-placement^='right'] > .arrow {
+    left: -4px;
+  }
+
+  .popper .menu-item {
+    padding: 10px 20px;
+    border-bottom: 1px solid lightgray;
+    cursor: pointer;
+    transition: .3s;
+  }
+  .popper .menu-item:last-child {
+    border-bottom: none;
+  }
+  .popper .menu-item:hover {
+    background-color: #f0f0f0;
+  }
+</style>
+<template id='popper'>
+  <div class='popper'>
+    <div class='arrow' data-popper-arrow></div>
+    {{content}}
+  </div>
+</template>
+
+<script type='module'>
+  const tmplCache = {}
+  /**
+   * create a template from a template node
+   *
+   * @param {string} tmplId
+   * @param {Record<string, any>} data
+   * @returns {Element}
+   */
+  window.createEleByTmpl = function (tmplId, data) {
+    const tmpl = tmplCache[tmplId] || (tmplCache[tmplId] = document.getElementById(tmplId).innerHTML.trim())
+
+    const div = document.createElement('div')
+    div.innerHTML = Object.keys(data).reduce((acc, key) => {
+      return acc.replace(new RegExp(`{{${key}}}`, 'g'), data[key])
+    }, tmpl)
+    return div.children[0]
+  }
+  window.copyToClipboard = function (content) {
+    const input = document.createElement('input')
+    input.value = content
+    document.body.appendChild(input)
+    input.select()
+    document.execCommand('copy')
+    document.body.removeChild(input)
+  }
+  window.base64 = function (str, isDecode = true) {
+    return isDecode ? decodeURIComponent(atob(str)) : btoa(encodeURIComponent(str))
+  }
+  window.throttle = function (fn, delay) {
+    let timer = null
+    return function (...args) {
+      if (timer) return
+      timer = setTimeout(() => {
+        fn.apply(this, args)
+        timer = null
+      }, delay)
     }
-    window.copyToClipboard = function (content) {
-      const input = document.createElement('input')
-      input.value = content
-      document.body.appendChild(input)
-      input.select()
-      document.execCommand('copy')
-      document.body.removeChild(input)
+  }
+  window.debounce = function (fn, delay) {
+    let timer = null
+    return function (...args) {
+      if (timer) clearTimeout(timer)
+      timer = setTimeout(() => {
+        fn.apply(this, args)
+        timer = null
+      }, delay)
     }
-    window.base64 = function (str, isDecode = true) {
-      return isDecode ? decodeURIComponent(atob(str)) : btoa(encodeURIComponent(str))
-    }
-    window.throttle = function (fn, delay) {
-      let timer = null
-      return function (...args) {
-        if (timer) return
-        timer = setTimeout(() => {
-          fn.apply(this, args)
-          timer = null
-        }, delay)
-      }
-    }
-    window.debounce = function (fn, delay) {
-      let timer = null
-      return function (...args) {
-        if (timer) clearTimeout(timer)
-        timer = setTimeout(() => {
-          fn.apply(this, args)
-          timer = null
-        }, delay)
-      }
-    }
-    let messages = []
-    /**
-     * display a message
-     * @param {string} content
-     * @param {number} duration
-     */
-    window.showMessage = function (content, duration = 3000) {
-      const message = createEleByTmpl('message-template', { content })
-      // compute message top
-      const top = messages.reduce((acc, msg) => {
-        return acc + msg.offsetHeight + 10
-      }, 10)
-      message.style.top = top + 'px'
-      document.body.appendChild(message)
-      messages.push(message)
+  }
+  let messages = []
+  /**
+   * display a message
+   * @param {string} content
+   * @param {number} duration
+   */
+  window.showMessage = function (content, duration = 3000) {
+    const message = createEleByTmpl('message-template', { content })
+    // compute message top
+    const top = messages.reduce((acc, msg) => {
+      return acc + msg.offsetHeight + 10
+    }, 10)
+    message.style.top = top + 'px'
+    document.body.appendChild(message)
+    messages.push(message)
+    setTimeout(() => {
+      message.classList.add('show')
+    }, 0)
+    setTimeout(() => {
+      message.classList.remove('show')
       setTimeout(() => {
-        message.classList.add('show')
-      }, 0)
-      setTimeout(() => {
-        message.classList.remove('show')
-        setTimeout(() => {
-          document.body.removeChild(message)
-          messages = messages.filter((m) => m !== message)
-        }, 300)
-      }, duration)
+        document.body.removeChild(message)
+        messages = messages.filter((m) => m !== message)
+      }, 300)
+    }, duration)
+  }
+
+  /** @typedef {{
+   title: string;
+   func: Function;
+  }} MenuItem */
+  /**
+   * attach a menu to a target by Popper.js
+   * @param {HTMLElement} target
+   * @param {MenuItem[]} menu
+   */
+  window.attachMenu = function (target, menu) {
+    /** @type {HTMLDivElement} */
+    const menuEle = createEleByTmpl('popper', {
+      content: menu.map((item) => `<div class='menu-item'>${item.title}</div>`).join(''),
+    })
+    document.body.appendChild(menuEle)
+    const popper = Popper.createPopper(target, menuEle, {
+      placement: 'bottom-start',
+      modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset: [0, -5],
+          },
+        },
+        {
+          name: 'preventOverflow',
+          options: {
+            padding: 12,
+          },
+        }
+      ],
+    })
+    const hide = () => {
+      menuEle.removeAttribute('data-show')
+      popper.update()
     }
-  })()
+    const show = () => {
+      menuEle.focus()
+      menuEle.setAttribute('data-show', '')
+      popper.update()
+    }
+    target.addEventListener('click', () => {
+      if (menuEle.hasAttribute('data-show')) {
+        hide()
+      } else {
+        show()
+      }
+    })
+    menuEle.addEventListener('blur', () => {
+      hide()
+    })
+  }
 </script>
