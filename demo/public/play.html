@@ -70,8 +70,28 @@ export default z.object({
       settingsPage.classList.toggle('show')
     })
 
+    const isFold = new URLSearchParams(location.search).get('fold') === '1'
+    if (isFold) {
+      codeEditor.classList.add('fold')
+    }
+    window.addEventListener('popstate', () => {
+      const isFold = new URLSearchParams(location.search).get('fold') === '1'
+      if (isFold) {
+        codeEditor.classList.add('fold')
+        codeEditor.style.marginLeft = '-' + codeEditor.scrollWidth + 'px'
+      } else {
+        codeEditor.classList.remove('fold')
+        codeEditor.style.marginLeft = '0'
+      }
+    })
     menu.querySelector('.item.fold').addEventListener('click', () => {
       codeEditor.classList.toggle('fold')
+      // set margin-left to codeEditor element width
+      codeEditor.style.marginLeft = '-' + codeEditor.scrollWidth + 'px'
+      const hash = location.hash
+      history.pushState(null, '', `?${new URLSearchParams({
+        fold: codeEditor.classList.contains('fold') ? '1' : '0'
+      })}${hash}`)
     })
   </script>
 </body>
