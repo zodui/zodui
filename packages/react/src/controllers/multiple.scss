@@ -1,42 +1,44 @@
-.zodui-controller.multiple {
-  &.dict, &.object {
-    .zodui-item__control-multiple-item {
+.zodui-item.wrap:not(.nowrap) {
+  &:hover {
+    background-color: inherit;
+  }
+  .zodui-controller.multiple {
+    width: 100%;
+    gap: 0;
+    > .multiple-item {
+      display: flex;
+      justify-content: right;
+      gap: 10px;
+      width: 100%;
+      padding: 10px 5px;
+      margin-right: -5px;
+      border-bottom: var(--zodui-border);
+      transition: .3s;
+      &:hover {
+        background-color: var(--zodui-bg-color__hover);
+      }
+      > &__label {
+        top: 10px;
+        left: 10px;
+        height: calc(100% - 20px);
+        &.editable {
+          top: 10px;
+          left: 5px;
+        }
+      }
       > &__index-tag {
-        display: none;
+        bottom: 2px;
+        right: -3px;
       }
     }
   }
-  &.wrap:not(.nowrap) {
-    &:hover {
-      background-color: inherit;
-    }
-    .zodui-item__control-multiple {
-      width: 100%;
-      gap: 0;
-      &-item {
-        display: flex;
-        justify-content: right;
-        gap: 10px;
-        padding: 10px 5px;
-        margin-right: -5px;
-        border-bottom: var(--zodui-border);
-        transition: .3s;
-        &:hover {
-          background-color: var(--zodui-bg-color__hover);
-        }
-        > &__label {
-          top: 10px;
-          left: 10px;
-          height: calc(100% - 20px);
-          &.editable {
-            top: 10px;
-            left: 5px;
-          }
-        }
-        > &__index-tag {
-          bottom: 2px;
-          right: -3px;
-        }
+}
+
+.zodui-controller.multiple {
+  &.dict, &.object {
+    .multiple-item {
+      > &__index-tag {
+        display: none;
       }
     }
   }
