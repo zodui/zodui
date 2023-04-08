@@ -17,7 +17,7 @@
       &:hover {
         background-color: var(--zodui-bg-color__hover);
       }
-      > &__label {
+      > .multiple-item__label {
         top: 10px;
         left: 10px;
         height: calc(100% - 20px);
