@@ -5,6 +5,9 @@
   .zodui-controller.multiple {
     width: 100%;
     gap: 0;
+    > .multiple-create {
+      margin: 10.5px 0;
+    }
     > .multiple-item {
       display: flex;
       justify-content: right;
