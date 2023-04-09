@@ -7,29 +7,60 @@ import { ModesMap } from '../zod.external'
 import { MultipleType } from '../controllers/multiple'
 import { BaseCompProps } from '../components/base'
 
-export type UnionProps<T extends AllType> = T extends 'ZodUnion' ? {
+export type ComplexProps<T extends AllType> = T extends 'ZodUnion' ? {
   options: BaseCompProps.SelectOptions[]
   OptionRender: ReactElement
 } : {}
 
-export type ListProps<T extends AllType> = T extends MultipleType ? {
+export type MultipleProps<T extends AllType> = T extends MultipleType ? {
   schemas: TypeMap[AllType][]
 } : {}
 
-export type ListIsOptions<T extends AllType> = T extends MultipleType ? {
+export type MultipleOptions<T extends AllType> = T extends MultipleType ? {
   schemas: TypeMap[AllType][]
 } : {}
+
+export interface CreateComponentMatcher<
+  T extends AllType,
+  IsParams extends any[],
+  Props extends any,
+> {
+  types: T[]
+  is(...params: IsParams): boolean
+  Component(props: Props): ReactElement
+}
+
+export interface SubControllerMap extends Record<string, {
+  props: any
+  options: any
+}> {}
+
+export type SubControllerMatcher<
+  T extends AllType,
+  MapT extends keyof SubControllerMap,
+  SubController extends SubControllerMap[MapT],
+> = CreateComponentMatcher<
+  T,
+  /** IsParams */
+  & { modes: string[] }
+  & SubController['options'],
+  /** Component Props */
+  & ControllerProps<TypeMap[T]>
+  // @ts-ignore
+  & { modes?: ModesMap[T][] }
+  & SubController['props']
+>
 
 export interface ComponentMatcher<T extends AllType = AllType> {
   types: T[]
   is: (modes: string[], options?: & {}
-                                  & ListIsOptions<T>
+                                  & MultipleOptions<T>
   ) => boolean
   Component: (props: & ControllerProps<TypeMap[T]>
                      // @ts-ignore
                      & { modes?: ModesMap[T][] }
-                     & ListProps<T>
-                     & UnionProps<T>
+                     & MultipleProps<T>
+                     & ComplexProps<T>
   ) => ReactElement
 }
 
