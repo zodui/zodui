@@ -1,10 +1,11 @@
 import { ReactElement, useEffect, useState } from 'react'
 import { ControllerProps } from './index'
-import { TypeMap, AllTypes, Mutable } from '../utils'
+import { TypeMap } from '../utils'
 import { Input, Switch } from '../components'
 
 import '../plugins/common-monad'
 import { plgMaster } from '../plugins'
+import { MonadType } from '../configure'
 
 declare module '@zodui/react' {
   export interface MonadSubController {
@@ -15,17 +16,6 @@ declare module '@zodui/react' {
     monad: MonadSubController
   }
 }
-
-const innerMonad = [
-  AllTypes.ZodString,
-  AllTypes.ZodNumber,
-  AllTypes.ZodBoolean,
-  AllTypes.ZodDate
-] as const
-
-export const monad = innerMonad as Mutable<typeof innerMonad>
-
-export type MonadType = (typeof monad)[number]
 
 export interface PrimitiveProps extends ControllerProps<TypeMap[MonadType]> {
 }

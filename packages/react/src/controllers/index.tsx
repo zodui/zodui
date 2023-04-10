@@ -2,11 +2,12 @@ import './index.scss'
 
 import { ReactElement } from 'react'
 import z, { Schema, ZodTypeDef } from 'zod'
-import { Monad, monad } from './monad'
+import { Monad } from './monad'
 import { AllType, AllTypes, isWhatType, isWhatTypes, TypeMap, useDefaultValue, useModes } from '../utils'
 import { complex, Complex } from './complex'
 import { multiple, Multiple } from './multiple'
 import { useErrorHandlerContext } from '../contexts/error-handler'
+import { monad } from '../configure'
 
 function isMatchSubControllersWhatTypes<T extends AllType>(
   types: T[],
@@ -159,7 +160,13 @@ type ResolveAsMap<M = InnerControllerPropsMap> = Partial<{
     : ResolveAsMap<M[K]>
 }>
 
-const ControllerMap: ResolveAsMap = {}
+// TODO refactor it
+// @ts-ignore
+window.__ZODUI_CONTROLLER_MAP__ = window.__ZODUI_CONTROLLER_MAP__ || {}
+
+const ControllerMap: ResolveAsMap
+  // @ts-ignore
+  = window.__ZODUI_CONTROLLER_MAP__
 
 export function addController<
   P extends AllPaths,

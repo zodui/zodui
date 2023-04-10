@@ -106,7 +106,7 @@ export class PlgMaster {
     .reduce((acc, key) => ({
       ...acc, [key]: [],
     }), {} as Record<AllType, Plugin[]>)
-  private quickMap = new Map<string, CreateComponentMatcher<any, any, any>[]>()
+  private quickMap = new Map<string, Set<CreateComponentMatcher<any, any, any>>>()
   private quickMapKeyGen = (name: RevealType, type: AllType) => [name, type].join(':--:')
   register(plg: Plugin) {
     plg.componentMatchers.forEach((comp) => {
@@ -121,25 +121,19 @@ export class PlgMaster {
           matcher.types.forEach(type => {
             const key = this.quickMapKeyGen(`SubController.${name}` as RevealType, type)
             if (!this.quickMap.has(key)) {
-              this.quickMap.set(key, [])
+              this.quickMap.set(key, new Set())
             }
-            this.quickMap.get(key)?.push(matcher)
+            this.quickMap.get(key)?.add(matcher)
           })
         })
       })
     return () => {
-      plg.componentMatchers.forEach((comp) => {
-        comp.types.forEach((type) => {
-          const index = this.plgs[type].indexOf(plg as any)
-          this.plgs[type].splice(index, 1)
-        })
-      })
       Object.entries(plg.subControllerMatchersMap)
         .forEach(([name, matchers]) => {
           matchers.forEach(matcher => {
             matcher.types.forEach(type => {
               const key = this.quickMapKeyGen(`SubController.${name}` as RevealType, type)
-              this.quickMap.delete(key)
+              this.quickMap.get(key)?.delete(matcher)
             })
           })
         })
@@ -153,10 +147,9 @@ export class PlgMaster {
     name: N,
     isParams: [modes: string[]]
   ) {
-    const matchers = this.quickMap
-      .get([name, type].join(':--:'))
-      ?? []
-    return matchers
+    return [
+      ...this.quickMap.get([name, type].join(':--:'))?.values() ?? []
+    ]
       .find(matcher => matcher.is(...isParams))
   }
 }

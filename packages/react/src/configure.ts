@@ -1,4 +1,4 @@
-import { AllTypes } from './utils'
+import { AllTypes, Mutable } from './utils'
 
 /**
  * 为了设置 wrap 的默认值
@@ -22,3 +22,14 @@ export const ComplexMultipleTypes = [AllTypes.ZodTuple, AllTypes.ZodObject]
  * 可修改 key 的值的类型
  */
 export const KeyEditableTypes = [AllTypes.ZodRecord, AllTypes.ZodMap]
+
+const innerMonad = [
+  AllTypes.ZodString,
+  AllTypes.ZodNumber,
+  AllTypes.ZodBoolean,
+  AllTypes.ZodDate
+] as const
+
+export const monad = innerMonad as Mutable<typeof innerMonad>
+
+export type MonadType = (typeof monad)[number]
