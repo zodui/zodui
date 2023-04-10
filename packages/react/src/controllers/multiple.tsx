@@ -252,19 +252,18 @@ export function Multiple({
               }}
             />}
         </>}
-        {React.cloneElement(<Controller
+        <Controller
+          disabled={props.disabled ?? false}
+          className={`${prefix}-item__container`}
           schema={itemSchema}
           value={item}
+          defaultValue={getDefaultValue(itemSchema)}
           onChange={value => {
             const newList = [...list]
             newList[index] = value
             setList(newList)
           }}
-        />, {
-          defaultValue: getDefaultValue(itemSchema),
-          disabled: props.disabled ?? false,
-          className: `${prefix}-item__container`,
-        })}
+        />
         <Button
           theme='error'
           disabled={
