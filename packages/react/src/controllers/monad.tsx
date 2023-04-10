@@ -55,6 +55,6 @@ export function Monad({
 
   const { Component } = plgMaster.reveal(schema._def.typeName, 'SubController.monad', [modes]) ?? {}
   return Component
-    ? <Component modes={modes} {...props} />
+    ? <Component modes={modes} schema={schema} {...props} />
     : InnerComp
 }

@@ -27,7 +27,7 @@ export type SubControllerMatcher<
   /** Component Props */
   & ControllerProps<TypeMap[T]>
   // @ts-ignore
-  & { modes?: ModesMap[T][] }
+  & { modes?: (ModesMap[T] | (string & {}))[] }
   & SubController['props']
 >
 
@@ -57,14 +57,18 @@ export class Plugin {
 
 type RevealType = `SubController.${keyof SubControllerMap}`
 
-type InferIsParams<
+type InferComponentMatcher<
   T extends AllType,
   N extends RevealType
 > =
   N extends `SubController.${infer Name extends keyof SubControllerMap}`
-  ? SubControllerMatcher<T, Name> extends ComponentMatcher<any, infer P, any>
-    ? P : never
+  ? SubControllerMatcher<T, Name>
   : never
+
+type InferIsParams<
+  CM extends ComponentMatcher<any, any, any>
+> =
+  CM extends ComponentMatcher<any, infer P, any> ? P : never
 
 export class PlgMaster {
   readonly plgs = Object.keys(AllTypes)
@@ -102,7 +106,8 @@ export class PlgMaster {
   reveal<
     T extends AllType,
     N extends RevealType,
-    IsParam extends InferIsParams<T, N>
+    CM extends InferComponentMatcher<T, N>,
+    IsParam extends InferIsParams<CM>
   >(
     type: T,
     name: N,
@@ -112,7 +117,7 @@ export class PlgMaster {
     return [
       ...this.quickMap.get(key)?.values() ?? []
     ]
-      .find(matcher => matcher.is(...isParams))
+      .find(matcher => matcher.is(...isParams)) as CM | undefined
   }
 }
 
