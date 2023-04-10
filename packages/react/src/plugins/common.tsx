@@ -1,3 +1,5 @@
+import './common.scss'
+
 import { Schema } from 'zod'
 import { Radio, RadioGroup } from 'tdesign-react/esm'
 
@@ -6,6 +8,8 @@ import { Plugin } from './index'
 import { Icon, Input, InputAdornment } from '../components'
 import { AsProps, ControllerRender } from '../controllers'
 import { WrapModes } from '../configure'
+import { useControllerClassNameContext } from '../contexts/controller-class-name'
+import { useEffect } from 'react'
 
 declare module '@zodui/react' {
   interface ControllerPropsMapDate {
@@ -35,7 +39,7 @@ function isEqual(schemas: Schema[], types: AllTypes[]) {
   )
 }
 
-export default new Plugin()
+export default () => new Plugin()
   .newSubControllerMatcher('monad', [AllTypes.ZodNumber], [
     [
       modes => modes.includes('slider'),
@@ -100,13 +104,26 @@ export default new Plugin()
       schemas: _,
       ...props
     }) => {
+      const { setClassName } = useControllerClassNameContext()
+      const datetime = [
+        modes.includes('datetime') || modes.includes('date'),
+        modes.includes('datetime') || modes.includes('time')
+      ]
+      // fallback to date picker
+      if (datetime[0] === false && datetime[1] === false) {
+        datetime[0] = true
+      }
+      useEffect(() => {
+        setClassName(`${
+          datetime[0] ? 'date' : ''
+        }${
+          datetime[1] ? 'time' : ''
+        }-picker`)
+      }, [modes])
       return <ControllerRender
         target='Date:PickerRange'
         isPanel={modes.includes('panel')}
-        datetime={[
-          modes.includes('datetime') || modes.includes('date'),
-          modes.includes('datetime') || modes.includes('time')
-        ]}
+        datetime={datetime}
         {...props}
       />
     }],
