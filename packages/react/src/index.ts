@@ -1,4 +1,5 @@
 export * from './components'
 export * from './controllers'
 export * from './schema'
+export * from './plugins'
 export { WrapModes } from './configure'

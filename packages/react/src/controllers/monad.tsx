@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import { ControllerProps } from './index'
-import { useModes, TypeMap, AllTypes, Mutable } from '../utils'
+import { TypeMap, AllTypes, Mutable } from '../utils'
 import { Input, Switch } from '../components'
 
 import '../plugins/common-monad'
@@ -31,6 +31,7 @@ export interface PrimitiveProps extends ControllerProps<TypeMap[MonadType]> {
 }
 
 export function Monad({
+  modes,
   schema,
   ...rest
 }: PrimitiveProps) {
@@ -46,31 +47,25 @@ export function Monad({
   useEffect(() => {
     setValue(rest.defaultValue || rest.value)
   }, [rest.defaultValue || rest.value])
-  const modes = useModes(schema)
 
-  // const ctrlArr = plgMaster.reveal('SubController.monad')
-  // const { Component } = ctrlArr.find(({ is }) => is(modes)) ?? {}
-  // if (Component)
-  //   return <Component modes={modes} {...props}>
-  //     {defaultSlot}
-  //   </Component>
-
-  const targetPlgs = plgMaster.plgs[schema._def.typeName]
-  for (const { componentMatchers } of targetPlgs) {
-    for (const compMatcher of componentMatchers) {
-      if (compMatcher.is(modes))
-        return <compMatcher.Component modes={modes} schema={schema} {...props} />
-    }
-  }
+  let InnerComp: ReactElement = null
   switch (schema._def.typeName) {
     case 'ZodNumber':
-      return <Input type='number' {...props} />
+      InnerComp = <Input type='number' {...props} />
+      break
     case 'ZodString':
-      return <Input {...props} />
+      InnerComp = <Input {...props} />
+      break
     case 'ZodDate':
-      return <Input {...props} />
+      InnerComp = <Input {...props} />
+      break
     case 'ZodBoolean':
-      return <Switch {...props} />
+      InnerComp = <Switch {...props} />
+      break
   }
-  return <></>
+
+  const { Component } = plgMaster.reveal(schema._def.typeName, 'SubController.monad', [modes])
+  return Component
+    ? <Component modes={modes} {...props} />
+    : InnerComp
 }

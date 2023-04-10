@@ -3,6 +3,10 @@ import type { Schema as ZodSchema } from 'zod'
 
 import { Item } from './item'
 import { AllTypes, inlineMarkdown, isWhatType } from './utils'
+import common from './plugins/common'
+import { plgMaster } from './plugins'
+
+plgMaster.register(common)
 
 export interface SchemaProps {
   model: ZodSchema
