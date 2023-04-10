@@ -4,7 +4,7 @@ import { ControllerProps } from '../controllers'
 import { AllType, AllTypes, TypeMap } from '../utils'
 import { ModesMap } from '../zod.external'
 
-export interface CreateComponentMatcher<
+export interface ComponentMatcher<
   T extends AllType,
   IsParams extends any[],
   Props extends any,
@@ -20,7 +20,7 @@ export type SubControllerMatcher<
   T extends AllType,
   MapT extends keyof SubControllerMap,
   SubController extends SubControllerMap[MapT] = SubControllerMap[MapT],
-> = CreateComponentMatcher<
+> = ComponentMatcher<
   T,
   /** IsParams */
   [modes: string[], options?: SubController['options']],
@@ -32,7 +32,7 @@ export type SubControllerMatcher<
 >
 
 export class Plugin {
-  subControllerMatchersMap: Record<string, CreateComponentMatcher<any, any, any>[]> = {}
+  subControllerMatchersMap: Record<string, ComponentMatcher<any, any, any>[]> = {}
   newSubControllerMatcher<
     T extends AllType,
     N extends keyof SubControllerMap & string,
@@ -62,7 +62,7 @@ export class PlgMaster {
     .reduce((acc, key) => ({
       ...acc, [key]: [],
     }), {} as Record<AllType, Plugin[]>)
-  private quickMap = new Map<string, Set<CreateComponentMatcher<any, any, any>>>()
+  private quickMap = new Map<string, Set<ComponentMatcher<any, any, any>>>()
   private quickMapKeyGen = (name: RevealType, type: AllType) => [name, type].join(':--:')
   register(plg: Plugin) {
     // TODO simplify register and recycle logic
