@@ -161,6 +161,10 @@ type ResolveAsMap<M = InnerControllerPropsMap> = Partial<{
 }>
 
 // TODO refactor it
+//      let Map = window.__ZODUI_CONTROLLER_MAP__, because hot module reload will cause Map to be undefined
+//      hmr unable know Map will be use in other module, such as `components-lib/tdesign.tsx`
+//      so we need to use `window.__ZODUI_CONTROLLER_MAP__` to store Map
+//      it may cause some problem, so we need to refactor it
 // @ts-ignore
 window.__ZODUI_CONTROLLER_MAP__ = window.__ZODUI_CONTROLLER_MAP__ || {}
 
