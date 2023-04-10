@@ -22,8 +22,7 @@ import {
   TimePickerPanel, TimePicker, DatePickerPanel, DateRangePickerPanel, DatePicker, TimeRangePicker, DateRangePicker
 } from 'tdesign-react/esm'
 
-import { registerIcon } from '../components'
-import { registerBaseComp } from '../components/base'
+import { registerIcon, registerBaseComp } from '../components'
 import { Narrow } from '../utils'
 import { addController } from '../controllers'
 

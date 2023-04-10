@@ -3,6 +3,7 @@ export {
   Button,
   Select,
   Switch,
+  registerBaseComp
 } from './base'
 
 export type { BaseCompProps } from './base'
