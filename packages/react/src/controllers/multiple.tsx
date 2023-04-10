@@ -13,8 +13,8 @@ import {
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 
 import { Controller, ControllerProps } from './index'
-import { AllTypes, getDefaultValue, isWhatType, Mutable, TypeMap, useModes } from '../utils'
-import { KeyEditableTypes, ComplexMultipleTypes } from '../configure'
+import { AllTypes, getDefaultValue, isWhatType, TypeMap } from '../utils'
+import { KeyEditableTypes, ComplexMultipleTypes, MultipleType } from '../configure'
 import { Icon, Button, Input } from '../components'
 import { plgMaster } from '../plugins'
 
@@ -22,19 +22,6 @@ import '../plugins/common-multiple'
 import { useErrorHandlerContext } from '../contexts/error-handler'
 
 const prefix = 'multiple'
-
-const innerMultipleTypes = [
-  AllTypes.ZodArray,
-  AllTypes.ZodTuple,
-  AllTypes.ZodSet,
-  AllTypes.ZodMap,
-  AllTypes.ZodRecord,
-  AllTypes.ZodObject,
-] as const
-
-export const multiple = innerMultipleTypes as Mutable<typeof innerMultipleTypes>
-
-export type MultipleType = (typeof multiple)[number]
 
 export interface MultipleProps extends ControllerProps<TypeMap[MultipleType]> {
 }
@@ -167,6 +154,7 @@ export function Multiple({
           {...props}
           modes={modes}
           schema={schema}
+          schemas={schemas}
           value={list}
           onChange={setList}
         />

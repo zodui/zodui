@@ -33,3 +33,16 @@ const innerMonad = [
 export const monad = innerMonad as Mutable<typeof innerMonad>
 
 export type MonadType = (typeof monad)[number]
+
+const innerMultipleTypes = [
+  AllTypes.ZodArray,
+  AllTypes.ZodTuple,
+  AllTypes.ZodSet,
+  AllTypes.ZodMap,
+  AllTypes.ZodRecord,
+  AllTypes.ZodObject,
+] as const
+
+export const multiple = innerMultipleTypes as Mutable<typeof innerMultipleTypes>
+
+export type MultipleType = (typeof multiple)[number]
