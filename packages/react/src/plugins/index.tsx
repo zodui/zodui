@@ -114,6 +114,7 @@ export class PlgMaster {
         this.plgs[type].push(plg as any)
       })
     })
+    // TODO simplify register and recycle logic
     Object.entries(plg.subControllerMatchersMap)
       .forEach(([name, matchers]) => {
         matchers.forEach(matcher => {
