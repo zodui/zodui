@@ -137,7 +137,8 @@ export class PlgMaster {
         .forEach(([name, matchers]) => {
           matchers.forEach(matcher => {
             matcher.types.forEach(type => {
-              this.quickMap.delete([`SubController.${name}`, type].join(':--:'))
+              const key = this.quickMapKeyGen(`SubController.${name}` as RevealType, type)
+              this.quickMap.delete(key)
             })
           })
         })
