@@ -57,6 +57,15 @@ export class Plugin {
 
 type RevealType = `SubController.${keyof SubControllerMap}`
 
+type InferIsParams<
+  T extends AllType,
+  N extends RevealType
+> =
+  N extends `SubController.${infer Name extends keyof SubControllerMap}`
+  ? SubControllerMatcher<T, Name> extends ComponentMatcher<any, infer P, any>
+    ? P : never
+  : never
+
 export class PlgMaster {
   readonly plgs = Object.keys(AllTypes)
     .reduce((acc, key) => ({
@@ -92,11 +101,12 @@ export class PlgMaster {
   }
   reveal<
     T extends AllType,
-    N extends RevealType
+    N extends RevealType,
+    IsParam extends InferIsParams<T, N>
   >(
     type: T,
     name: N,
-    isParams: [modes: string[]]
+    isParams: IsParam
   ) {
     const key = this.quickMapKeyGen(name, type)
     return [
