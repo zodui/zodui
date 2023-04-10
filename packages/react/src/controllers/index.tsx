@@ -8,6 +8,7 @@ import { Complex } from './complex'
 import { Multiple } from './multiple'
 import { useErrorHandlerContext } from '../contexts/error-handler'
 import { monad, complex, multiple } from '../configure'
+import { useControllerClassName } from '../contexts/controller-class-name'
 
 function isMatchSubControllersWhatTypes<T extends AllType>(
   types: T[],
@@ -33,6 +34,7 @@ export interface ControllerProps<T extends Schema = Schema> {
 }
 
 export function Controller(props: ControllerProps) {
+  const { className: subClassName, ControllerClassName } = useControllerClassName()
   const defaultValue = useDefaultValue(props.schema) ?? props.defaultValue
   if (isWhatType(props.schema, AllTypes.ZodDefault)) {
     const {
@@ -66,8 +68,10 @@ export function Controller(props: ControllerProps) {
     const checkTuple = [schema, SubController] as const
     if (isMatchSubControllersWhatTypes(types, checkTuple)) {
       const [schema, SubController] = checkTuple
-      return <div className={`zodui-controller ${name} ${schema.type}`}>
-        <SubController schema={schema} modes={modes} {...rest} />
+      return <div className={`zodui-controller ${name} ${schema.type} ${subClassName}`}>
+        <ControllerClassName>
+          <SubController schema={schema} modes={modes} {...rest} />
+        </ControllerClassName>
       </div>
     }
   }
