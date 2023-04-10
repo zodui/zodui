@@ -4,10 +4,10 @@ import { ReactElement } from 'react'
 import z, { Schema, ZodTypeDef } from 'zod'
 import { Monad } from './monad'
 import { AllType, AllTypes, isWhatType, isWhatTypes, TypeMap, useDefaultValue, useModes } from '../utils'
-import { complex, Complex } from './complex'
+import { Complex } from './complex'
 import { Multiple } from './multiple'
 import { useErrorHandlerContext } from '../contexts/error-handler'
-import { monad, multiple } from '../configure'
+import { monad, complex, multiple } from '../configure'
 
 function isMatchSubControllersWhatTypes<T extends AllType>(
   types: T[],

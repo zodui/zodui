@@ -1,7 +1,7 @@
 import type { ZodUnionOptions } from 'zod'
 import { useEffect, useMemo, useState } from 'react'
 import { Controller, ControllerProps } from './index'
-import { AllTypes, Mutable, TypeMap } from '../utils'
+import { AllTypes, TypeMap } from '../utils'
 
 import '../plugins/common-complex'
 import { plgMaster } from '../plugins'
@@ -9,6 +9,7 @@ import { useItemSerterContext } from '../contexts/item-serter'
 import { Schema } from '../schema'
 import { Select } from '../components'
 import { BaseCompProps } from '../components/base'
+import { ComplexType } from '../configure'
 
 function resolveSchemas(schemas: ZodUnionOptions): BaseCompProps.SelectOptions[] {
   // TODO resolve not literal type, it not contain value
@@ -18,14 +19,6 @@ function resolveSchemas(schemas: ZodUnionOptions): BaseCompProps.SelectOptions[]
     value: index
   }))
 }
-
-const innerComplexTypes = [
-  AllTypes.ZodUnion
-] as const
-
-export const complex = innerComplexTypes as Mutable<typeof innerComplexTypes>
-
-export type ComplexType = (typeof complex)[number]
 
 export function Complex({
   modes,
