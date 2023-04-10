@@ -1,7 +1,7 @@
 import type { ZodUnionOptions } from 'zod'
 import { useEffect, useMemo, useState } from 'react'
 import { Controller, ControllerProps } from './index'
-import { AllTypes, Mutable, TypeMap, useModes } from '../utils'
+import { AllTypes, Mutable, TypeMap } from '../utils'
 
 import '../plugins/common-complex'
 import { plgMaster } from '../plugins'
