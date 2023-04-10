@@ -3,7 +3,6 @@ import { ControllerProps } from './index'
 import { TypeMap } from '../utils'
 import { Input, Switch } from '../components'
 
-import '../plugins/common-monad'
 import { plgMaster } from '../plugins'
 import { MonadType } from '../configure'
 

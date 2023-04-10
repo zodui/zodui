@@ -4,22 +4,6 @@ import { ControllerProps } from '../controllers'
 import { AllType, AllTypes, TypeMap } from '../utils'
 import { ModesMap } from '../zod.external'
 
-import { BaseCompProps } from '../components/base'
-import { MultipleType } from '../configure'
-
-export type ComplexProps<T extends AllType> = T extends 'ZodUnion' ? {
-  options: BaseCompProps.SelectOptions[]
-  OptionRender: ReactElement
-} : {}
-
-export type MultipleProps<T extends AllType> = T extends MultipleType ? {
-  schemas: TypeMap[AllType][]
-} : {}
-
-export type MultipleOptions<T extends AllType> = T extends MultipleType ? {
-  schemas: TypeMap[AllType][]
-} : {}
-
 export interface CreateComponentMatcher<
   T extends AllType,
   IsParams extends any[],
@@ -47,36 +31,8 @@ export type SubControllerMatcher<
   & SubController['props']
 >
 
-export interface ComponentMatcher<T extends AllType = AllType> {
-  types: T[]
-  is: (modes: string[], options?: & {}
-                                  & MultipleOptions<T>
-  ) => boolean
-  Component: (props: & ControllerProps<TypeMap[T]>
-                     // @ts-ignore
-                     & { modes?: ModesMap[T][] }
-                     & MultipleProps<T>
-                     & ComplexProps<T>
-  ) => ReactElement
-}
-
 export class Plugin {
-  componentMatchers: ComponentMatcher[] = []
-  addSubController<T extends AllType, C extends ComponentMatcher<T> = ComponentMatcher<T>>(
-    types: C['types'],
-    array: [C['is'], C['Component']][]
-  ) {
-    array
-      .forEach(([is, Component]) => this.componentMatchers.push({
-        // @ts-ignore FIXME
-        is,
-        types,
-        // @ts-ignore FIXME
-        Component
-      }))
-    return this
-  }
-  subControllerMatchersMap: Record<string, ComponentMatcher[]> = {}
+  subControllerMatchersMap: Record<string, CreateComponentMatcher<any, any, any>[]> = {}
   newSubControllerMatcher<
     T extends AllType,
     N extends keyof SubControllerMap & string,
@@ -109,11 +65,6 @@ export class PlgMaster {
   private quickMap = new Map<string, Set<CreateComponentMatcher<any, any, any>>>()
   private quickMapKeyGen = (name: RevealType, type: AllType) => [name, type].join(':--:')
   register(plg: Plugin) {
-    plg.componentMatchers.forEach((comp) => {
-      comp.types.forEach((type) => {
-        this.plgs[type].push(plg as any)
-      })
-    })
     // TODO simplify register and recycle logic
     Object.entries(plg.subControllerMatchersMap)
       .forEach(([name, matchers]) => {
