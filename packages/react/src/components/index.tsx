@@ -2,8 +2,10 @@ export {
   Input, InputAdornment,
   Button,
   Select,
-  Switch
+  Switch,
 } from './base'
+
+export type { BaseCompProps } from './base'
 
 export {
   type Icons,

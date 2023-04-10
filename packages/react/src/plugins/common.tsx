@@ -1,9 +1,11 @@
-import { AllTypes } from '../utils'
+import { Schema } from 'zod'
+import { Radio, RadioGroup } from 'tdesign-react/esm'
+
+import { AllTypes, containSome } from '../utils'
 import { Plugin } from './index'
 import { Icon, Input, InputAdornment } from '../components'
 import { AsProps, ControllerRender } from '../controllers'
 import { WrapModes } from '../configure'
-import { Schema } from 'zod'
 
 declare module '@zodui/react' {
   interface ControllerPropsMapDate {
@@ -23,7 +25,8 @@ declare module '@zodui/react' {
   }
 }
 
-WrapModes.push('textarea', 'panel')
+// TODO let button match range small
+WrapModes.push('textarea', 'panel', 'radio-inline', 'button')
 
 function isEqual(schemas: Schema[], types: AllTypes[]) {
   return schemas.length === types.length && schemas.every(
@@ -113,4 +116,26 @@ export default new Plugin()
       schemas: _,
       ...props
     }) => <ControllerRender target='Number.Slider' range {...props} />]
+  ])
+  .newSubControllerMatcher('complex', [AllTypes.ZodUnion], [
+    [
+      modes => containSome(modes, ['radio', 'radio-inline', 'button']),
+      ({ modes, options, OptionRender, ...props }) => <>
+        {!modes?.includes('button')
+          ? <RadioGroup
+            options={options}
+            {...props}
+          />
+          : <RadioGroup {...props}>
+            {options.map(({
+              label,
+              title,
+              value,
+            }) => <Radio.Button title={title} value={value} key={value.toString()}>
+              {label}
+            </Radio.Button>)}
+          </RadioGroup>}
+        {OptionRender}
+      </>
+    ]
   ])

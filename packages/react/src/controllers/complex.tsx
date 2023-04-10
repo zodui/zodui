@@ -1,15 +1,26 @@
 import type { ZodUnionOptions } from 'zod'
-import { useEffect, useMemo, useState } from 'react'
+import { ReactElement, useEffect, useMemo, useState } from 'react'
 import { Controller, ControllerProps } from './index'
 import { AllTypes, TypeMap } from '../utils'
 
-import '../plugins/common-complex'
 import { plgMaster } from '../plugins'
 import { useItemSerterContext } from '../contexts/item-serter'
 import { Schema } from '../schema'
-import { Select } from '../components'
-import { BaseCompProps } from '../components/base'
+import { Select, BaseCompProps } from '../components'
 import { ComplexType } from '../configure'
+
+declare module '@zodui/react' {
+  export interface ComplexSubController {
+    props: {
+      options: BaseCompProps.SelectOptions[]
+      OptionRender: ReactElement
+    }
+    options: {}
+  }
+  interface SubControllerMap {
+    complex: ComplexSubController
+  }
+}
 
 function resolveSchemas(schemas: ZodUnionOptions): BaseCompProps.SelectOptions[] {
   // TODO resolve not literal type, it not contain value
@@ -63,27 +74,23 @@ export function Complex({
     </>}
   </>
 
-  const targetPlgs = plgMaster.plgs[schema._def.typeName]
-  for (const { componentMatchers } of targetPlgs) {
-    for (const compMatcher of componentMatchers) {
-      if (compMatcher.is(modes))
-        return <compMatcher.Component
-          modes={modes}
-          schema={schema}
-          options={options}
-          OptionRender={OptionRender}
-          {...props}
-        />
-    }
-  }
+  const { Component } = plgMaster.reveal(schema._def.typeName, 'SubController.complex', [modes]) ?? {}
 
-  // TODO support `'' | (string & {})` type
-  //      display select input
-  return <>
-    <Select
+  return Component
+    ? <Component
+      modes={modes}
+      schema={schema}
       options={options}
+      OptionRender={OptionRender}
       {...props}
     />
-    {OptionRender}
-  </>
+    // TODO support `'' | (string & {})` type
+    //      display select input
+    : <>
+      <Select
+        options={options}
+        {...props}
+      />
+      {OptionRender}
+    </>
 }
