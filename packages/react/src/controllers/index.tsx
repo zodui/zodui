@@ -8,7 +8,7 @@ import { complex, Complex } from './complex'
 import { multiple, Multiple } from './multiple'
 import { useErrorHandlerContext } from '../contexts/error-handler'
 
-function isMatchSubControllerisWhatTypes<T extends AllType>(
+function isMatchSubControllersWhatTypes<T extends AllType>(
   types: T[],
   tuple: readonly [
     z.Schema<any, ZodTypeDef & {
@@ -59,7 +59,7 @@ export function Controller(props: ControllerProps) {
   for (const [name, types, SubController] of subControllers) {
     // let ts happy
     const checkTuple = [schema, SubController] as const
-    if (isMatchSubControllerisWhatTypes(types, checkTuple)) {
+    if (isMatchSubControllersWhatTypes(types, checkTuple)) {
       const [schema, SubController] = checkTuple
       return <div className={`zodui-controller ${name} ${schema.type}`}>
         <SubController schema={schema} {...rest} />
