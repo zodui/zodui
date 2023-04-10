@@ -98,8 +98,9 @@ export class PlgMaster {
     name: N,
     isParams: [modes: string[]]
   ) {
+    const key = this.quickMapKeyGen(name, type)
     return [
-      ...this.quickMap.get([name, type].join(':--:'))?.values() ?? []
+      ...this.quickMap.get(key)?.values() ?? []
     ]
       .find(matcher => matcher.is(...isParams))
   }
