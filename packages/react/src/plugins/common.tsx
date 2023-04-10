@@ -3,8 +3,12 @@ import { Plugin } from './index'
 import { Icon, Input, InputAdornment } from '../components'
 import { AsProps, ControllerRender } from '../controllers'
 import { WrapModes } from '../configure'
+import { Schema } from 'zod'
 
 declare module '@zodui/react' {
+  interface ControllerPropsMapDate {
+    PickerRange: ControllerPropsMapDate['Picker']
+  }
   interface ControllerPropsMapDate {
     Picker: AsProps<{
       isPanel?: boolean
@@ -12,11 +16,21 @@ declare module '@zodui/react' {
     }>
   }
   interface ControllerPropsMap {
+    Number: {
+      Slider: AsProps<{ range?: boolean }>
+    }
     Date: ControllerPropsMapDate
   }
 }
 
 WrapModes.push('textarea', 'panel')
+
+function isEqual(schemas: Schema[], types: AllTypes[]) {
+  return schemas.length === types.length && schemas.every(
+    (s, i) => (s._def as any)
+      .typeName === types[i]
+  )
+}
 
 export default new Plugin()
   .newSubControllerMatcher('monad', [AllTypes.ZodNumber], [
@@ -76,4 +90,27 @@ export default new Plugin()
         {...props}
       />
     ]
+  ])
+  .newSubControllerMatcher('multiple', [AllTypes.ZodTuple], [
+    [(modes, { schemas }) =>!modes.includes('no-range') && isEqual(schemas, [AllTypes.ZodDate, AllTypes.ZodDate]), ({
+      modes,
+      schemas: _,
+      ...props
+    }) => {
+      return <ControllerRender
+        target='Date:PickerRange'
+        isPanel={modes.includes('panel')}
+        datetime={[
+          modes.includes('datetime') || modes.includes('date'),
+          modes.includes('datetime') || modes.includes('time')
+        ]}
+        {...props}
+      />
+    }],
+    // TODO support number range input
+    [(modes, { schemas }) =>!modes.includes('no-slider') && isEqual(schemas, [AllTypes.ZodNumber, AllTypes.ZodNumber]), ({
+      modes,
+      schemas: _,
+      ...props
+    }) => <ControllerRender target='Number.Slider' range {...props} />]
   ])

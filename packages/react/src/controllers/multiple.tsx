@@ -13,13 +13,26 @@ import {
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 
 import { Controller, ControllerProps } from './index'
-import { AllTypes, getDefaultValue, isWhatType, TypeMap } from '../utils'
+import { AllType, AllTypes, getDefaultValue, isWhatType, TypeMap } from '../utils'
 import { KeyEditableTypes, ComplexMultipleTypes, MultipleType } from '../configure'
 import { Icon, Button, Input } from '../components'
 import { plgMaster } from '../plugins'
 
-import '../plugins/common-multiple'
 import { useErrorHandlerContext } from '../contexts/error-handler'
+
+declare module '@zodui/react' {
+  export interface MultipleSubController {
+    props: {
+      schemas: TypeMap[AllType][]
+    }
+    options: {
+      schemas: TypeMap[AllType][]
+    }
+  }
+  interface SubControllerMap {
+    multiple: MultipleSubController
+  }
+}
 
 const prefix = 'multiple'
 
@@ -146,22 +159,18 @@ export function Multiple({
     return errorHandler.throwError(new Error('Tuple 类型必须包含一个元素'))
   }
 
-  const targetPlgs = plgMaster.plgs[schema._def.typeName]
-  for (const { componentMatchers } of targetPlgs) {
-    for (const compMatcher of componentMatchers) {
-      if (compMatcher.is(modes, { schemas }))
-        return <compMatcher.Component
-          {...props}
-          modes={modes}
-          schema={schema}
-          schemas={schemas}
-          value={list}
-          onChange={setList}
-        />
-    }
-  }
+  const { Component } = plgMaster.reveal(schema._def.typeName, 'SubController.multiple', [modes, { schemas }]) ?? {}
 
-  return <>
+  return Component
+  ? <Component
+      {...props}
+      modes={modes}
+      schema={schema}
+      schemas={schemas}
+      value={list}
+      onChange={setList}
+    />
+  : <>
     {(list?.length ?? 0) === 0 && <Button
       className={`${prefix}-create`}
       icon='Add'

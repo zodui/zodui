@@ -4,8 +4,8 @@ import { ControllerProps } from '../controllers'
 import { AllType, AllTypes, TypeMap } from '../utils'
 import { ModesMap } from '../zod.external'
 
-import { MultipleType } from '../controllers/multiple'
 import { BaseCompProps } from '../components/base'
+import { MultipleType } from '../configure'
 
 export type ComplexProps<T extends AllType> = T extends 'ZodUnion' ? {
   options: BaseCompProps.SelectOptions[]
