@@ -54,7 +54,7 @@ export function Item(props: ItemProps) {
         + (className ? ` ${className}` : '')
       }>
         <div className='zodui-item__more'>
-          <Button shape='square' variant='text' icon='More' />
+          <Button shape='square' variant='text' icon='More' disabled={!!error} />
         </div>
         <div className='zodui-item__label'>
           {props.label}
@@ -65,7 +65,7 @@ export function Item(props: ItemProps) {
             />}
         </div>
         {error
-          ? '组件渲染异常'
+          ? <></>
           : <Controller schema={schema} disabled={props.disabled} />}
       </div>
     </ErrorHandler>
