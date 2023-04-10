@@ -3,10 +3,9 @@ import type { Schema as ZodSchema } from 'zod'
 
 import { Item } from './item'
 import { AllTypes, inlineMarkdown, isWhatType } from './utils'
-import common from './plugins/common'
 import { plgMaster } from './plugins'
-
-plgMaster.register(common)
+import common from './plugins/common'
+import { useEffect } from 'react'
 
 export interface SchemaProps {
   model: ZodSchema
@@ -16,6 +15,10 @@ export interface SchemaProps {
 const prefix = 'zodui-schema'
 
 export function Schema(props: SchemaProps) {
+  useEffect(() => {
+    return plgMaster.register(common())
+  }, [plgMaster, common])
+
   const {
     model,
     disabled
