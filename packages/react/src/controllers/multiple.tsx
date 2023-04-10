@@ -197,7 +197,7 @@ export function Multiple({
           {isKeyEditable
             /*
              * TODO use select when key is union literal type
-             *      disable or hidden optioin when it selected
+             *      disable or hidden option when it selected
              */
             ? <Input
               className='key-input'
