@@ -3,7 +3,7 @@ import './index.scss'
 import { ReactElement } from 'react'
 import z, { Schema, ZodTypeDef } from 'zod'
 import { Monad, monad } from './monad'
-import { AllType, AllTypes, isWhatType, isWhatTypes, TypeMap, useDefaultValue } from '../utils'
+import { AllType, AllTypes, isWhatType, isWhatTypes, TypeMap, useDefaultValue, useModes } from '../utils'
 import { complex, Complex } from './complex'
 import { multiple, Multiple } from './multiple'
 import { useErrorHandlerContext } from '../contexts/error-handler'
@@ -22,6 +22,7 @@ function isMatchSubControllersWhatTypes<T extends AllType>(
 }
 
 export interface ControllerProps<T extends Schema = Schema> {
+  modes?: string[]
   schema: T
   defaultValue?: any
   value?: any
@@ -49,6 +50,9 @@ export function Controller(props: ControllerProps) {
 
   const { schema, ...rest } = props
 
+  // TODO resolve parent modes?
+  const modes = useModes(schema)
+
   // TODO support literal type display
   const subControllers = [
     ['monad', monad, Monad],
@@ -62,7 +66,7 @@ export function Controller(props: ControllerProps) {
     if (isMatchSubControllersWhatTypes(types, checkTuple)) {
       const [schema, SubController] = checkTuple
       return <div className={`zodui-controller ${name} ${schema.type}`}>
-        <SubController schema={schema} {...rest} />
+        <SubController schema={schema} modes={modes} {...rest} />
       </div>
     }
   }

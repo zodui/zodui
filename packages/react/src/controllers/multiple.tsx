@@ -40,6 +40,7 @@ export interface MultipleProps extends ControllerProps<TypeMap[MultipleType]> {
 }
 
 export function Multiple({
+  modes,
   schema,
   ...props
 }: MultipleProps) {
@@ -144,8 +145,6 @@ export function Multiple({
   const [keys, setKeys] = useState<string[]>([])
 
   const isComplex = useMemo(() => ComplexMultipleTypes.includes(schema._def.typeName), [schema._def.typeName])
-
-  const modes = useModes(schema)
 
   const addNewItem = useCallback((type: 'append' | 'prepend' = 'append') => setList(l => {
     const t = [getDefaultValue(getSchema())]

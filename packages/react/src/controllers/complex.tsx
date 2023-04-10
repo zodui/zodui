@@ -28,6 +28,7 @@ export const complex = innerComplexTypes as Mutable<typeof innerComplexTypes>
 export type ComplexType = (typeof complex)[number]
 
 export function Complex({
+  modes,
   schema,
   value,
   defaultValue,
@@ -51,7 +52,6 @@ export function Complex({
       rest.onChange?.(schema.options[v]._def.value)
     }
   }
-  const modes = useModes(schema)
 
   const ItemSerter = useItemSerterContext()
 

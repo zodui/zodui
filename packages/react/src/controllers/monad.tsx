@@ -6,6 +6,16 @@ import { Input, Switch } from '../components'
 import '../plugins/common-monad'
 import { plgMaster } from '../plugins'
 
+declare module '@zodui/react' {
+  export interface MonadSubController {
+    props: {}
+    options: {}
+  }
+  interface SubControllerMap {
+    monad: MonadSubController
+  }
+}
+
 const innerMonad = [
   AllTypes.ZodString,
   AllTypes.ZodNumber,
@@ -38,26 +48,13 @@ export function Monad({
   }, [rest.defaultValue || rest.value])
   const modes = useModes(schema)
 
-  /**
-   * ```typescript
-   * declare module '@zodui/react' {
-   *   export interface MonadSubController {
-   *     props: {}
-   *     options: {}
-   *   }
-   *   interface SubControllerMap {
-   *     monad: MonadSubController
-   *   }
-   * }
-   * // type: 'monad' | 'complex' | 'multiple'
-   * const ctls = plgMaster.subControllers[type]
-   * const { Component } = ctls.find(({ is }) => is(modes)) ?? {}
-   * if (Component)
-   *   return <Component modes={modes} {...props}>
-   *     {defaultSlot}
-   *   </Component>
-   * ```
-   */
+  // const ctrlArr = plgMaster.reveal('SubController.monad')
+  // const { Component } = ctrlArr.find(({ is }) => is(modes)) ?? {}
+  // if (Component)
+  //   return <Component modes={modes} {...props}>
+  //     {defaultSlot}
+  //   </Component>
+
   const targetPlgs = plgMaster.plgs[schema._def.typeName]
   for (const { componentMatchers } of targetPlgs) {
     for (const compMatcher of componentMatchers) {
