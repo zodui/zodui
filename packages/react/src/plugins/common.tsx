@@ -114,7 +114,7 @@ export default () => new Plugin()
         datetime[0] = true
       }
       useEffect(() => {
-        setClassName(`${
+        setClassName(`common-picker ${
           datetime[0] ? 'date' : ''
         }${
           datetime[1] ? 'time' : ''
