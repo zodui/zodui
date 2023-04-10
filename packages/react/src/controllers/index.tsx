@@ -217,6 +217,5 @@ export function ControllerRender<
   if (typeof TargetComp !== 'function') {
     return errorHandler.throwError(`Controller ${target} is not a function`)
   }
-  // @ts-ignore FIXME
-  return <TargetComp {...props}/>
+  return <TargetComp {...props} />
 }
