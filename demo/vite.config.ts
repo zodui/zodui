@@ -3,7 +3,7 @@ import * as path from 'path'
 
 import { buildSync } from 'esbuild'
 
-import { marked } from 'marked'
+import { marked, Slugger } from 'marked'
 
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
@@ -55,11 +55,12 @@ const ejsOptions: EJSOptions = {
     if (originalPath.startsWith('docs/')) {
       const filePath = path.resolve(process.cwd(), `docs/${originalPath.replace('docs/', '')}`)
       const content = fs.readFileSync(filePath, 'utf-8')
+      const slugger = new Slugger()
 
       const menu = marked.lexer(content).reduce((acc, cur) => {
         if (cur.type === 'heading') {
           const { depth, text } = cur
-          const title = text.toLowerCase().replace(/ /g, '-')
+          const title = slugger.slug(text)
 
           if (depth === 2) {
             acc[text] = {
