@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <%- include('components/meta') %>
+  <%- include('templates/lib') %>
+  <style>
+    body > main {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 0 150px;
+      color: #2d2d2d;
+      overflow: overlay;
+      background-image: none !important;
+      background-color: #eee !important;
+    }
+    body > main > div.markdown {
+      padding-right: 220px;
+    }
+    body > main > div.markdown h1 {
+      font-size: 30px;
+      font-weight: 600;
+      margin: 20px 0;
+      padding-bottom: 10px;
+      border-bottom: 1px solid gray;
+    }
+    body > main > div.markdown ul {
+      padding-left: 20px;
+    }
+    body > main > .menu {
+      position: fixed;
+      top: auto;
+      right: 150px;
+      width: 200px;
+    }
+    body > main > ul.menu {
+      padding-left: 0;
+    }
+    body > main > .menu a {
+      display: block;
+      padding: 4px;
+      color: #4d4d4d;
+      text-decoration: none;
+      transition: .3s;
+    }
+    body > main > .menu a:hover {
+      color: #3E67B1;
+    }
+  </style>
+</head>
+<body>
+  <%- include('templates/header') %>
+  <main>
+    <%- include(`docs/${path}`) %>
+  </main>
+</body>
+</html>

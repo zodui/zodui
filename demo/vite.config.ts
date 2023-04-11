@@ -3,6 +3,8 @@ import * as path from 'path'
 
 import { buildSync } from 'esbuild'
 
+import { marked } from 'marked'
+
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
@@ -50,6 +52,55 @@ const TABS = pages.map(({ depFiles, ...rest }) => ({
 
 const ejsOptions: EJSOptions = {
   includer(originalPath, parsedPath) {
+    if (originalPath.startsWith('docs/')) {
+      const filePath = path.resolve(process.cwd(), `docs/${originalPath.replace('docs/', '')}`)
+      const content = fs.readFileSync(filePath, 'utf-8')
+
+      const menu = marked.lexer(content).reduce((acc, cur) => {
+        if (cur.type === 'heading') {
+          const { depth, text } = cur
+          const title = text.toLowerCase().replace(/ /g, '-')
+
+          if (depth === 2) {
+            acc[text] = {
+              href: title,
+              title,
+              children: {}
+            }
+          } else if (depth === 3) {
+            const lastKey = Object.keys(acc).pop()
+            if (lastKey) {
+              acc[lastKey].children![text] = title
+            }
+          }
+        }
+        return acc
+      }, {} as Record<string, {
+        href: string
+        title: string
+        children?: Record<string, string>
+      }>)
+      const menuHTML = `<ul class='menu'>${
+        Object.entries(menu).map(([title, { href, children }]) => `<li class='menu-item'>
+          <a href='#${href}'>${title}</a>${
+            children && Object.keys(children).length > 0 ? `<ul class='menu-sub'>${
+              Object.entries(children)
+                .map(([title, href]) => `<li class='menu-sub-item'><a href='#${href}'>${title}</a></li>`)
+                .join('')
+            }</ul>` : ''
+          }
+        </li>`).join('')
+      }</ul>`
+      return {
+        template: `
+          <div class='markdown'>
+            ${marked(content)}
+          </div>
+          <div style='min-height: 50%' class='comments'></div>
+          ${menuHTML}
+        `.trim()
+      }
+    }
     const paths = [
       path.resolve(process.cwd(), `public/${originalPath}.html`),
       path.resolve(process.cwd(), `src/${originalPath}.html`),
@@ -165,7 +216,33 @@ export default defineConfig({
               }),
               ejsOptions
             }
-          }))
+          })),
+        {
+          filename: 'docs/main',
+          template: 'src/docs.html',
+          injectOptions: {
+            data: () => ({
+              ...commonInjectOptionsData(),
+              path: 'main.md',
+              TITLE: 'Docs[main]'
+            }),
+            ejsOptions
+          },
+          depFiles: [/templates/, /components/, /docs/]
+        },
+        {
+          filename: 'docs/guide/monad',
+          template: 'src/docs.html',
+          injectOptions: {
+            data: () => ({
+              ...commonInjectOptionsData(),
+              path: 'guide/monad.md',
+              TITLE: 'Docs[Guide Monad]'
+            }),
+            ejsOptions
+          },
+          depFiles: [/templates/, /components/, /docs/]
+        },
       ]
     })
   ],
