@@ -1,5 +1,5 @@
 diff --git a/node_modules/vite-plugin-html/dist/index.cjs b/node_modules/vite-plugin-html/dist/index.cjs
-index 704d055..a5b77c9 100644
+index 704d055..f38fe19 100644
 --- a/node_modules/vite-plugin-html/dist/index.cjs
 +++ b/node_modules/vite-plugin-html/dist/index.cjs
 @@ -118,7 +118,8 @@ function createPlugin(userOptions = {}) {
@@ -12,7 +12,7 @@ index 704d055..a5b77c9 100644
            };
          });
        }
-@@ -126,30 +127,55 @@ function createPlugin(userOptions = {}) {
+@@ -126,30 +127,58 @@ function createPlugin(userOptions = {}) {
        const baseUrl = viteConfig.base ?? "/";
        const keys = Object.keys(proxy);
        let indexPage = null;
@@ -69,12 +69,15 @@ index 704d055..a5b77c9 100644
 -        const excludeBaseUrl = url.replace(base, "/");
 -        const htmlName = path__default.relative(process.cwd(), excludeBaseUrl);
 -        const page = getPage(userOptions, htmlName, viteConfig);
-+        const excludeBaseUrl = url.replace(base, "");
++        let excludeBaseUrl = url.replace(base, "");
++        if (excludeBaseUrl === '')
++          excludeBaseUrl = 'index.html'
++
 +        const page = getPage(userOptions, excludeBaseUrl, viteConfig);
          const { injectOptions = {} } = page;
          const _html = await renderHtml(html, {
            injectOptions,
-@@ -227,7 +253,7 @@ async function renderHtml(html, config) {
+@@ -227,7 +256,7 @@ async function renderHtml(html, config) {
      ...viteConfig?.env ?? {},
      ...viteConfig?.define ?? {},
      ...env || {},
@@ -83,7 +86,7 @@ index 704d055..a5b77c9 100644
    };
    let result = await ejs.render(html, ejsData, ejsOptions);
    if (entry) {
-@@ -279,13 +305,13 @@ function getPageConfig(htmlName, pages, defaultPage) {
+@@ -279,13 +308,13 @@ function getPageConfig(htmlName, pages, defaultPage) {
      template: `./${defaultPage}`
    };
    const page = pages.filter((page2) => {
