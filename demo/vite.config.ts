@@ -12,9 +12,26 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 
 import { Options as EJSOptions } from 'ejs'
 
+function findFilesBy(
+  dirPath: string,
+  extensions: string[],
+  callback?: (filePath: string) => void
+) {
+  const files = fs.readdirSync(dirPath)
+  for (const file of files) {
+    const filePath = path.join(dirPath, file)
+    const stats = fs.statSync(filePath)
+    if (stats.isDirectory()) {
+      findFilesBy(filePath, extensions, callback)
+    } else if (stats.isFile() && extensions?.some(ext => filePath.endsWith(ext))) {
+      callback?.(filePath)
+    }
+  }
+}
+
 const base = '/zodui/'
 
-const pages = [
+const tabs = [
   {
     title: 'Docs',
     filename: 'docs',
@@ -45,7 +62,7 @@ const pages = [
   }
 ]
 
-const TABS = pages.map(({ depFiles, ...rest }) => ({
+const TABS = tabs.map(({ depFiles, ...rest }) => ({
   ...rest,
   href: `${base}${rest.filename}`
 }))
@@ -113,6 +130,29 @@ const ejsOptions: EJSOptions = {
   }
 }
 
+const docsPages: Parameters<typeof createHtmlPlugin>[0]['pages'][number][] = []
+initDocs: {
+  const docsPath = path.resolve(__dirname, './docs')
+  findFilesBy(docsPath, ['.md'], filePath => {
+    const docFilePath = path.relative(docsPath, filePath)
+    docsPages.push({
+      filename: `docs/${
+        docFilePath.replace(/\.md$/, '')
+      }`,
+      template: 'src/docs.html',
+      injectOptions: {
+        data: () => ({
+          ...commonInjectOptionsData(),
+          path: docFilePath,
+          TITLE: `Docs[${docFilePath}]`
+        }),
+        ejsOptions
+      },
+      depFiles: [/templates/, /components/, /docs/]
+    })
+  })
+}
+
 const hash = Date.now()
 
 function commonInjectOptionsData() {
@@ -126,22 +166,7 @@ function commonInjectOptionsData() {
         filePath: filePath.replace(targetPath, `file:///node_modules/@types/${module}`)
       })
     }
-    function findDtsFiles(dirPath: string) {
-      const files = fs.readdirSync(dirPath)
-      for (const file of files) {
-        const filePath = path.join(dirPath, file)
-        const stats = fs.statSync(filePath)
-        if (stats.isDirectory()) {
-          findDtsFiles(filePath)
-        } else if (stats.isFile() && (
-          path.basename(filePath).endsWith('.d.ts')
-          || path.basename(filePath).endsWith('.ts')
-        )) {
-          addDtsFileContent(filePath)
-        }
-      }
-    }
-    findDtsFiles(targetPath)
+    findFilesBy(targetPath, ['.ts', '.d.ts'], addDtsFileContent)
   }
 
   importDTSFiles('zod', path.join(__dirname, '../node_modules', 'zod/lib'))
@@ -204,7 +229,7 @@ export default defineConfig({
           // TODO auto analysis dep files
           depFiles: [/templates/, /components/]
         },
-        ...pages
+        ...tabs
           .filter(p => !p.disabled)
           .map(p => ({
             filename: p.filename,
@@ -218,32 +243,7 @@ export default defineConfig({
               ejsOptions
             }
           })),
-        {
-          filename: 'docs/main',
-          template: 'src/docs.html',
-          injectOptions: {
-            data: () => ({
-              ...commonInjectOptionsData(),
-              path: 'main.md',
-              TITLE: 'Docs[main]'
-            }),
-            ejsOptions
-          },
-          depFiles: [/templates/, /components/, /docs/]
-        },
-        {
-          filename: 'docs/guide/monad',
-          template: 'src/docs.html',
-          injectOptions: {
-            data: () => ({
-              ...commonInjectOptionsData(),
-              path: 'guide/monad.md',
-              TITLE: 'Docs[Guide Monad]'
-            }),
-            ejsOptions
-          },
-          depFiles: [/templates/, /components/, /docs/]
-        },
+        ...docsPages
       ]
     })
   ],
