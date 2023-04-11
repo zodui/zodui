@@ -1,0 +1,9 @@
+.zodui-controller.complex {
+  flex-direction: column;
+  gap: 10px;
+  > .zodui-controller.multiple {
+    &.dict, &.object, &.map, &.record {
+      margin-left: -84px;
+    }
+  }
+}

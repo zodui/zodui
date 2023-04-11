@@ -1,3 +1,5 @@
+import './complex.scss'
+
 import type { ZodUnionOptions } from 'zod'
 import { ReactElement, useEffect, useMemo, useState } from 'react'
 import { Controller, ControllerProps } from './index'
@@ -66,10 +68,9 @@ export function Complex({
         && <Schema model={schema.options[index]} />}
     </ItemSerter.Append>
     {!modes.includes('append') && schema.options[index]._def.typeName !== AllTypes.ZodLiteral && <>
-      <br/>
       <Controller
         schema={schema.options[index]}
-        {...rest}
+        {...props}
       />
     </>}
   </>

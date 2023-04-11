@@ -38,7 +38,8 @@
 }
 
 .zodui-controller.multiple {
-  &.dict, &.object {
+  &.dict, &.object, &.map, &.record {
+    width: 284px;
     .multiple-item {
       > &__index-tag {
         display: none;
