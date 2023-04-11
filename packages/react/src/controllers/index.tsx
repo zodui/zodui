@@ -33,9 +33,17 @@ export interface ControllerProps<T extends Schema = Schema> {
   className?: string
 }
 
+/**
+ * Controller will try to resolve all schema and render it
+ * @param props
+ * @constructor
+ */
 export function Controller(props: ControllerProps) {
   const { className: subClassName, ControllerClassName } = useControllerClassName()
-  const defaultValue = useDefaultValue(props.schema) ?? props.defaultValue
+  // props defaultValue is higher than schema defaultValue
+  // because Component is user controlled
+  // but schema defaultValue is not user controlled, so we should use props defaultValue first
+  const defaultValue = props.defaultValue ?? useDefaultValue(props.schema)
   if (isWhatType(props.schema, AllTypes.ZodDefault)) {
     const {
       innerType,
