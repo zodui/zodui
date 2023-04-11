@@ -1,8 +1,20 @@
 diff --git a/node_modules/vite-plugin-html/dist/index.cjs b/node_modules/vite-plugin-html/dist/index.cjs
-index 704d055..f38fe19 100644
+index 704d055..a4d3403 100644
 --- a/node_modules/vite-plugin-html/dist/index.cjs
 +++ b/node_modules/vite-plugin-html/dist/index.cjs
-@@ -118,7 +118,8 @@ function createPlugin(userOptions = {}) {
+@@ -98,7 +98,10 @@ function createPlugin(userOptions = {}) {
+         return {
+           build: {
+             rollupOptions: {
+-              input
++              input: {
++                ...input,
++                ...conf.build.rollupOptions.input,
++              },
+             }
+           }
+         };
+@@ -118,7 +121,8 @@ function createPlugin(userOptions = {}) {
          _pages = pages.map((page) => {
            return {
              filename: page.filename || DEFAULT_TEMPLATE,
@@ -12,7 +24,7 @@ index 704d055..f38fe19 100644
            };
          });
        }
-@@ -126,30 +127,58 @@ function createPlugin(userOptions = {}) {
+@@ -126,30 +130,66 @@ function createPlugin(userOptions = {}) {
        const baseUrl = viteConfig.base ?? "/";
        const keys = Object.keys(proxy);
        let indexPage = null;
@@ -64,20 +76,52 @@ index 704d055..f38fe19 100644
        enforce: "pre",
        async transform(html, ctx) {
 -        const url = ctx.filename;
-+        const url = ctx.originalUrl;
++        const url = ctx.originalUrl ?? ctx.filename;
++
          const base = viteConfig.base;
 -        const excludeBaseUrl = url.replace(base, "/");
 -        const htmlName = path__default.relative(process.cwd(), excludeBaseUrl);
 -        const page = getPage(userOptions, htmlName, viteConfig);
-+        let excludeBaseUrl = url.replace(base, "");
-+        if (excludeBaseUrl === '')
-+          excludeBaseUrl = 'index.html'
++        let excludeBaseUrl = url;
 +
++        if (process.env.NODE_ENV !== 'development') {
++          excludeBaseUrl = path__default.relative(process.cwd(), excludeBaseUrl);
++          excludeBaseUrl = excludeBaseUrl.replace('.html', '');
++        } else {
++          excludeBaseUrl = excludeBaseUrl.replace(base, "")
++        }
++
++        if (excludeBaseUrl === "")
++          excludeBaseUrl = "index.html";
 +        const page = getPage(userOptions, excludeBaseUrl, viteConfig);
          const { injectOptions = {} } = page;
          const _html = await renderHtml(html, {
            injectOptions,
-@@ -227,7 +256,7 @@ async function renderHtml(html, config) {
+@@ -198,13 +238,16 @@ function createPlugin(userOptions = {}) {
+ function createInput({ pages = [], template = DEFAULT_TEMPLATE }, viteConfig) {
+   const input = {};
+   if (isMpa(viteConfig) || pages?.length) {
+-    const templates = pages.map((page) => page.template);
+-    templates.forEach((temp) => {
+-      let dirName = path__default.dirname(temp);
+-      const file = path__default.basename(temp);
+-      dirName = dirName.replace(/\s+/g, "").replace(/\//g, "-");
+-      const key = dirName === "." || dirName === "public" || !dirName ? file.replace(/\.html/, "") : dirName;
+-      input[key] = path__default.resolve(viteConfig.root, temp);
++    pages.forEach(({ template, filename }) => {
++      const dirName = path__default
++        .dirname(template)
++        .replace(/\s+/g, "")
++        .replace(/\//g, "-");
++      const key = filename
++        .replace(/\.html/, "")
++        .replace(/\s+/g, "")
++        .replace(/\//g, "-");
++      input[key] = path__default.resolve(viteConfig.root, template);
+     });
+     return input;
+   } else {
+@@ -227,7 +270,7 @@ async function renderHtml(html, config) {
      ...viteConfig?.env ?? {},
      ...viteConfig?.define ?? {},
      ...env || {},
@@ -86,12 +130,17 @@ index 704d055..f38fe19 100644
    };
    let result = await ejs.render(html, ejsData, ejsOptions);
    if (entry) {
-@@ -279,13 +308,13 @@ function getPageConfig(htmlName, pages, defaultPage) {
+@@ -279,13 +322,18 @@ function getPageConfig(htmlName, pages, defaultPage) {
      template: `./${defaultPage}`
    };
    const page = pages.filter((page2) => {
 -    return path__default.resolve("/" + page2.template) === path__default.resolve("/" + htmlName);
-+    return path__default.resolve("/" + page2.filename) === path__default.resolve("/" + htmlName);
++    if (process.env.NODE_ENV === 'production') {
++      return page2.filename === htmlName || page2.template === htmlName ||
++             page2.filename === `${htmlName}.html` || page2.template === `${htmlName}.html`;
++    } else {
++      return page2.filename === htmlName;
++    }
    })?.[0];
    return page ?? defaultPageOption ?? void 0;
  }

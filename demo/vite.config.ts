@@ -5,6 +5,7 @@ import { buildSync } from 'esbuild'
 
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import virtual from '@rollup/plugin-virtual'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { createHtmlPlugin } from 'vite-plugin-html'
 
@@ -167,11 +168,28 @@ process.env.NODE_ENV === 'production' && buildSync({
 export default defineConfig({
   base,
   build: {
-    emptyOutDir: false
+    emptyOutDir: false,
+    rollupOptions: {
+      ...(process.env.NODE_ENV !== 'development' ? {
+        input: {
+          'docs/guide/index': 'docs/guide/index.html',
+          'docs/guide/monad': 'docs/guide/monad.html',
+          'docs/main': 'docs/main.html'
+        }
+      } : {}),
+    },
   },
   plugins: [
     react(),
     tsconfigPaths(),
+    process.env.NODE_ENV !== 'development' ? (() => {
+      const docsContent = fs.readFileSync(path.resolve(__dirname, './src/docs.html'), 'utf-8')
+      return virtual({
+        'docs/guide/index.html': docsContent,
+        'docs/guide/monad.html': docsContent,
+        'docs/main.html': docsContent
+      })
+    })() : [],
     createHtmlPlugin({
       pages: [
         {

@@ -1,0 +1,13 @@
+diff --git a/node_modules/@rollup/plugin-virtual/dist/cjs/index.js b/node_modules/@rollup/plugin-virtual/dist/cjs/index.js
+index a65bfb0..8ec5894 100644
+--- a/node_modules/@rollup/plugin-virtual/dist/cjs/index.js
++++ b/node_modules/@rollup/plugin-virtual/dist/cjs/index.js
+@@ -23,7 +23,7 @@ function _interopNamespaceDefault(e) {
+ 
+ var path__namespace = /*#__PURE__*/_interopNamespaceDefault(path);
+ 
+-const PREFIX = `\0virtual:`;
++const PREFIX = ``;
+ function virtual(modules) {
+     const resolvedIds = new Map();
+     Object.keys(modules).forEach((id) => {
