@@ -1,5 +1,5 @@
 diff --git a/node_modules/vite-plugin-html/dist/index.cjs b/node_modules/vite-plugin-html/dist/index.cjs
-index 704d055..a4d3403 100644
+index 704d055..8e64303 100644
 --- a/node_modules/vite-plugin-html/dist/index.cjs
 +++ b/node_modules/vite-plugin-html/dist/index.cjs
 @@ -98,7 +98,10 @@ function createPlugin(userOptions = {}) {
@@ -82,7 +82,7 @@ index 704d055..a4d3403 100644
 -        const excludeBaseUrl = url.replace(base, "/");
 -        const htmlName = path__default.relative(process.cwd(), excludeBaseUrl);
 -        const page = getPage(userOptions, htmlName, viteConfig);
-+        let excludeBaseUrl = url;
++        let [excludeBaseUrl] = url.split('?');
 +
 +        if (process.env.NODE_ENV !== 'development') {
 +          excludeBaseUrl = path__default.relative(process.cwd(), excludeBaseUrl);
