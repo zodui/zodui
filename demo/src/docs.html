@@ -53,5 +53,8 @@
   <main>
     <%- include(`docs/${path}`) %>
   </main>
+  <% if (locals.GLOBAL_SCRIPTS) { %>
+    <%- GLOBAL_SCRIPTS %>
+  <% } %>
 </body>
 </html>

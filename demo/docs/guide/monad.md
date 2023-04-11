@@ -4,18 +4,18 @@
 
 * modes: `input | slider | split`
 
----
-> z.object({
->   modes: z.union([
->     z.literal('input'),
->     z.literal('slider'),
->     z.literal('split'),
->   ])
-> })
-```typescript
+```typescript zodui:preview
+// configure
+z.object({
+  mode: z.union([
+    z.literal('input'),
+    z.literal('slider'),
+    z.literal('split'),
+  ])
+})
+// preview
 z.number()
 ```
----
 
 ## String
 

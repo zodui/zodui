@@ -3,15 +3,17 @@ import * as path from 'path'
 
 import { buildSync } from 'esbuild'
 
-import { marked, Slugger } from 'marked'
-
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { createHtmlPlugin } from 'vite-plugin-html'
 
 import { Options as EJSOptions } from 'ejs'
-import { docsTemplateRender } from './src/builder'
+
+import { docsTemplateRender, MD_PLUGIN } from './src/builder'
+import Preview from './src/builder/marked-plugins/preview'
+
+MD_PLUGIN.push(Preview)
 
 function findFilesBy(
   dirPath: string,
@@ -99,7 +101,8 @@ initDocs: {
         data: () => ({
           ...commonInjectOptionsData(),
           path: docFilePath,
-          TITLE: `Docs[${docFilePath}]`
+          TITLE: `Docs[${docFilePath}]`,
+          GLOBAL_SCRIPTS: MD_PLUGIN.map(([, src]) => src).join('')
         }),
         ejsOptions
       },

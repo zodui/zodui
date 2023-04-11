@@ -2,8 +2,11 @@ import { marked, Slugger } from 'marked'
 import fs from 'fs'
 import path from 'path'
 
+export const MD_PLUGIN: (readonly [marked.RendererObject, string])[] = []
+
 export function defineMDPlugin(renderer: marked.RendererObject, src: string) {
-  return [renderer, `<script type='module' src='${src}'></script>`]
+  marked.use({ renderer })
+  return [renderer, `<script type='module' src='${src}'></script>`] as const
 }
 
 export function docsTemplateRender(p: string) {
