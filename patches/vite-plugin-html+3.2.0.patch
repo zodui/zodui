@@ -1,5 +1,5 @@
 diff --git a/node_modules/vite-plugin-html/dist/index.cjs b/node_modules/vite-plugin-html/dist/index.cjs
-index 704d055..997ba83 100644
+index 704d055..a5b77c9 100644
 --- a/node_modules/vite-plugin-html/dist/index.cjs
 +++ b/node_modules/vite-plugin-html/dist/index.cjs
 @@ -118,7 +118,8 @@ function createPlugin(userOptions = {}) {
@@ -12,7 +12,7 @@ index 704d055..997ba83 100644
            };
          });
        }
-@@ -126,28 +127,54 @@ function createPlugin(userOptions = {}) {
+@@ -126,30 +127,55 @@ function createPlugin(userOptions = {}) {
        const baseUrl = viteConfig.base ?? "/";
        const keys = Object.keys(proxy);
        let indexPage = null;
@@ -63,14 +63,18 @@ index 704d055..997ba83 100644
      transformIndexHtml: {
        enforce: "pre",
        async transform(html, ctx) {
-         const url = ctx.filename;
+-        const url = ctx.filename;
++        const url = ctx.originalUrl;
          const base = viteConfig.base;
 -        const excludeBaseUrl = url.replace(base, "/");
-+        const excludeBaseUrl = url;
-         const htmlName = path__default.relative(process.cwd(), excludeBaseUrl);
-         const page = getPage(userOptions, htmlName, viteConfig);
+-        const htmlName = path__default.relative(process.cwd(), excludeBaseUrl);
+-        const page = getPage(userOptions, htmlName, viteConfig);
++        const excludeBaseUrl = url.replace(base, "");
++        const page = getPage(userOptions, excludeBaseUrl, viteConfig);
          const { injectOptions = {} } = page;
-@@ -227,7 +254,7 @@ async function renderHtml(html, config) {
+         const _html = await renderHtml(html, {
+           injectOptions,
+@@ -227,7 +253,7 @@ async function renderHtml(html, config) {
      ...viteConfig?.env ?? {},
      ...viteConfig?.define ?? {},
      ...env || {},
@@ -79,7 +83,14 @@ index 704d055..997ba83 100644
    };
    let result = await ejs.render(html, ejsData, ejsOptions);
    if (entry) {
-@@ -285,7 +312,7 @@ function getPageConfig(htmlName, pages, defaultPage) {
+@@ -279,13 +305,13 @@ function getPageConfig(htmlName, pages, defaultPage) {
+     template: `./${defaultPage}`
+   };
+   const page = pages.filter((page2) => {
+-    return path__default.resolve("/" + page2.template) === path__default.resolve("/" + htmlName);
++    return path__default.resolve("/" + page2.filename) === path__default.resolve("/" + htmlName);
+   })?.[0];
+   return page ?? defaultPageOption ?? void 0;
  }
  function createRewire(reg, page, baseUrl, proxyUrlKeys) {
    return {
