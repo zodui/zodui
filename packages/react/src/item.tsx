@@ -1,7 +1,7 @@
 import './item.scss'
 
 import z from 'zod'
-import React, { useEffect, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 
 import { WrapModes } from './configure'
 import { getModes, inlineMarkdown } from './utils'
@@ -14,12 +14,18 @@ export interface ItemProps {
   label: string
   disabled?: boolean
   value?: any
-  onChange?: (value: any) => void | Promise<void>
+  onChange?: (value: any) => (void | Promise<void>)
   defaultValue?: any
   schema: z.Schema
   className?: string
 }
 
+/**
+ * Item
+ * - check controller data
+ * - common contexts
+ * - value operate and support extensible
+ */
 export function Item(props: ItemProps) {
   const {
     schema,
@@ -44,6 +50,13 @@ export function Item(props: ItemProps) {
     if (error) reset()
   }, [schema])
 
+  const value = useRef<number>(props.value ?? props.defaultValue)
+  const changeValue = useCallback((v: any) => {
+    // TODO verify value
+    props.onChange?.(v)
+    value.current = v
+  }, [])
+
   return <ItemSerter>
     <ErrorHandler>
       <div className={
@@ -64,9 +77,13 @@ export function Item(props: ItemProps) {
               dangerouslySetInnerHTML={{ __html: inlineMarkdown(schema._def.description) }}
             />}
         </div>
-        {error
-          ? <></>
-          : <Controller schema={schema} disabled={props.disabled} />}
+        {!error && <Controller
+          schema={schema}
+          disabled={props.disabled}
+          value={value.current}
+          defaultValue={props.defaultValue}
+          onChange={changeValue}
+        />}
       </div>
     </ErrorHandler>
     <Append />
