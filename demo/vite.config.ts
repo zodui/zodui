@@ -39,28 +39,28 @@ const tabs = [
   {
     title: 'Docs',
     filename: 'docs',
-    template: 'public/docs.html',
+    template: 'src/docs.html',
     // TODO auto analysis dep files
-    depFiles: [/templates/],
+    depFiles: [/templates/, /components/],
     disabled: true
   },
   {
     title: 'Handbook',
     filename: 'handbook',
-    template: 'public/handbook.html',
+    template: 'src/handbook.html',
     depFiles: [/templates/, /components/],
     disabled: true
   },
   {
     title: 'Playground',
     filename: 'play',
-    template: 'public/play.html',
+    template: 'src/play.html',
     depFiles: [/templates/, /components/]
   },
   {
     title: 'Community',
     filename: 'docs',
-    template: 'public/community.html',
+    template: 'src/community.html',
     depFiles: [/templates/, /components/],
     disabled: true
   }
