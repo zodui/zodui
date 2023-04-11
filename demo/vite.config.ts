@@ -130,7 +130,7 @@ const ejsOptions: EJSOptions = {
   }
 }
 
-const docsPages: Parameters<typeof createHtmlPlugin>[0]['pages'][number][] = []
+const docsPages: Exclude<Parameters<typeof createHtmlPlugin>[0], undefined>['pages'] = []
 initDocs: {
   const docsPath = path.resolve(__dirname, './docs')
   findFilesBy(docsPath, ['.md'], filePath => {
