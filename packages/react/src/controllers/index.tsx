@@ -35,8 +35,6 @@ export interface ControllerProps<T extends Schema = Schema> {
 
 /**
  * Controller will try to resolve all schema and render it
- * @param props
- * @constructor
  */
 export function Controller(props: ControllerProps) {
   const { className: subClassName, ControllerClassName } = useControllerClassName()
