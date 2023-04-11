@@ -1,3 +1,14 @@
+.zodui-item.wrap:not(.nowrap) {
+  .zodui-controller.complex {
+    width: 100%;
+    > .zodui-controller.multiple {
+      &.dict, &.object, &.map, &.record {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
 .zodui-controller.complex {
   flex-direction: column;
   gap: 10px;
