@@ -123,7 +123,7 @@ export function Multiple({
     return []
   }, [dict, commonDef.typeName, commonDef.items, commonDef.valueType])
 
-  const [_, setRigger] = useState(0)
+  const [_, setRigger] = useState(false)
   // const [list, setList] = useState<any[]>()
   const listRef = useRef<any[]>(
     Object.keys(dict).length > 0
@@ -144,7 +144,7 @@ export function Multiple({
     } else {
       listRef.current = type === 'append' ? l.concat(t) : t.concat(l)
     }
-    setRigger(r => r + 1)
+    setRigger(r => !r)
   }, [getSchema])
 
   const dictKeys = useMemo(() => Object.keys(dict ?? {}), [ dict ])
@@ -223,8 +223,10 @@ export function Multiple({
               variant='outline'
               icon='ArrowUp'
               onClick={() => {
+                let temp = listRef.current[index]
                 listRef.current[index] = listRef.current[index - 1]
-                listRef.current[index - 1] = item
+                listRef.current[index - 1] = temp
+                setRigger(r => !r)
               }}
             />}
           {index === listRef.current.length - 1
@@ -239,8 +241,10 @@ export function Multiple({
               variant='outline'
               icon='ArrowDown'
               onClick={() => {
+                let temp = listRef.current[index]
                 listRef.current[index] = listRef.current[index + 1]
-                listRef.current[index + 1] = item
+                listRef.current[index + 1] = temp
+                setRigger(r => !r)
               }}
             />}
         </>}
