@@ -73,7 +73,7 @@ initComponents: {
       type={type}
       value={value as any}
       defaultValue={defaultValue as any}
-      onChange={onChange as any}
+      onChange={v => onChange?.(type === 'number' ? +v : v as any)}
       {...props}
     />
   })
