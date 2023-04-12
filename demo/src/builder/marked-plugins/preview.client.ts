@@ -1,4 +1,10 @@
-document.querySelectorAll('.zodui-preview')
+document.querySelectorAll<HTMLDivElement>('.zodui-preview')
   .forEach(ele => {
-    console.log(ele)
+    const {
+      schemaEvalKey = '',
+      code = '',
+    } = ele.dataset
+    const originalCode = decodeURIComponent(code)
+    const preview = originalCode.split('// preview\n')[1]
+    window.emitCode(schemaEvalKey, `import * as z from 'zod'\n\nexport default ${preview}`)
   })
