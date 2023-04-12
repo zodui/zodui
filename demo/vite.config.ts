@@ -78,7 +78,6 @@ const ejsOptions: EJSOptions = {
     }
 
     const paths = [
-      path.resolve(process.cwd(), `public/${originalPath}.html`),
       path.resolve(process.cwd(), `src/${originalPath}.html`),
     ]
     for (const path of paths) {
