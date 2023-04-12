@@ -1,5 +1,5 @@
 import z, { ZodFirstPartyTypeKind, ZodRawShape, ZodTypeDef, ZodUnionOptions } from 'zod'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 
 type Cast<A, B> = A extends B ? A : B;
 
@@ -158,4 +158,14 @@ export function inlineMarkdown(md: string) {
     .replace(/~~([^~]+)~~/g, '<del>$1</del>')
     .replace(/\n/g, '<br />')
     .replace(/\|\|([^|]+)\|\|/g, '<span class="spoiler">$1</span>')
+}
+
+export function useLifecycleChecker(tag: string) {
+  console.log(`[useLifecycleChecker] ${tag} render`)
+  useEffect(() => {
+    console.log(`[useLifecycleChecker] ${tag} init`)
+    return () => {
+      console.log(`[useLifecycleChecker] ${tag} unmounted`)
+    }
+  }, [])
 }
