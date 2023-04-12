@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://zodui.github.com/zodui" target="_blank" rel="noopener noreferrer">
-    <img width="252" src="./demo/public/zodui.svg" alt="ZodUI logo">
+    <img width="252" src="./demo/public/favicon.svg" alt="ZodUI logo">
   </a>
 </p>
 
