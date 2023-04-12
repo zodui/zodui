@@ -1,12 +1,10 @@
 import {
-  createContext, Dispatch,
+  createContext,
   PropsWithChildren,
   ReactElement,
-  ReactNode, SetStateAction,
-  useCallback,
+  ReactNode, useCallback,
   useContext,
-  useEffect,
-  useState
+  useEffect, useRef, useState
 } from 'react'
 
 interface RenderProps extends PropsWithChildren {
@@ -20,22 +18,35 @@ interface ItemSerterContext {
 const ItemSerterContext = createContext<ItemSerterContext>(null)
 
 export function useItemSerter() {
-  const [append, setAppend] = useState<ReactNode>(null)
-
-  const genRender = useCallback((set: Dispatch<SetStateAction<ReactNode>>) => ({ children, deps = [] }: RenderProps) => {
-    // TODO let memo watch children change, or let react manage itself dependencies
-    useEffect(() => set(children), [...deps])
-    return null
+  const prevChangeListener = useRef<(v: any) => any>()
+  const onPrevChange = useCallback((func: (v: any) => any) => {
+    prevChangeListener.current = func
+    return () => {
+      prevChangeListener.current = undefined
+    }
+  }, [])
+  const prev = useRef<ReactNode>()
+  const prevChange = useCallback((v: ReactNode) => {
+    prev.current = v
+    prevChangeListener.current?.(v)
   }, [])
 
   return {
-    Append: useCallback(() => <>{append}</>, [append]),
+    Append: () => {
+      const [item, setItem] = useState<ReactNode>(prev.current)
+      useEffect(() => onPrevChange(setItem), [])
+      return <>{item}</>
+    },
 
-    ItemSerter: useCallback(({ children }: PropsWithChildren) => <ItemSerterContext.Provider value={{
-      Append: useCallback(genRender(setAppend), [genRender, setAppend])
+    ItemSerter: ({ children }: PropsWithChildren) => <ItemSerterContext.Provider value={{
+      Append: ({ children, deps = [] }: RenderProps) => {
+        // TODO let memo watch children change, or let react manage itself dependencies
+        useEffect(() => prevChange(children), [...deps])
+        return null
+      }
     }}>
       {children}
-    </ItemSerterContext.Provider>, [])
+    </ItemSerterContext.Provider>
   }
 }
 
