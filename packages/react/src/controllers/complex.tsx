@@ -3,7 +3,7 @@ import './complex.scss'
 import type { ZodUnionOptions } from 'zod'
 import { ReactElement, useEffect, useMemo, useState } from 'react'
 import { Controller, ControllerProps } from './index'
-import { AllTypes, TypeMap } from '../utils'
+import { AllTypes, isWhatType, TypeMap } from '../utils'
 
 import { plgMaster } from '../plugins'
 import { useItemSerterContext } from '../contexts/item-serter'
@@ -56,7 +56,13 @@ export function Complex({
     value: index,
     onChange(v: any) {
       setIndex(v)
-      rest.onChange?.(schema.options[v]._def.value)
+      const option = schema.options[v]
+      if (isWhatType(option, AllTypes.ZodLiteral)) {
+        rest.onChange?.(option._def.value)
+      } else {
+        const dValue = option._def.defaultValue
+        dValue && rest.onChange?.(dValue)
+      }
     }
   }
 
@@ -66,7 +72,9 @@ export function Complex({
     <ItemSerter.Append deps={[schema.options, index]}>
       {/* 在里面控制是因为在 modes 修改后，将 append 内容清空 */}
       {modes.includes('append') && schema.options[index]._def.typeName !== AllTypes.ZodLiteral
-        && <Schema model={schema.options[index]} />}
+        && <Schema
+          model={schema.options[index]}
+        />}
     </ItemSerter.Append>
     {!modes.includes('append') && schema.options[index]._def.typeName !== AllTypes.ZodLiteral && <>
       <Controller
