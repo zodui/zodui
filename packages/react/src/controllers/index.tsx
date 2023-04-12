@@ -1,6 +1,6 @@
 import './index.scss'
 
-import { ReactElement } from 'react'
+import { ReactElement, useMemo } from 'react'
 import z, { Schema, ZodTypeDef } from 'zod'
 import { Monad } from './monad'
 import { AllType, AllTypes, isWhatType, isWhatTypes, TypeMap, useDefaultValue, useModes } from '../utils'
@@ -69,22 +69,27 @@ export function Controller(props: ControllerProps) {
     ['multiple', multiple, Multiple]
   ] as const
 
-  for (const [name, types, SubController] of subControllers) {
-    // let ts happy
-    const checkTuple = [schema, SubController] as const
-    if (isMatchSubControllersWhatTypes(types, checkTuple)) {
-      const [schema, SubController] = checkTuple
-      return <div className={`zodui-controller ${name} ${schema.type} ${subClassName}`}>
-        <ControllerClassName>
-          <SubController schema={schema} modes={modes} {...rest} />
-        </ControllerClassName>
-      </div>
+  const SubController: ReactElement = useMemo(() => {
+    for (const [name, types, SubController] of subControllers) {
+      // let ts happy
+      const checkTuple = [schema, SubController] as const
+      if (isMatchSubControllersWhatTypes(types, checkTuple)) {
+        const [schema, SubController] = checkTuple
+        return <div className={`zodui-controller ${name} ${schema.type} ${subClassName}`}>
+          <ControllerClassName>
+            <SubController schema={schema} modes={modes} {...rest} />
+          </ControllerClassName>
+        </div>
+      }
     }
-  }
+    return null
+  }, [schema, modes, rest, subClassName])
 
-  return <div className='zodui-controller'>
-    <span style={{ width: '100%' }}>暂未支持的的类型 <code>{props.schema.type}</code></span>
-  </div>
+  return SubController
+    ? SubController
+    : <div className='zodui-controller'>
+      <span style={{ width: '100%' }}>暂未支持的的类型 <code>{props.schema.type}</code></span>
+    </div>
 }
 
 const PropsSymbol = Symbol('props')
