@@ -3,7 +3,11 @@
 <head>
   <%- include('components/meta') %>
   <%- include('templates/lib') %>
+  <link rel='stylesheet' href='/style/github-markdown.css'>
   <style>
+    html[theme-mode='dark'] body > main {
+      background-color: #1c1c1c !important;
+    }
     body > main {
       position: relative;
       display: flex;
@@ -12,20 +16,10 @@
       color: #2d2d2d;
       overflow: overlay;
       background-image: none !important;
-      background-color: #eee !important;
+      background-color: #ededed !important;
     }
-    body > main > div.markdown {
+    body > main > div.markdown-body {
       padding-right: 220px;
-    }
-    body > main > div.markdown h1 {
-      font-size: 30px;
-      font-weight: 600;
-      margin: 20px 0;
-      padding-bottom: 10px;
-      border-bottom: 1px solid gray;
-    }
-    body > main > div.markdown ul {
-      padding-left: 20px;
     }
     body > main > .menu {
       position: fixed;

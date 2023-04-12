@@ -51,7 +51,7 @@ export function docsTemplateRender(p: string) {
   }</ul>`
   return `
     ${menuHTML}
-    <div class='markdown'>
+    <div class='markdown-body'>
       ${marked(content)}
     </div>
     <div style='min-height: 50%' class='comments'></div>
