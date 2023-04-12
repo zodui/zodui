@@ -10,7 +10,7 @@ import {
   ZodTupleDef,
   ZodTypeDef
 } from 'zod'
-import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useCallback, useMemo, useRef, useState } from 'react'
 
 import { Controller, ControllerProps } from './index'
 import { AllType, AllTypes, getDefaultValue, isWhatType, TypeMap } from '../utils'
@@ -123,39 +123,37 @@ export function Multiple({
     return []
   }, [dict, commonDef.typeName, commonDef.items, commonDef.valueType])
 
-  const [list, setList] = useState<any[]>()
-  useEffect(() => {
-    setList(
-      Object.keys(dict).length > 0
-        ? Object.values(dict).map(getDefaultValue)
-        : props.defaultValue ?? props.value
-          ? Object.entries(props.defaultValue ?? props.value).map(([, v]) => v)
-          : isWhatType(schema, AllTypes.ZodTuple)
-            ? schema._def.items.map(getDefaultValue)
-            : undefined
-    )
-  }, [
-    dict,
-    commonDef.typeName,
-    commonDef.items,
-    props.defaultValue,
-    props.value
-  ])
+  const [_, setRigger] = useState(0)
+  // const [list, setList] = useState<any[]>()
+  const listRef = useRef<any[]>(
+    Object.keys(dict).length > 0
+    ? Object.values(dict).map(getDefaultValue)
+    : props.defaultValue ?? props.value
+      ? Object.entries(props.defaultValue ?? props.value).map(([, v]) => v)
+      : isWhatType(schema, AllTypes.ZodTuple)
+        ? schema._def.items.map(getDefaultValue)
+        : []
+  )
+
+  const addNewItem = useCallback((type: 'append' | 'prepend' = 'append') => {
+    const l = listRef.current
+
+    const t = [getDefaultValue(getSchema())]
+    if (l === undefined) {
+      listRef.current = t
+    } else {
+      listRef.current = type === 'append' ? l.concat(t) : t.concat(l)
+    }
+    setRigger(r => r + 1)
+  }, [getSchema])
 
   const dictKeys = useMemo(() => Object.keys(dict ?? {}), [ dict ])
   const [keys, setKeys] = useState<string[]>([])
 
   const isComplex = useMemo(() => ComplexMultipleTypes.includes(schema._def.typeName), [schema._def.typeName])
 
-  const addNewItem = useCallback((type: 'append' | 'prepend' = 'append') => setList(l => {
-    const t = [getDefaultValue(getSchema())]
-    if (l === undefined)
-      return t
-
-    return type === 'append' ? l.concat(t) : t.concat(l)
-  }), [getSchema])
-
   const errorHandler = useErrorHandlerContext()
+
   if (schemas.length === 0 && schema._def.typeName === AllTypes.ZodTuple) {
     return errorHandler.throwError(new Error('Tuple 类型必须包含一个元素'))
   }
@@ -168,16 +166,16 @@ export function Multiple({
       modes={modes}
       schema={schema}
       schemas={schemas}
-      value={list}
-      onChange={setList}
+      value={listRef.current}
+      onChange={v => listRef.current = v}
     />
   : <>
-    {(list?.length ?? 0) === 0 && <Button
+    {listRef.current.length === 0 && <Button
       className={`${prefix}-create`}
       icon='Add'
       onClick={() => addNewItem()}
     />}
-    {list?.map((item, index) => {
+    {listRef.current.map((item, index) => {
       const itemSchema = getSchema(index)
       // fix delete schema flashing
       if (!itemSchema) return <Fragment key={index} />;
@@ -225,13 +223,11 @@ export function Multiple({
               variant='outline'
               icon='ArrowUp'
               onClick={() => {
-                const newList = [...list]
-                newList[index] = newList[index - 1]
-                newList[index - 1] = item
-                setList(newList)
+                listRef.current[index] = listRef.current[index - 1]
+                listRef.current[index - 1] = item
               }}
             />}
-          {index === list.length - 1
+          {index === listRef.current.length - 1
             ? <Button
               shape='square'
               variant='outline'
@@ -243,10 +239,8 @@ export function Multiple({
               variant='outline'
               icon='ArrowDown'
               onClick={() => {
-                const newList = [...list]
-                newList[index] = newList[index + 1]
-                newList[index + 1] = item
-                setList(newList)
+                listRef.current[index] = listRef.current[index + 1]
+                listRef.current[index + 1] = item
               }}
             />}
         </>}
@@ -256,11 +250,7 @@ export function Multiple({
           schema={itemSchema}
           value={item}
           defaultValue={getDefaultValue(itemSchema)}
-          onChange={value => {
-            const newList = [...list]
-            newList[index] = value
-            setList(newList)
-          }}
+          onChange={value => listRef.current[index] = value}
         />
         <Button
           theme='error'
@@ -272,11 +262,9 @@ export function Multiple({
           icon={isComplex ? 'Clear' : 'Delete'}
           onClick={() => {
             if (isComplex) {
-              const newList = [...list]
-              newList[index] = undefined
-              setList(newList)
+              listRef.current[index] = undefined
             } else {
-              setList(l => l.filter((_, i) => i !== index))
+              listRef.current = listRef.current.filter((_, i) => i !== index)
             }
           }}
         />
