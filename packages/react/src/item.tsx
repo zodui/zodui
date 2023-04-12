@@ -71,10 +71,6 @@ export function Item(props: ItemProps) {
     }
   }, [schema])
 
-  // useEffect(() => {
-  //   console.log('init Item', schema)
-  // }, [])
-  // console.log('render', schema)
   return <ItemSerter>
     <ErrorHandler>
       <div className={
