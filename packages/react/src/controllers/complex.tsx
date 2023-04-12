@@ -34,6 +34,7 @@ function resolveSchemas(schemas: ZodUnionOptions): BaseCompProps.SelectOptions[]
 }
 
 export function Complex({
+  uniqueKey,
   modes,
   schema,
   value,

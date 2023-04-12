@@ -20,6 +20,7 @@ export interface PrimitiveProps extends ControllerProps<TypeMap[MonadType]> {
 }
 
 export function Monad({
+  uniqueKey,
   modes,
   schema,
   ...rest

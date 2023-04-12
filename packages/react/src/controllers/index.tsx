@@ -24,6 +24,7 @@ function isMatchSubControllersWhatTypes<T extends AllType>(
 }
 
 export interface ControllerProps<T extends Schema = Schema> {
+  uniqueKey?: string
   modes?: string[]
   schema: T
   defaultValue?: any

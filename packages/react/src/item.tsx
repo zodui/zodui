@@ -11,6 +11,7 @@ import { useErrorHandler } from './contexts/error-handler'
 import { useItemSerter } from './contexts/item-serter'
 
 export interface ItemProps {
+  uniqueKey?: string
   label: string
   disabled?: boolean
   value?: any
@@ -70,6 +71,10 @@ export function Item(props: ItemProps) {
     }
   }, [schema])
 
+  // useEffect(() => {
+  //   console.log('init Item', schema)
+  // }, [])
+  // console.log('render', schema)
   return <ItemSerter>
     <ErrorHandler>
       <div className={
@@ -91,6 +96,7 @@ export function Item(props: ItemProps) {
             />}
         </div>
         {!error && <Controller
+          uniqueKey={props.uniqueKey}
           schema={schema}
           disabled={props.disabled}
           value={value.current}

@@ -40,6 +40,7 @@ export interface MultipleProps extends ControllerProps<TypeMap[MultipleType]> {
 }
 
 export function Multiple({
+  uniqueKey,
   modes,
   schema,
   ...props

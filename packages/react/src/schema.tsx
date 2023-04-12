@@ -8,6 +8,7 @@ import common from './plugins/common'
 import { useEffect } from 'react'
 
 export interface SchemaProps {
+  prefix?: string
   model: ZodSchema
   disabled?: boolean
 }
@@ -26,16 +27,19 @@ export function Schema(props: SchemaProps) {
 
   if (isWhatType(model, AllTypes.ZodIntersection)) {
     return <>
-      <Schema disabled={disabled}
+      <Schema prefix='intersect::left'
+              disabled={disabled}
               model={model._def.left}
       />
-      <Schema disabled={disabled}
+      <Schema prefix='intersect::right'
+              disabled={disabled}
               model={model._def.right}
       />
     </>
   }
   if (!isWhatType(model, AllTypes.ZodObject)) {
     return <Item
+      uniqueKey='single'
       label={model._label || model._def?.description || model.type}
       schema={model}
       disabled={disabled}
@@ -55,6 +59,7 @@ export function Schema(props: SchemaProps) {
     </div>
     {Object.entries(model._def.shape()).map(([key, value]) => <Item
       key={key}
+      uniqueKey={`${props.prefix || ''}.${key}`}
       label={value._def.label || key}
       schema={value}
       disabled={disabled}
