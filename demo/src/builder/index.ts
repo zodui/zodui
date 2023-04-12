@@ -4,9 +4,10 @@ import path from 'path'
 
 export const MD_PLUGIN: (readonly [marked.RendererObject, string])[] = []
 
-export function defineMDPlugin(renderer: marked.RendererObject, src: string) {
+export function defineMDPlugin(renderer: marked.RendererObject, src: string | string[]) {
+  const srcs = Array.isArray(src) ? src : [src]
   marked.use({ renderer })
-  return [renderer, `<script type='module' src='${src}'></script>`] as const
+  return [renderer, srcs.map(src => `<script type='module' src='${src}'></script>`).join('')] as const
 }
 
 export function docsTemplateRender(p: string) {
