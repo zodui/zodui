@@ -14,7 +14,11 @@ z.object({
   ])
 })
 // preview
-z.number()
+z.object({
+  common: z.number(),
+  split: z.number().mode('split'),
+  slider: z.number().mode('slider'),
+})
 ```
 
 ## String

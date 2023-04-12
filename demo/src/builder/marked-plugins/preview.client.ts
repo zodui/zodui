@@ -5,6 +5,5 @@ document.querySelectorAll<HTMLDivElement>('.zodui-preview')
       code = '',
     } = ele.dataset
     const originalCode = decodeURIComponent(code)
-    const preview = originalCode.split('// preview\n')[1]
-    window.emitCode(schemaEvalKey, `import * as z from 'zod'\n\nexport default ${preview}`)
+    window.emitCode(schemaEvalKey, `import * as z from 'zod'\n\nexport default ${originalCode}`)
   })
