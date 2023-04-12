@@ -27,7 +27,7 @@ declare module '@zodui/react' {
 function resolveSchemas(schemas: ZodUnionOptions): BaseCompProps.SelectOptions[] {
   // TODO resolve not literal type, it not contain value
   return schemas.map((schema, index) => ({
-    label: schema._def.label || schema._def.description || schema._def.value || `[${index}]`,
+    label: schema._def.label || schema._def.description || schema._def.value || `Symbol[Index]: ${index}`,
     title: schema._def.description,
     value: index
   }))
@@ -45,7 +45,8 @@ export function Complex({
   const [index, setIndex] = useState<number>(0)
   useEffect(() => {
     const v = value ?? defaultValue
-    const index = schema.options.findIndex(schema => schema._def.value === v)
+    const index = schema.options
+      .findIndex(option => isWhatType(option, AllTypes.ZodLiteral) && option._def.value === v)
     if (index === -1) return
 
     setIndex(index)
