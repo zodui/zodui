@@ -35,6 +35,7 @@ export declare global {
   function onThemeChange(fn: (t: typeof theme) => void)
 
   function onCodeChange(key: string, fn: (code: string) => void): () => void
+  function emitCode(key: string, code: string): void
 
   interface Tab {
     href: string
@@ -51,6 +52,7 @@ export declare global {
 
     onThemeChange: typeof onThemeChange
     onCodeChange: typeof onCodeChange
+    emitCode: typeof emitCode
 
     TABS: typeof TABS
     MONACO_DTS_FILES: typeof MONACO_DTS_FILES

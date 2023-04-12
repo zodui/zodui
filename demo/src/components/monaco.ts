@@ -14,24 +14,6 @@ const BORDER_SIZE = 4
 
 const editors: Record<string, monaco.editor.IStandaloneCodeEditor> = {}
 
-const codeChangeListeners: Record<string, Function[]> = {}
-
-window.onCodeChange = function (key, fn) {
-  if (!codeChangeListeners[key]) {
-    codeChangeListeners[key] = []
-  }
-  const curCodeChangeListeners = codeChangeListeners[key]
-  curCodeChangeListeners.push(fn)
-
-  const codeContent = editors[key]?.getValue()
-  codeContent && fn(codeContent)
-
-  const index = curCodeChangeListeners.length - 1
-  return () => {
-    if (index > -1) curCodeChangeListeners.splice(index, 1)
-  }
-}
-
 document.querySelectorAll<HTMLDivElement>('.monaco-editor')
   .forEach(el => {
     const { key = '', byHash = false, enableHistory = false } = el.dataset
@@ -51,15 +33,6 @@ document.querySelectorAll<HTMLDivElement>('.monaco-editor')
       }
     })
 
-    function updateCode(s: string) {
-      let i = setInterval(() => {
-        if (codeChangeListeners[key]) {
-          codeChangeListeners[key].forEach((fn) => fn(s))
-          clearInterval(i)
-        }
-      }, 100)
-    }
-
     editor = monaco.editor.create(el, {
       theme: window.theme === 'dark' ? 'vs-dark' : 'vs',
       value: DEFAULT_CODE,
@@ -75,7 +48,7 @@ document.querySelectorAll<HTMLDivElement>('.monaco-editor')
         const hash = location.hash.slice(1)
         const code = hash ? base64(hash) : DEFAULT_CODE
         editor.setValue(code)
-        updateCode(code)
+        emitCode(key, code)
       }
 
       window.addEventListener('hashchange', setCodeByUrl)
@@ -92,11 +65,11 @@ document.querySelectorAll<HTMLDivElement>('.monaco-editor')
     let historyIndex = -1
     // watch editor value change
     editor.onDidChangeModelContent(debounce(function () {
-      updateCode(editor.getValue())
+      emitCode(key, editor.getValue())
     }, 1500))
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.KeyS, () => {
       const code = editor.getValue()
-      updateCode(code)
+      emitCode(key, code)
       if (byHash) {
         // save code to hash
         location.hash = `#${base64(code, false)}`
