@@ -9,6 +9,7 @@ import { Controller } from './controllers'
 import { Button, Dropdown } from './components'
 import { useErrorHandler } from './contexts/error-handler'
 import { useItemSerter } from './contexts/item-serter'
+import { useItemConfigurerContext } from './contexts/item-configurer'
 
 const prefix = 'zodui-item'
 
@@ -30,6 +31,7 @@ export interface ItemProps {
  * - value operate and support extensible
  */
 export function Item(props: ItemProps) {
+  const configure = useItemConfigurerContext()
   const {
     schema,
     className
@@ -79,7 +81,7 @@ export function Item(props: ItemProps) {
         throw e
     }
     // TODO make delay configurable
-  }, 300), [schema])
+  }, configure.verifyDebounceTime), [schema])
 
   return <ItemSerter>
     <ErrorHandler>
