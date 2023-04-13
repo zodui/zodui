@@ -68,6 +68,7 @@ export function Item(props: ItemProps) {
       value.current = rv
     } catch (e) {
       if (e instanceof ZodError) {
+        // TODO dispatch error resolve logic
       } else
         throw e
     }
