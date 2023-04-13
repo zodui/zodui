@@ -1,7 +1,7 @@
 import './item.scss'
 
-import z, { ZodError } from 'zod'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { ZodError, Schema as ZodSchema } from 'zod'
+import React, { useCallback, useEffect, useMemo, useRef, useState, useImperativeHandle } from 'react'
 
 import { WrapModes } from './configure'
 import { AllTypes, classnames, debounce, getModes, inlineMarkdown } from './utils'
@@ -13,14 +13,19 @@ import { useItemConfigurerContext } from './contexts/item-configurer'
 
 const prefix = 'zodui-item'
 
+export interface ItemRef {
+  verify: () => Promise<any>
+}
+
 export interface ItemProps {
+  ref?: React.Ref<ItemRef>
   uniqueKey?: string
   label: string
   disabled?: boolean
   value?: any
   onChange?: (value: any) => (void | Promise<void>)
   defaultValue?: any
-  schema: z.Schema
+  schema: ZodSchema
   className?: string
 }
 
@@ -66,7 +71,9 @@ export function Item(props: ItemProps) {
   }, [])
   const changeValue = useCallback(debounce(async (v: any, must = false) => {
     try {
-      const rv = await valueChangeListener.current?.(v) ?? v
+      const rv = configure.actualTimeVerify
+        ? await valueChangeListener.current?.(v) ?? v
+        : v
       await props.onChange?.(rv)
       valueRef.current = rv
     } catch (e) {
@@ -74,14 +81,22 @@ export function Item(props: ItemProps) {
         // if configure must param, then must be set value, but not emit value change out
         if (must) {
           valueRef.current = v
-          rerender(r => !r)
         }
         // TODO dispatch error resolve logic
       } else
         throw e
     }
+    if (must) {
+      rerender(r => !r)
+    }
     // TODO make delay configurable
   }, configure.verifyDebounceTime), [schema])
+
+  useImperativeHandle(props.ref, () => ({
+    verify: async () => {
+      return changeValue(valueRef.current)
+    }
+  }))
 
   return <ItemSerter>
     <ErrorHandler>
@@ -161,9 +176,10 @@ function ValueChecker({
   onValueChange
 }: {
   value: any
-  schema: z.Schema
+  schema: ZodSchema
   onValueChange: (func: (v: any) => any) => () => void
 }) {
+  const { actualTimeVerify } = useItemConfigurerContext()
   const [parseError, setParseError] = useState<ZodError>()
   const parse = useCallback(async function (v: any) {
     try {
@@ -179,7 +195,9 @@ function ValueChecker({
     }
   }, [schema])
   useEffect(() => {
-    parse(value).catch(() => null)
+    // init check when configure actualTimeVerify is true
+    if (actualTimeVerify)
+      parse(value).catch(() => null)
     return onValueChange(parse)
   }, [value, schema, parse])
   return <>{
