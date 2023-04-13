@@ -74,7 +74,6 @@ export function Item(props: ItemProps) {
     // TODO make delay configurable
   }, 300), [schema])
 
-  console.log(schema._def)
   return <ItemSerter>
     <ErrorHandler>
       <div className={
@@ -144,7 +143,7 @@ function ValueChecker({
     }
   }, [schema])
   useEffect(() => {
-    parse(value)
+    parse(value).catch(() => null)
     return onValueChange(parse)
   }, [value, schema, parse])
   return <>{
