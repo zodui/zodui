@@ -4,7 +4,7 @@ import z, { ZodError } from 'zod'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { WrapModes } from './configure'
-import { getModes, inlineMarkdown } from './utils'
+import { debounce, getModes, inlineMarkdown } from './utils'
 import { Controller } from './controllers'
 import { Button } from './components'
 import { useErrorHandler } from './contexts/error-handler'
@@ -59,7 +59,7 @@ export function Item(props: ItemProps) {
       valueChangeListener.current = undefined
     }
   }, [])
-  const changeValue = useCallback(async (v: any) => {
+  const changeValue = useCallback(debounce(async (v: any) => {
     try {
       const rv = await valueChangeListener.current?.(v) ?? v
       await props.onChange?.(rv)
@@ -69,7 +69,8 @@ export function Item(props: ItemProps) {
       } else
         throw e
     }
-  }, [schema])
+    // TODO make delay configurable
+  }, 300), [schema])
 
   return <ItemSerter>
     <ErrorHandler>

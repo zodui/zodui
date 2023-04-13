@@ -198,3 +198,13 @@ export function merge<T extends {}, U extends {}>(a: T, b: U): T & U {
   }
   return { ...a, ...b }
 }
+
+export function debounce<T extends (...args: any[]) => any>(fn: T, delay: number) {
+  let timer: any
+  return (...args: any[]) => {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
+      fn(...args)
+    }, delay)
+  }
+}
