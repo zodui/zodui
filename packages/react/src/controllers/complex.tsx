@@ -27,7 +27,7 @@ declare module '@zodui/react' {
 function resolveSchemas(schemas: ZodUnionOptions): BaseCompProps.SelectOptions[] {
   // TODO resolve not literal type, it not contain value
   return schemas.map((schema, index) => ({
-    label: schema._def.label || schema._def.description || schema._def.value || `Symbol[Index]: ${index}`,
+    label: schema._def.label || schema._def.description || schema._def.value || `${index}nd`,
     title: schema._def.description,
     value: index
   }))

@@ -102,7 +102,8 @@ export function Item(props: ItemProps) {
       </div>
     </ErrorHandler>
     <Append />
-    <ValueChecker schema={schema}
+    <ValueChecker value={value.current}
+                  schema={schema}
                   onValueChange={onValueChange}
     />
     {error &&
@@ -113,32 +114,41 @@ export function Item(props: ItemProps) {
 }
 
 function ValueChecker({
+  value,
   schema,
   onValueChange
 }: {
+  value: any
   schema: z.Schema
   onValueChange: (func: (v: any) => any) => () => void
 }) {
   const [parseError, setParseError] = useState<ZodError>()
-  useEffect(() => {
-    setParseError(undefined)
-    return onValueChange((v: any) => {
-      try {
-        const nv = schema.parse(v)
-        setParseError(undefined)
-        return nv
-      } catch (e) {
-        console.warn(e)
-        if (e instanceof ZodError) {
-          setParseError(e)
-        } else
-          throw e
+  const parse = useCallback(async function (v: any) {
+    try {
+      const nv = schema.parse(v)
+      setParseError(undefined)
+      return nv
+    } catch (e) {
+      console.warn(e)
+      if (e instanceof ZodError) {
+        setParseError(e)
       }
-    })
+      throw e
+    }
   }, [schema])
+  useEffect(() => {
+    parse(value)
+    return onValueChange(parse)
+  }, [value, schema, parse])
   return <>{
     parseError && <div className='zodui-item__error'>
-      {parseError.errors.map((e, i) => <div key={i}>{e.message}</div>)}
+      {parseError.errors.map((e, i) => <div key={i}>
+        {e.path.map(p => {
+          if (typeof p === 'number')
+            return `${p}nd`
+          return p
+        }).join('.')} {e.message}
+      </div>)}
     </div>
   }</>
 }
