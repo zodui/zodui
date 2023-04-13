@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 
 import { ControllerProps } from '../controllers'
-import { AllType, AllTypes, TypeMap } from '../utils'
+import { AllType, TypeMap } from '../utils'
 import { ModesMap } from '../zod.external'
 
 export interface ComponentMatcher<
@@ -71,10 +71,6 @@ type InferIsParams<
   CM extends ComponentMatcher<any, infer P, any> ? P : never
 
 export class PlgMaster {
-  readonly plgs = Object.keys(AllTypes)
-    .reduce((acc, key) => ({
-      ...acc, [key]: [],
-    }), {} as Record<AllType, Plugin[]>)
   private quickMap = new Map<string, Set<ComponentMatcher<any, any, any>>>()
   private quickMapKeyGen = (name: RevealType, type: AllType) => [name, type].join(':--:')
   register(plg: Plugin) {
