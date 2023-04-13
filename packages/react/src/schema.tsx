@@ -1,11 +1,11 @@
 import './schema.scss'
 import type { Schema as ZodSchema } from 'zod'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useRef } from 'react'
 
 import { Item } from './item'
 import { AllTypes, classnames, inlineMarkdown, isWhatType, merge } from './utils'
-import { plgMaster } from './plugins'
 import common from './plugins/common'
+import { usePlugins } from './hooks'
 
 export interface SchemaProps {
   prefix?: string
@@ -19,15 +19,7 @@ export interface SchemaProps {
 const prefix = 'zodui-schema'
 
 export function Schema(props: SchemaProps) {
-  const [inited, setInited] = useState(false)
-  useEffect(() => {
-    setInited(true)
-    const dispatch = plgMaster.register(common())
-    return () => {
-      setInited(false)
-      dispatch()
-    }
-  }, [plgMaster, common])
+  const { inited } = usePlugins(common)
 
   const {
     model,
