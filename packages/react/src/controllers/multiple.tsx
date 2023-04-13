@@ -13,7 +13,7 @@ import {
 import React, { Fragment, useCallback, useMemo, useRef, useState } from 'react'
 
 import { Controller, ControllerProps } from './index'
-import { AllType, AllTypes, getDefaultValue, isWhatType, TypeMap } from '../utils'
+import { AllType, AllTypes, getDefaultValue, isWhatType, isWhatTypes, TypeMap } from '../utils'
 import { KeyEditableTypes, ComplexMultipleTypes, MultipleType } from '../configure'
 import { Icon, Button, Input } from '../components'
 import { plgMaster } from '../plugins'
@@ -124,16 +124,38 @@ export function Multiple({
   }, [dict, commonDef.typeName, commonDef.items, commonDef.valueType])
 
   const [_, setRigger] = useState(false)
-  // const [list, setList] = useState<any[]>()
   const listRef = useRef<any[]>(
     Object.keys(dict).length > 0
-    ? Object.values(dict).map(getDefaultValue)
-    : props.defaultValue ?? props.value
-      ? Object.entries(props.defaultValue ?? props.value).map(([, v]) => v)
+    ? Object
+        .entries(dict)
+        .map(([k, v]) => {
+          if (props.value && props.value[k] !== undefined) {
+            return props.value[k]
+          }
+          if (props.defaultValue && props.defaultValue[k] !== undefined) {
+            return props.defaultValue[k]
+          }
+          return getDefaultValue(v)
+        })
+    : props.value ?? props.defaultValue
+      ? Object.entries(props.value ?? props.defaultValue).map(([, v]) => v)
       : isWhatType(schema, AllTypes.ZodTuple)
         ? schema._def.items.map(getDefaultValue)
         : []
   )
+  const changeList = useCallback((value?: any[]) => {
+    if (value !== undefined) {
+      listRef.current = value
+    }
+    let v = listRef.current.reduce((acc, v, i) => ({
+      ...acc,
+      [dictKeys[i] ?? i]: v
+    }), {})
+    if (isWhatTypes(schema, [AllTypes.ZodArray, AllTypes.ZodSet])) {
+      v = listRef.current
+    }
+    props.onChange?.(v)
+  }, [props.onChange])
 
   const addNewItem = useCallback((type: 'append' | 'prepend' = 'append') => {
     const l = listRef.current
@@ -145,6 +167,7 @@ export function Multiple({
       listRef.current = type === 'append' ? l.concat(t) : t.concat(l)
     }
     setRigger(r => !r)
+    changeList()
   }, [getSchema])
 
   const dictKeys = useMemo(() => Object.keys(dict ?? {}), [ dict ])
@@ -167,7 +190,7 @@ export function Multiple({
       schema={schema}
       schemas={schemas}
       value={listRef.current}
-      onChange={v => listRef.current = v}
+      onChange={changeList}
     />
   : <>
     {listRef.current.length === 0 && <Button
@@ -227,6 +250,7 @@ export function Multiple({
                 listRef.current[index] = listRef.current[index - 1]
                 listRef.current[index - 1] = temp
                 setRigger(r => !r)
+                changeList()
               }}
             />}
           {index === listRef.current.length - 1
@@ -245,6 +269,7 @@ export function Multiple({
                 listRef.current[index] = listRef.current[index + 1]
                 listRef.current[index + 1] = temp
                 setRigger(r => !r)
+                changeList()
               }}
             />}
         </>}
@@ -254,7 +279,10 @@ export function Multiple({
           schema={itemSchema}
           value={item}
           defaultValue={getDefaultValue(itemSchema)}
-          onChange={value => listRef.current[index] = value}
+          onChange={value => {
+            listRef.current[index] = value
+            changeList()
+          }}
         />
         <Button
           theme='error'
@@ -270,6 +298,8 @@ export function Multiple({
             } else {
               listRef.current = listRef.current.filter((_, i) => i !== index)
             }
+            setRigger(r => !r)
+            changeList()
           }}
         />
         <Button icon='More' />
