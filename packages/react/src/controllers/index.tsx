@@ -65,6 +65,18 @@ export function Controller(props: ControllerProps) {
       defaultValue={defaultValue}
     />
   }
+  if (isWhatType(props.schema, AllTypes.ZodOptional)) {
+    const {
+      innerType,
+      typeName: __,
+      ...assignDefFields
+    } = props.schema._def
+    Object.assign(innerType._def, assignDefFields)
+    return <Controller
+      {...props}
+      schema={innerType}
+    />
+  }
 
   const { schema, ...rest } = props
 
