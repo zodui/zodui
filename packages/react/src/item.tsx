@@ -4,7 +4,7 @@ import z, { ZodError } from 'zod'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { WrapModes } from './configure'
-import { debounce, getModes, inlineMarkdown } from './utils'
+import { AllTypes, classnames, debounce, getModes, inlineMarkdown } from './utils'
 import { Controller } from './controllers'
 import { Button } from './components'
 import { useErrorHandler } from './contexts/error-handler'
@@ -74,6 +74,7 @@ export function Item(props: ItemProps) {
     // TODO make delay configurable
   }, 300), [schema])
 
+  console.log(schema._def)
   return <ItemSerter>
     <ErrorHandler>
       <div className={
@@ -86,7 +87,10 @@ export function Item(props: ItemProps) {
         <div className={`${prefix}__more`}>
           <Button shape='square' variant='text' icon='More' disabled={!!error} />
         </div>
-        <div className={`${prefix}__label`}>
+        <div className={classnames(`${prefix}__label`, {
+          // @ts-ignore
+          'is-optional': schema._def.typeName === AllTypes.ZodOptional
+        })}>
           {props.label}
           {schema._def.description
             && <pre

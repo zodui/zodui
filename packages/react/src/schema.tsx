@@ -2,7 +2,7 @@ import './schema.scss'
 import type { Schema as ZodSchema } from 'zod'
 
 import { Item } from './item'
-import { AllTypes, inlineMarkdown, isWhatType, merge } from './utils'
+import { AllTypes, classnames, inlineMarkdown, isWhatType, merge } from './utils'
 import { plgMaster } from './plugins'
 import common from './plugins/common'
 import { useCallback, useEffect, useRef } from 'react'
@@ -55,7 +55,10 @@ export function Schema(props: SchemaProps) {
 
   return <div className={prefix}>
     <div className={`${prefix}__header`}>
-      {props.model._def.label && <h2 className={`${prefix}__label`}>
+      {props.model._def.label && <h2 className={classnames(`${prefix}__label`, {
+        // @ts-ignore
+        'is-optional': model._def.typeName === AllTypes.ZodOptional
+      })}>
         {props.model._def.label}
       </h2>}
       {props.model._def.description

@@ -208,3 +208,14 @@ export function debounce<T extends (...args: any[]) => any>(fn: T, delay: number
     }, delay)
   }
 }
+
+export function classnames(...args: (string | undefined | null | false | Record<string, boolean>)[]) {
+  return args
+    .filter(<T>(v: T | boolean): v is T => Boolean(v))
+    .map(arg => {
+      if (typeof arg === 'string') {
+        return arg
+      }
+      return Object.keys(arg).filter(key => arg[key]).join(' ')
+    }).join(' ')
+}

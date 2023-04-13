@@ -9,6 +9,11 @@
   &__label {
     margin: 0;
     padding: 8px 0;
+    &:not(.is-optional)::after {
+      content: '*';
+      margin-left: 4px;
+      color: var(--zodui-error-color);
+    }
   }
   &__desc {
     margin: 0;
