@@ -96,7 +96,7 @@ export function Item(props: ItemProps) {
     verify: async () => {
       return changeValue(valueRef.current)
     }
-  }))
+  }), [changeValue])
 
   return <ItemSerter>
     <ErrorHandler>
