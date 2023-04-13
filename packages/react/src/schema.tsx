@@ -1,11 +1,11 @@
 import './schema.scss'
 import type { Schema as ZodSchema } from 'zod'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { Item } from './item'
 import { AllTypes, classnames, inlineMarkdown, isWhatType, merge } from './utils'
 import { plgMaster } from './plugins'
 import common from './plugins/common'
-import { useCallback, useEffect, useRef } from 'react'
 
 export interface SchemaProps {
   prefix?: string
@@ -19,8 +19,14 @@ export interface SchemaProps {
 const prefix = 'zodui-schema'
 
 export function Schema(props: SchemaProps) {
+  const [inited, setInited] = useState(false)
   useEffect(() => {
-    return plgMaster.register(common())
+    setInited(true)
+    const dispatch = plgMaster.register(common())
+    return () => {
+      setInited(false)
+      dispatch()
+    }
   }, [plgMaster, common])
 
   const {
@@ -52,6 +58,8 @@ export function Schema(props: SchemaProps) {
       />
     </>
   }
+
+  if (!inited) return null
 
   return <div className={prefix}>
     <div className={`${prefix}__header`}>
