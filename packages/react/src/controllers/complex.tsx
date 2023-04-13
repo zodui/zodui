@@ -42,7 +42,7 @@ export function Complex({
   ...rest
 }: ControllerProps<TypeMap[ComplexType]>) {
   const options = useMemo(() => resolveSchemas(schema.options), [schema.options])
-  const [index, setIndex] = useState<number>(0)
+  const [index, setIndex] = useState<number>(undefined)
   useEffect(() => {
     const v = value ?? defaultValue
     const index = schema.options
@@ -69,7 +69,7 @@ export function Complex({
 
   const ItemSerter = useItemSerterContext()
 
-  const OptionRender = <>
+  const OptionRender = index ? <>
     <ItemSerter.Append deps={[schema.options, index]}>
       {/* 在里面控制是因为在 modes 修改后，将 append 内容清空 */}
       {modes.includes('append') && schema.options[index]._def.typeName !== AllTypes.ZodLiteral
@@ -84,7 +84,7 @@ export function Complex({
         onChange={rest.onChange}
       />
     </>}
-  </>
+  </> : null
 
   const { Component } = plgMaster.reveal(schema._def.typeName, 'SubController.complex', [modes]) ?? {}
 
