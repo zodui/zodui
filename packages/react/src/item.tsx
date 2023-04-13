@@ -56,7 +56,7 @@ export function Item(props: ItemProps) {
   }, [schema])
 
   const [_, rerender] = useState(false)
-  const value = useRef<number>(props.value ?? props.defaultValue)
+  const valueRef = useRef<number>(props.value ?? props.defaultValue)
   const valueChangeListener = useRef<(v: any) => any>()
   const onValueChange = useCallback((func: (v: any) => any) => {
     valueChangeListener.current = func
@@ -68,12 +68,12 @@ export function Item(props: ItemProps) {
     try {
       const rv = await valueChangeListener.current?.(v) ?? v
       await props.onChange?.(rv)
-      value.current = rv
+      valueRef.current = rv
     } catch (e) {
       if (e instanceof ZodError) {
         // if configure must param, then must be set value, but not emit value change out
         if (must) {
-          value.current = v
+          valueRef.current = v
           rerender(r => !r)
         }
         // TODO dispatch error resolve logic
@@ -137,14 +137,14 @@ export function Item(props: ItemProps) {
           uniqueKey={props.uniqueKey}
           schema={schema}
           disabled={props.disabled}
-          value={value.current}
+          value={valueRef.current}
           defaultValue={props.defaultValue}
           onChange={changeValue}
         />}
       </div>
     </ErrorHandler>
     <Append />
-    <ValueChecker value={value.current}
+    <ValueChecker value={valueRef.current}
                   schema={schema}
                   onValueChange={onValueChange}
     />
