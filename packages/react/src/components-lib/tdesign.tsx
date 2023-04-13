@@ -15,6 +15,7 @@ import {
   Slider,
   Select,
   Switch,
+  Dropdown,
   Input,
   InputAdornment,
   InputNumber,
@@ -22,9 +23,10 @@ import {
   TimePickerPanel, TimePicker, DatePickerPanel, DateRangePickerPanel, DatePicker, TimeRangePicker, DateRangePicker
 } from 'tdesign-react/esm'
 
-import { registerIcon, registerBaseComp } from '../components'
+import { registerIcon, registerBaseComp, Icon } from '../components'
 import { Narrow } from '../utils'
 import { addController } from '../controllers'
+import React from 'react'
 
 initIcons: {
   registerIcon('Add', AddIcon)
@@ -87,12 +89,37 @@ initComponents: {
     } as const)[theme]}
     {...props}
   />)
-  registerBaseComp('Select', (props) => <Select
+  registerBaseComp('Select', props => <Select
     {...props}
     value={props.value}
     onChange={v => props.onChange?.(v as any)}
   />)
-  registerBaseComp('Switch', (props) => <Switch {...props}/>)
+  registerBaseComp('Switch', props => <Switch {...props}/>)
+  registerBaseComp('Dropdown', props => {
+    return <Dropdown
+      popupProps={{ showArrow: true }}
+      options={props.menu.map(i => ({
+        prefixIcon: typeof i.icon === 'string'
+          ? <Icon name={i.icon as any} />
+          : i.icon,
+        content: typeof i.label === 'string'
+          ? <span title={i.title}>{i.label}</span>
+          : React.cloneElement(i.label, {
+            title: i.title
+          }),
+        value: i.value,
+        disabled: i.disabled
+      }))}
+      trigger={props.trigger ?? 'click'}
+      minColumnWidth={120}
+      onClick={i => {
+        // @ts-ignore
+        props.onAction(i.value, i)
+      }}
+    >
+      {props.children}
+    </Dropdown>
+  })
 
   addController('Number:Slider', props => <Slider {...props} />)
   addController('String.TextArea', props => <Textarea

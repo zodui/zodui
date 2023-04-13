@@ -6,7 +6,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { WrapModes } from './configure'
 import { AllTypes, classnames, debounce, getModes, inlineMarkdown } from './utils'
 import { Controller } from './controllers'
-import { Button } from './components'
+import { Button, Dropdown } from './components'
 import { useErrorHandler } from './contexts/error-handler'
 import { useItemSerter } from './contexts/item-serter'
 
@@ -53,6 +53,7 @@ export function Item(props: ItemProps) {
     if (error) reset()
   }, [schema])
 
+  const [_, rerender] = useState(false)
   const value = useRef<number>(props.value ?? props.defaultValue)
   const valueChangeListener = useRef<(v: any) => any>()
   const onValueChange = useCallback((func: (v: any) => any) => {
@@ -61,13 +62,18 @@ export function Item(props: ItemProps) {
       valueChangeListener.current = undefined
     }
   }, [])
-  const changeValue = useCallback(debounce(async (v: any) => {
+  const changeValue = useCallback(debounce(async (v: any, must = false) => {
     try {
       const rv = await valueChangeListener.current?.(v) ?? v
       await props.onChange?.(rv)
       value.current = rv
     } catch (e) {
       if (e instanceof ZodError) {
+        // if configure must param, then must be set value, but not emit value change out
+        if (must) {
+          value.current = v
+          rerender(r => !r)
+        }
         // TODO dispatch error resolve logic
       } else
         throw e
@@ -85,7 +91,34 @@ export function Item(props: ItemProps) {
         + (className ? ` ${className}` : '')
       }>
         <div className={`${prefix}__more`}>
-          <Button shape='square' variant='text' icon='More' disabled={!!error} />
+          <Dropdown
+            menu={[
+              {
+                icon: 'Clear',
+                label: '重置',
+                title: '将数据设置为默认值，若无默认值则与清空行为一致',
+                value: 'reset'
+              },
+              {
+                icon: 'Delete',
+                label: '置空',
+                title: '将数据设置为空值，即数据未被设置模式',
+                value: 'clear'
+              },
+            ]}
+            onAction={async v => {
+              switch (v) {
+                case 'reset':
+                  await changeValue(props.defaultValue, true)
+                  break
+                case 'clear':
+                  await changeValue(undefined, true)
+                  break
+              }
+            }}
+          >
+            <Button shape='square' variant='text' icon='More' disabled={!!error} />
+          </Dropdown>
         </div>
         <div className={classnames(`${prefix}__label`, {
           // @ts-ignore

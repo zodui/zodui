@@ -1,6 +1,7 @@
 export {
   Input, InputAdornment,
   Button,
+  Dropdown,
   Select,
   Switch,
   registerBaseComp

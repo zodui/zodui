@@ -95,6 +95,22 @@ export namespace BaseCompProps {
       defaultValue?: boolean
       onChange?: (v: boolean) => void
     }
+  export type DropdownMenuItem = {
+    icon?: string | ReactElement
+    label: string | ReactElement
+    title?: string
+    value?: string | number
+    disabled?: boolean
+  }
+  export type Dropdown =
+    & BaseProps
+    & {
+      trigger?: 'hover' | 'click'
+      placement?: 'right'
+      menu: DropdownMenuItem[]
+      children?: ReactElement
+      onAction?: (value: string | number, item: DropdownMenuItem) => void
+    }
   // RadioGroup: () => <></>
   // Dialog: () => <></>
   // Drawer: () => <></>
@@ -106,6 +122,7 @@ export const BaseComps: {
   Button?: (props: BaseCompProps.Button) => ReactElement
   Select?: <T extends BaseCompProps.SelectValue>(props: BaseCompProps.Select<T>) => ReactElement
   Switch?: (props: BaseCompProps.Switch) => ReactElement
+  Dropdown?: (props: BaseCompProps.Dropdown) => ReactElement
 } = {}
 
 export function registerBaseComp<K extends keyof typeof BaseComps>(name: K, comp: (typeof BaseComps)[K]) {
@@ -114,5 +131,6 @@ export function registerBaseComp<K extends keyof typeof BaseComps>(name: K, comp
 
 export { Input, InputAdornment } from './input'
 export { Button } from './button'
+export { Dropdown } from './dropdown'
 export { Select } from './select'
 export { Switch } from './switch'
