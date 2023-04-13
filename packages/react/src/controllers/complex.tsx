@@ -81,6 +81,7 @@ export function Complex({
       <Controller
         schema={schema.options[index]}
         {...props}
+        onChange={rest.onChange}
       />
     </>}
   </>
