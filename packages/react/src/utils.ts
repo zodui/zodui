@@ -169,3 +169,32 @@ export function useLifecycleChecker(tag: string) {
     }
   }, [])
 }
+
+export function merge<T extends {}, U extends {}>(a: T, b: U): T & U {
+  const target = {} as T & U
+  const aKeys = Object.keys(a) as (keyof T)[]
+  const bKeys = Object.keys(b) as (keyof U)[]
+  for (const key of aKeys) {
+    const aKeyType = typeof a[key]
+    if (Array.isArray(a[key])) {
+      if (Object.hasOwn(b, key) && Array.isArray(b[key]))
+        target[key] = [...a[key], ...b[key]] as any
+      else
+        target[key] = a[key] as any
+    }
+    if (aKeyType === 'object') {
+      if (Object.hasOwn(b, key) && typeof b[key] === 'object')
+        target[key] = merge(a[key], b[key]) as any
+      else
+        target[key] = a[key] as any
+    } else {
+      target[key] = a[key] as any
+    }
+  }
+  for (const key of bKeys) {
+    if (!Object.hasOwn(a, key)) {
+      target[key] = b[key] as any
+    }
+  }
+  return { ...a, ...b }
+}
