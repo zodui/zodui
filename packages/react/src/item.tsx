@@ -1,7 +1,7 @@
 import './item.scss'
 
 import { ZodError, Schema as ZodSchema } from 'zod'
-import React, { useCallback, useEffect, useMemo, useRef, useState, useImperativeHandle } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState, useImperativeHandle, forwardRef } from 'react'
 
 import { WrapModes } from './configure'
 import { AllTypes, classnames, debounce, getModes, inlineMarkdown } from './utils'
@@ -18,7 +18,6 @@ export interface ItemRef {
 }
 
 export interface ItemProps {
-  ref?: React.Ref<ItemRef>
   uniqueKey?: string
   label: string
   disabled?: boolean
@@ -35,7 +34,7 @@ export interface ItemProps {
  * - common contexts
  * - value operate and support extensible
  */
-export function Item(props: ItemProps) {
+export const Item = forwardRef<ItemRef, ItemProps>((props, ref) => {
   const configure = useItemConfigurerContext()
   const {
     schema,
@@ -69,9 +68,9 @@ export function Item(props: ItemProps) {
       valueChangeListener.current = undefined
     }
   }, [])
-  const changeValue = useCallback(debounce(async (v: any, must = false) => {
+  const changeValue = useCallback(debounce(async (v: any, must = false, doVerify = !configure.actualTimeVerify) => {
     try {
-      const rv = configure.actualTimeVerify
+      const rv = doVerify
         ? await valueChangeListener.current?.(v) ?? v
         : v
       await props.onChange?.(rv)
@@ -90,11 +89,11 @@ export function Item(props: ItemProps) {
       rerender(r => !r)
     }
     // TODO make delay configurable
-  }, configure.verifyDebounceTime), [schema])
+  }, configure.verifyDebounceTime), [schema, configure.actualTimeVerify])
 
-  useImperativeHandle(props.ref, () => ({
+  useImperativeHandle(ref, () => ({
     verify: async () => {
-      return changeValue(valueRef.current)
+      return changeValue(valueRef.current, false, true)
     }
   }), [changeValue])
 
@@ -168,7 +167,7 @@ export function Item(props: ItemProps) {
         {error.message}
       </div>}
   </ItemSerter>
-}
+})
 
 function ValueChecker({
   value,

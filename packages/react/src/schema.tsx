@@ -1,11 +1,15 @@
 import './schema.scss'
 import type { Schema as ZodSchema } from 'zod'
-import { useCallback, useRef } from 'react'
+import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
 
-import { Item } from './item'
+import { Item, ItemRef } from './item'
 import { AllTypes, classnames, inlineMarkdown, isWhatType, merge } from './utils'
 import common from './plugins/common'
 import { usePlugins } from './hooks'
+
+export interface SchemaRef {
+  verify: () => Promise<any>
+}
 
 export interface SchemaProps {
   prefix?: string
@@ -18,7 +22,7 @@ export interface SchemaProps {
 
 const prefix = 'zodui-schema'
 
-export function Schema(props: SchemaProps) {
+export const Schema = forwardRef<SchemaRef, SchemaProps>((props, ref) => {
   const { inited } = usePlugins(common)
 
   const {
@@ -34,7 +38,21 @@ export function Schema(props: SchemaProps) {
     onChange?.(v)
   }, [onChange])
 
+  const itemRefs = useRef<Record<string, ItemRef>>({})
+
+  useImperativeHandle(ref, () => ({
+    async verify() {
+      const promises = Object.entries(itemRefs.current).map(([key, ref]) => {
+        if (!ref) return Promise.resolve()
+        return ref.verify()
+      })
+      await Promise.all(promises)
+      return valueRef.current
+    }
+  }), [])
+
   if (isWhatType(model, AllTypes.ZodIntersection)) {
+    // resolve ref merge
     return <>
       <Schema prefix='intersect::left'
               disabled={disabled}
@@ -69,6 +87,7 @@ export function Schema(props: SchemaProps) {
     </div>
     {isWhatType(model, AllTypes.ZodObject)
       ? Object.entries(model._def.shape()).map(([key, value]) => <Item
+        ref={ele => itemRefs.current[key] = ele}
         key={key}
         uniqueKey={`${props.prefix || ''}.${key}`}
         label={value._def.label || key}
@@ -77,6 +96,7 @@ export function Schema(props: SchemaProps) {
         onChange={async v => changeValue({ ...valueRef.current, [key]: v })}
       />)
       : <Item
+        ref={ele => itemRefs.current['single'] = ele}
         uniqueKey='single'
         label={model._label || model._def?.description || model.type}
         schema={model}
@@ -85,6 +105,7 @@ export function Schema(props: SchemaProps) {
         onChange={changeValue}
       />}
   </div>
-}
+})
 
-Schema.Item = Item
+// TODO export Schema with Item
+// Schema.Item = Item
