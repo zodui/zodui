@@ -10,6 +10,8 @@ import { Button } from './components'
 import { useErrorHandler } from './contexts/error-handler'
 import { useItemSerter } from './contexts/item-serter'
 
+const prefix = 'zodui-item'
+
 export interface ItemProps {
   uniqueKey?: string
   label: string
@@ -75,20 +77,20 @@ export function Item(props: ItemProps) {
   return <ItemSerter>
     <ErrorHandler>
       <div className={
-        `zodui-item ${schema.type}`
+        `${prefix} ${schema.type}`
         + (error ? ' error' : '')
         + (wrapDefault ? ' wrap' : '')
         + (schema._mode ? ` ${schema._mode}` : '')
         + (className ? ` ${className}` : '')
       }>
-        <div className='zodui-item__more'>
+        <div className={`${prefix}__more`}>
           <Button shape='square' variant='text' icon='More' disabled={!!error} />
         </div>
-        <div className='zodui-item__label'>
+        <div className={`${prefix}__label`}>
           {props.label}
           {schema._def.description
             && <pre
-              className='zodui-item__label-description inline-md'
+              className={`${prefix}__label-description inline-md`}
               dangerouslySetInnerHTML={{ __html: inlineMarkdown(schema._def.description) }}
             />}
         </div>
@@ -108,7 +110,7 @@ export function Item(props: ItemProps) {
                   onValueChange={onValueChange}
     />
     {error &&
-      <div className='zodui-item__error'>
+      <div className={`${prefix}__error`}>
         {error.message}
       </div>}
   </ItemSerter>
@@ -142,7 +144,7 @@ function ValueChecker({
     return onValueChange(parse)
   }, [value, schema, parse])
   return <>{
-    parseError && <div className='zodui-item__error'>
+    parseError && <div className={`${prefix}__error`}>
       {parseError.errors.map((e, i) => <div key={i}>
         {e.path.map(p => {
           if (typeof p === 'number')
