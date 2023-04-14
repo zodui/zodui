@@ -11,6 +11,9 @@
   &.wrap:not(.nowrap) {
     align-items: start;
     flex-direction: column;
+    > div.zodui-controller {
+      width: 100%;
+    }
   }
   &:hover {
     background-color: var(--zodui-bg-color__hover);
