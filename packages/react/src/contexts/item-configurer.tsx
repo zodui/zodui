@@ -29,7 +29,7 @@ export function useItemConfigurer(c: ItemConfigure = {}) {
 
 const DEFAULT_CONFIGURE: ItemConfigure = {
   verifyDebounceTime: 300,
-  actualTimeVerify: false
+  actualTimeVerify: true
 }
 
 export const useItemConfigurerContext = () => useContext(ItemConfigurer) ?? DEFAULT_CONFIGURE
