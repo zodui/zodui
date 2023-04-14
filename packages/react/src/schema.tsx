@@ -52,7 +52,7 @@ export const Schema = forwardRef<SchemaRef, SchemaProps>((props, ref) => {
   }), [])
 
   if (isWhatType(model, AllTypes.ZodIntersection)) {
-    // resolve ref merge
+    // TODO resolve ref merge
     return <>
       <Schema prefix='intersect::left'
               disabled={disabled}
@@ -73,16 +73,16 @@ export const Schema = forwardRef<SchemaRef, SchemaProps>((props, ref) => {
 
   return <div className={prefix}>
     <div className={`${prefix}__header`}>
-      {props.model._def.label && <h2 className={classnames(`${prefix}__label`, {
+      {model._def.label && <h2 className={classnames(`${prefix}__label`, {
         // @ts-ignore
         'is-optional': model._def.typeName === AllTypes.ZodOptional
       })}>
-        {props.model._def.label}
+        {model._def.label}
       </h2>}
-      {props.model._def.description
+      {model._def.description
         && <pre
           className={`${prefix}__desc inline-md`}
-          dangerouslySetInnerHTML={{ __html: inlineMarkdown(props.model._def.description) }}
+          dangerouslySetInnerHTML={{ __html: inlineMarkdown(model._def.description) }}
         />}
     </div>
     {isWhatType(model, AllTypes.ZodObject)
