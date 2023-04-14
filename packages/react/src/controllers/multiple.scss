@@ -39,12 +39,14 @@
 
 .zodui-controller.multiple {
   &.dict, &.object, &.map, &.record {
-    width: 284px;
     .multiple-item {
       > &__index-tag {
         display: none;
       }
     }
+  }
+  &.dict, &.object, &.tuple {
+    width: 284px;
   }
 
   display: flex;
