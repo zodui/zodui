@@ -37,6 +37,14 @@ export declare global {
   function onCodeChange(key: string, fn: (code: string) => void): () => void
   function emitCode(key: string, code: string): void
 
+  type Emitter<Args extends any[]> = {
+    on: (k: string, ...args: Args) => () => void
+    emit: (k: string, ...args: Args) => void
+  }
+
+  const evalerValueEmitter: Emitter<[value: any]>
+  const evalerConfigureEmitter: Emitter<[value: any]>
+
   interface Tab {
     href: string
     title: string
@@ -51,8 +59,12 @@ export declare global {
     base64: typeof base64
 
     onThemeChange: typeof onThemeChange
+
     onCodeChange: typeof onCodeChange
     emitCode: typeof emitCode
+
+    evalerValueEmitter: typeof evalerValueEmitter
+    evalerConfigureEmitter: typeof evalerConfigureEmitter
 
     TABS: typeof TABS
     MONACO_DTS_FILES: typeof MONACO_DTS_FILES

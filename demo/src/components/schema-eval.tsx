@@ -7,12 +7,17 @@ import { Schema, SchemaRef } from '@zodui/react'
 import '@zodui/react/components-lib/tdesign'
 import { ItemConfigure, useItemConfigurer } from '@zodui/react/contexts/item-configurer'
 
+import { createEmitter } from '../emitter'
+
 interface DemoProps {
   k?: string
   c?: string
 
   configure?: ItemConfigure
 }
+
+window.evalerValueEmitter = createEmitter<[value: any]>()
+window.evalerConfigureEmitter = createEmitter<[configure: any]>()
 
 function Demo({
   k = '',
@@ -44,7 +49,11 @@ function Demo({
   const ref = useRef<SchemaRef>(null)
 
   return schema ? <ItemConfigurer>
-    <Schema ref={ref} model={schema} />
+    <Schema
+      ref={ref}
+      model={schema}
+      onChange={v => window.evalerValueEmitter.emit(k, v)}
+    />
     {!configure.actualTimeVerify && <>
       <button onClick={async () => {
         await ref.current?.verify()
