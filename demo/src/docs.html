@@ -9,24 +9,25 @@
     html[theme-mode='dark'] body > main {
       background-color: #1c1c1c !important;
     }
+    html[theme-mode='dark'] body > main > .menu {
+      color: lightgrey;
+    }
     body > main {
       position: relative;
       display: flex;
       flex-direction: column;
-      padding: 0 150px;
+      padding: 0 calc(150px + 220px) 0 100px;
       color: #2d2d2d;
       overflow: overlay;
       background-image: none !important;
       background-color: #ededed !important;
     }
-    body > main > div.markdown-body {
-      padding-right: 220px;
-    }
     body > main > .menu {
       position: fixed;
       top: auto;
-      right: 150px;
+      right: 100px;
       width: 200px;
+      color: #4d4d4d;
     }
     body > main > ul.menu {
       padding-left: 0;
@@ -34,12 +35,15 @@
     body > main > .menu a {
       display: block;
       padding: 4px;
-      color: #4d4d4d;
       text-decoration: none;
       transition: .3s;
+      color: inherit;
     }
     body > main > .menu a:hover {
       color: #3E67B1;
+    }
+    body > main > .markdown-body {
+      margin-top: 40px;
     }
   </style>
 </head>
