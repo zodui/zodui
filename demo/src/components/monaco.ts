@@ -72,10 +72,11 @@ document.querySelectorAll<HTMLDivElement>('.monaco-editor')
       emitCode(key, code)
       if (byHash) {
         // save code to hash
-        location.hash = `#${base64(code, false)}`
+        history.pushState(null, '', '#' + base64(code, false))
         // copy url to clipboard
         copyToClipboard(location.href)
         showMessage('<h3 style="margin: 0">url copied to clipboard, share it with your friends!</h3>')
+        editor.focus()
       }
     })
     editor.addCommand(monaco.KeyMod.CtrlCmd | monaco.KeyCode.UpArrow, function () {
