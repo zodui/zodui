@@ -68,7 +68,7 @@ export const Item = forwardRef<ItemRef, ItemProps>((props, ref) => {
       valueChangeListener.current = undefined
     }
   }, [])
-  const changeValue = useCallback(debounce(async (v: any, must = false, doVerify = !configure.actualTimeVerify) => {
+  const changeValue = useCallback(debounce(async (v: any, must = false, doVerify = configure.actualTimeVerify) => {
     try {
       const rv = doVerify
         ? await valueChangeListener.current?.(v) ?? v
