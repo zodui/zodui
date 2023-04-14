@@ -10,7 +10,7 @@
 </head>
 <body>
   <%- include('templates/header') %>
-  <main>
+  <main class='loading'>
     <div class='code-editor'>
       <div class='menu'>
         <span class='item settings'>
@@ -170,6 +170,10 @@ export default z.object({
         })
       })}${hash}`)
     })
+
+    setTimeout(() => {
+      document.querySelector('body > main').classList.remove('loading')
+    }, 650)
   </script>
 </body>
 </html>
