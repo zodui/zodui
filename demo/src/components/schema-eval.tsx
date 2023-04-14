@@ -1,11 +1,26 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 
 import { ZodSchema } from 'zod'
-import { Schema } from '@zodui/react'
-import '@zodui/react/components-lib/tdesign'
+import { Schema, SchemaRef } from '@zodui/react'
 
-function Demo({ k = '', c = undefined as string | undefined }) {
+import '@zodui/react/components-lib/tdesign'
+import { ItemConfigure, useItemConfigurer } from '@zodui/react/contexts/item-configurer'
+
+interface DemoProps {
+  k?: string
+  c?: string
+
+  configure?: ItemConfigure
+}
+
+function Demo({
+  k = '',
+  c,
+  configure: cc
+}: DemoProps) {
+  const { configure, ItemConfigurer } = useItemConfigurer(cc)
+
   const [code, setCode] = useState<string>(c ?? '')
   useEffect(() => onCodeChange(k, setCode), [])
 
@@ -25,16 +40,29 @@ function Demo({ k = '', c = undefined as string | undefined }) {
       }
     })()
   }, [code])
-  return schema ? <Schema model={schema} /> : null
+
+  const ref = useRef<SchemaRef>(null)
+
+  return schema ? <ItemConfigurer>
+    <Schema ref={ref} model={schema} />
+    {!configure.actualTimeVerify && <>
+      <button onClick={async () => {
+        await ref.current?.verify()
+      }}>
+        verify
+      </button>
+    </>}
+  </ItemConfigurer> : null
 }
 
 document.querySelectorAll<HTMLDivElement>('.schema-eval-container')
   .forEach(el => {
-    const { key = '', code } = el.dataset
+    const { key = '', code, configure = '{}' } = el.dataset
+    const configureObj = configure ? JSON.parse(configure) : undefined
 
     ReactDOM
       .createRoot(el)
       .render(<React.StrictMode>
-        <Demo k={key} c={code} />
+        <Demo k={key} c={code} configure={configureObj} />
       </React.StrictMode>)
   })

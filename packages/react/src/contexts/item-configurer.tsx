@@ -1,6 +1,6 @@
-import { createContext, PropsWithChildren, useContext } from 'react'
+import { createContext, PropsWithChildren, useContext, useMemo, useState } from 'react'
 
-interface ItemConfigure {
+export interface ItemConfigure {
   actualTimeVerify?: boolean
   verifyDebounceTime?: number
 }
@@ -10,10 +10,17 @@ interface ItemConfigurerContext extends ItemConfigure {
 
 const ItemConfigurer = createContext<ItemConfigurerContext>(null)
 
-export function useItemConfigurer() {
-  const configure = useContext(ItemConfigurer)
+export function useItemConfigurer(c: ItemConfigure = {}) {
+  const pConfigure = useContext(ItemConfigurer)
+  const [iConfigure, setIConfigure] = useState<ItemConfigure>(c)
+  const configure = useMemo(() => ({
+    ...DEFAULT_CONFIGURE,
+    ...pConfigure,
+    ...iConfigure
+  }), [pConfigure, iConfigure])
   return {
     configure,
+    setConfigure: setIConfigure,
     ItemConfigurer: ({ children }: PropsWithChildren) => <ItemConfigurer.Provider value={configure}>
       {children}
     </ItemConfigurer.Provider>
