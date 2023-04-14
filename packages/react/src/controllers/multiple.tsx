@@ -10,7 +10,7 @@ import {
   ZodTupleDef,
   ZodTypeDef
 } from 'zod'
-import React, { Fragment, useCallback, useMemo, useRef, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { Controller, ControllerProps } from './index'
 import { AllType, AllTypes, getDefaultValue, isWhatType, isWhatTypes, TypeMap } from '../utils'
@@ -156,6 +156,10 @@ export function Multiple({
     }
     props.onChange?.(v)
   }, [props.onChange])
+  // emit init list value
+  useEffect(() => {
+    changeList()
+  }, [changeList])
 
   const addNewItem = useCallback((type: 'append' | 'prepend' = 'append') => {
     const l = listRef.current
