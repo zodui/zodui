@@ -170,6 +170,7 @@ export default defineConfig({
     emptyOutDir: false,
     rollupOptions: {
       ...(process.env.NODE_ENV !== 'development' ? {
+        external: ['zod', 'zodui/external'],
         input: {
           'docs/guide/index': 'docs/guide/index.html',
           'docs/guide/monad': 'docs/guide/monad.html',

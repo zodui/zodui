@@ -82,9 +82,8 @@ export const Item = forwardRef<ItemRef, ItemProps>((props, ref) => {
           valueRef.current = v
         }
         // TODO dispatch error resolve logic
-      } else {
+      } else
         throw e
-      }
     }
     if (must) {
       rerender(r => !r)
