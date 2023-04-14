@@ -151,7 +151,7 @@ export function Multiple({
       ...acc,
       [dictKeys[i] ?? i]: v
     }), {})
-    if (isWhatTypes(schema, [AllTypes.ZodArray, AllTypes.ZodSet])) {
+    if (isWhatTypes(schema, [AllTypes.ZodArray, AllTypes.ZodTuple, AllTypes.ZodSet])) {
       v = listRef.current
     }
     props.onChange?.(v)
