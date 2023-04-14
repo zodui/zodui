@@ -11,15 +11,27 @@
 
 ## Let's begin
 
+我们先来看一个简单的例子，当需要一个表单，该表单包含一个字符串输入框与数字输入框，我们可以通过定义如下的 zod 描述来生成我们需要的 UI。
+
 ```typescript
 z.object({
   name: z
     .string()
-    .label('name')
-    .describe('This is a name'),
+    .label('name'),
   age: z
     .number()
     .label('age')
-    .describe('Please input your age')
+})
+```
+
+```typescript zodui:preview
+// preview
+z.object({
+  name: z
+    .string()
+    .label('name'),
+  age: z
+    .number()
+    .label('age')
 })
 ```
