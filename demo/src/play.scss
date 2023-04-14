@@ -8,78 +8,86 @@ html[theme-mode='dark'] .code-editor > .menu {
 }
 main {
   display: flex;
-}
-.code-editor {
-  position: relative;
-  max-width: 70vw;
-  height: 100%;
-  transition: .3s;
-  > div.menu {
-    height: 52px;
-    background-color: #fff;
-    border-bottom: 1px solid lightgray;
-    > span.item {
-      float: left;
-      display: flex;
-      align-items: center;
-      justify-self: center;
-      gap: 8px;
-      padding: 0 20px;
-      height: 100%;
-      font-size: 14px;
-      cursor: pointer;
-      transition: 0.3s;
-      &:hover {
-        background: rgba(0, 0, 0, 0.1);
-      }
-      &.right {
-        float: right;
-      }
-      > span.material-icons {
-        user-select: none;
-      }
-    }
-  }
-  > div.menu-page {
-    position: absolute;
-    top: 53px;
-    left: -100%;
-    width: 100%;
-    height: calc(100% - 53px);
-    background-color: #333;
-    opacity: 0;
+  .code-editor {
+    position: relative;
+    max-width: 70vw;
+    height: 100%;
     transition: .3s;
-    &.show {
-      left: 0;
-      opacity: 1;
-    }
-    .settings {
-      display: none;
-      &.show {
-        display: block;
+    > div.menu {
+      height: 52px;
+      background-color: #fff;
+      border-bottom: 1px solid lightgray;
+      > span.item {
+        float: left;
+        display: flex;
+        align-items: center;
+        justify-self: center;
+        gap: 8px;
+        padding: 0 20px;
+        height: 100%;
+        font-size: 14px;
+        cursor: pointer;
+        transition: 0.3s;
+        &:hover {
+          background: rgba(0, 0, 0, 0.1);
+        }
+        &.right {
+          float: right;
+        }
+        > span.material-icons {
+          user-select: none;
+        }
       }
     }
+    > div.menu-page {
+      position: absolute;
+      top: 53px;
+      left: -100%;
+      width: 100%;
+      height: calc(100% - 53px);
+      background-color: #333;
+      opacity: 0;
+      transition: .3s;
+      &.show {
+        left: 0;
+        opacity: 1;
+      }
+      > .settings {
+        display: none;
+        &.show {
+          display: block;
+        }
+      }
+    }
+    > div.monaco-editor {
+      width: 500px;
+      min-width: 412px !important;
+      max-width: 100%;
+      height: calc(100% - 50px);
+    }
   }
-  > div.monaco-editor {
-    width: 500px;
-    min-width: 412px !important;
-    max-width: 100%;
-    height: calc(100% - 50px);
-  }
-}
-.schema-eval-container {
-  position: relative;
-  flex-grow: 1;
-  min-width: 300px;
-  height: 100%;
-  overflow: overlay;
-  &.card > .zodui-schema {
-    position: absolute;
-    top: 10%;
-    left: 10%;
-    width: 80%;
-    height: 80%;
-    border-radius: 4px;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  > .schema-eval-container {
+    position: relative;
+    flex-grow: 1;
+    min-width: 300px;
+    height: 100%;
+    overflow: overlay;
+    > .zodui-schema {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transition: .3s;
+    }
+    &[data-mode="card"] > .zodui-schema {
+      position: absolute;
+      top: 10%;
+      left: 10%;
+      width: 80%;
+      height: 80%;
+      border-radius: 4px;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+    }
   }
 }

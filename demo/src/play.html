@@ -116,6 +116,18 @@ export default z.object({
         fold: codeEditor.classList.contains('fold') ? '1' : '0'
       })}${hash}`)
     })
+
+    /** @type {HTMLDivElement} */
+    const playgroundSchemaEvaler = document
+      .querySelector('.schema-eval-container[data-key="playground"]')
+    evalerValueEmitter.on('settings', v => {
+      const mode = v.mode
+      if (mode && mode !== 'default') {
+        playgroundSchemaEvaler.dataset.mode = mode
+      } else {
+        delete playgroundSchemaEvaler.dataset.mode
+      }
+    })
   </script>
 </body>
 </html>
