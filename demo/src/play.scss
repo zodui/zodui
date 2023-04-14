@@ -8,7 +8,9 @@ html[theme-mode='dark'] .code-editor > .menu {
 }
 main {
   display: flex;
-  transition: .3s;
+  > * {
+    transition: .3s;
+  }
   &.loading > * {
     opacity: 0;
   }
