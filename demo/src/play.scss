@@ -63,7 +63,7 @@ main {
       width: 500px;
       min-width: 412px !important;
       max-width: 100%;
-      height: calc(100% - 50px);
+      height: calc(100% - 54px);
     }
   }
   > .schema-eval-container {
@@ -71,7 +71,6 @@ main {
     flex-grow: 1;
     min-width: 300px;
     height: 100%;
-    overflow: overlay;
     > .zodui-schema {
       position: absolute;
       top: 0;
@@ -79,13 +78,16 @@ main {
       width: 100%;
       height: 100%;
       transition: .3s;
+      overflow: overlay;
     }
     &[data-mode="card"] > .zodui-schema {
       position: absolute;
-      top: 10%;
-      left: 10%;
+      top: 50%;
+      left: 50%;
       width: 80%;
       height: 80%;
+      overflow: overlay;
+      transform: translate(-50%, -50%);
       border-radius: 4px;
       box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
     }

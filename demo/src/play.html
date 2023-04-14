@@ -50,11 +50,21 @@ export default z.object({
     .label('Mode')
     .describe('Controls the style of the form'),
   width: z
-    .number()
-    .default(400)
-    .mode('split')
-    .label('Width')
-    .describe('Controls the width of the form'),
+    .tuple([
+      z
+        .number()
+        .default(80)
+        .mode('split')
+        .label('Value'),
+      z
+        .union([
+          z.literal('%').label('percent'),
+          z.literal('px').label('pixel'),
+        ])
+        .default('%')
+    ])
+    .describe('Controls the width of the form')
+    .mode('wrap'),
 })`
           }) %>
         </div>
@@ -121,12 +131,25 @@ export default z.object({
     const playgroundSchemaEvaler = document
       .querySelector('.schema-eval-container[data-key="playground"]')
     evalerValueEmitter.on('settings', v => {
-      const mode = v.mode
+      const {
+        mode,
+        width: [widthValue, unit] = [80, '%'],
+        ...rest
+      } = v
       if (mode && mode !== 'default') {
         playgroundSchemaEvaler.dataset.mode = mode
       } else {
         delete playgroundSchemaEvaler.dataset.mode
       }
+
+      ;[...playgroundSchemaEvaler.children]
+        .forEach(ele => {
+          if (mode === 'card') {
+            ele.style.width = `${widthValue}${unit}`
+          } else {
+            ele.style.width = ''
+          }
+        })
     })
   </script>
 </body>
