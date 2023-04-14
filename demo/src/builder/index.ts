@@ -1,6 +1,7 @@
 import { marked, Slugger } from 'marked'
 import fs from 'fs'
 import path from 'path'
+import hljs from 'highlight.js'
 
 export const MD_PLUGIN: (readonly [marked.RendererObject, string])[] = []
 
@@ -57,3 +58,9 @@ export function docsTemplateRender(p: string) {
     <div style='min-height: 50%' class='comments'></div>
   `.trim()
 }
+
+marked.setOptions({
+  highlight(code: string, lang: string, callback?: (error: any, code?: string) => void): string | void {
+    return hljs.highlightAuto(code, [lang]).value
+  }
+})

@@ -18,7 +18,7 @@ export default defineMDPlugin({
           .replace(/"/g, '%22')
       }'>
         <div class='markdown-body'>
-        ${marked(`\`\`\`json\n${previewCode}\n\`\`\``)}
+        ${marked(`\`\`\`typescript\n${previewCode}\n\`\`\``)}
         </div>
         <%- include('components/schema-eval', {
           key: '${id}'
