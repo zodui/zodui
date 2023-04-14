@@ -96,7 +96,7 @@ export default z.object({
       }
     ])
 
-    function toggleEdiorFold(is = new URLSearchParams(location.search).get('fold') === '1') {
+    function toggleEditorFold(is = new URLSearchParams(location.search).get('fold') === '1') {
       if (is) {
         codeEditor.classList.add('fold')
         codeEditor.style.marginLeft = '-' + codeEditor.scrollWidth + 'px'
@@ -106,11 +106,11 @@ export default z.object({
       }
     }
     window.addEventListener('popstate', () => {
-      toggleEdiorFold()
+      toggleEditorFold()
     })
-    toggleEdiorFold()
+    toggleEditorFold()
     menu.querySelector('.item.fold').addEventListener('click', () => {
-      toggleEdiorFold(true)
+      toggleEditorFold(true)
       const hash = location.hash
       history.pushState(null, '', `?${new URLSearchParams({
         fold: codeEditor.classList.contains('fold') ? '1' : '0'
