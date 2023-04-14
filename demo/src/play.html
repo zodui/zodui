@@ -123,10 +123,17 @@ export default z.object({
     menu.querySelector('.item.fold').addEventListener('click', () => {
       toggleEditorFold(true)
       const hash = location.hash
+      const search = new URLSearchParams(location.search)
       history.pushState(null, '', `?${new URLSearchParams({
+        ...Object.fromEntries(search),
         fold: codeEditor.classList.contains('fold') ? '1' : '0'
       })}${hash}`)
     })
+
+    const querySettings = new URLSearchParams(location.search).get('settings')
+    if (querySettings) {
+      evalerValueEmitter.emit('settings::init', JSON.parse(querySettings))
+    }
 
     /** @type {HTMLDivElement} */
     const playgroundSchemaEvaler = document
@@ -151,6 +158,17 @@ export default z.object({
             ele.style.width = ''
           }
         })
+      // cache settings in url query
+      const hash = location.hash
+      const search = new URLSearchParams(location.search)
+      const querySettingsValue = JSON.parse(search.get('settings') || '{}')
+      history.pushState(null, '', `?${new URLSearchParams({
+        ...Object.fromEntries(search),
+        settings: JSON.stringify({
+          ...querySettingsValue,
+          ...v
+        })
+      })}${hash}`)
     })
   </script>
 </body>

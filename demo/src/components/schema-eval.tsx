@@ -48,10 +48,17 @@ function Demo({
 
   const ref = useRef<SchemaRef>(null)
 
+  const [value, setValue] = useState<any>()
+
+  useEffect(() => {
+    return evalerValueEmitter.on(`${k}::init`, setValue)
+  }, [k])
+
   return schema ? <ItemConfigurer>
     <Schema
       ref={ref}
       model={schema}
+      value={value}
       onChange={v => window.evalerValueEmitter.emit(k, v)}
     />
     {!configure.actualTimeVerify && <>
