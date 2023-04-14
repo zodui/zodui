@@ -34,7 +34,7 @@ html[theme-mode='dark'] .markdown-body {
   --color-fg-muted: #8b949e;
   --color-fg-subtle: #6e7681;
   --color-canvas-default: rgba(0, 0, 0, 0);
-  --color-canvas-subtle: #495b83;
+  --color-canvas-subtle: #2A313C;
   --color-border-default: #30363d;
   --color-border-muted: #7183ab;
   --color-neutral-muted: rgba(110,118,129,0.4);
@@ -798,7 +798,7 @@ html[theme-mode='dark'] .markdown-body {
 
 .markdown-body .highlight pre,
 .markdown-body pre {
-  padding: 16px;
+  padding: 14px 20px;
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;
