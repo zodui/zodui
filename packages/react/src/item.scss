@@ -33,7 +33,7 @@
     &:not(.is-optional)::after {
       content: '*';
       position: absolute;
-      right: -12px;
+      left: -12px;
       color: var(--zodui-error-color);
     }
     &-description {
