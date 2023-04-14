@@ -199,15 +199,15 @@ function ValueChecker({
       parse(value).catch(() => null)
     return onValueChange(parse)
   }, [value, schema, parse])
-  return <>{
-    parseError && <div className={`${prefix}__error`}>
-      {parseError.errors.map((e, i) => <div key={i}>
-        {e.path.map(p => {
-          if (typeof p === 'number')
-            return `${p}nd`
-          return p
-        }).join('.')} {e.message}
-      </div>)}
-    </div>
-  }</>
+  return <div className={classnames(`${prefix}__error`, {
+    none: !parseError
+  })}>
+    {parseError && parseError.errors.map((e, i) => <div key={i}>
+      {e.path.map(p => {
+        if (typeof p === 'number')
+          return `${p}nd`
+        return p
+      }).join('.')} {e.message}
+    </div>)}
+  </div>
 }

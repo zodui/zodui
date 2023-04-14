@@ -50,5 +50,13 @@
     border-bottom: var(--zodui-border);
     color: var(--zodui-error-color);
     background-color: var(--zodui-error-color__bg);
+    overflow: hidden;
+    transition: .3s;
+    &.none {
+      height: 0;
+      padding: 0;
+      border: none;
+      background-color: transparent;
+    }
   }
 }
