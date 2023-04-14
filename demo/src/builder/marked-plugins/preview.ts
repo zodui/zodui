@@ -11,16 +11,20 @@ export default defineMDPlugin({
       const id = uuid()
       const previewCode = code.split('// preview\n')[1]
       return `
+      </div>
       <div class='zodui-preview' data-schema-eval-key='${id}' data-code='${
         encodeURIComponent(previewCode)
           .replace(/'/g, '%27')
           .replace(/"/g, '%22')
       }'>
+        <div class='markdown-body'>
         ${marked(`\`\`\`json\n${previewCode}\n\`\`\``)}
+        </div>
         <%- include('components/schema-eval', {
           key: '${id}'
         }) %>
-      </div>`
+      </div>
+      <div class='markdown-body'>`
     }
     return false
   }
