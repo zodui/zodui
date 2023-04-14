@@ -47,6 +47,7 @@ export default z.object({
       z.literal('default').label('Default'),
       z.literal('card').label('Card'),
     ])
+    .default('default')
     .label('Mode')
     .describe('Controls the style of the form'),
   width: z
