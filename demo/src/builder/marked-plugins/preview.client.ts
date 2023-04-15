@@ -7,7 +7,7 @@ document.querySelectorAll<HTMLDivElement>('.zodui-preview')
       code = '',
     } = ele.dataset
     const originalCode = decodeURIComponent(code)
-    emitCode(schemaEvalKey, `import * as z from 'zod'\n\nexport default ${originalCode}`)
+    emitCode(schemaEvalKey, originalCode)
     const [exchange, mdBody, evaler] = ele.children
     let isEvalerVisible = false
     exchange.addEventListener('click', function () {

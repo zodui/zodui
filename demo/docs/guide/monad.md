@@ -14,7 +14,9 @@ z.object({
   ])
 })
 // preview
-z.object({
+import * as z from 'zod'
+
+export default z.object({
   common: z.number(),
   split: z.number().mode('split'),
   slider: z.number().mode('slider'),

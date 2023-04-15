@@ -26,7 +26,9 @@ z.object({
 
 ```typescript zodui:preview
 // preview
-z.object({
+import * as z from 'zod'
+
+export default z.object({
   name: z
     .string()
     .label('name'),
