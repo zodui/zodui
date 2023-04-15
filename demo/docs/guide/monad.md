@@ -30,14 +30,14 @@
 ```typescript zodui:configure-preview
 // configure
 z.object({
+  max: z.number(),
+  min: z.number(),
+  step: z.number(),
   mode: z.union([
     z.literal('input'),
     z.literal('slider'),
     z.literal('split'),
   ]),
-  max: z.number(),
-  min: z.number(),
-  step: z.number(),
 })
 // preview
 import * as z from 'zod'
@@ -49,6 +49,19 @@ export default z
   .step(__CONFIGURE__.step)
   .mode(__CONFIGURE__.mode)
 ```
+
+### BigInt
+
+大整数类型，对应为 JavaScript 中的 [BigInt 对象](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/BigInt)。
+如名字所示，该类型任何模式下的控制器应当不支持任何小数输入。
+
+> 在输出时会将数据处理为 BigInt 对象！！！
+
+🏗️ Building...
+
+### Hex
+
+十六进制数字，常用于表述颜色，类型会默认转化为 number 类型，只用于分类控制器与展示模式。
 
 ## String
 
