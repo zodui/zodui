@@ -5,7 +5,7 @@ html[theme-mode='dark'] div.zodui-preview {
 }
 
 div.zodui-preview {
-  --bg-color: #4766AC;
+  --bg-color: #3E67B1;
   --bg-hover-color: #3A4F7A;
   --fr-color: #F5F5F5;
   position: relative;
@@ -33,7 +33,7 @@ div.zodui-preview {
         transform: rotate(180deg);
       }
       > .icon:hover {
-        filter: drop-shadow(0 0 4px #000);
+        filter: drop-shadow(0 0 4px #fff);
       }
     }
     > .icon {
