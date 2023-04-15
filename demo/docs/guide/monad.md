@@ -63,6 +63,8 @@ export default z
 
 十六进制数字，常用于表述颜色，类型会默认转化为 number 类型，只用于分类控制器与展示模式。
 
+🏗️ Building...
+
 ## String
 
 ## Boolean
