@@ -1,44 +1,82 @@
 div.zodui-preview {
   position: relative;
   margin-top: 20px;
-  min-height: 300px;
-  border-radius: 4px;
-  overflow: hidden;
-  > .exchange {
-    z-index: 10;
+  min-height: 330px;
+  > .draw-bar {
+    display: flex;
+    gap: 10px;
+    padding: 8px;
     position: absolute;
-    top: -31px;
-    right: -20px;
-    width: 50px;
-    height: 50px;
-    line-height: 45px;
-    text-align: right;
-    transform: rotate(125deg);
+    top: calc(100% - 50px);
+    right: -36px;
+    width: 126px;
+    height: 24px;
     background-color: #4766AC;
     color: white;
-    user-select: none;
-    cursor: pointer;
+    border-radius: 0 8px 8px 0;
     transition: .3s;
-    &:hover {
+    &:not(.display):hover {
       background-color: #3A4F7A;
     }
-  }
-  > .markdown-body {
-    pre {
-      border-radius: 0;
+    &.display {
+      right: -142px;
+      > .icon[data-key="open/close"] {
+        transform: rotate(180deg);
+      }
+      > .icon:hover {
+        filter: drop-shadow(0 0 4px #000);
+      }
+    }
+    > .icon {
+      width: 24px;
+      height: 24px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      transition: .3s;
     }
   }
-  > * {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    transition: .3s;
-    &.hidden {
-      top: 100%;
+  > .wrap {
+    position: relative;
+    height: 100%;
+    border-radius: 4px;
+    overflow: hidden;
+    > .exchange {
+      z-index: 10;
+      position: absolute;
+      top: -31px;
+      right: -20px;
+      width: 50px;
+      height: 50px;
+      line-height: 45px;
+      text-align: right;
+      transform: rotate(125deg);
+      background-color: #4766AC;
+      color: white;
+      user-select: none;
+      cursor: pointer;
+      transition: .3s;
+      &:hover {
+        background-color: #3A4F7A;
+      }
     }
-    > * { height: 300px; }
-    > .zodui-schema {
-      padding-bottom: 30px;
+    > .markdown-body {
+      pre {
+        border-radius: 0;
+      }
+    }
+    > * {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      transition: .3s;
+      &.hidden {
+        top: 100%;
+      }
+      > * { height: 300px; }
+      > .zodui-schema {
+        padding-bottom: 30px;
+      }
     }
   }
 }
