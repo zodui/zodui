@@ -1,4 +1,13 @@
+html[theme-mode='dark'] div.zodui-preview {
+  --bg-color: #3A4F7A;
+  --bg-hover-color: #5675bd;
+  --fr-color: #F5F5F5;
+}
+
 div.zodui-preview {
+  --bg-color: #4766AC;
+  --bg-hover-color: #3A4F7A;
+  --fr-color: #F5F5F5;
   position: relative;
   margin-top: 20px;
   min-height: 330px;
@@ -11,12 +20,12 @@ div.zodui-preview {
     right: -36px;
     width: 126px;
     height: 24px;
-    background-color: #4766AC;
-    color: white;
+    background-color: var(--bg-color);
+    color: var(--fr-color);
     border-radius: 0 8px 8px 0;
     transition: .3s;
     &:not(.display):hover {
-      background-color: #3A4F7A;
+      background-color: var(--bg-hover-color);
     }
     &.display {
       right: -142px;
@@ -51,13 +60,13 @@ div.zodui-preview {
       line-height: 45px;
       text-align: right;
       transform: rotate(125deg);
-      background-color: #4766AC;
-      color: white;
+      background-color: var(--bg-color);
+      color: var(--fr-color);
       user-select: none;
       cursor: pointer;
       transition: .3s;
       &:hover {
-        background-color: #3A4F7A;
+        background-color: var(--bg-hover-color);
       }
     }
     > .markdown-body {
