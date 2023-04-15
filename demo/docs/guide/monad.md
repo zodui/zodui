@@ -19,11 +19,13 @@
 
 > 如需防止 `Infinity`, `-Infinity` 请设置 `max`, `min`。
 
+> `NaN` 为非数字类型，无法通过该类型的校验，勿用于需要 NaN 场景。
+
 支持的描述属性有：
 
-* max
-* min
-* step
+* max: 用于控制最大值
+* min: 用于控制最小值
+* step: 当操作某些交互元素时的数据增长单位值
 * mode
   * modes: `'input' | 'slider' | 'split'`
 
@@ -66,6 +68,38 @@ export default z
 🏗️ Building...
 
 ## String
+
+通用字符串类型，支持任何形式的字符串输入。
+
+支持的描述属性有：
+
+* max: 最大字符数，中文默认为一个长度，二参可以取消该模式将其计算为长度为二
+* min: 最小字符数，中文默认为一个长度，二参可以取消该模式将其计算为长度为二
+* mode
+  * modes: `'textarea' | 'date' | 'datetime'`
+
+```typescript zodui:configure-preview
+// configure
+z.object({
+  max: z.number(),
+  min: z.number(),
+  step: z.number(),
+  mode: z.union([
+    z.literal('textarea'),
+    z.literal('date'),
+    z.literal('datetime'),
+  ]),
+})
+// preview
+import * as z from 'zod'
+
+export default z
+  .number()
+  .max(__CONFIGURE__.max)
+  .min(__CONFIGURE__.min)
+  .step(__CONFIGURE__.step)
+  .mode(__CONFIGURE__.mode)
+```
 
 ## Boolean
 
