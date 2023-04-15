@@ -28,4 +28,19 @@ document.querySelectorAll<HTMLDivElement>('.zodui-preview')
       }
       isDrawBarVisible = !isDrawBarVisible
     })
+    drawBar.querySelector('.icon[data-key="Playground"]')!.addEventListener('click', () => {
+      open(`${
+        location.origin
+      }${
+        import.meta.env.BASE_URL
+      }play#${
+        base64(decodeURIComponent(code), false)
+      }`, '_blank')
+    })
+    drawBar.querySelector('.icon[data-key="StackBlitz"]')!.addEventListener('click', () => {
+      // TODO open in StackBlitz
+    })
+    drawBar.querySelector('.icon[data-key="CodeSandBox"]')!.addEventListener('click', () => {
+      // TODO open in CodeSandBox
+    })
   })
