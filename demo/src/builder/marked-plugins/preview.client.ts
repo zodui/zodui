@@ -1,3 +1,5 @@
+import './preview.client.scss'
+
 document.querySelectorAll<HTMLDivElement>('.zodui-preview')
   .forEach(ele => {
     const {
@@ -5,5 +7,15 @@ document.querySelectorAll<HTMLDivElement>('.zodui-preview')
       code = '',
     } = ele.dataset
     const originalCode = decodeURIComponent(code)
-    window.emitCode(schemaEvalKey, `import * as z from 'zod'\n\nexport default ${originalCode}`)
+    emitCode(schemaEvalKey, `import * as z from 'zod'\n\nexport default ${originalCode}`)
+    const [exchange, mdBody, evaler] = ele.children
+    let isEvalerVisible = false
+    exchange.addEventListener('click', function () {
+      if (isEvalerVisible) {
+        evaler.classList.add('hidden')
+      } else {
+        evaler.classList.remove('hidden')
+      }
+      isEvalerVisible = !isEvalerVisible
+    })
   })

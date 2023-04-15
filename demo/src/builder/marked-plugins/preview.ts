@@ -17,8 +17,9 @@ export default defineMDPlugin({
           .replace(/'/g, '%27')
           .replace(/"/g, '%22')
       }'>
+        <div class='exchange material-icons'>swap_vert</div>
         <div class='markdown-body'>
-        ${marked(`\`\`\`typescript\n${previewCode}\n\`\`\``)}
+          ${marked(`\`\`\`typescript\n${previewCode}\n\`\`\``)}
         </div>
         <%- include('components/schema-eval', {
           key: '${id}'
