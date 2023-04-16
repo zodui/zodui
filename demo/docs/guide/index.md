@@ -28,10 +28,13 @@ z.object({
 })
 ```
 
+将上面这段代码生成的数据对象传递给给我们的渲染组件后，我们可以得到如下的内容：
+
 ```typescript zodui:preview
 // preview
 import * as z from 'zod'
 
+// 预览代码组织形式无法在项目中实际使用，仅用于参考 zod 描述部分应当如何生成
 export default z.object({
   name: z
     .string()
