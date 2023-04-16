@@ -3,3 +3,8 @@ export * from './controllers'
 export * from './schema'
 export * from './plugins'
 export { WrapModes } from './configure'
+
+export * from './contexts/item-configurer'
+export * from './contexts/error-handler'
+export * from './contexts/controller-class-name'
+export * from './contexts/item-serter'

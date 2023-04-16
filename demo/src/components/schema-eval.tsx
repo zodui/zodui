@@ -2,10 +2,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 
 import { ZodSchema } from 'zod'
-import { Schema, SchemaRef } from '@zodui/react'
+import { Schema, SchemaRef, ItemConfigure, useItemConfigurer } from '@zodui/react'
 
 import '@zodui/react/components-lib/tdesign'
-import { ItemConfigure, useItemConfigurer } from '@zodui/react/contexts/item-configurer'
 
 import { createEmitter } from '../emitter'
 
