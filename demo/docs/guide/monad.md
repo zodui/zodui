@@ -94,7 +94,7 @@ z.object({
 import * as z from 'zod'
 
 export default z
-  .number()
+  .string()
   .max(__CONFIGURE__.max)
   .min(__CONFIGURE__.min)
   .step(__CONFIGURE__.step)
@@ -103,4 +103,58 @@ export default z
 
 ## Boolean
 
+通用布尔类型，支持真假控制输入。
+
+支持的描述属性有：
+
+* mode
+  * modes: `'switch' | 'chekbox'`
+
+```typescript zodui:configure-preview
+// configure
+z.object({
+  mode: z.union([
+    z.literal('switch'),
+    z.literal('chekbox'),
+  ]),
+})
+// preview
+import * as z from 'zod'
+
+export default z
+  .boolean()
+  .mode(__CONFIGURE__.mode)
+```
+
 ## Date
+
+通用日期类型。
+
+支持的描述属性有：
+
+* max: 最晚时间点，date、time 模式下只会读取对应范围的限制
+* min: 最早时间点，date、time 模式下只会读取对应范围的限制
+* mode
+  * modes: `'date' | 'time' | 'datetime' | 'panel'`
+
+```typescript zodui:configure-preview
+// configure
+z.object({
+  max: z.date(),
+  min: z.date(),
+  mode: z.union([
+    z.literal('date'),
+    z.literal('time'),
+    z.literal('datetime'),
+    z.literal('panel'),
+  ]),
+})
+// preview
+import * as z from 'zod'
+
+export default z
+  .date()
+  .max(__CONFIGURE__.max)
+  .min(__CONFIGURE__.min)
+  .mode(__CONFIGURE__.mode)
+```
