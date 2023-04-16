@@ -1,5 +1,5 @@
 import './tdesign.scss'
-import 'tdesign-react/esm/style/index.js'
+import React from 'react'
 import {
   AddIcon,
   ArrowDownIcon,
@@ -22,11 +22,10 @@ import {
   Textarea,
   TimePickerPanel, TimePicker, DatePickerPanel, DateRangePickerPanel, DatePicker, TimeRangePicker, DateRangePicker
 } from 'tdesign-react/esm'
+import 'tdesign-react/esm/style/index.js'
 
-import { registerIcon, registerBaseComp, Icon } from '../components'
-import { Narrow } from '../utils'
-import { addController } from '../controllers'
-import React from 'react'
+import { addController, registerIcon, registerBaseComp, Icon } from '@zodui/react'
+import { Narrow } from '../../utils'
 
 initIcons: {
   registerIcon('Add', AddIcon)
