@@ -1,0 +1,14 @@
+.anchor-point {
+  position: relative;
+  > a {
+    position: absolute;
+    left: -22px;
+    opacity: 0;
+    transition: .3s;
+  }
+  &:hover {
+    > a {
+      opacity: 1;
+    }
+  }
+}
