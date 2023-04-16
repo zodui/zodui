@@ -13,8 +13,9 @@ import { Options as EJSOptions } from 'ejs'
 
 import { docsTemplateRender, MD_PLUGIN } from './src/builder'
 import Preview from './src/builder/marked-plugins/preview'
+import Header from './src/builder/marked-plugins/header'
 
-MD_PLUGIN.push(Preview)
+MD_PLUGIN.push(Preview, Header)
 
 function findFilesBy(
   dirPath: string,
