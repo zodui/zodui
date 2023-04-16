@@ -13,7 +13,7 @@ const ItemConfigurer = createContext<ItemConfigurerContext>(null)
 export function useItemConfigurer(c: ItemConfigure = {}) {
   const pConfigure = useContext(ItemConfigurer)
   const [iConfigure, setIConfigure] = useState<ItemConfigure>(c)
-  const configure = useMemo(() => ({
+  const configure = useMemo<ItemConfigure>(() => ({
     ...DEFAULT_CONFIGURE,
     ...pConfigure,
     ...iConfigure
