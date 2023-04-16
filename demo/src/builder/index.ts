@@ -51,10 +51,10 @@ export function docsTemplateRender(p: string) {
     </li>`).join('')
   }</ul>`
   return `
-    ${menuHTML}
     <div class='markdown-body'>
       ${marked(content)}
     </div>
+    ${menuHTML}
     <div style='min-height: 50%' class='comments'></div>
   `.trim()
 }
