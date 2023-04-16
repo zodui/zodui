@@ -83,7 +83,6 @@ export default z
 z.object({
   max: z.number(),
   min: z.number(),
-  step: z.number(),
   mode: z.union([
     z.literal('textarea'),
     z.literal('date'),
@@ -97,7 +96,6 @@ export default z
   .string()
   .max(__CONFIGURE__.max)
   .min(__CONFIGURE__.min)
-  .step(__CONFIGURE__.step)
   .mode(__CONFIGURE__.mode)
 ```
 
