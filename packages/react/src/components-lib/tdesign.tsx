@@ -97,7 +97,20 @@ initComponents: {
   registerBaseComp('Switch', props => <Switch {...props}/>)
   registerBaseComp('Dropdown', props => {
     return <Dropdown
-      popupProps={{ showArrow: true }}
+      popupProps={{
+        showArrow: true,
+        overlayClassName: 'zodui-tdesign-popup',
+        popperOptions: {
+          modifiers: [
+            {
+              name: 'offset',
+              options: {
+                offset: [4, 0],
+              },
+            },
+          ],
+        }
+      }}
       options={props.menu.map(i => ({
         prefixIcon: typeof i.icon === 'string'
           ? <Icon name={i.icon as any} />
