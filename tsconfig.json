@@ -4,7 +4,8 @@
     "baseUrl": ".",
     "paths": {
       "zodui": ["packages/zodui/src"],
-      "@zodui/*": ["packages/*/src"]
+      "@zodui/*": ["packages/*/src"],
+      "@zodui/components-lib-*": ["packages/components-lib/*/src"]
     }
   },
   "files": []
