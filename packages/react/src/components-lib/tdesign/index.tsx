@@ -25,7 +25,7 @@ import {
 import 'tdesign-react/esm/style/index.js'
 
 import { addController, registerIcon, registerBaseComp, Icon } from '@zodui/react'
-import { Narrow } from '../../utils'
+import { Narrow } from '@zodui/core'
 
 initIcons: {
   registerIcon('Add', AddIcon)

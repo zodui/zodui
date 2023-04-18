@@ -1,6 +1,6 @@
 import * as z from 'zod'
 import { Schema, ZodDefaultDef, ZodFirstPartyTypeKind, ZodObject, ZodRawShape, ZodType, ZodTypeAny } from 'zod'
-import { AllTypes } from './utils'
+import { AllTypes } from '@zodui/core'
 
 export interface ModesMap extends Record<AllTypes, string> {
   [ZodFirstPartyTypeKind.ZodNumber]:

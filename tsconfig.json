@@ -2,11 +2,12 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "jsx": "react-jsx",
     "paths": {
       "zodui": ["packages/zodui/src"],
       "@zodui/*": ["packages/*/src"],
+      "@zodui/react/*": ["packages/react/src/*"],
       "@zodui/components-lib-*": ["packages/components-lib/*/src"]
     }
   },
-  "files": []
 }

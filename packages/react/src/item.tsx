@@ -4,7 +4,7 @@ import { ZodError, Schema as ZodSchema } from 'zod'
 import React, { useCallback, useEffect, useMemo, useRef, useState, useImperativeHandle, forwardRef } from 'react'
 
 import { WrapModes } from './configure'
-import { AllTypes, classnames, debounce, getModes, inlineMarkdown } from './utils'
+import { AllTypes, classnames, debounce, getModes, inlineMarkdown } from '@zodui/core'
 import { Controller } from './controllers'
 import { Button, Dropdown } from './components'
 import { useErrorHandler } from './contexts/error-handler'
