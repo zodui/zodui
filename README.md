@@ -12,3 +12,39 @@ A UI view framework powered by Zod that allows for easy extension and customizat
 * ▶️ Flexible display customization
 * 💎 Zod-powered data model with robust interaction logic for edge cases
 * 🏗️ Supports multiple frontend frameworks
+
+```tsx
+import zodui from 'zodui'
+
+import { List } from '@zodui/react'
+
+import '@zodui/react/register'
+// or
+import react from '@zodui/react'
+useEffect(() => {
+  return zodui.global.use(react)
+}, [])
+
+import TDesignComponentsLib, { Common, Senior } from '@zodui/components-lib-tdesign'
+
+// Register global component
+zodui.global.use(Common)
+
+function Foo() {
+  return <List
+    model={zodui.object({
+      foo: zodui.string(),
+    })}
+  />
+}
+
+function Bar() {
+  // Register local component
+  zodui.use(Senior)
+  return <List
+    model={zodui.object({
+      foo: zodui.string(),
+    })}
+  />
+}
+```
