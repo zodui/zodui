@@ -98,7 +98,7 @@ defineMetaField('label')
         ?.typeName
         .replace('Zod', '')
         .toLowerCase()
-        ?? 'unkonwn'
+        ?? 'unknown'
     }
   })
 
@@ -112,11 +112,11 @@ export function clazz<T extends ZodRawShape>(clazz: { new(): T }): Schema<T> {
 // @ts-ignore
 nz.clazz = clazz
 
-export function asObejct<T extends ZodRawShape>(t: T): ZodObject<Record<string, ZodTypeAny> & T> {
+export function asObject<T extends ZodRawShape>(t: T): ZodObject<Record<string, ZodTypeAny> & T> {
   return z.object(t) as any
 }
 // @ts-ignore
-nz.asObejct = asObejct
+nz.asObejct = asObject
 
 export { nz as z }
 
