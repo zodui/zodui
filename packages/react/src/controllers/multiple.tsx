@@ -13,7 +13,8 @@ import {
 import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import { Controller, ControllerProps } from './index'
-import { AllType, AllTypes, getDefaultValue, isWhatType, isWhatTypes, TypeMap } from '@zodui/core'
+import { AllType, AllTypes, TypeMap } from '@zodui/core'
+import { getDefaultValue, isWhatType, isWhatTypes } from '@zodui/core/utils'
 import { KeyEditableTypes, ComplexMultipleTypes, MultipleType } from '../configure'
 import { Icon, Button, Input } from '../components'
 import { plgMaster } from '../plugins'

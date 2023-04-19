@@ -87,3 +87,38 @@ export type AllTypes = InnerTypes | ZodFirstPartyTypeKind
 export const AllTypes = { ...InnerTypes, ...ZodFirstPartyTypeKind }
 
 export type AllType = keyof TypeMap
+
+export interface ModesMap extends Record<AllTypes, string> {
+  [ZodFirstPartyTypeKind.ZodNumber]:
+    | 'slider'
+    | 'rate'
+  [ZodFirstPartyTypeKind.ZodString]:
+    | 'textarea'
+    | 'link'
+    | 'secrets'
+    | 'date'
+    | 'datetime'
+    | 'time'
+    | 'panel'
+  [ZodFirstPartyTypeKind.ZodBoolean]:
+    | 'checkbox'
+  [ZodFirstPartyTypeKind.ZodDate]:
+    | 'datetime'
+    | 'date'
+    | 'time'
+    | 'panel'
+  [ZodFirstPartyTypeKind.ZodUnion]:
+    | 'append'
+    | 'radio'
+    | 'radio-inline'
+    | 'button'
+  [ZodFirstPartyTypeKind.ZodTuple]:
+    | 'range'
+    | 'slider'
+    | 'no-range'
+    | 'no-slider'
+    | 'datetime'
+    | 'date'
+    | 'time'
+    | 'panel'
+}

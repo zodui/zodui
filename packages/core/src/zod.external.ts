@@ -1,41 +1,6 @@
 import * as z from 'zod'
-import { Schema, ZodDefaultDef, ZodFirstPartyTypeKind, ZodObject, ZodRawShape, ZodType, ZodTypeAny } from 'zod'
-import { AllTypes } from '@zodui/core'
-
-export interface ModesMap extends Record<AllTypes, string> {
-  [ZodFirstPartyTypeKind.ZodNumber]:
-    | 'slider'
-    | 'rate'
-  [ZodFirstPartyTypeKind.ZodString]:
-    | 'textarea'
-    | 'link'
-    | 'secrets'
-    | 'date'
-    | 'datetime'
-    | 'time'
-    | 'panel'
-  [ZodFirstPartyTypeKind.ZodBoolean]:
-    | 'checkbox'
-  [ZodFirstPartyTypeKind.ZodDate]:
-    | 'datetime'
-    | 'date'
-    | 'time'
-    | 'panel'
-  [ZodFirstPartyTypeKind.ZodUnion]:
-    | 'append'
-    | 'radio'
-    | 'radio-inline'
-    | 'button'
-  [ZodFirstPartyTypeKind.ZodTuple]:
-    | 'range'
-    | 'slider'
-    | 'no-range'
-    | 'no-slider'
-    | 'datetime'
-    | 'date'
-    | 'time'
-    | 'panel'
-}
+import { Schema, ZodDefaultDef, ZodObject, ZodRawShape, ZodType, ZodTypeAny } from 'zod'
+import { ModesMap } from '@zodui/core'
 
 declare module 'zod' {
   export interface ZodTypeDef {

@@ -3,7 +3,8 @@ import type { Schema as ZodSchema } from 'zod'
 import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
 
 import { Item, ItemRef } from './item'
-import { AllTypes, classnames, inlineMarkdown, isWhatType, merge } from '@zodui/core'
+import { AllTypes } from '@zodui/core'
+import { classnames, inlineMarkdown, isWhatType, merge } from '@zodui/core/utils'
 import common from './plugins/common'
 import { usePlugins } from './hooks'
 
