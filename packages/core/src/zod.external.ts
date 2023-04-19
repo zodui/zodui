@@ -59,7 +59,7 @@ declare module 'zod' {
     readonly type: string
   }
   export function clazz<T>(clazz: { new(): T }): Schema<T>
-  export function asObejct<T extends any>(t: T): ZodObject<Record<string, ZodTypeAny> & T>
+  export function asObject<T extends any>(t: T): ZodObject<Record<string, ZodTypeAny> & T>
   // TODO resolve default type
 }
 
@@ -116,7 +116,7 @@ export function asObject<T extends ZodRawShape>(t: T): ZodObject<Record<string, 
   return z.object(t) as any
 }
 // @ts-ignore
-nz.asObejct = asObject
+nz.asObject = asObject
 
 export { nz as z }
 
