@@ -15,6 +15,8 @@ import { docsTemplateRender, MD_PLUGIN } from './src/builder'
 import Preview from './src/builder/marked-plugins/preview'
 import Header from './src/builder/marked-plugins/header'
 
+const ZOD_EXTERNAL_FILE_PATH = path.join(__dirname, '../packages/core/src/zod.external.ts')
+
 MD_PLUGIN.push(Preview, Header)
 
 function findFilesBy(
@@ -131,15 +133,14 @@ function commonInjectOptionsData() {
 
   importDTSFiles('zod', path.join(__dirname, '../node_modules', 'zod/lib'))
 
-  let filePath = path.join(__dirname, '../packages/react/src/zod.external.ts')
-  let content = fs.readFileSync(filePath, 'utf-8')
+  let content = fs.readFileSync(ZOD_EXTERNAL_FILE_PATH, 'utf-8')
   MONACO_DTS_FILES.push({
     content,
     filePath: `file:///node_modules/@types/zodui/external.ts`
   })
 
   const zoduiExternalPath = process.env.NODE_ENV === 'development'
-    ? path.join(__dirname, '../packages/react/src/zod.external.ts')
+    ? ZOD_EXTERNAL_FILE_PATH
     : `${base}assets/zodui.external-${hash}.js`
 
   return {
@@ -158,7 +159,7 @@ process.env.NODE_ENV === 'production' && buildSync({
   target: 'es2020',
   format: 'esm',
   entryPoints: [
-    path.resolve(__dirname, '../packages/react/src/zod.external.ts')
+    ZOD_EXTERNAL_FILE_PATH
   ],
   outfile: `./dist/assets/zodui.external-${hash}.js`,
   bundle: true,
