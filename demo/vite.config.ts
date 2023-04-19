@@ -73,6 +73,7 @@ const TABS = tabs.map(({ depFiles, ...rest }) => ({
 }))
 
 const ejsOptions: EJSOptions = {
+  // @ts-ignore
   includer(originalPath, parsedPath) {
     if (originalPath.startsWith('docs/')) {
       return { template: docsTemplateRender(originalPath) }
