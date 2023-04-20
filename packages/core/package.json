@@ -1,4 +1,28 @@
 {
   "name": "@zodui/core",
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js"
+    },
+    "./utils": {
+      "types": "./dist/utils.d.ts",
+      "import": "./dist/utils.esm.js",
+      "require": "./dist/utils.js"
+    },
+    "./external": {
+      "types": "./dist/external.d.ts",
+      "import": "./dist/external.esm.js",
+      "require": "./dist/external.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "zod": "^3.21.4"
+  }
 }

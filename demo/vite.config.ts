@@ -15,7 +15,7 @@ import { docsTemplateRender, MD_PLUGIN } from './src/builder'
 import Preview from './src/builder/marked-plugins/preview'
 import Header from './src/builder/marked-plugins/header'
 
-const ZOD_EXTERNAL_FILE_PATH = path.join(__dirname, '../packages/core/src/zod.external.ts')
+const ZOD_EXTERNAL_FILE_PATH = path.join(__dirname, '../packages/core/src/external.ts')
 
 MD_PLUGIN.push(Preview, Header)
 
@@ -132,12 +132,7 @@ function commonInjectOptionsData() {
   }
 
   importDTSFiles('zod', path.join(__dirname, '../node_modules', 'zod/lib'))
-
-  let content = fs.readFileSync(ZOD_EXTERNAL_FILE_PATH, 'utf-8')
-  MONACO_DTS_FILES.push({
-    content,
-    filePath: `file:///node_modules/@types/zodui/external.ts`
-  })
+  importDTSFiles('@zodui/core', path.join(__dirname, '../packages/core/src'))
 
   const zoduiExternalPath = process.env.NODE_ENV === 'development'
     ? ZOD_EXTERNAL_FILE_PATH
@@ -149,7 +144,8 @@ function commonInjectOptionsData() {
     IMPORT_MAP: JSON.stringify({
       imports: {
         'zod': zoduiExternalPath,
-        'zodui/external': zoduiExternalPath
+        'zodui': zoduiExternalPath,
+        '@zodui/core/external': zoduiExternalPath
       }
     })
   }
