@@ -1,3 +1,13 @@
+declare module '@zodui/core' {
+  export interface FrameworkComponentsTDesignReact {
+  }
+  export interface FrameworkComponents {
+    TDesign: {
+      react: FrameworkComponentsTDesignReact
+    }
+  }
+}
+
 interface ComponentsLibMap {
   TDesign: {}
 }
@@ -14,11 +24,11 @@ declare function defineComponentsLib(namespace: string, func: Function): Compone
 export const TDesignComponentsLib = defineComponentsLib('TDesign', (ctx) => {
   ctx
     .framework('react')
-    .registerIcon('Xxx', Xxx)
-    .registerBase('Yyy', Yyy)
-    .registerCtrl('Zzz', Zzz)
-    .registerView('Aaa', Aaa)
-    .registerStructure('Bbb', Bbb)
+    // .defineIcon('Xxx', Xxx)
+    .defineComp('Input', Yyy)
+    // .defineCtrl('Zzz', Zzz)
+    // .defineView('Aaa', Aaa)
+    // .defineStructure('Bbb', Bbb)
 })
 
 export default TDesignComponentsLib
