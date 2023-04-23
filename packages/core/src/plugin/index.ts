@@ -2,7 +2,8 @@ import { Framework, FrameworksKeys } from './framework'
 
 export * from './framework'
 export type {
-  FrameworkComponents
+  FrameworkComponents,
+  ComponentProps
 } from './components'
 
 export interface Context {
