@@ -93,5 +93,12 @@ export namespace InnerProps {
 }
 
 interface ReactFramework {
-  Input?: <T extends ComponentProps.InputValue>(props: InnerProps.Input<T>) => ReactElement
+  Components: {
+    Input: <T extends ComponentProps.InputValue>(props: InnerProps.Input<T>) => ReactElement
+    InputAdornment: (props: InnerProps.InputAdornment) => ReactElement
+    Button: (props: InnerProps.Button) => ReactElement
+    Select: <T extends ComponentProps.SelectValue>(props: InnerProps.Select<T>) => ReactElement
+    Switch: (props: InnerProps.Switch) => ReactElement
+    Dropdown: (props: InnerProps.Dropdown) => ReactElement
+  }
 }
