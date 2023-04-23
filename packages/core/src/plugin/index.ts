@@ -6,7 +6,7 @@ export type {
 } from './components'
 
 export interface Context {
-  use(p: Plugin | (() => Promise<Plugin>)): this
+  use(p: Plugin | (() => Promise<Plugin>) | (() => Promise<{ default: Plugin }>)): this
   framework<K extends FrameworksKeys>(key: K): Framework<K>
 }
 
