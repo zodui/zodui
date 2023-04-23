@@ -11,6 +11,17 @@ export interface Framework<K extends FrameworksKeys> {
   defineStructure(): Framework<K>
 }
 
+export class FrameWork<K extends FrameworksKeys> {
+  defineComp<
+    Type extends string,
+  >(
+    type: Type,
+    func: (props: any) => any,
+  ) {
+    return this
+  }
+}
+
 export interface Frameworks {
   [key: string]: Framework<string>
 }
