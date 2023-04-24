@@ -9,6 +9,7 @@ export type {
 export class Context<
   PluginName extends string = string
 > {
+  static global = new Context()
   constructor(
     private readonly store?: Map<string, any>
   ) {
