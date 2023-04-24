@@ -24,8 +24,13 @@ export class Context<
     listeners: new Map<string, Function[]>(),
     on: (key: string, func: Function) => {
       const list = this.emitter.listeners.get(key) || []
+      let index = list.length
       list.push(func)
       this.emitter.listeners.set(key, list)
+      return () => {
+        list.splice(index, 1)
+        this.emitter.listeners.set(key, list)
+      }
     },
     do: (...args: any[]) => {
       const [key, ...params] = args
