@@ -25,7 +25,7 @@ function isTargetType<T, Types extends T>(t: T | Types, types: Narrow<Types[]>):
   )
 }
 
-export const TDesignComponentsLibForReact = definePlugin('TDesign:React', (ctx) => {
+export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
   ctx
     .framework('react')
     .defineComp('Input', ({
