@@ -1,7 +1,12 @@
+import { Context } from '@zodui/core'
+
 export class Framework<
   K extends FrameworksKeys,
+  N extends string = string,
   Components = Frameworks[K]['Components'],
 > {
+  constructor(private ctx: Context<N>) {
+  }
   defineComp<
     Type extends keyof Components,
   >(
