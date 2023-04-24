@@ -8,7 +8,7 @@ export interface FrameworkComponents {
 
 export namespace ComponentProps {
   export type InputValue = string | number | undefined
-  export type Input<T extends InputValue = string> =
+  export type Input<T extends InputValue = InputValue> =
     & {
       type?: 'text' | 'password' | 'number' | 'email' | 'tel' | 'url' | 'search'
       value?: T
