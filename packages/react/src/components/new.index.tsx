@@ -1,12 +1,12 @@
 import {
-  ButtonHTMLAttributes,
+  ButtonHTMLAttributes, createContext,
   CSSProperties,
   InputHTMLAttributes,
   PropsWithChildren,
   ReactElement,
-  SelectHTMLAttributes
+  SelectHTMLAttributes, useContext, useEffect, useState
 } from 'react'
-import { ComponentProps } from '@zodui/core'
+import { ComponentProps, Context, Context as ZodUIContext } from '@zodui/core'
 
 declare module '@zodui/core' {
   export interface Frameworks {
@@ -101,4 +101,51 @@ interface ReactFramework {
     Switch: (props: InnerProps.Switch) => ReactElement
     Dropdown: (props: InnerProps.Dropdown) => ReactElement
   }
+}
+
+const ZodContext = createContext<ZodUIContext>(null)
+
+const ZodContextProvider = (props: PropsWithChildren) => {
+  const ctx = useContext(ZodContext) ?? Context.global
+  useEffect(() => {
+  }, [])
+  return <ZodContext.Provider value={ctx}>
+    {props.children}
+  </ZodContext.Provider>
+}
+
+const useContextField = <T extends any>(k: string) => {
+  const ctx = useContext(ZodContext) ?? Context.global
+  const [InnerTarget, onTargetChange] = ctx.get<T>(k)
+  const [Target, setTarget] = useState<T>(InnerTarget)
+  useEffect(() => {
+    return onTargetChange((newTarget: T) => setTarget(newTarget))
+  })
+  return Target
+}
+
+export type Input = ReactFramework['Components']['Input']
+
+export const Input: Input = (props) => {
+  const Input = useContextField<Input>('Input')
+  if (Input)
+    return <Input {...props} />
+
+
+  const { onChange, ...rest } = props
+  return <input
+    onChange={e => {
+      switch (typeof props.value) {
+        case 'string':
+          onChange?.(e.target.value)
+          break
+        case 'number':
+          onChange?.(Number(e.target.value))
+          break
+        default:
+          onChange?.(String(e.target.value))
+      }
+    }}
+    {...rest}
+  />
 }
