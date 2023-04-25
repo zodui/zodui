@@ -50,13 +50,16 @@ export class Context<
     ] as const
   }
   use(p: Plugin | (() => Promise<Plugin>) | (() => Promise<{ default: Plugin }>)) {
+    const childCtx = this.extend()
     if (typeof p === 'function') {
     } else {
+      p.call(childCtx)
+      // TODO get childCtx effect to this
     }
     return this
   }
   framework<K extends FrameworksKeys>(key: K): Framework<K, PluginName> {
-    return new Framework(this as Context<PluginName>)
+    return new Framework(key, this as Context<PluginName>)
   }
 }
 
