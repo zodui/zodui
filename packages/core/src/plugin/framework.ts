@@ -5,13 +5,17 @@ export class Framework<
   N extends string = string,
   Components = Frameworks[K]['Components'],
 > {
-  constructor(private ctx: Context<N>) {
+  constructor(
+    private readonly key: K,
+    private readonly ctx: Context<N>
+  ) {
   }
   defineComp<
-    Type extends keyof Components,
+    Type extends keyof Components & string,
   >(
     type: Type, Component: Components[Type],
   ) {
+    this.ctx.set(`framework.${this.key}.components.${type}`, Component)
     return this
   }
   // defineIcon(): Framework<K>
@@ -29,4 +33,4 @@ export interface Frameworks {
   }
 }
 
-export type FrameworksKeys = keyof Frameworks
+export type FrameworksKeys = keyof Frameworks & string
