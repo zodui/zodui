@@ -1,12 +1,13 @@
 import {
-  ButtonHTMLAttributes, createContext,
+  ButtonHTMLAttributes,
   CSSProperties,
   InputHTMLAttributes,
   PropsWithChildren,
   ReactElement,
-  SelectHTMLAttributes, useContext, useEffect, useState
+  SelectHTMLAttributes,
 } from 'react'
-import { ComponentProps, Context, Context as InnerCoreContext } from '@zodui/core'
+import { ComponentProps } from '@zodui/core'
+import { useCoreContextField } from '../contexts/core'
 
 declare module '@zodui/core' {
   export interface Frameworks {
@@ -92,7 +93,7 @@ export namespace InnerProps {
   // Drawer: () => <></>
 }
 
-interface ReactFramework {
+export interface ReactFramework {
   Components: {
     Input: <T extends ComponentProps.InputValue>(props: InnerProps.Input<T>) => ReactElement
     InputAdornment: (props: InnerProps.InputAdornment) => ReactElement
@@ -101,50 +102,4 @@ interface ReactFramework {
     Switch: (props: InnerProps.Switch) => ReactElement
     Dropdown: (props: InnerProps.Dropdown) => ReactElement
   }
-}
-
-const CoreContext = createContext<InnerCoreContext>(null)
-
-export const CoreContextProvider = (props: PropsWithChildren) => {
-  const ctx = useContext(CoreContext) ?? Context.global
-  useEffect(() => {
-  }, [])
-  return <CoreContext.Provider value={ctx}>
-    {props.children}
-  </CoreContext.Provider>
-}
-
-export const useCoreContextField = <T extends any>(k: string) => {
-  const ctx = useContext(CoreContext) ?? Context.global
-  const [InnerTarget, onTargetChange] = ctx.get<T>(k)
-  const [Target, setTarget] = useState<T>(InnerTarget)
-  useEffect(() => {
-    return onTargetChange((newTarget: T) => setTarget(newTarget))
-  }, [onTargetChange])
-  return Target
-}
-
-export type Input = ReactFramework['Components']['Input']
-
-export const Input: Input = (props) => {
-  const Input = useCoreContextField<Input>('Input')
-  if (Input)
-    return <Input {...props} />
-
-  const { onChange, ...rest } = props
-  return <input
-    onChange={e => {
-      switch (typeof props.value) {
-        case 'string':
-          onChange?.(e.target.value)
-          break
-        case 'number':
-          onChange?.(Number(e.target.value))
-          break
-        default:
-          onChange?.(String(e.target.value))
-      }
-    }}
-    {...rest}
-  />
 }
