@@ -6,7 +6,7 @@ import {
   ReactElement,
   SelectHTMLAttributes, useContext, useEffect, useState
 } from 'react'
-import { ComponentProps, Context, Context as ZodUIContext } from '@zodui/core'
+import { ComponentProps, Context, Context as InnerCoreContext } from '@zodui/core'
 
 declare module '@zodui/core' {
   export interface Frameworks {
@@ -103,19 +103,19 @@ interface ReactFramework {
   }
 }
 
-const ZodContext = createContext<ZodUIContext>(null)
+const CoreContext = createContext<InnerCoreContext>(null)
 
-const ZodContextProvider = (props: PropsWithChildren) => {
-  const ctx = useContext(ZodContext) ?? Context.global
+export const CoreContextProvider = (props: PropsWithChildren) => {
+  const ctx = useContext(CoreContext) ?? Context.global
   useEffect(() => {
   }, [])
-  return <ZodContext.Provider value={ctx}>
+  return <CoreContext.Provider value={ctx}>
     {props.children}
-  </ZodContext.Provider>
+  </CoreContext.Provider>
 }
 
-const useContextField = <T extends any>(k: string) => {
-  const ctx = useContext(ZodContext) ?? Context.global
+export const useCoreContextField = <T extends any>(k: string) => {
+  const ctx = useContext(CoreContext) ?? Context.global
   const [InnerTarget, onTargetChange] = ctx.get<T>(k)
   const [Target, setTarget] = useState<T>(InnerTarget)
   useEffect(() => {
@@ -127,7 +127,7 @@ const useContextField = <T extends any>(k: string) => {
 export type Input = ReactFramework['Components']['Input']
 
 export const Input: Input = (props) => {
-  const Input = useContextField<Input>('Input')
+  const Input = useCoreContextField<Input>('Input')
   if (Input)
     return <Input {...props} />
 
