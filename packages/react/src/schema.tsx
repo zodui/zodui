@@ -52,6 +52,8 @@ export const Schema = forwardRef<SchemaRef, SchemaProps>((props, ref) => {
     }
   }), [])
 
+  if (!inited) return null
+
   if (isWhatType(model, AllTypes.ZodIntersection)) {
     // TODO resolve ref merge
     return <>
@@ -69,8 +71,6 @@ export const Schema = forwardRef<SchemaRef, SchemaProps>((props, ref) => {
       />
     </>
   }
-
-  if (!inited) return null
 
   return <div className={prefix}>
     <div className={`${prefix}__header`}>
