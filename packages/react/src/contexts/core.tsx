@@ -15,7 +15,7 @@ export const CoreContextProvider = (props: PropsWithChildren) => {
 export const useCoreContextField = <T extends any>(k: string) => {
   const ctx = useContext(CoreContext) ?? Context.global
   const [InnerTarget, onTargetChange] = ctx.get<T>(k)
-  const [Target, setTarget] = useState<T>(InnerTarget)
+  const [Target, setTarget] = useState<T>(() => InnerTarget)
   useEffect(() => {
     return onTargetChange((newTarget: T) => setTarget(newTarget))
   }, [onTargetChange])
