@@ -131,7 +131,6 @@ export const Input: Input = (props) => {
   if (Input)
     return <Input {...props} />
 
-
   const { onChange, ...rest } = props
   return <input
     onChange={e => {
