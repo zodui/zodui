@@ -120,7 +120,7 @@ export const useCoreContextField = <T extends any>(k: string) => {
   const [Target, setTarget] = useState<T>(InnerTarget)
   useEffect(() => {
     return onTargetChange((newTarget: T) => setTarget(newTarget))
-  })
+  }, [onTargetChange])
   return Target
 }
 
