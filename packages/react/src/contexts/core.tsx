@@ -1,5 +1,6 @@
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react'
 import { Context, Context as InnerCoreContext } from '@zodui/core'
+import { ReactFramework } from '@zodui/react/components/new.index'
 
 const CoreContext = createContext<InnerCoreContext>(null)
 
@@ -20,4 +21,11 @@ export const useCoreContextField = <T extends any>(k: string) => {
     return onTargetChange((newTarget: T) => setTarget(newTarget))
   }, [onTargetChange])
   return Target
+}
+
+export const useCoreContextComponent = <
+  K extends keyof ReactFramework['Components'],
+  T extends ReactFramework['Components'][K]
+>(k: K) => {
+  return useCoreContextField<T>(`framework.react.components.${k}`)
 }
