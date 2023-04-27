@@ -7,7 +7,6 @@ import {
   SelectHTMLAttributes,
 } from 'react'
 import { ComponentProps } from '@zodui/core'
-import { useCoreContextField } from '../contexts/core'
 
 declare module '@zodui/core' {
   export interface Frameworks {
