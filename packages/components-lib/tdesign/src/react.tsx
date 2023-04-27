@@ -19,10 +19,8 @@ declare module '@zodui/core' {
 }
 
 function isTargetType<T, Types extends T>(t: T | Types, types: Narrow<Types[]>): t is Types {
-  return types.includes(
-    // @ts-ignore
-    t
-  )
+  // @ts-ignore
+  return types.includes(t)
 }
 
 export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
