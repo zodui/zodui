@@ -3,7 +3,7 @@ import { definePlugin } from '@zodui/core'
 import { Narrow } from '@zodui/core/utils'
 
 import {
-  Input,
+  Input, InputAdornment,
   InputNumber,
 } from 'tdesign-react/esm'
 import 'tdesign-react/esm/style/index.js'
@@ -56,6 +56,9 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
         {...props}
       />
     })
+    .defineComp('InputAdornment', ({ prev, next, ...props }) => (
+      <InputAdornment prepend={prev} append={next} {...props} />
+    ))
 })
 
 export default TDesignComponentsLibForReact
