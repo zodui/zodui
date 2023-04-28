@@ -1,31 +1,48 @@
-import { BaseCompProps, BaseComps } from './base'
+import { Frameworks } from '@zodui/core'
+import { useCoreContextComponent } from '@zodui/react'
 
-export function Input<T extends BaseCompProps.InputValue>(props: BaseCompProps.Input<T>) {
-  if (BaseComps.Input) {
-    return <BaseComps.Input {...props} />
-  }
-  const { onChange, ...rest } = props
+export type Input = Frameworks['react']['Components']['Input']
+
+export const Input: Input = (props) => {
+  const Input = useCoreContextComponent('Input')
+  if (Input)
+    return <Input {...props} />
+
+  const {
+    onChange,
+    value,
+    defaultValue,
+    ...rest
+  } = props
   return <input
+    value={value ?? defaultValue ?? ''}
     onChange={e => {
-      switch (typeof props.value) {
+      if (props.type === 'number') {
+        onChange?.(Number(e.target.value))
+        return
+      }
+      switch (typeof value) {
         case 'string':
-          onChange?.(e.target.value as T)
+          onChange?.(e.target.value)
           break
         case 'number':
-          onChange?.(Number(e.target.value) as T)
+          onChange?.(Number(e.target.value))
           break
         default:
-          onChange?.(String(e.target.value) as T)
+          onChange?.(String(e.target.value))
       }
     }}
     {...rest}
   />
 }
 
-export function InputAdornment(props: BaseCompProps.InputAdornment) {
-  if (BaseComps.InputAdornment) {
-    return <BaseComps.InputAdornment {...props} />
-  }
+export type InputAdornment = Frameworks['react']['Components']['InputAdornment']
+
+export const InputAdornment: InputAdornment = (props) => {
+  const InputAdornment = useCoreContextComponent('InputAdornment')
+  if (InputAdornment)
+    return <InputAdornment {...props} />
+
   const { prev, next, children, className, style } = props
   return <span
     className={'zodui-input-adornment' + (className ? ' ' + className : '')}

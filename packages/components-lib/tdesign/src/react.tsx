@@ -1,10 +1,12 @@
 import React from 'react'
 import { definePlugin } from '@zodui/core'
 import { Narrow } from '@zodui/core/utils'
+import { Icon } from '@zodui/react'
 
 import {
+  Button, Dropdown,
   Input, InputAdornment,
-  InputNumber,
+  InputNumber, Select, Switch
 } from 'tdesign-react/esm'
 import 'tdesign-react/esm/style/index.js'
 
@@ -57,6 +59,59 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
     .defineComp('InputAdornment', ({ prev, next, ...props }) => (
       <InputAdornment prepend={prev} append={next} {...props} />
     ))
+    .defineComp('Button', ({ theme, ...props }) => <Button
+    theme={({
+      info: 'default',
+      error: 'danger',
+      warning: 'warning',
+      success: 'success',
+    } as const)[theme]}
+    {...props}
+  />)
+    .defineComp('Select', props => <Select
+    {...props}
+    value={props.value}
+    onChange={v => props.onChange?.(v as any)}
+  />)
+    .defineComp('Switch', props => <Switch {...props}/>)
+    .defineComp('Dropdown', props => {
+    return <Dropdown
+      popupProps={{
+        showArrow: true,
+        overlayClassName: 'zodui-tdesign-popup',
+        popperOptions: {
+          modifiers: [
+            {
+              name: 'offset',
+              options: {
+                offset: [4, 0],
+              },
+            },
+          ],
+        }
+      }}
+      options={props.menu.map(i => ({
+        prefixIcon: typeof i.icon === 'string'
+          ? <Icon name={i.icon as any} />
+          : i.icon,
+        content: typeof i.label === 'string'
+          ? <span title={i.title}>{i.label}</span>
+          : React.cloneElement(i.label, {
+            title: i.title
+          }),
+        value: i.value,
+        disabled: i.disabled
+      }))}
+      trigger={props.trigger ?? 'click'}
+      minColumnWidth={120}
+      onClick={i => {
+        // @ts-ignore
+        props.onAction(i.value, i)
+      }}
+    >
+      {props.children}
+    </Dropdown>
+  })
 })
 
 export default TDesignComponentsLibForReact

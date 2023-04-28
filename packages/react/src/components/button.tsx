@@ -1,13 +1,15 @@
 import { useMemo } from 'react'
-import { Icon, Icons, isInnerIcon } from './icon'
-import { BaseCompProps, BaseComps, ZElement } from './base'
+import { Frameworks } from '@zodui/core'
+import { useCoreContextComponent } from '@zodui/react'
 
-export function Button({
+import { Icon, isInnerIcon } from './icon'
+
+export type Button = Frameworks['react']['Components']['Button']
+
+export const Button: Button = ({
   icon,
   ...props
-}: Omit<BaseCompProps.Button, 'icon'> & {
-  icon?: Icons | ZElement
-}) {
+}) => {
   props = Object.assign({
     shape: 'square',
     variant: 'outline',
@@ -15,12 +17,11 @@ export function Button({
   const wrapIcon = useMemo(() => typeof icon === 'string' && isInnerIcon(icon)
     ? <Icon name={icon} />
     : icon, [icon])
-  if (BaseComps.Button) {
-    return <BaseComps.Button
-      icon={wrapIcon}
-      {...props}
-    />
-  }
+
+  const Button = useCoreContextComponent('Button')
+  if (Button)
+    return <Button icon={wrapIcon} {...props} />
+
   return <button {...props}>
     {props.children ? props.children : wrapIcon}
   </button>

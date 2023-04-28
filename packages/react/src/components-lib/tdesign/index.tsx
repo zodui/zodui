@@ -44,50 +44,6 @@ initIcons: {
 }
 
 initComponents: {
-  function isTargetType<T, Types extends T>(t: T | Types, types: Narrow<Types[]>): t is Types {
-    return types.includes(
-      // @ts-ignore
-      t
-    )
-  }
-  registerBaseComp('Input', ({
-    type,
-    mode,
-    value,
-    defaultValue,
-    onChange,
-    ...props
-  }) => {
-    if (isTargetType(type, ['email', 'tel', 'url', 'search'])) {
-      return <>Not support type {type}</>
-    }
-    if (type === 'number' && mode === 'split') {
-      const parseNumberValue = (t: any) => t !== undefined ? +t : undefined
-      // TODO resolve NAN, Infinity, -Infinity
-      return <InputNumber
-        value={parseNumberValue(value)}
-        defaultValue={parseNumberValue(defaultValue)}
-        onChange={onChange as any}
-      />
-    }
-    return <Input
-      type={type}
-      value={value as any}
-      defaultValue={defaultValue as any}
-      onChange={v => onChange?.(type === 'number' ? +v : v as any)}
-      {...props}
-    />
-  })
-  registerBaseComp('InputAdornment', ({ prev, next, ...props }) => <InputAdornment prepend={prev} append={next} {...props} />)
-  registerBaseComp('Button', ({ theme, ...props }) => <Button
-    theme={({
-      info: 'default',
-      error: 'danger',
-      warning: 'warning',
-      success: 'success',
-    } as const)[theme]}
-    {...props}
-  />)
   registerBaseComp('Select', props => <Select
     {...props}
     value={props.value}

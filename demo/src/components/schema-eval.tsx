@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import ReactDOM from 'react-dom/client'
 
 import { ZodSchema } from 'zod'
+import { Context } from '@zodui/core'
+import { TDesignComponentsLibForReact } from '@zodui/components-lib-tdesign'
 import { Schema, SchemaRef, ItemConfigure, useItemConfigurer } from '@zodui/react'
 
 import '@zodui/react/components-lib/tdesign'
@@ -23,6 +25,7 @@ function Demo({
   c,
   configure: cc
 }: DemoProps) {
+  Context.global.use(TDesignComponentsLibForReact)
   const { configure, ItemConfigurer } = useItemConfigurer(cc)
 
   const [code, setCode] = useState<string>(c ?? '')
