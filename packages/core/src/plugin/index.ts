@@ -59,7 +59,7 @@ export class Context<
     return this
   }
   framework<K extends FrameworksKeys>(key: K): Framework<K, PluginName> {
-    return new Framework(key, this as Context<PluginName>)
+    return new Framework(key, this)
   }
 }
 
