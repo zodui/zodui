@@ -1,8 +1,12 @@
-import { BaseCompProps, BaseComps } from './base'
+import { Frameworks } from '@zodui/core'
+import { useCoreContextComponent } from '@zodui/react'
 
-export function Dropdown(props: BaseCompProps.Dropdown) {
-  if (BaseComps.Dropdown) {
-    return <BaseComps.Dropdown {...props} />
-  }
+export type Dropdown = Frameworks['react']['Components']['Dropdown']
+
+export const Dropdown: Dropdown = (props) => {
+  const Dropdown = useCoreContextComponent('Dropdown')
+  if (Dropdown)
+    return <Dropdown {...props} />
+  // TODO implement original Dropdown
   return <></>
 }

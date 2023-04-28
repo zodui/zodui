@@ -1,21 +1,22 @@
-import { BaseCompProps, BaseComps } from './base'
+import { Frameworks } from '@zodui/core'
+import { useCoreContextComponent } from '@zodui/react'
 
-export function Select<T extends BaseCompProps.SelectValue>({
-  ...props
-}: BaseCompProps.Select<T> & {
-}) {
+export type Select = Frameworks['react']['Components']['Select']
+
+export const Select: Select = (props) => {
+  const Select = useCoreContextComponent('Select')
+  if (Select)
+    return <Select {...props} />
+
   props = Object.assign({
   }, props)
-  if (BaseComps.Select) {
-    return <BaseComps.Select
-      {...props}
-    />
-  }
+
   const { onChange, ...rest } = props
   // @ts-ignore FIXME
   return <select
     {...rest}
-    onChange={e => onChange(e.target.options.selectedIndex as T)}
+    // unable get generic T to let onChange work, so we use any to bypass it
+    onChange={e => onChange(e.target.options.selectedIndex as any)}
   >
     {props.options.map((opt) => <option
       key={opt.value}

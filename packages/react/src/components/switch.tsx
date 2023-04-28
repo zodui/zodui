@@ -1,21 +1,20 @@
 import { useCallback, useEffect, useState } from 'react'
-import { BaseCompProps, BaseComps } from './base'
+import { Frameworks } from '@zodui/core'
+import { useCoreContextComponent } from '@zodui/react'
 
-export function Switch({
-  value,
-  defaultValue,
-  onChange,
-  ...props
-}: BaseCompProps.Switch & {
-}) {
-  props = Object.assign({
-  }, props)
-  if (BaseComps.Switch) {
-    return <BaseComps.Switch
-      {...props}
-      {...{ value, defaultValue, onChange }}
-    />
-  }
+export type Switch = Frameworks['react']['Components']['Switch']
+
+export const Switch: Switch = (props) => {
+  const Switch = useCoreContextComponent('Switch')
+  if (Switch)
+    return <Switch {...props} />
+
+  const {
+    value,
+    defaultValue,
+    onChange,
+    ...rest
+  } = props
   const [checked, setChecked] = useState<boolean>(value ?? defaultValue)
   useEffect(() => {
     setChecked(value ?? defaultValue)
@@ -30,7 +29,7 @@ export function Switch({
   //      Decide between using a controlled or uncontrolled input element for the lifetime of the component.
   //      More info: https://reactjs.org/link/controlled-components
   return <input
-    {...props}
+    {...rest}
     type='checkbox'
     checked={checked}
     onChange={e => checkedChange(e.target.checked)}
