@@ -24,7 +24,7 @@ export function Switch({
     setChecked(checked)
     onChange?.(checked)
   }, [onChange])
-  // TODO resolve react warnning
+  // TODO resolve react warning
   //      A component is changing an uncontrolled input to be controlled.
   //      This is likely caused by the value changing from undefined to a defined value, which should not happen.
   //      Decide between using a controlled or uncontrolled input element for the lifetime of the component.
