@@ -30,6 +30,8 @@ describe('Plugin', function () {
   const p_01 = definePlugin('test', ctx => {
     ctx.use(p0)
     ctx.use(p1)
+    ctx.framework('__test__')
+      .defineComp('A4', 'A4')
   })
 
   it('should be use plugin and off it', () => {
@@ -50,6 +52,8 @@ describe('Plugin', function () {
       .to.equal('A2')
     expect(Context.global.get('framework.__test__.components.A3')[0])
       .to.equal('A3')
+    expect(Context.global.get('framework.__test__.components.A4')[0])
+      .to.equal('A4')
     off()
     expect(Context.global.get('framework.__test__.components.A0')[0])
       .to.equal(undefined)
@@ -58,6 +62,8 @@ describe('Plugin', function () {
     expect(Context.global.get('framework.__test__.components.A2')[0])
       .to.equal(undefined)
     expect(Context.global.get('framework.__test__.components.A3')[0])
+      .to.equal(undefined)
+    expect(Context.global.get('framework.__test__.components.A4')[0])
       .to.equal(undefined)
   })
 })
