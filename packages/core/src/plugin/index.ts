@@ -99,6 +99,7 @@ export class Context<
     } else {
       collectPluginEffect(p)
     }
+    this[effectSymbol].push(effect)
     return effect
   }
   framework<K extends FrameworksKeys>(key: K): Framework<K, PluginName> {
