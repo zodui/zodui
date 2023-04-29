@@ -6,10 +6,13 @@ export type {
   ComponentProps
 } from './components'
 
+const effectSymbol = Symbol('effect')
+
 export class Context<
   PluginName extends string = string
 > {
   static global = new Context()
+  ;[effectSymbol]: Function[] = []
   constructor(
     private readonly store?: Map<string, any>
   ) {
@@ -41,6 +44,21 @@ export class Context<
   set(k: string, v?: any) {
     this.store!.set(k, v)
     this.emitter.do(k, v)
+    this[effectSymbol].push(() => {
+      let storeV = this.store!.get(k)
+      if (storeV === v) {
+        this.store!.delete(k)
+      }
+    })
+    return this
+  }
+  del(k: string) {
+    const storeV = this.store!.get(k)
+    this.store!.delete(k)
+    this.emitter.do(k)
+    this[effectSymbol].push(() => {
+      this.store!.set(k, storeV)
+    })
     return this
   }
   get<T>(k: string) {
@@ -50,13 +68,38 @@ export class Context<
     ] as const
   }
   use(p: Plugin | (() => Promise<Plugin>) | (() => Promise<{ default: Plugin }>)) {
+    let effect = () => {}
+
     const childCtx = this.extend()
-    if (typeof p === 'function') {
-    } else {
+    function collectPluginEffect(p: Plugin) {
       p.call(childCtx)
-      // TODO get childCtx effect to this
+      effect = () => {
+        childCtx[effectSymbol].forEach(func => func())
+      }
     }
-    return this
+    if (typeof p === 'function') {
+      const promise = p()
+      if (promise instanceof Promise) {
+        let isCancel = false
+        promise
+          .then(plugin => {
+            if (isCancel) return
+            // let default field prioritize
+            if (plugin.default) {
+              plugin = plugin.default
+            }
+            collectPluginEffect(plugin)
+          })
+        effect = () => {
+          isCancel = true
+        }
+      } else {
+        throw new Error('plugin must be a function or a promise')
+      }
+    } else {
+      collectPluginEffect(p)
+    }
+    return effect
   }
   framework<K extends FrameworksKeys>(key: K): Framework<K, PluginName> {
     return new Framework(key, this)
