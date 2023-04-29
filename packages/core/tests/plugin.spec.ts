@@ -51,9 +51,6 @@ describe('Plugin', function () {
     expect(Context.global.get('framework.__test__.components.A3')[0])
       .to.equal('A3')
     off()
-    console.log(
-      Context.global.get('framework.__test__.components.A0')
-    )
     expect(Context.global.get('framework.__test__.components.A0')[0])
       .to.equal(undefined)
     expect(Context.global.get('framework.__test__.components.A1')[0])
