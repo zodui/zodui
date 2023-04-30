@@ -99,8 +99,11 @@ export class Context<
     } else {
       collectPluginEffect(p)
     }
-    this[effectSymbol].push(effect)
-    return effect
+
+    // make effect function closure for store this reference
+    const wrapEffect = () => effect()
+    this[effectSymbol].push(wrapEffect)
+    return wrapEffect
   }
   framework<K extends FrameworksKeys>(key: K): Framework<K, PluginName> {
     return new Framework(key, this)

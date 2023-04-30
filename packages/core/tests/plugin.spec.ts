@@ -66,4 +66,25 @@ describe('Plugin', function () {
     expect(Context.global.get('framework.__test__.components.A4')[0])
       .to.equal(undefined)
   })
+  it('should resolve async import module', async () => {
+    let off = Context.global.use(() => new Promise(re => {
+      setTimeout(() => re(p0), 10)
+    }))
+    await new Promise(re => setTimeout(re, 20))
+    expect(Context.global.get('framework.__test__.components.A0')[0])
+      .to.equal('A0')
+    off()
+    expect(Context.global.get('framework.__test__.components.A0')[0])
+      .to.equal(undefined)
+
+    off = Context.global.use(() => new Promise(re => {
+      setTimeout(() => re(p0), 10)
+    }))
+    off()
+    expect(Context.global.get('framework.__test__.components.A0')[0])
+      .to.equal(undefined)
+    await new Promise(re => setTimeout(re, 20))
+    expect(Context.global.get('framework.__test__.components.A0')[0])
+      .to.equal(undefined)
+  })
 })
