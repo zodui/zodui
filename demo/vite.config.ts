@@ -167,16 +167,27 @@ export default defineConfig({
   base,
   build: {
     emptyOutDir: false,
-    rollupOptions: {
-      ...(process.env.NODE_ENV !== 'development' ? {
-        external: ['zod', 'zodui/external'],
-        input: {
-          'docs/guide/index': 'docs/guide/index.html',
-          'docs/guide/monad': 'docs/guide/monad.html',
-          'docs/main': 'docs/main.html'
+    rollupOptions: Object.assign({
+      output: {
+        manualChunks(id: string) {
+          if (id.includes('components-lib/tdesign')) {
+            return 'comps-lib-tdesign'
+          }
+          const external = ['react', 'react-dom', 'tdesign-react', 'tdesign-icons-react']
+          const matchId = external.find(ext => id.includes(`node_modules/${ext}`))
+          if (matchId) {
+            return `${matchId}`
+          }
         }
-      } : {}),
-    },
+      },
+    }, process.env.NODE_ENV !== 'development' ? {
+      external: ['zod', 'zodui/external'],
+      input: {
+        'docs/guide/index': 'docs/guide/index.html',
+        'docs/guide/monad': 'docs/guide/monad.html',
+        'docs/main': 'docs/main.html'
+      }
+    } : {}),
   },
   plugins: [
     react(),
