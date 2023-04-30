@@ -87,4 +87,13 @@ describe('Plugin', function () {
     expect(Context.global.get('framework.__test__.components.A0')[0])
       .to.equal(undefined)
   })
+  it('should create emitter listeners when store set', () => {
+    const ctx = new Context()
+    let [v, onVChange] = ctx.get('v')
+    onVChange((value: any) => v = value)
+    ctx.set('v', 'value')
+    expect(v).to.equal('value')
+    ctx.set('v', 'value2')
+    expect(v).to.equal('value2')
+  })
 })
