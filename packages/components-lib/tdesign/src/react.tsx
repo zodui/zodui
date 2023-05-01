@@ -60,22 +60,21 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
       <InputAdornment prepend={prev} append={next} {...props} />
     ))
     .defineComp('Button', ({ theme, ...props }) => <Button
-    theme={({
-      info: 'default',
-      error: 'danger',
-      warning: 'warning',
-      success: 'success',
-    } as const)[theme]}
-    {...props}
-  />)
+      theme={({
+        info: 'default',
+        error: 'danger',
+        warning: 'warning',
+        success: 'success',
+      } as const)[theme]}
+      {...props}
+    />)
     .defineComp('Select', props => <Select
-    {...props}
-    value={props.value}
-    onChange={v => props.onChange?.(v as any)}
-  />)
+      {...props}
+      value={props.value}
+      onChange={v => props.onChange?.(v as any)}
+    />)
     .defineComp('Switch', props => <Switch {...props}/>)
-    .defineComp('Dropdown', props => {
-    return <Dropdown
+    .defineComp('Dropdown', props => <Dropdown
       popupProps={{
         showArrow: true,
         overlayClassName: 'zodui-tdesign-popup',
@@ -110,8 +109,7 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
       }}
     >
       {props.children}
-    </Dropdown>
-  })
+    </Dropdown>)
 })
 
 export default TDesignComponentsLibForReact
