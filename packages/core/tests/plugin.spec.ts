@@ -103,6 +103,7 @@ describe('Plugin', function () {
     let [extV, extOnVChange] = extCtx.get('v')
     extOnVChange((value: any) => extV = value)
     extCtx.set('v', 'value3')
+    expect(v).to.equal('value3')
     expect(extV).to.equal('value3')
     expect(
       extCtx.get('v')[0]
