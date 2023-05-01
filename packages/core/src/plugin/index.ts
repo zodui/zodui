@@ -21,7 +21,10 @@ export class Context<
     }
   }
   extend() {
-    return new Context(this.store)
+    // shallow copy store value to new store
+    const nStore = new Map()
+    this.store.forEach((v, k) => nStore.set(k, v))
+    return new Context(nStore)
   }
   emitter = {
     listeners: new Map<string, Function[]>(),

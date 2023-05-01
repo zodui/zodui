@@ -95,5 +95,20 @@ describe('Plugin', function () {
     expect(v).to.equal('value')
     ctx.set('v', 'value2')
     expect(v).to.equal('value2')
+    expect(
+      ctx.get('v')[0]
+    ).to.equal('value2')
+
+    const extCtx = ctx.extend()
+    let [extV, extOnVChange] = extCtx.get('v')
+    extOnVChange((value: any) => extV = value)
+    extCtx.set('v', 'value3')
+    expect(extV).to.equal('value3')
+    expect(
+      extCtx.get('v')[0]
+    ).to.equal('value3')
+    expect(
+      ctx.get('v')[0]
+    ).to.equal('value2')
   })
 })
