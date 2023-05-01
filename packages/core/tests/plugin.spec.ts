@@ -109,6 +109,6 @@ describe('Plugin', function () {
     ).to.equal('value3')
     expect(
       ctx.get('v')[0]
-    ).to.equal('value2')
+    ).to.equal('value3')
   })
 })

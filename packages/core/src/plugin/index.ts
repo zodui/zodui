@@ -8,6 +8,12 @@ export type {
 
 const effectSymbol = Symbol('effect')
 
+/**
+ * Contexts extended by the same Context share the same store
+ * The `extend` method is used to record the side effects of the next operation
+ * When you need to reclaim the side effects of this segment, you only need to call the off function,
+ * or execute the functions from `[effectSymbol]` filed
+ */
 export class Context<
   PluginName extends string = string
 > {
@@ -21,10 +27,7 @@ export class Context<
     }
   }
   extend() {
-    // shallow copy store value to new store
-    const nStore = new Map()
-    this.store.forEach((v, k) => nStore.set(k, v))
-    return new Context(nStore)
+    return new Context(this.store)
   }
   emitter = {
     listeners: new Map<string, Function[]>(),
