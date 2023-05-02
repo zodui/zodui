@@ -1,6 +1,6 @@
 import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react'
-import { Context, Context as InnerCoreContext } from '@zodui/core'
-import { ReactFramework } from '@zodui/react/components/new.index'
+import { Context, Context as InnerCoreContext, Icons } from '@zodui/core'
+import { ReactFramework } from '../components/new.index'
 
 const CoreContext = createContext<InnerCoreContext>(null)
 
@@ -26,6 +26,8 @@ export const useCoreContextField = <T extends any>(k: string) => {
 export const useCoreContextComponent = <
   K extends keyof ReactFramework['Components'],
   T extends ReactFramework['Components'][K]
->(k: K) => {
-  return useCoreContextField<T>(`framework.react.components.${k}`)
-}
+>(k: K) => useCoreContextField<T>(`framework.react.components.${k}`)
+
+export const useCoreContextIcon = <
+  K extends Icons,
+>(k: K | (string & {})) => useCoreContextField<ReactFramework['Icon']>(`framework.react.icons.${k}`)

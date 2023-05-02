@@ -1,46 +1,15 @@
 import './tdesign.scss'
 import React from 'react'
 import {
-  AddIcon,
-  ArrowDownIcon,
-  ArrowUpIcon,
-  ClearIcon,
-  DeleteIcon,
-  LinkIcon,
-  MoreIcon,
-  RollbackIcon
-} from 'tdesign-icons-react'
-import {
-  Button,
   Slider,
-  Select,
-  Switch,
-  Dropdown,
-  Input,
-  InputAdornment,
-  InputNumber,
   Textarea,
   TimePickerPanel, TimePicker, DatePickerPanel, DateRangePickerPanel, DatePicker, TimeRangePicker, DateRangePicker
 } from 'tdesign-react/esm'
 import 'tdesign-react/esm/style/index.js'
 
-import { addController, registerIcon, registerBaseComp, Icon } from '@zodui/react'
-import { Narrow } from '@zodui/core/utils'
+import { addController } from '@zodui/react'
 
 initIcons: {
-  registerIcon('Add', AddIcon)
-  registerIcon('More', MoreIcon)
-  registerIcon('Link', LinkIcon)
-  registerIcon('Clear', ClearIcon)
-  registerIcon('Delete', DeleteIcon)
-  registerIcon('Prepend', props => <RollbackIcon style={{
-    transform: 'rotate(90deg)'
-  }} />)
-  registerIcon('Append', props => <RollbackIcon style={{
-    transform: 'rotate(-90deg)'
-  }} />)
-  registerIcon('ArrowUp', ArrowUpIcon)
-  registerIcon('ArrowDown', ArrowDownIcon)
 }
 
 initComponents: {

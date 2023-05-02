@@ -1,5 +1,16 @@
 import { FrameworksKeys } from './framework'
 
+export type Icons =
+  | 'Add'
+  | 'More'
+  | 'Link'
+  | 'Clear'
+  | 'Delete'
+  | 'Append'
+  | 'Prepend'
+  | 'ArrowUp'
+  | 'ArrowDown'
+
 export interface FrameworkComponents {
   [key: string]: {
     [K in FrameworksKeys]: any

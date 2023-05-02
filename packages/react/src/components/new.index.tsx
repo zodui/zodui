@@ -4,9 +4,9 @@ import {
   InputHTMLAttributes,
   PropsWithChildren,
   ReactElement,
-  SelectHTMLAttributes,
+  SelectHTMLAttributes, SVGAttributes
 } from 'react'
-import { ComponentProps } from '@zodui/core'
+import { ComponentProps, Icons } from '@zodui/core'
 
 declare module '@zodui/core' {
   export interface Frameworks {
@@ -22,6 +22,10 @@ export interface BaseProps {
 }
 
 export namespace InnerProps {
+  export interface Icon extends SVGAttributes<SVGSVGElement>, BaseProps {
+    name: Icons | (string & {})
+    size?: 'small' | 'medium' | 'large' | string | number
+  }
   export type Input<T extends ComponentProps.InputValue = string> =
     & BaseProps
     & Omit<InputHTMLAttributes<HTMLInputElement>,
@@ -101,4 +105,5 @@ export interface ReactFramework {
     Switch: (props: InnerProps.Switch) => ReactElement
     Dropdown: (props: InnerProps.Dropdown) => ReactElement
   }
+  Icon: (props: InnerProps.Icon) => ReactElement
 }

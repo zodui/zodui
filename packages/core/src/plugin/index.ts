@@ -2,6 +2,7 @@ import { Framework, FrameworksKeys } from './framework'
 
 export * from './framework'
 export type {
+  Icons,
   FrameworkComponents,
   ComponentProps
 } from './components'

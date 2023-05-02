@@ -1,8 +1,6 @@
 import { useMemo } from 'react'
 import { Frameworks } from '@zodui/core'
-import { useCoreContextComponent } from '@zodui/react'
-
-import { Icon, isInnerIcon } from './icon'
+import { Icon, useCoreContextComponent } from '@zodui/react'
 
 export type Button = Frameworks['react']['Components']['Button']
 
@@ -14,7 +12,7 @@ export const Button: Button = ({
     shape: 'square',
     variant: 'outline',
   }, props)
-  const wrapIcon = useMemo(() => typeof icon === 'string' && isInnerIcon(icon)
+  const wrapIcon = useMemo(() => typeof icon === 'string'
     ? <Icon name={icon} />
     : icon, [icon])
 

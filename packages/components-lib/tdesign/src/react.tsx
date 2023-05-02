@@ -1,8 +1,18 @@
 import React from 'react'
+import { Icon } from '@zodui/react'
 import { definePlugin } from '@zodui/core'
 import { Narrow } from '@zodui/core/utils'
-import { Icon } from '@zodui/react'
 
+import {
+  AddIcon,
+  ArrowDownIcon,
+  ArrowUpIcon,
+  ClearIcon,
+  DeleteIcon,
+  LinkIcon,
+  MoreIcon,
+  RollbackIcon
+} from 'tdesign-icons-react'
 import {
   Button, Dropdown,
   Input, InputAdornment,
@@ -26,8 +36,8 @@ function isTargetType<T, Types extends T>(t: T | Types, types: Narrow<Types[]>):
 }
 
 export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
-  ctx
-    .framework('react')
+  const ctxFgt = ctx.framework('react')
+  ctxFgt
     .defineComp('Input', ({
       type,
       mode,
@@ -110,6 +120,20 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
     >
       {props.children}
     </Dropdown>)
+  ctxFgt
+    .defineIcon('Add', AddIcon)
+    .defineIcon('More', MoreIcon)
+    .defineIcon('Link', LinkIcon)
+    .defineIcon('Clear', ClearIcon)
+    .defineIcon('Delete', DeleteIcon)
+    .defineIcon('Prepend', props => <RollbackIcon style={{
+      transform: 'rotate(90deg)'
+    }} />)
+    .defineIcon('Append', props => <RollbackIcon style={{
+      transform: 'rotate(-90deg)'
+    }} />)
+    .defineIcon('ArrowUp', ArrowUpIcon)
+    .defineIcon('ArrowDown', ArrowDownIcon)
 })
 
 export default TDesignComponentsLibForReact

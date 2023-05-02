@@ -1,4 +1,4 @@
-import { Context } from '@zodui/core'
+import { Context, Icons } from '@zodui/core'
 
 export class Framework<
   K extends FrameworksKeys,
@@ -18,7 +18,15 @@ export class Framework<
     this.ctx.set(`framework.${this.key}.components.${type}`, Component)
     return this
   }
-  // defineIcon(): Framework<K>
+  defineIcon<
+    Icon extends Icons
+  >(
+    icon: Icon,
+    Comp: Frameworks[K]['Icon'],
+  ) {
+    this.ctx.set(`framework.${this.key}.icons.${icon}`, Comp)
+    return this
+  }
   // defineCtrl(): Framework<K>
   // defineView(): Framework<K>
   // defineStructure(): Framework<K>
@@ -26,6 +34,7 @@ export class Framework<
 
 export interface Frameworks {
   [key: string]: {
+    Icon: any
     /**
      * define framework special component func value to infer defineComp func type
      */
