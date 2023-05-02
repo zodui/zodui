@@ -9,9 +9,6 @@ import 'tdesign-react/esm/style/index.js'
 
 import { addController } from '@zodui/react'
 
-initIcons: {
-}
-
 initComponents: {
   addController('Number:Slider', props => <Slider {...props} />)
   addController('String.TextArea', props => <Textarea
