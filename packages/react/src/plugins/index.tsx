@@ -1,12 +1,11 @@
-import { ReactElement } from 'react'
-
-import { AllType, ModesMap, TypeMap } from '@zodui/core'
-import { ControllerProps } from '@zodui/react'
+import type { AllType, ModesMap, TypeMap } from '@zodui/core'
+import type { ControllerProps } from '@zodui/react'
+import type { ReactElement } from 'react'
 
 export interface ComponentMatcher<
   T extends AllType,
   IsParams extends any[],
-  Props extends any,
+  Props,
 > {
   types: T[]
   is(...params: IsParams): boolean

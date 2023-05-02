@@ -1,12 +1,14 @@
 import './schema.scss'
-import type { Schema as ZodSchema } from 'zod'
-import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
 
-import { Item, ItemRef } from './item'
 import { AllTypes } from '@zodui/core'
 import { classnames, inlineMarkdown, isWhatType, merge } from '@zodui/core/utils'
-import common from './plugins/common'
+import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
+import type { Schema as ZodSchema } from 'zod'
+
 import { usePlugins } from './hooks'
+import type { ItemRef } from './item';
+import { Item } from './item'
+import common from './plugins/common'
 
 export interface SchemaRef {
   verify: () => Promise<any>
@@ -107,6 +109,8 @@ export const Schema = forwardRef<SchemaRef, SchemaProps>((props, ref) => {
       />}
   </div>
 })
+
+Schema.displayName = 'Schema'
 
 // TODO export Schema with Item
 // Schema.Item = Item

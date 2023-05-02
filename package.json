@@ -6,6 +6,7 @@
   "version": "0.1.0",
   "scripts": {
     "postinstall": "patch-package",
+    "lint": "eslint --cache --cache-location=node_modules/.cache/.eslintcache/ ./ --max-warnings=0",
     "serve": "yarn workspace @zodui/demo serve"
   },
   "workspaces": [
@@ -14,13 +15,19 @@
   ],
   "devDependencies": {
     "@types/node": "^18.15.5",
-    "patch-package": "^6.5.1",
     "@types/chai": "^4.3.3",
     "@types/mocha": "^10.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.55.0",
+    "@typescript-eslint/parser": "^5.55.0",
     "chai": "^4.3.6",
     "esbuild": "^0.17.18",
     "esbuild-register": "^3.4.2",
+    "eslint": "^8.36.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "mocha": "^10.1.0",
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "patch-package": "^6.5.1"
   }
 }

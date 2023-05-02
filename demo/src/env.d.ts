@@ -1,10 +1,8 @@
 /// <reference types="vite/client" />
-/// <reference path="../public/monaco/monaco" />
+import '../public/monaco/monaco'
 
 export declare global {
-  const Popper: typeof Popper
-
-  import z from 'zod'
+  import type z from 'zod'
   const z: z
   const MONACO_DTS_FILES: {
     content: string;

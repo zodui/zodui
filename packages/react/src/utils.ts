@@ -1,6 +1,6 @@
-import z from 'zod'
-import { useEffect, useMemo } from 'react'
 import { getDefaultValue, getModes } from '@zodui/core/utils'
+import { useEffect, useMemo } from 'react'
+import type z from 'zod'
 
 export function useModes<T extends z.ZodTypeAny>(schema: T) {
   return useMemo(() => getModes(schema._mode), [schema._mode])
