@@ -88,7 +88,15 @@ module.exports = {
     'block-spacing': 'error',
     'array-bracket-spacing': ['error', 'never'],
     'object-curly-spacing': ['error', 'always'],
+    'indent': ['error', 2, {
+      SwitchCase: 1,
+      VariableDeclarator: 'first',
+      // ignore jsx node
+      ignoredNodes: ['JSXElement *']
+    }],
     'jsx-quotes': ['error', 'prefer-single'],
+    'react/jsx-indent': ['error', 2],
+    'react/jsx-indent-props': ['error', 'first'],
     '@typescript-eslint/no-restricted-imports': [
       'error',
       {
