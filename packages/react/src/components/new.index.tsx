@@ -54,7 +54,7 @@ export namespace InnerProps {
     & ButtonHTMLAttributes<HTMLButtonElement>
     & Omit<ComponentProps.Button, 'icon'>
     & {
-      icon?: ZElement | Icons | (string & {})
+      icon?: ZElement
     }
   // TODO support input select
   // TODO support multiple select

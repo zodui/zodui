@@ -255,7 +255,7 @@ export function Multiple({
             ? <Button
               shape='square'
               variant='outline'
-              icon={<Icon name='Prepend' /> }
+              icon='Prepend'
               onClick={() => addNewItem('prepend')}
             />
             : <Button
@@ -274,7 +274,7 @@ export function Multiple({
             ? <Button
               shape='square'
               variant='outline'
-              icon={<Icon name='Append' /> }
+              icon='Append'
               onClick={() => addNewItem('append')}
             />
             : <Button

@@ -1,8 +1,16 @@
-import type { Frameworks } from '@zodui/core'
+import type { Frameworks, Icons } from '@zodui/core'
 import { Icon, useCoreContextComponent } from '@zodui/react'
 import { useMemo } from 'react'
 
-export type Button = Frameworks['react']['Components']['Button']
+type InnerButton = Frameworks['react']['Components']['Button']
+
+type InnerButtonProps = Parameters<InnerButton>[0]
+
+export type Button = (props:
+  & Omit<InnerButtonProps, 'icon'>
+  & {
+    icon: InnerButtonProps['icon'] | Icons | (string & {})
+  }) => ReturnType<InnerButton>
 
 export const Button: Button = ({
   icon,
