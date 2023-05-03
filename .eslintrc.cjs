@@ -80,23 +80,6 @@ module.exports = {
     '@typescript-eslint/no-empty-interface': 'off',
     '@typescript-eslint/no-empty-function': 'off',
     '@typescript-eslint/no-non-null-assertion': 'off',
-    // end
-    'react/prop-types': 'off',
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error',
-    'semi': ['error', 'never'],
-    'block-spacing': 'error',
-    'array-bracket-spacing': ['error', 'never'],
-    'object-curly-spacing': ['error', 'always'],
-    'indent': ['error', 2, {
-      SwitchCase: 1,
-      VariableDeclarator: 'first',
-      // ignore jsx node, template literal expression
-      ignoredNodes: ['JSXElement *', 'TemplateLiteral *']
-    }],
-    'jsx-quotes': ['error', 'prefer-single'],
-    'react/jsx-indent': ['error', 2],
-    'react/jsx-indent-props': ['error', 'first'],
     '@typescript-eslint/no-restricted-imports': [
       'error',
       {
@@ -113,6 +96,23 @@ module.exports = {
           }
         ]
       }
-    ]
+    ],
+    // end
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
+    'semi': ['error', 'never'],
+    'block-spacing': 'error',
+    'array-bracket-spacing': ['error', 'never'],
+    'object-curly-spacing': ['error', 'always'],
+    'indent': ['error', 2, {
+      SwitchCase: 1,
+      VariableDeclarator: 'first',
+      // ignore jsx node, template literal expression
+      ignoredNodes: ['JSXElement *', 'TemplateLiteral *']
+    }],
+    'jsx-quotes': ['error', 'prefer-single'],
+    'react/prop-types': 'off',
+    'react/jsx-indent': ['error', 2],
+    'react/jsx-indent-props': ['error', 'first']
   }
 }
