@@ -1,4 +1,4 @@
-import { Frameworks } from '@zodui/core'
+import type { Frameworks } from '@zodui/core'
 import { useCoreContextIcon } from '@zodui/react'
 
 export type Icon = Frameworks['react']['Icon']

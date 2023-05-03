@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 
-import { plgMaster, Plugin } from './plugins'
+import type { Plugin } from './plugins'
+import { plgMaster } from './plugins'
 
 export function usePlugins(...plugins: (Plugin | (() => Plugin))[]) {
   const [inited, setInited] = useState(false)
@@ -15,7 +16,7 @@ export function usePlugins(...plugins: (Plugin | (() => Plugin))[]) {
       setInited(false)
       dispatches.forEach(func => func())
     }
-  }, [plgMaster, ...plugins])
+  }, [plugins])
 
   return { inited }
 }

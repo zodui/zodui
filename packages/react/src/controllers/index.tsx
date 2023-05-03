@@ -1,25 +1,36 @@
 import './index.scss'
 
-import { ReactElement, useMemo } from 'react'
-import z, { Schema, ZodTypeDef } from 'zod'
-import { Monad } from './monad'
-import {
+import type {
   AllType,
-  AllTypes,
-  TypeMap,
+  TypeMap } from '@zodui/core'
+import {
+  AllTypes
 } from '@zodui/core'
 import {
   isWhatType,
   isWhatTypes,
 } from '@zodui/core/utils'
-import { useErrorHandlerContext, useControllerClassName } from '@zodui/react'
+import { useControllerClassName,useErrorHandlerContext } from '@zodui/react'
+import type { ReactElement } from 'react'
+import { useCallback, useMemo } from 'react'
+import type { Schema, ZodTypeDef } from 'zod'
+import type z from 'zod'
+
+import { complex, monad, multiple } from '../configure'
 import {
   useDefaultValue,
   useModes
 } from '../utils'
 import { Complex } from './complex'
+import { Monad } from './monad'
 import { Multiple } from './multiple'
-import { monad, complex, multiple } from '../configure'
+
+// TODO support literal type display
+const subControllers = [
+  ['monad', monad, Monad],
+  ['complex', complex, Complex],
+  ['multiple', multiple, Multiple]
+] as const
 
 function isMatchSubControllersWhatTypes<T extends AllType>(
   types: T[],
@@ -30,7 +41,7 @@ function isMatchSubControllersWhatTypes<T extends AllType>(
     (props: ControllerProps<any>) => ReactElement
   ]
 ): tuple is [TypeMap[T], (props: ControllerProps<TypeMap[T]>) => ReactElement] {
-  const [ s ] = tuple
+  const [s] = tuple
   return isWhatTypes(s, types)
 }
 
@@ -49,51 +60,18 @@ export interface ControllerProps<T extends Schema = Schema> {
  * Controller will try to resolve all schema and render it
  */
 export function Controller(props: ControllerProps) {
+  const { schema, ...rest } = props
   const { className: subClassName, ControllerClassName } = useControllerClassName()
   // props defaultValue is higher than schema defaultValue
   // because Component is user controlled
   // but schema defaultValue is not user controlled, so we should use props defaultValue first
-  const defaultValue = props.defaultValue ?? useDefaultValue(props.schema)
-  if (isWhatType(props.schema, AllTypes.ZodDefault)) {
-    const {
-      innerType,
-      defaultValue: _,
-      typeName: __,
-      ...assignDefFields
-    } = props.schema._def
-    Object.assign(innerType._def, assignDefFields)
-    return <Controller
-      {...props}
-      schema={innerType}
-      defaultValue={defaultValue}
-    />
-  }
-  if (isWhatType(props.schema, AllTypes.ZodOptional)) {
-    const {
-      innerType,
-      typeName: __,
-      ...assignDefFields
-    } = props.schema._def
-    Object.assign(innerType._def, assignDefFields)
-    return <Controller
-      {...props}
-      schema={innerType}
-    />
-  }
-
-  const { schema, ...rest } = props
+  const innerDefaultValue = useDefaultValue(schema)
+  const defaultValue = props.defaultValue ?? innerDefaultValue
 
   // TODO resolve parent modes?
   const modes = useModes(schema)
 
-  // TODO support literal type display
-  const subControllers = [
-    ['monad', monad, Monad],
-    ['complex', complex, Complex],
-    ['multiple', multiple, Multiple]
-  ] as const
-
-  const SubController: ReactElement = useMemo(() => {
+  const SubController: () => ReactElement = useCallback(() => {
     for (const [name, types, SubController] of subControllers) {
       // let ts happy
       const checkTuple = [schema, SubController] as const
@@ -107,12 +85,39 @@ export function Controller(props: ControllerProps) {
       }
     }
     return null
-  }, [schema, modes, rest, subClassName])
+  }, [schema, subClassName, ControllerClassName, modes, rest])
+
+  if (isWhatType(schema, AllTypes.ZodDefault)) {
+    const {
+      innerType,
+      defaultValue: _,
+      typeName: __,
+      ...assignDefFields
+    } = schema._def
+    Object.assign(innerType._def, assignDefFields)
+    return <Controller
+      {...props}
+      schema={innerType}
+      defaultValue={defaultValue}
+    />
+  }
+  if (isWhatType(schema, AllTypes.ZodOptional)) {
+    const {
+      innerType,
+      typeName: __,
+      ...assignDefFields
+    } = schema._def
+    Object.assign(innerType._def, assignDefFields)
+    return <Controller
+      {...props}
+      schema={innerType}
+    />
+  }
 
   return SubController
-    ? SubController
+    ? <SubController/>
     : <div className='zodui-controller'>
-      <span style={{ width: '100%' }}>暂未支持的的类型 <code>{props.schema.type}</code></span>
+      <span style={{ width: '100%' }}>暂未支持的的类型 <code>{schema.type}</code></span>
     </div>
 }
 

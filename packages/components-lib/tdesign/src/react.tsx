@@ -1,8 +1,9 @@
-import React from 'react'
-import { Icon } from '@zodui/react'
-import { definePlugin } from '@zodui/core'
-import { Narrow } from '@zodui/core/utils'
+import 'tdesign-react/esm/style/index.js'
 
+import { definePlugin } from '@zodui/core'
+import type { Narrow } from '@zodui/core/utils'
+import { Icon } from '@zodui/react'
+import React from 'react'
 import {
   AddIcon,
   ArrowDownIcon,
@@ -18,7 +19,6 @@ import {
   Input, InputAdornment,
   InputNumber, Select, Switch
 } from 'tdesign-react/esm'
-import 'tdesign-react/esm/style/index.js'
 
 declare module '@zodui/core' {
   export interface FrameworkComponentsTDesignReact {

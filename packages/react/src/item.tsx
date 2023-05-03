@@ -1,16 +1,17 @@
 import './item.scss'
 
-import { ZodError, Schema as ZodSchema } from 'zod'
-import React, { useCallback, useEffect, useMemo, useRef, useState, useImperativeHandle, forwardRef } from 'react'
-
-import { WrapModes } from './configure'
 import { AllTypes } from '@zodui/core'
 import { classnames, debounce, getModes, inlineMarkdown } from '@zodui/core/utils'
-import { Controller } from './controllers'
+import React, { forwardRef,useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import type { Schema as ZodSchema } from 'zod'
+import { ZodError } from 'zod'
+
 import { Button, Dropdown } from './components'
+import { WrapModes } from './configure'
 import { useErrorHandler } from './contexts/error-handler'
-import { useItemSerter } from './contexts/item-serter'
 import { useItemConfigurerContext } from './contexts/item-configurer'
+import { useItemSerter } from './contexts/item-serter'
+import { Controller } from './controllers'
 
 const prefix = 'zodui-item'
 
@@ -58,7 +59,7 @@ export const Item = forwardRef<ItemRef, ItemProps>((props, ref) => {
 
   useEffect(() => {
     if (error) reset()
-  }, [schema])
+  }, [error, reset, schema])
 
   const [_, rerender] = useState(false)
   const valueRef = useRef<number>(props.value ?? props.defaultValue)
@@ -69,6 +70,9 @@ export const Item = forwardRef<ItemRef, ItemProps>((props, ref) => {
       valueChangeListener.current = undefined
     }
   }, [])
+  // FIXME the next line is working but eslint isn't happy
+  //       with the dependency array
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const changeValue = useCallback(debounce(async (v: any, must = false, doVerify = configure.actualTimeVerify) => {
     try {
       const rv = doVerify
@@ -170,6 +174,8 @@ export const Item = forwardRef<ItemRef, ItemProps>((props, ref) => {
   </ItemSerter>
 })
 
+Item.displayName = 'Item'
+
 function ValueChecker({
   value,
   schema,
@@ -199,7 +205,7 @@ function ValueChecker({
     if (actualTimeVerify)
       parse(value).catch(() => null)
     return onValueChange(parse)
-  }, [value, schema, parse])
+  }, [actualTimeVerify, value, schema, parse, onValueChange])
   return <div className={classnames(`${prefix}__error`, {
     none: !parseError
   })}>

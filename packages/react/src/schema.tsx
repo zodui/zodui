@@ -6,7 +6,7 @@ import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
 import type { Schema as ZodSchema } from 'zod'
 
 import { usePlugins } from './hooks'
-import type { ItemRef } from './item';
+import type { ItemRef } from './item'
 import { Item } from './item'
 import common from './plugins/common'
 

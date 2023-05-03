@@ -1,19 +1,18 @@
+import virtual from '@rollup/plugin-virtual'
+import react from '@vitejs/plugin-react'
+import type { Options as EJSOptions } from 'ejs'
+import { buildSync } from 'esbuild'
 import * as fs from 'fs'
 import * as path from 'path'
-
-import { buildSync } from 'esbuild'
-
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import virtual from '@rollup/plugin-virtual'
-import tsconfigPaths from 'vite-tsconfig-paths'
 import { createHtmlPlugin } from 'vite-plugin-html'
+import tsconfigPaths from 'vite-tsconfig-paths'
 
-import { Options as EJSOptions } from 'ejs'
-
+/* eslint-disable @typescript-eslint/no-restricted-imports */
 import { docsTemplateRender, MD_PLUGIN } from './src/builder'
-import Preview from './src/builder/marked-plugins/preview'
 import Header from './src/builder/marked-plugins/header'
+import Preview from './src/builder/marked-plugins/preview'
+/* eslint-enable @typescript-eslint/no-restricted-imports */
 
 const ZOD_EXTERNAL_FILE_PATH = path.join(__dirname, '../packages/core/src/external.ts')
 
@@ -92,7 +91,7 @@ const ejsOptions: EJSOptions = {
 }
 
 const docsPages: Exclude<Parameters<typeof createHtmlPlugin>[0], undefined>['pages'] = []
-initDocs: {
+{
   const docsPath = path.resolve(__dirname, './docs')
   findFilesBy(docsPath, ['.md'], filePath => {
     const docFilePath = path.relative(docsPath, filePath)
@@ -122,7 +121,7 @@ function commonInjectOptionsData() {
 
   function importDTSFiles(module: string, targetPath: string) {
     function addDtsFileContent(filePath: string) {
-      let content = fs.readFileSync(filePath, 'utf-8')
+      const content = fs.readFileSync(filePath, 'utf-8')
       MONACO_DTS_FILES.push({
         content,
         filePath: filePath.replace(targetPath, `file:///node_modules/@types/${module}`)

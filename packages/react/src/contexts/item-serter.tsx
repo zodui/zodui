@@ -1,8 +1,9 @@
-import {
-  createContext,
+import type {
   PropsWithChildren,
   ReactElement,
-  ReactNode, useCallback,
+  ReactNode } from 'react'
+import {
+  createContext, useCallback,
   useContext,
   useEffect, useRef, useState
 } from 'react'
@@ -41,6 +42,7 @@ export function useItemSerter() {
     ItemSerter: ({ children }: PropsWithChildren) => <ItemSerterContext.Provider value={{
       Append: ({ children, deps = [] }: RenderProps) => {
         // TODO let memo watch children change, or let react manage itself dependencies
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         useEffect(() => prevChange(children), [...deps])
         return null
       }

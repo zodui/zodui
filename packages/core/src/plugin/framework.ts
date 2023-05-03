@@ -1,4 +1,4 @@
-import { Context, Icons } from '@zodui/core'
+import type { Context, Icons } from '@zodui/core'
 
 export class Framework<
   K extends FrameworksKeys,

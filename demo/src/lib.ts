@@ -14,7 +14,7 @@ window.onCodeChange = function (key, fn) {
 }
 
 window.emitCode = function (key: string, s: string) {
-  let i = setInterval(() => {
+  const i = setInterval(() => {
     if (codeChangeListeners[key]) {
       codeChangeListeners[key].forEach((fn) => fn(s))
       clearInterval(i)

@@ -1,13 +1,11 @@
+export type { BaseCompProps } from './base'
+export {
+  Button,
+  Dropdown,
+  Input, InputAdornment,
+  registerBaseComp,
+  Select,
+  Switch } from './base'
 export {
   Icon,
 } from './icon'
-export {
-  Input, InputAdornment,
-  Button,
-  Dropdown,
-  Select,
-  Switch,
-  registerBaseComp
-} from './base'
-
-export type { BaseCompProps } from './base'

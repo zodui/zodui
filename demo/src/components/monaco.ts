@@ -18,13 +18,20 @@ document.querySelectorAll<HTMLDivElement>('.monaco-editor')
   .forEach(el => {
     const { key = '', byHash = false, enableHistory = false } = el.dataset
 
-    let editor: monaco.editor.IStandaloneCodeEditor
+    const editor = editors[key] = monaco.editor.create(el, {
+      theme: window.theme === 'dark' ? 'vs-dark' : 'vs',
+      value: DEFAULT_CODE,
+      language: 'typescript',
+      tabSize: 2,
+      automaticLayout: true,
+      model: monaco.editor.createModel('', 'typescript', monaco.Uri.parse(`file:///${key ?? 'main'}.ts`)),
+    })
 
     window.onThemeChange(theme => {
       if (editor) {
         monaco.editor.setTheme(theme === 'dark' ? 'vs-dark' : 'vs')
       } else {
-        let i = setInterval(() => {
+        const i = setInterval(() => {
           if (editor) {
             monaco.editor.setTheme(theme === 'dark' ? 'vs-dark' : 'vs')
             clearInterval(i)
@@ -33,24 +40,14 @@ document.querySelectorAll<HTMLDivElement>('.monaco-editor')
       }
     })
 
-    editor = monaco.editor.create(el, {
-      theme: window.theme === 'dark' ? 'vs-dark' : 'vs',
-      value: DEFAULT_CODE,
-      language: 'typescript',
-      tabSize: 2,
-      automaticLayout: true,
-      model: monaco.editor.createModel('', 'typescript', monaco.Uri.parse(`file:///${key ?? 'main'}.ts`)),
-    })
-    editors[key] = editor
+    function setCodeByUrl() {
+      const hash = location.hash.slice(1)
+      const code = hash ? base64(hash) : DEFAULT_CODE
+      editor.setValue(code)
+      emitCode(key, code)
+    }
 
     if (byHash) {
-      function setCodeByUrl() {
-        const hash = location.hash.slice(1)
-        const code = hash ? base64(hash) : DEFAULT_CODE
-        editor.setValue(code)
-        emitCode(key, code)
-      }
-
       window.addEventListener('hashchange', setCodeByUrl)
 
       setCodeByUrl()

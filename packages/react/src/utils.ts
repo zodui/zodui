@@ -7,6 +7,7 @@ export function useModes<T extends z.ZodTypeAny>(schema: T) {
 }
 
 export function useDefaultValue(s: z.Schema) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   return useMemo(() => getDefaultValue(s), [s._def])
 }
 
@@ -17,5 +18,5 @@ export function useLifecycleChecker(tag: string) {
     return () => {
       console.log(`[useLifecycleChecker] ${tag} unmounted`)
     }
-  }, [])
+  }, [tag])
 }

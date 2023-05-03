@@ -1,4 +1,4 @@
-import { FrameworksKeys } from './framework'
+import type { FrameworksKeys } from './framework'
 
 export type Icons =
   | 'Add'

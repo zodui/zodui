@@ -1,11 +1,11 @@
-import { Framework, FrameworksKeys } from './framework'
+import type { FrameworksKeys } from './framework'
+import { Framework } from './framework'
 
-export * from './framework'
 export type {
-  Icons,
+  ComponentProps,
   FrameworkComponents,
-  ComponentProps
-} from './components'
+  Icons } from './components'
+export * from './framework'
 
 const effectSymbol = Symbol('effect')
 
@@ -13,7 +13,7 @@ class Emitter {
   #listeners = new Map<string, Function[]>()
   on(key: string, func: Function) {
     const list = this.#listeners.get(key) || []
-    let index = list.length
+    const index = list.length
     list.push(func)
     this.#listeners.set(key, list)
     return () => {
@@ -48,33 +48,33 @@ export class Context<
     return new Context(this.store, this.emitter)
   }
   set(k: string, v?: any) {
-    this.store!.set(k, v)
+    this.store?.set(k, v)
     this.emitter.do(k, v)
     this[effectSymbol].push(() => {
-      let storeV = this.store!.get(k)
+      const storeV = this.store?.get(k)
       if (storeV === v) {
-        this.store!.delete(k)
+        this.store?.delete(k)
       }
     })
     return this
   }
   del(k: string) {
-    const storeV = this.store!.get(k)
-    this.store!.delete(k)
+    const storeV = this.store?.get(k)
+    this.store?.delete(k)
     this.emitter.do(k)
     this[effectSymbol].push(() => {
-      this.store!.set(k, storeV)
+      this.store?.set(k, storeV)
     })
     return this
   }
   get<T>(k: string) {
     return [
-      this.store!.get(k) as T,
+      this.store?.get(k) as T,
       this.emitter.on.bind(this.emitter, k),
     ] as const
   }
   use(p: Plugin | (() => Promise<Plugin>) | (() => Promise<{ default: Plugin }>)) {
-    let effect = () => {}
+    let effect: Function
 
     const childCtx = this.extend()
     function collectPluginEffect(p: Plugin) {

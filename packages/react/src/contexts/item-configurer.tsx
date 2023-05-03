@@ -1,4 +1,5 @@
-import { createContext, PropsWithChildren, useContext, useMemo, useState } from 'react'
+import type { PropsWithChildren } from 'react'
+import { createContext, useContext, useMemo, useState } from 'react'
 
 export interface ItemConfigure {
   actualTimeVerify?: boolean

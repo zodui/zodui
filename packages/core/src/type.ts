@@ -1,4 +1,6 @@
-import z, { ZodFirstPartyTypeKind, ZodRawShape, ZodUnionOptions } from 'zod'
+import type { ZodRawShape, ZodUnionOptions } from 'zod'
+import type z from 'zod'
+import { ZodFirstPartyTypeKind } from 'zod'
 
 export interface ZodTypeMap {
   ZodString: z.ZodString

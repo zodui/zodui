@@ -1,4 +1,4 @@
-import { Frameworks } from '@zodui/core'
+import type { Frameworks } from '@zodui/core'
 import { useCoreContextComponent } from '@zodui/react'
 
 export type Input = Frameworks['react']['Components']['Input']

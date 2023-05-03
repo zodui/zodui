@@ -1,7 +1,7 @@
-import { marked, Slugger } from 'marked'
 import fs from 'fs'
-import path from 'path'
 import hljs from 'highlight.js'
+import { marked, Slugger } from 'marked'
+import path from 'path'
 
 export const MD_PLUGIN: (readonly [marked.RendererObject, string])[] = []
 

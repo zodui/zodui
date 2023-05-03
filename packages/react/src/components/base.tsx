@@ -1,4 +1,4 @@
-import {
+import type {
   ButtonHTMLAttributes,
   CSSProperties,
   InputHTMLAttributes,
@@ -129,8 +129,8 @@ export function registerBaseComp<K extends keyof typeof BaseComps>(name: K, comp
   BaseComps[name] = comp
 }
 
-export { Input, InputAdornment } from './input'
 export { Button } from './button'
 export { Dropdown } from './dropdown'
+export { Input, InputAdornment } from './input'
 export { Select } from './select'
 export { Switch } from './switch'

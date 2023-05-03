@@ -1,14 +1,10 @@
-import { useCallback, useEffect, useState } from 'react'
-import { Frameworks } from '@zodui/core'
+import type { Frameworks } from '@zodui/core'
 import { useCoreContextComponent } from '@zodui/react'
+import { useCallback, useEffect, useState } from 'react'
 
 export type Switch = Frameworks['react']['Components']['Switch']
 
-export const Switch: Switch = (props) => {
-  const Switch = useCoreContextComponent('Switch')
-  if (Switch)
-    return <Switch {...props} />
-
+const OriginalSwitch: Switch = props => {
   const {
     value,
     defaultValue,
@@ -18,7 +14,7 @@ export const Switch: Switch = (props) => {
   const [checked, setChecked] = useState<boolean>(value ?? defaultValue)
   useEffect(() => {
     setChecked(value ?? defaultValue)
-  }, [value ?? defaultValue])
+  }, [value, defaultValue])
   const checkedChange = useCallback((checked: boolean) => {
     setChecked(checked)
     onChange?.(checked)
@@ -34,4 +30,11 @@ export const Switch: Switch = (props) => {
     checked={checked}
     onChange={e => checkedChange(e.target.checked)}
   />
+}
+
+export const Switch: Switch = (props) => {
+  const Switch = useCoreContextComponent('Switch')
+  if (Switch)
+    return <Switch {...props} />
+  return <OriginalSwitch {...props} />
 }

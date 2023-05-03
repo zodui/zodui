@@ -1,4 +1,5 @@
-import {
+import type { ComponentProps, Icons } from '@zodui/core'
+import type {
   ButtonHTMLAttributes,
   CSSProperties,
   InputHTMLAttributes,
@@ -6,7 +7,6 @@ import {
   ReactElement,
   SelectHTMLAttributes, SVGAttributes
 } from 'react'
-import { ComponentProps, Icons } from '@zodui/core'
 
 declare module '@zodui/core' {
   export interface Frameworks {
@@ -44,7 +44,7 @@ export namespace InnerProps {
   export type InputAdornment =
     & BaseProps
     & PropsWithChildren
-    & ComponentProps.InputAdornment
+    & Omit<ComponentProps.InputAdornment, 'prev' | 'next'>
     & {
       prev?: ZElement
       next?: ZElement
@@ -52,9 +52,9 @@ export namespace InnerProps {
   export type Button =
     & BaseProps
     & ButtonHTMLAttributes<HTMLButtonElement>
-    & ComponentProps.Button
+    & Omit<ComponentProps.Button, 'icon'>
     & {
-      icon?: ZElement
+      icon?: ZElement | Icons | (string & {})
     }
   // TODO support input select
   // TODO support multiple select

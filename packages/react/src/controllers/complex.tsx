@@ -1,15 +1,19 @@
 import './complex.scss'
 
-import type { ZodUnionOptions } from 'zod'
-import { ReactElement, useEffect, useMemo, useState } from 'react'
-import { Controller, ControllerProps } from './index'
-import { AllTypes, TypeMap } from '@zodui/core'
+import type { TypeMap } from '@zodui/core'
+import { AllTypes } from '@zodui/core'
 import { isWhatType } from '@zodui/core/utils'
+import type { BaseCompProps } from '@zodui/react'
+import { Select, useItemSerterContext } from '@zodui/react'
+import type { ReactElement } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import type { ZodUnionOptions } from 'zod'
 
+import type { ComplexType } from '../configure'
 import { plgMaster } from '../plugins'
-import { useItemSerterContext, Select, BaseCompProps } from '@zodui/react'
 import { Schema } from '../schema'
-import { ComplexType } from '../configure'
+import type { ControllerProps } from './index'
+import { Controller } from './index'
 
 declare module '@zodui/react' {
   export interface ComplexSubController {
@@ -50,7 +54,7 @@ export function Complex({
     if (index === -1) return
 
     setIndex(index)
-  }, [value, defaultValue])
+  }, [value, defaultValue, schema.options])
   const props = {
     title: schema._def.description,
     ...rest,

@@ -1,6 +1,6 @@
-import { useMemo } from 'react'
-import { Frameworks } from '@zodui/core'
+import type { Frameworks } from '@zodui/core'
 import { Icon, useCoreContextComponent } from '@zodui/react'
+import { useMemo } from 'react'
 
 export type Button = Frameworks['react']['Components']['Button']
 

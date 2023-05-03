@@ -1,5 +1,5 @@
-import { expect } from 'chai'
 import { Context, definePlugin } from '@zodui/core'
+import { expect } from 'chai'
 
 declare module '@zodui/core' {
   interface Frameworks {
@@ -89,6 +89,7 @@ describe('Plugin', function () {
   })
   it('should create emitter listeners when store set', () => {
     const ctx = new Context()
+    // eslint-disable-next-line prefer-const
     let [v, onVChange] = ctx.get('v')
     onVChange((value: any) => v = value)
     ctx.set('v', 'value')
@@ -100,6 +101,7 @@ describe('Plugin', function () {
     ).to.equal('value2')
 
     const extCtx = ctx.extend()
+    // eslint-disable-next-line prefer-const
     let [extV, extOnVChange] = extCtx.get('v')
     extOnVChange((value: any) => extV = value)
     extCtx.set('v', 'value3')

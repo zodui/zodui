@@ -1,15 +1,15 @@
 import './tdesign.scss'
-import React from 'react'
-import {
-  Slider,
-  Textarea,
-  TimePickerPanel, TimePicker, DatePickerPanel, DateRangePickerPanel, DatePicker, TimeRangePicker, DateRangePicker
-} from 'tdesign-react/esm'
 import 'tdesign-react/esm/style/index.js'
 
 import { addController } from '@zodui/react'
+import React from 'react'
+import {
+DatePicker, DatePickerPanel, DateRangePicker,
+DateRangePickerPanel,   Slider,
+  Textarea,
+TimePicker,   TimePickerPanel, TimeRangePicker } from 'tdesign-react/esm'
 
-initComponents: {
+{
   addController('Number:Slider', props => <Slider {...props} />)
   addController('String.TextArea', props => <Textarea
     autosize={{

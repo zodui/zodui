@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react'
-
-import { ZodSchema } from 'zod'
-import { Context } from '@zodui/core'
-import { Schema, SchemaRef, ItemConfigure, useItemConfigurer } from '@zodui/react'
-
 import '@zodui/react/components-lib/tdesign'
+
+import { Context } from '@zodui/core'
+import type { ItemConfigure, SchemaRef } from '@zodui/react'
+import { Schema, useItemConfigurer } from '@zodui/react'
+import React, { useEffect, useRef, useState } from 'react'
+import type { ZodSchema } from 'zod'
 
 import { createEmitter } from '../emitter'
 
@@ -29,7 +29,7 @@ export function Demo({
   const { configure, ItemConfigurer } = useItemConfigurer(cc)
 
   const [code, setCode] = useState<string>(c ?? '')
-  useEffect(() => onCodeChange(k, setCode), [])
+  useEffect(() => onCodeChange(k, setCode), [k])
 
   const [[schema] = [], setSchema] = useState<[ZodSchema]>()
   useEffect(() => {

@@ -1,16 +1,17 @@
 import './common.scss'
 
-import { Schema } from 'zod'
-import { Radio, RadioGroup } from 'tdesign-react/esm'
-
 import { AllTypes } from '@zodui/core'
 import { containSome } from '@zodui/core/utils'
-import { Plugin } from './index'
+import { useEffect, useMemo } from 'react'
+import { Radio, RadioGroup } from 'tdesign-react/esm'
+import type { Schema } from 'zod'
+
 import { Icon, Input, InputAdornment } from '../components'
-import { AsProps, ControllerRender } from '../controllers'
 import { WrapModes } from '../configure'
 import { useControllerClassNameContext } from '../contexts/controller-class-name'
-import { useEffect } from 'react'
+import type { AsProps } from '../controllers'
+import { ControllerRender } from '../controllers'
+import { Plugin } from './index'
 
 declare module '@zodui/react' {
   interface ControllerPropsMapDate {
@@ -106,10 +107,10 @@ export default () => new Plugin()
       ...props
     }) => {
       const { setClassName } = useControllerClassNameContext()
-      const datetime = [
+      const datetime = useMemo(() => [
         modes.includes('datetime') || modes.includes('date'),
         modes.includes('datetime') || modes.includes('time')
-      ]
+      ], [modes])
       // fallback to date picker
       if (datetime[0] === false && datetime[1] === false) {
         datetime[0] = true
@@ -120,7 +121,7 @@ export default () => new Plugin()
         }${
           datetime[1] ? 'time' : ''
         }-picker`)
-      }, [modes])
+      }, [datetime, modes, setClassName])
       return <ControllerRender
         target='Date:PickerRange'
         isPanel={modes.includes('panel')}

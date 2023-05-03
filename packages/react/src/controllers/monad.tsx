@@ -1,10 +1,11 @@
-import { ReactElement, useEffect, useState } from 'react'
-import { TypeMap } from '@zodui/core'
+import type { TypeMap } from '@zodui/core'
 import { Input, Switch } from '@zodui/react'
-import { ControllerProps } from './index'
+import type { ReactElement } from 'react'
+import { useEffect, useState } from 'react'
 
+import type { MonadType } from '../configure'
 import { plgMaster } from '../plugins'
-import { MonadType } from '../configure'
+import type { ControllerProps } from './index'
 
 declare module '@zodui/react' {
   export interface MonadSubController {
@@ -36,7 +37,7 @@ export function Monad({
   }
   useEffect(() => {
     setValue(rest.defaultValue || rest.value)
-  }, [rest.defaultValue || rest.value])
+  }, [rest.defaultValue, rest.value])
 
   let InnerComp: ReactElement = null
   switch (schema._def.typeName) {

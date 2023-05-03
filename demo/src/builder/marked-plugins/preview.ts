@@ -1,5 +1,6 @@
-import { defineMDPlugin } from '../index'
 import { marked } from 'marked'
+
+import { defineMDPlugin } from '../index'
 
 function uuid() {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)

@@ -1,6 +1,12 @@
 import './multiple.scss'
 
-import {
+import type { AllType, TypeMap } from '@zodui/core'
+import { AllTypes } from '@zodui/core'
+import { getDefaultValue, isWhatType, isWhatTypes } from '@zodui/core/utils'
+import { Button, Icon, Input } from '@zodui/react'
+import { useErrorHandlerContext } from '@zodui/react'
+import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import type {
   ZodArrayDef,
   ZodMapDef,
   ZodObjectDef,
@@ -10,16 +16,12 @@ import {
   ZodTupleDef,
   ZodTypeDef
 } from 'zod'
-import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
-import { Controller, ControllerProps } from './index'
-import { AllType, AllTypes, TypeMap } from '@zodui/core'
-import { getDefaultValue, isWhatType, isWhatTypes } from '@zodui/core/utils'
-import { KeyEditableTypes, ComplexMultipleTypes, MultipleType } from '../configure'
-import { Icon, Button, Input } from '../components'
+import type { MultipleType } from '../configure'
+import { ComplexMultipleTypes, KeyEditableTypes } from '../configure'
 import { plgMaster } from '../plugins'
-
-import { useErrorHandlerContext } from '../contexts/error-handler'
+import type { ControllerProps } from './index'
+import { Controller } from './index'
 
 declare module '@zodui/react' {
   export interface MultipleSubController {
@@ -44,6 +46,7 @@ export function Multiple({
   uniqueKey,
   modes,
   schema,
+  onChange,
   ...props
 }: MultipleProps) {
   const commonDef = schema._def as (
@@ -55,8 +58,8 @@ export function Multiple({
     & Partial<ZodObjectDef>
   ) & ZodTypeDef
   const dict = useMemo(() => {
-    if (isWhatType(schema, AllTypes.ZodObject)) {
-      const dict = schema._def.shape() ?? {}
+    if (commonDef.typeName === AllTypes.ZodObject) {
+      const dict = commonDef.shape() ?? {}
       return Object.entries(dict)
         .reduce((acc, [key , s]) => {
           let ns = s
@@ -69,6 +72,8 @@ export function Multiple({
         }, {} as ZodRawShape)
     }
     return {}
+  // FIXME the next line
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [commonDef.typeName, commonDef.shape])
   const getSchema = useCallback((index?: number) => {
     if (isWhatType(schema, AllTypes.ZodArray)) {
@@ -88,6 +93,8 @@ export function Multiple({
       return Object.values(dict)[index]
     }
     return null
+  // FIXME the next line
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     dict,
     commonDef.items,
@@ -105,6 +112,8 @@ export function Multiple({
       return Object.entries(schema._def.shape() ?? {}).length
     }
     return 0
+  // FIXME the next line
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [commonDef])
 
   const schemas = useMemo(() => {
@@ -122,6 +131,8 @@ export function Multiple({
       return Array.from({ length: schemasLength }).map((_, i) => getSchema(i))
     }
     return []
+  // FIXME the next line
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dict, commonDef.typeName, commonDef.items, commonDef.valueType])
 
   const [_, setRigger] = useState(false)
@@ -144,6 +155,10 @@ export function Multiple({
         ? schema._def.items.map(getDefaultValue)
         : []
   )
+
+  const dictKeys = useMemo(() => Object.keys(dict ?? {}), [dict])
+  const [keys, setKeys] = useState<string[]>([])
+
   const changeList = useCallback((value?: any[]) => {
     if (value !== undefined) {
       listRef.current = value
@@ -155,8 +170,8 @@ export function Multiple({
     if (isWhatTypes(schema, [AllTypes.ZodArray, AllTypes.ZodTuple, AllTypes.ZodSet])) {
       v = listRef.current
     }
-    props.onChange?.(v)
-  }, [props.onChange])
+    onChange?.(v)
+  }, [dictKeys, onChange, schema])
   // emit init list value
   useEffect(() => {
     changeList()
@@ -173,10 +188,7 @@ export function Multiple({
     }
     setRigger(r => !r)
     changeList()
-  }, [getSchema])
-
-  const dictKeys = useMemo(() => Object.keys(dict ?? {}), [ dict ])
-  const [keys, setKeys] = useState<string[]>([])
+  }, [changeList, getSchema])
 
   const isComplex = useMemo(() => ComplexMultipleTypes.includes(schema._def.typeName), [schema._def.typeName])
 
@@ -206,7 +218,7 @@ export function Multiple({
     {listRef.current.map((item, index) => {
       const itemSchema = getSchema(index)
       // fix delete schema flashing
-      if (!itemSchema) return <Fragment key={index} />;
+      if (!itemSchema) return <Fragment key={index} />
 
       const isKeyEditable = KeyEditableTypes.includes(schema._def.typeName)
 
@@ -229,7 +241,7 @@ export function Multiple({
               value={keys[index]}
               onChange={v => setKeys(keys => {
                 const nKeys = keys.slice()
-                nKeys[index] = v
+                nKeys[index] = v.toString()
                 return nKeys
               })}
             />
@@ -251,7 +263,7 @@ export function Multiple({
               variant='outline'
               icon='ArrowUp'
               onClick={() => {
-                let temp = listRef.current[index]
+                const temp = listRef.current[index]
                 listRef.current[index] = listRef.current[index - 1]
                 listRef.current[index - 1] = temp
                 setRigger(r => !r)
@@ -270,7 +282,7 @@ export function Multiple({
               variant='outline'
               icon='ArrowDown'
               onClick={() => {
-                let temp = listRef.current[index]
+                const temp = listRef.current[index]
                 listRef.current[index] = listRef.current[index + 1]
                 listRef.current[index + 1] = temp
                 setRigger(r => !r)

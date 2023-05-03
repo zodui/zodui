@@ -1,6 +1,9 @@
-import { createContext, PropsWithChildren, useContext, useEffect, useState } from 'react'
-import { Context, Context as InnerCoreContext, Icons } from '@zodui/core'
-import { ReactFramework } from '../components/new.index'
+import type { Context as InnerCoreContext, Icons } from '@zodui/core'
+import { Context } from '@zodui/core'
+import type { PropsWithChildren } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
+
+import type { ReactFramework } from '../components/new.index'
 
 const CoreContext = createContext<InnerCoreContext>(null)
 
@@ -13,7 +16,7 @@ export const CoreContextProvider = (props: PropsWithChildren) => {
   </CoreContext.Provider>
 }
 
-export const useCoreContextField = <T extends any>(k: string) => {
+export const useCoreContextField = <T,>(k: string) => {
   const ctx = useContext(CoreContext) ?? Context.global
   const [InnerTarget, onTargetChange] = ctx.get<T>(k)
   const [Target, setTarget] = useState<T>(() => InnerTarget)

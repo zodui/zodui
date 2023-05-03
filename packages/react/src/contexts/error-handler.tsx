@@ -1,6 +1,7 @@
+import type { Dispatch,
+  PropsWithChildren, ReactElement, SetStateAction } from 'react'
 import {
-  createContext, Dispatch,
-  PropsWithChildren, ReactElement, SetStateAction,
+  createContext,
   useCallback,
   useContext, useEffect,
   useMemo,
@@ -38,7 +39,7 @@ export function useErrorHandler() {
     ThrowError({ error }) {
       return this.throwError(error)
     },
-  }), [])
+  }), [e])
 
   return {
     reset: () => setE(undefined),

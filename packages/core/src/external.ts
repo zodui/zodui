@@ -1,6 +1,7 @@
+import type { ModesMap } from '@zodui/core'
+import type { Schema, ZodDefaultDef, ZodObject, ZodRawShape, ZodTypeAny } from 'zod'
 import * as z from 'zod'
-import { Schema, ZodDefaultDef, ZodObject, ZodRawShape, ZodType, ZodTypeAny } from 'zod'
-import { ModesMap } from '@zodui/core'
+import { ZodType } from 'zod'
 
 declare module 'zod' {
   export interface ZodTypeDef {
@@ -24,7 +25,7 @@ declare module 'zod' {
     readonly type: string
   }
   export function clazz<T>(clazz: { new(): T }): Schema<T>
-  export function asObject<T extends any>(t: T): ZodObject<Record<string, ZodTypeAny> & T>
+  export function asObject<T>(t: T): ZodObject<Record<string, ZodTypeAny> & T>
   // TODO resolve default type
 }
 
@@ -40,11 +41,11 @@ function defineMetaField(key: string) {
       && Object.defineProperty(ZodType.prototype, key, {
         get() {
           return (val: any) => {
-            const This = (this as any).constructor;
+            const This = (this as any).constructor
             return new This({
               ...this._def,
               [key]: val,
-            });
+            })
           }
         }
       })

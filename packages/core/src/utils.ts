@@ -1,5 +1,7 @@
-import { Schema, ZodFirstPartyTypeKind, ZodTypeDef } from 'zod'
-import { AllType, TypeMap } from './type'
+import type { Schema, ZodTypeDef } from 'zod'
+import { ZodFirstPartyTypeKind } from 'zod'
+
+import type { AllType, TypeMap } from './type'
 
 type Cast<A, B> = A extends B ? A : B;
 

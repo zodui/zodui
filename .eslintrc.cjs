@@ -73,14 +73,21 @@ module.exports = {
       'error',
       { prefer: 'type-imports', disallowTypeAnnotations: false }
     ],
+    '@typescript-eslint/no-namespace': 'off',
     // TODO fix start
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-empty-interface': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
+    '@typescript-eslint/no-non-null-assertion': 'off',
     // end
     'react/prop-types': 'off',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
+    'semi': ['error', 'never'],
+    'block-spacing': 'error',
+    'array-bracket-spacing': ['error', 'never'],
+    'object-curly-spacing': ['error', 'always'],
     '@typescript-eslint/no-restricted-imports': [
       'error',
       {
