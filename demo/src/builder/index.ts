@@ -62,7 +62,7 @@ export function docsTemplateRender(p: string) {
 }
 
 marked.setOptions({
-  highlight(code: string, lang: string, callback?: (error: any, code?: string) => void): string | void {
+  highlight(code: string, lang: string): string | void {
     return hljs.highlightAuto(code, [lang]).value
   }
 })

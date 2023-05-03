@@ -21,7 +21,8 @@ export interface PrimitiveProps extends ControllerProps<TypeMap[MonadType]> {
 }
 
 export function Monad({
-  uniqueKey,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  uniqueKey, // FIXME
   modes,
   schema,
   ...rest

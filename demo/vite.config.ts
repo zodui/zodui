@@ -68,14 +68,14 @@ const tabs = [
   }
 ]
 
-const TABS = tabs.map(({ depFiles, ...rest }) => ({
+const TABS = tabs.map(({ depFiles: _, ...rest }) => ({
   ...rest,
   href: `${base}${rest.filename}`
 }))
 
 const ejsOptions: EJSOptions = {
   // @ts-ignore
-  includer(originalPath, parsedPath) {
+  includer(originalPath) {
     if (originalPath.startsWith('docs/')) {
       return { template: docsTemplateRender(originalPath) }
     }

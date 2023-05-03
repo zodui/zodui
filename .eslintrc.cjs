@@ -41,8 +41,37 @@ module.exports = {
       files: ['*.ts', '*.tsx'],
       rules: {
         '@typescript-eslint/ban-ts-comment': 'off',
-        '@typescript-eslint/no-unused-vars': 'off',
-        'react/react-in-jsx-scope': 'off'
+        '@typescript-eslint/no-unused-vars': [
+          'error', {
+            varsIgnorePattern: '^_',
+            argsIgnorePattern: '^_'
+          }
+        ],
+        'react/react-in-jsx-scope': 'off',
+        // TODO fix start
+        '@typescript-eslint/ban-types': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+        '@typescript-eslint/no-empty-interface': 'off',
+        '@typescript-eslint/no-empty-function': 'off',
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        '@typescript-eslint/no-restricted-imports': [
+          'error',
+          {
+            patterns: [
+              {
+                group: ['**/dist', '**/dist/**'],
+                message: 'Don not import from dist',
+                allowTypeImports: false
+              },
+              {
+                group: ['**/src', '**/src/**'],
+                message: 'Don not import from src',
+                allowTypeImports: false
+              }
+            ]
+          }
+        ],
+        // end
       }
     },
     ...allPackages.map(pkg => ({
@@ -74,30 +103,7 @@ module.exports = {
       { prefer: 'type-imports', disallowTypeAnnotations: false }
     ],
     '@typescript-eslint/no-namespace': 'off',
-    // TODO fix start
-    '@typescript-eslint/ban-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/no-empty-interface': 'off',
-    '@typescript-eslint/no-empty-function': 'off',
-    '@typescript-eslint/no-non-null-assertion': 'off',
-    '@typescript-eslint/no-restricted-imports': [
-      'error',
-      {
-        patterns: [
-          {
-            group: ['**/dist', '**/dist/**'],
-            message: 'Don not import from dist',
-            allowTypeImports: false
-          },
-          {
-            group: ['**/src', '**/src/**'],
-            message: 'Don not import from src',
-            allowTypeImports: false
-          }
-        ]
-      }
-    ],
-    // end
+    'no-unused-vars': 'off',
     'simple-import-sort/imports': 'error',
     'simple-import-sort/exports': 'error',
     'semi': ['error', 'never'],

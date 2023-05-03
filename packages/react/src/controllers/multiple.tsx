@@ -43,7 +43,8 @@ export interface MultipleProps extends ControllerProps<TypeMap[MultipleType]> {
 }
 
 export function Multiple({
-  uniqueKey,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  uniqueKey, // FIXME
   modes,
   schema,
   onChange,

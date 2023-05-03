@@ -7,7 +7,7 @@ function uuid() {
 }
 
 export default defineMDPlugin({
-  code(code, lang, escaped) {
+  code(code, lang) {
     if (lang?.includes('zodui:preview')) {
       const id = uuid()
       const previewCode = code.split('// preview\n')[1]

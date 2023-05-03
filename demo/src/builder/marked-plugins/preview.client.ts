@@ -8,7 +8,7 @@ document.querySelectorAll<HTMLDivElement>('.zodui-preview')
     } = ele.dataset
     const originalCode = decodeURIComponent(code)
     emitCode(schemaEvalKey, originalCode)
-    const [exchange, mdBody, evaler] = ele.querySelector('.wrap')!.children
+    const [exchange, _mdBody, evaler] = ele.querySelector('.wrap')!.children
     let isEvalerVisible = true
     exchange.addEventListener('click', () => {
       if (isEvalerVisible) {

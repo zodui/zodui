@@ -12,7 +12,7 @@ import {
 } from '@zodui/core/utils'
 import { useControllerClassName,useErrorHandlerContext } from '@zodui/react'
 import type { ReactElement } from 'react'
-import { useCallback, useMemo } from 'react'
+import { useCallback } from 'react'
 import type { Schema, ZodTypeDef } from 'zod'
 import type z from 'zod'
 

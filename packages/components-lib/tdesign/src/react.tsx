@@ -127,12 +127,8 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
     .defineIcon('Link', LinkIcon)
     .defineIcon('Clear', ClearIcon)
     .defineIcon('Delete', DeleteIcon)
-    .defineIcon('Prepend', props => <RollbackIcon style={{
-      transform: 'rotate(90deg)'
-    }} />)
-    .defineIcon('Append', props => <RollbackIcon style={{
-      transform: 'rotate(-90deg)'
-    }} />)
+    .defineIcon('Prepend', props => <RollbackIcon style={{ transform: 'rotate(90deg)' }} {...props} />)
+    .defineIcon('Append', props => <RollbackIcon style={{ transform: 'rotate(-90deg)' }} {...props} />)
     .defineIcon('ArrowUp', ArrowUpIcon)
     .defineIcon('ArrowDown', ArrowDownIcon)
 })

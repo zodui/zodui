@@ -45,7 +45,7 @@ export const Schema = forwardRef<SchemaRef, SchemaProps>((props, ref) => {
 
   useImperativeHandle(ref, () => ({
     async verify() {
-      const promises = Object.entries(itemRefs.current).map(([key, ref]) => {
+      const promises = Object.entries(itemRefs.current).map(([_, ref]) => {
         if (!ref) return Promise.resolve()
         return ref.verify()
       })

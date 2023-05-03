@@ -38,7 +38,8 @@ function resolveSchemas(schemas: ZodUnionOptions): BaseCompProps.SelectOptions[]
 }
 
 export function Complex({
-  uniqueKey,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  uniqueKey, // FIXME
   modes,
   schema,
   value,

@@ -40,7 +40,7 @@ export namespace InnerProps {
     | 'onClick'
     | 'onPaste'
     | 'onWheel'>
-    & ComponentProps.Input
+    & ComponentProps.Input<T>
   export type InputAdornment =
     & BaseProps
     & PropsWithChildren

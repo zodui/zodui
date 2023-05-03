@@ -16,6 +16,8 @@ const editors: Record<string, monaco.editor.IStandaloneCodeEditor> = {}
 
 document.querySelectorAll<HTMLDivElement>('.monaco-editor')
   .forEach(el => {
+    // TODO enableHistory
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { key = '', byHash = false, enableHistory = false } = el.dataset
 
     const editor = editors[key] = monaco.editor.create(el, {

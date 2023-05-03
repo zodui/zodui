@@ -10,7 +10,9 @@ declare module 'zod' {
   }
   export interface ZodType<Output = any, Def extends ZodTypeDef = ZodTypeDef, Input = Output> {
     readonly _mode: string
-    mode<T extends string>(
+    // TODO support generic
+    // mode<T extends string>(
+    mode(
       mode:
         | Def extends ZodDefaultDef<infer InnerT extends ZodTypeAny>
           ? ModesMap[InnerT['_def']['typeName']]

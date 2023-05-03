@@ -131,7 +131,6 @@ export default () => new Plugin()
     }],
     // TODO support number range input
     [(modes, { schemas }) =>!modes.includes('no-slider') && isEqual(schemas, [AllTypes.ZodNumber, AllTypes.ZodNumber]), ({
-      modes,
       schemas: _,
       ...props
     }) => <ControllerRender target='Number.Slider' range {...props} />]
