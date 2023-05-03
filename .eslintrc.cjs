@@ -88,6 +88,7 @@ module.exports = {
     'block-spacing': 'error',
     'array-bracket-spacing': ['error', 'never'],
     'object-curly-spacing': ['error', 'always'],
+    'jsx-quotes': ['error', 'prefer-single'],
     '@typescript-eslint/no-restricted-imports': [
       'error',
       {
