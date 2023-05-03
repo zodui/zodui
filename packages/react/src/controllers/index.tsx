@@ -8,7 +8,7 @@ import {
 } from '@zodui/core'
 import {
   isWhatType,
-  isWhatTypes,
+  isWhatTypes
 } from '@zodui/core/utils'
 import { useControllerClassName,useErrorHandlerContext } from '@zodui/react'
 import type { ReactElement } from 'react'

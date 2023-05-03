@@ -81,7 +81,7 @@ const ejsOptions: EJSOptions = {
     }
 
     const paths = [
-      path.resolve(process.cwd(), `src/${originalPath}.html`),
+      path.resolve(process.cwd(), `src/${originalPath}.html`)
     ]
     for (const path of paths) {
       if (fs.existsSync(path)) return { filename: path }
@@ -159,7 +159,7 @@ process.env.NODE_ENV === 'production' && buildSync({
   outfile: `./dist/assets/zodui.external-${hash}.js`,
   bundle: true,
   minify: true,
-  sourcemap: 'inline',
+  sourcemap: 'inline'
 })
 
 export default defineConfig({
@@ -178,7 +178,7 @@ export default defineConfig({
             return `${matchId}`
           }
         }
-      },
+      }
     }, process.env.NODE_ENV !== 'development' ? {
       external: ['zod', 'zodui/external'],
       input: {
@@ -186,7 +186,7 @@ export default defineConfig({
         'docs/guide/monad': 'docs/guide/monad.html',
         'docs/main': 'docs/main.html'
       }
-    } : {}),
+    } : {})
   },
   plugins: [
     react(),
@@ -231,5 +231,5 @@ export default defineConfig({
         ...docsPages
       ]
     })
-  ],
+  ]
 })

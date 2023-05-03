@@ -39,6 +39,6 @@ export const createEmitter = <Args extends any[]>(): Emitter<Args> => {
 
   return {
     on,
-    emit,
+    emit
   }
 }

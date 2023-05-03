@@ -49,7 +49,7 @@ const innerMultipleTypes = [
   AllTypes.ZodSet,
   AllTypes.ZodMap,
   AllTypes.ZodRecord,
-  AllTypes.ZodObject,
+  AllTypes.ZodObject
 ] as const
 
 export const multiple = innerMultipleTypes as Mutable<typeof innerMultipleTypes>

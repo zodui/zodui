@@ -38,7 +38,7 @@ export function useErrorHandler() {
     },
     ThrowError({ error }) {
       return this.throwError(error)
-    },
+    }
   }), [e])
 
   return {

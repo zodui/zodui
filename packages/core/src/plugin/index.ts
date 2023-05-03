@@ -71,7 +71,7 @@ export class Context<
   get<T>(k: string) {
     return [
       this.store?.get(k) as T,
-      this.emitter.on.bind(this.emitter, k),
+      this.emitter.on.bind(this.emitter, k)
     ] as const
   }
   use(p: Plugin | (() => Promise<Plugin>) | (() => Promise<{ default: Plugin }>)) {

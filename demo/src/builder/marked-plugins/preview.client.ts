@@ -4,7 +4,7 @@ document.querySelectorAll<HTMLDivElement>('.zodui-preview')
   .forEach(ele => {
     const {
       schemaEvalKey = '',
-      code = '',
+      code = ''
     } = ele.dataset
     const originalCode = decodeURIComponent(code)
     emitCode(schemaEvalKey, originalCode)

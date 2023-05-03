@@ -7,5 +7,5 @@ export {
   Select,
   Switch } from './base'
 export {
-  Icon,
+  Icon
 } from './icon'

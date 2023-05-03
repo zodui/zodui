@@ -72,7 +72,7 @@ export default () => new Plugin()
               width: 32,
               height: 32,
               fontSize: 20,
-              cursor: 'pointer',
+              cursor: 'pointer'
             }}
             onClick={() => {
               if (!props.value)
@@ -149,7 +149,7 @@ export default () => new Plugin()
             {options.map(({
               label,
               title,
-              value,
+              value
             }) => <Radio.Button title={title} value={value} key={value.toString()}>
               {label}
             </Radio.Button>)}

@@ -44,7 +44,7 @@ function defineMetaField(key: string) {
             const This = (this as any).constructor
             return new This({
               ...this._def,
-              [key]: val,
+              [key]: val
             })
           }
         }

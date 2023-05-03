@@ -24,7 +24,7 @@ document.querySelectorAll<HTMLDivElement>('.monaco-editor')
       language: 'typescript',
       tabSize: 2,
       automaticLayout: true,
-      model: monaco.editor.createModel('', 'typescript', monaco.Uri.parse(`file:///${key ?? 'main'}.ts`)),
+      model: monaco.editor.createModel('', 'typescript', monaco.Uri.parse(`file:///${key ?? 'main'}.ts`))
     })
 
     window.onThemeChange(theme => {

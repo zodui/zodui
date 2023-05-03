@@ -13,7 +13,7 @@ export class Framework<
   defineComp<
     Type extends keyof Components & string,
   >(
-    type: Type, Component: Components[Type],
+    type: Type, Component: Components[Type]
   ) {
     this.ctx.set(`framework.${this.key}.components.${type}`, Component)
     return this
@@ -22,7 +22,7 @@ export class Framework<
     Icon extends Icons
   >(
     icon: Icon,
-    Comp: Frameworks[K]['Icon'],
+    Comp: Frameworks[K]['Icon']
   ) {
     this.ctx.set(`framework.${this.key}.icons.${icon}`, Comp)
     return this

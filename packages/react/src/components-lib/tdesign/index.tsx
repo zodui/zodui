@@ -14,7 +14,7 @@ import {
   addController('Number:Slider', props => <Slider {...props} />)
   addController('String.TextArea', props => <Textarea
     autosize={{
-      minRows: 1,
+      minRows: 1
     }}
     {...props}
   />)

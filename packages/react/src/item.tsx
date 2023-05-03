@@ -125,7 +125,7 @@ export const Item = forwardRef<ItemRef, ItemProps>((props, ref) => {
                 label: '置空',
                 title: '将数据设置为空值，即数据未被设置模式',
                 value: 'clear'
-              },
+              }
             ]}
             onAction={async v => {
               switch (v) {

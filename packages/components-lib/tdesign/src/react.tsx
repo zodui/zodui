@@ -75,7 +75,7 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
         info: 'default',
         error: 'danger',
         warning: 'warning',
-        success: 'success',
+        success: 'success'
       } as const)[theme]}
       {...props}
     />)
@@ -94,10 +94,10 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
               {
                 name: 'offset',
                 options: {
-                  offset: [4, 0],
-                },
-              },
-            ],
+                  offset: [4, 0]
+                }
+              }
+            ]
           }
         }}
         options={props.menu.map(i => ({

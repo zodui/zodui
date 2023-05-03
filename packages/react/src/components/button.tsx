@@ -18,7 +18,7 @@ export const Button: Button = ({
 }) => {
   props = Object.assign({
     shape: 'square',
-    variant: 'outline',
+    variant: 'outline'
   }, props)
   const wrapIcon = useMemo(() => typeof icon === 'string'
     ? <Icon name={icon} />

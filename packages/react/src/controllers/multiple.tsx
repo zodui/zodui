@@ -99,7 +99,7 @@ export function Multiple({
     dict,
     commonDef.items,
     commonDef.valueType,
-    commonDef.typeName,
+    commonDef.typeName
   ])
   const schemasLength = useMemo(() => {
     if (isWhatType(schema, AllTypes.ZodArray) || isWhatType(schema, AllTypes.ZodSet)) {
