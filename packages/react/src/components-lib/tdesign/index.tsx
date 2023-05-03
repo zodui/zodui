@@ -4,9 +4,11 @@ import { addController } from '@zodui/react'
 import React from 'react'
 import {
   DatePicker, DatePickerPanel, DateRangePicker,
-  DateRangePickerPanel,   Slider,
+  DateRangePickerPanel,
+  Slider,
   Textarea,
-  TimePicker,   TimePickerPanel, TimeRangePicker } from 'tdesign-react/esm'
+  TimePicker, TimePickerPanel, TimeRangePicker
+} from 'tdesign-react/esm'
 
 {
   addController('Number:Slider', props => <Slider {...props} />)
