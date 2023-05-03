@@ -35,7 +35,7 @@ export function Demo({
   useEffect(() => {
     if (!code) return
 
-      ;(async () => {
+    ;(async () => {
       try {
         const mjsEvalerURL = URL.createObjectURL(new Blob([code], { type: 'text/javascript' }))
         const module = await import(/* @vite-ignore */ mjsEvalerURL)

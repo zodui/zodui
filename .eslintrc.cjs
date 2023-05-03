@@ -91,8 +91,8 @@ module.exports = {
     'indent': ['error', 2, {
       SwitchCase: 1,
       VariableDeclarator: 'first',
-      // ignore jsx node
-      ignoredNodes: ['JSXElement *']
+      // ignore jsx node, template literal expression
+      ignoredNodes: ['JSXElement *', 'TemplateLiteral *']
     }],
     'jsx-quotes': ['error', 'prefer-single'],
     'react/jsx-indent': ['error', 2],

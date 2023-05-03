@@ -38,6 +38,7 @@ export class Context<
   PluginName extends string = string
 > {
   static global = new Context()
+  // eslint-disable-next-line indent
   ;[effectSymbol]: Function[] = []
   constructor(
     private readonly store = new Map<string, any>(),

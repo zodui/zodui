@@ -47,7 +47,7 @@ export const InputAdornment: InputAdornment = (props) => {
   return <span
     className={'zodui-input-adornment' + (className ? ' ' + className : '')}
     style={style}
-  >
+    >
     {prev}
     {children}
     {next}

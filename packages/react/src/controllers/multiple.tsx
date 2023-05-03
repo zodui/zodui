@@ -3,7 +3,7 @@ import './multiple.scss'
 import type { AllType, TypeMap } from '@zodui/core'
 import { AllTypes } from '@zodui/core'
 import { getDefaultValue, isWhatType, isWhatTypes } from '@zodui/core/utils'
-import { Button, Icon, Input } from '@zodui/react'
+import { Button, Input } from '@zodui/react'
 import { useErrorHandlerContext } from '@zodui/react'
 import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type {
@@ -138,7 +138,7 @@ export function Multiple({
   const [_, setRigger] = useState(false)
   const listRef = useRef<any[]>(
     Object.keys(dict).length > 0
-    ? Object
+      ? Object
         .entries(dict)
         .map(([k, v]) => {
           if (props.value && props.value[k] !== undefined) {
@@ -149,11 +149,11 @@ export function Multiple({
           }
           return getDefaultValue(v)
         })
-    : props.value ?? props.defaultValue
-      ? Object.entries(props.value ?? props.defaultValue).map(([, v]) => v)
-      : isWhatType(schema, AllTypes.ZodTuple)
-        ? schema._def.items.map(getDefaultValue)
-        : []
+      : props.value ?? props.defaultValue
+        ? Object.entries(props.value ?? props.defaultValue).map(([, v]) => v)
+        : isWhatType(schema, AllTypes.ZodTuple)
+          ? schema._def.items.map(getDefaultValue)
+          : []
   )
 
   const dictKeys = useMemo(() => Object.keys(dict ?? {}), [dict])
@@ -201,7 +201,7 @@ export function Multiple({
   const { Component } = plgMaster.reveal(schema._def.typeName, 'SubController.multiple', [modes, { schemas }]) ?? {}
 
   return Component
-  ? <Component
+    ? <Component
       {...props}
       modes={modes}
       schema={schema}
@@ -209,22 +209,22 @@ export function Multiple({
       value={listRef.current}
       onChange={changeList}
     />
-  : <>
-    {listRef.current.length === 0 && <Button
+    : <>
+      {listRef.current.length === 0 && <Button
       className={`${prefix}-create`}
       icon='Add'
       onClick={() => addNewItem()}
     />}
-    {listRef.current.map((item, index) => {
-      const itemSchema = getSchema(index)
-      // fix delete schema flashing
-      if (!itemSchema) return <Fragment key={index} />
+      {listRef.current.map((item, index) => {
+        const itemSchema = getSchema(index)
+        // fix delete schema flashing
+        if (!itemSchema) return <Fragment key={index} />
 
-      const isKeyEditable = KeyEditableTypes.includes(schema._def.typeName)
+        const isKeyEditable = KeyEditableTypes.includes(schema._def.typeName)
 
-      return <div className={`${prefix}-item`} key={index}>
-        {/* TODO display description */}
-        {(
+        return <div className={`${prefix}-item`} key={index}>
+          {/* TODO display description */}
+          {(
           (dictKeys[index] ?? itemSchema?._def.label) || isKeyEditable
         ) && <div className={
           `${prefix}-item__label`
@@ -247,11 +247,11 @@ export function Multiple({
             />
             : itemSchema._def.label ?? dictKeys[index]}
         </div>}
-        <div className={`${prefix}-item__index-tag`}>
-          {index + 1}
-        </div>
-        {!isComplex && <>
-          {index === 0
+          <div className={`${prefix}-item__index-tag`}>
+            {index + 1}
+          </div>
+          {!isComplex && <>
+            {index === 0
             ? <Button
               shape='square'
               variant='outline'
@@ -270,7 +270,7 @@ export function Multiple({
                 changeList()
               }}
             />}
-          {index === listRef.current.length - 1
+            {index === listRef.current.length - 1
             ? <Button
               shape='square'
               variant='outline'
@@ -289,8 +289,8 @@ export function Multiple({
                 changeList()
               }}
             />}
-        </>}
-        <Controller
+          </>}
+          <Controller
           disabled={props.disabled ?? false}
           className={`${prefix}-item__container`}
           schema={itemSchema}
@@ -301,7 +301,7 @@ export function Multiple({
             changeList()
           }}
         />
-        <Button
+          <Button
           theme='error'
           disabled={
             isComplex
@@ -319,8 +319,8 @@ export function Multiple({
             changeList()
           }}
         />
-        <Button icon='More' />
-      </div>
-    })}
-  </>
+          <Button icon='More' />
+        </div>
+      })}
+    </>
 }

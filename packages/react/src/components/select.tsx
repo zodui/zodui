@@ -17,7 +17,7 @@ export const Select: Select = (props) => {
     {...rest}
     // unable get generic T to let onChange work, so we use any to bypass it
     onChange={e => onChange(e.target.options.selectedIndex as any)}
-  >
+    >
     {props.options.map((opt) => <option
       key={opt.value}
       value={opt.value}

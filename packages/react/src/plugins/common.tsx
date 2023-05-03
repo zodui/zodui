@@ -64,24 +64,24 @@ export default () => new Plugin()
     [
       modes => modes.includes('link'),
       props => <InputAdornment
-        next={<div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 32,
-            height: 32,
-            fontSize: 20,
-            cursor: 'pointer',
-          }}
-          onClick={() => {
-            if (!props.value)
-              return
+          next={<div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 32,
+              height: 32,
+              fontSize: 20,
+              cursor: 'pointer',
+            }}
+            onClick={() => {
+              if (!props.value)
+                return
 
-            window.open(props.value, '_blank')
-          }}
-        ><Icon name='Link' /></div>}
-      >
+              window.open(props.value, '_blank')
+            }}
+          ><Icon name='Link' /></div>}
+        >
         <Input {...props}/>
       </InputAdornment>
     ]
