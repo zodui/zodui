@@ -11,4 +11,5 @@
       "@zodui/components-lib-*": ["packages/components-lib/*/src"]
     }
   },
+  "exclude": ["pages"]
 }
