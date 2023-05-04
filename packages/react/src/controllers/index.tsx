@@ -2,7 +2,8 @@ import './index.scss'
 
 import type {
   AllType,
-  TypeMap } from '@zodui/core'
+  TypeMap
+} from '@zodui/core'
 import {
   AllTypes
 } from '@zodui/core'
