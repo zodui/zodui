@@ -1,9 +1,8 @@
 import './complex.scss'
 
-import type { TypeMap } from '@zodui/core'
+import type { ComponentProps, TypeMap  } from '@zodui/core'
 import { AllTypes } from '@zodui/core'
 import { isWhatType } from '@zodui/core/utils'
-import type { BaseCompProps } from '@zodui/react'
 import { Select, useItemSerterContext } from '@zodui/react'
 import type { ReactElement } from 'react'
 import { useEffect, useMemo, useState } from 'react'
@@ -18,7 +17,7 @@ import { Controller } from './index'
 declare module '@zodui/react' {
   export interface ComplexSubController {
     props: {
-      options: BaseCompProps.SelectOptions[]
+      options: ComponentProps.SelectOptions[]
       OptionRender: ReactElement
     }
     options: {}
@@ -28,7 +27,7 @@ declare module '@zodui/react' {
   }
 }
 
-function resolveSchemas(schemas: ZodUnionOptions): BaseCompProps.SelectOptions[] {
+function resolveSchemas(schemas: ZodUnionOptions): ComponentProps.SelectOptions[] {
   // TODO resolve not literal type, it not contain value
   return schemas.map((schema, index) => ({
     label: schema._def.label || schema._def.description || schema._def.value || `${index}nd`,
