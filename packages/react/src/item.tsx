@@ -55,11 +55,7 @@ export const Item = forwardRef<ItemRef, ItemProps>((props, ref) => {
 
   const { Append, ItemSerter } = useItemSerter()
 
-  const { reset, error, ErrorHandler } = useErrorHandler()
-
-  useEffect(() => {
-    if (error) reset()
-  }, [error, reset, schema])
+  const { error, ErrorHandler } = useErrorHandler()
 
   const [_, rerender] = useState(false)
   const valueRef = useRef<number>(props.value ?? props.defaultValue)
