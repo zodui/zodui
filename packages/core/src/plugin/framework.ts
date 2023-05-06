@@ -123,6 +123,8 @@ export class Framework<
     return this
   }
   // defineView(): Framework<K>
+  // defineSubCtrl(): Framework<K>
+  // defineSubView(): Framework<K>
   // defineStructure(): Framework<K>
 }
 
