@@ -16,9 +16,15 @@ import {
   RollbackIcon
 } from 'tdesign-icons-react'
 import {
-  Button, Dropdown,
-  Input, InputAdornment,
-  InputNumber, Select, Switch
+  Button,
+  DatePicker, DatePickerPanel, DateRangePicker, DateRangePickerPanel,
+  Dropdown,
+  Input, InputAdornment, InputNumber,
+  Select,
+  Slider,
+  Switch,
+  Textarea,
+  TimePicker, TimePickerPanel, TimeRangePicker
 } from 'tdesign-react/esm'
 
 declare module '@zodui/core' {
@@ -131,6 +137,53 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
     .defineIcon('Append', props => <RollbackIcon style={{ transform: 'rotate(-90deg)' }} {...props} />)
     .defineIcon('ArrowUp', ArrowUpIcon)
     .defineIcon('ArrowDown', ArrowDownIcon)
+  ctxFgt
+    .defineCtrl('Number:Slider', props => <Slider {...props} />)
+    .defineCtrl('String:TextArea', props => <Textarea
+      autosize={{
+        minRows: 1
+      }}
+      {...props}
+    />)
+    .defineCtrl('Date:Picker', ({
+      isPanel,
+      datetime: [enableDate, enableTime] = [true, true],
+      ...props
+    }) => {
+      if (!enableDate) {
+        return isPanel
+          ? <TimePickerPanel onChange={() => {}} {...props} />
+          : <TimePicker {...props} />
+      }
+      const nProps = {
+        ...props,
+        enableTimePicker: enableDate && enableTime
+      }
+      return isPanel
+        ? <DatePickerPanel {...nProps} />
+        : <DatePicker {...nProps} />
+    })
+    .defineCtrl('Date:PickerRange', ({
+      isPanel,
+      datetime: [enableDate, enableTime] = [true, true],
+      ...props
+    }) => {
+      if (props.value === undefined)
+        props.value = []
+
+      if (!enableDate && enableTime) {
+        return isPanel
+          ? <>TDesign unable support&nbsp;<code>TimePickerPanel</code>.</>
+          : <TimeRangePicker {...props} />
+      }
+      const nProps = {
+        ...props,
+        enableTimePicker: enableDate && enableTime
+      }
+      return isPanel
+        ? <DateRangePickerPanel {...nProps} />
+        : <DateRangePicker {...nProps} />
+    })
 })
 
 export default TDesignComponentsLibForReact

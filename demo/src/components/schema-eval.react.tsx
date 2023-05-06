@@ -1,5 +1,3 @@
-import '@zodui/react/components-lib/tdesign'
-
 import { Context } from '@zodui/core'
 import type { ItemConfigure, SchemaRef } from '@zodui/react'
 import { Schema, useItemConfigurer } from '@zodui/react'
@@ -23,9 +21,20 @@ export function Demo({
   c,
   configure: cc
 }: DemoProps) {
-  Context.global.use(() => import('@zodui/components-lib-tdesign')
-    .then(({ TDesignComponentsLibForReact }) => TDesignComponentsLibForReact)
-  )
+  const [ctxInited, setCtxInited] = useState(false)
+  useEffect(() => {
+    Context.global.use(() => import('@zodui/components-lib-tdesign')
+      .then(({ TDesignComponentsLibForReact }) => {
+        setCtxInited(true)
+        return TDesignComponentsLibForReact
+      })
+    )
+  }, [])
+  // TODO may be better?
+  // Context.global.use(() => import('@zodui/components-lib-tdesign')
+  //   .then(({ TDesignComponentsLibForReact }) => TDesignComponentsLibForReact)
+  // )
+
   const { configure, ItemConfigurer } = useItemConfigurer(cc)
 
   const [code, setCode] = useState<string>(c ?? '')
@@ -56,7 +65,7 @@ export function Demo({
     return evalerValueEmitter.on(`${k}::init`, setValue)
   }, [k])
 
-  return schema ? <ItemConfigurer>
+  return ctxInited && schema ? <ItemConfigurer>
     <Schema
       ref={ref}
       model={schema}

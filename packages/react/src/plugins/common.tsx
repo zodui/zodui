@@ -2,7 +2,6 @@ import './common.scss'
 
 import { AllTypes } from '@zodui/core'
 import { containSome } from '@zodui/core/utils'
-import type { AsProps } from '@zodui/react'
 import { ControllerRender,Icon, Input, InputAdornment, useControllerClassNameContext } from '@zodui/react'
 import { useEffect, useMemo } from 'react'
 import { Radio, RadioGroup } from 'tdesign-react/esm'
@@ -10,24 +9,6 @@ import type { Schema } from 'zod'
 
 import { WrapModes } from '../configure'
 import { Plugin } from './index'
-
-declare module '@zodui/react' {
-  interface ControllerPropsMapDate {
-    PickerRange: ControllerPropsMapDate['Picker']
-  }
-  interface ControllerPropsMapDate {
-    Picker: AsProps<{
-      isPanel?: boolean
-      datetime?: [true, true] | [true, false] | [false, true]
-    }>
-  }
-  interface ControllerPropsMap {
-    Number: {
-      Slider: AsProps<{ range?: boolean }>
-    }
-    Date: ControllerPropsMapDate
-  }
-}
 
 // TODO let button match range small
 WrapModes.push('textarea', 'panel', 'radio-inline', 'button')

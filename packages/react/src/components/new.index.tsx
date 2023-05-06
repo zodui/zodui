@@ -1,4 +1,4 @@
-import type { ComponentProps, Icons } from '@zodui/core'
+import type { AsProps, ComponentProps, Icons } from '@zodui/core'
 import type {
   ButtonHTMLAttributes,
   CSSProperties,
@@ -96,7 +96,16 @@ export namespace InnerProps {
   // Drawer: () => <></>
 }
 
+interface ControllerPropsMapDate {
+  Picker: AsProps<{
+    isPanel?: boolean
+    datetime?: [true, true] | [true, false] | [false, true]
+  }>
+  PickerRange: this['Picker']
+}
+
 export interface ReactFramework {
+  Icon: (props: InnerProps.Icon) => ReactElement
   Components: {
     Input: <T extends ComponentProps.InputValue>(props: InnerProps.Input<T>) => ReactElement
     InputAdornment: (props: InnerProps.InputAdornment) => ReactElement
@@ -105,5 +114,10 @@ export interface ReactFramework {
     Switch: (props: InnerProps.Switch) => ReactElement
     Dropdown: (props: InnerProps.Dropdown) => ReactElement
   }
-  Icon: (props: InnerProps.Icon) => ReactElement
+  Controllers: {
+    Number: {
+      Slider: AsProps<{ range?: boolean }>
+    }
+    Date: ControllerPropsMapDate
+  }
 }
