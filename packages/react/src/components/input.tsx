@@ -17,20 +17,13 @@ export const Input: Input = (props) => {
   return <input
     value={value ?? defaultValue ?? ''}
     onChange={e => {
+      const value = e.target.value
+      type Value = Parameters<typeof onChange>[0]
       if (props.type === 'number') {
-        onChange?.(Number(e.target.value))
+        onChange?.(Number(value) as Value)
         return
       }
-      switch (typeof value) {
-        case 'string':
-          onChange?.(e.target.value)
-          break
-        case 'number':
-          onChange?.(Number(e.target.value))
-          break
-        default:
-          onChange?.(String(e.target.value))
-      }
+      onChange?.(value as Value)
     }}
     {...rest}
   />
