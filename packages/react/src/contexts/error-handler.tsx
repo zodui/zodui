@@ -9,6 +9,7 @@ import {
 } from 'react'
 
 interface ErrorHandler {
+  reset: () => void
   error: Error
   throwError: (error: string | Error) => ReactElement
   ThrowError: (props: {
@@ -29,6 +30,7 @@ export function useErrorHandler() {
   const [e, setE] = useState<Error>()
 
   const errorHandler = useMemo<ErrorHandler>(() => ({
+    reset: () => setE(undefined),
     error: e,
     throwError(error) {
       if (typeof error === 'string') {

@@ -148,14 +148,14 @@ export const Item = forwardRef<ItemRef, ItemProps>((props, ref) => {
               dangerouslySetInnerHTML={{ __html: inlineMarkdown(schema._def.description) }}
             />}
         </div>
-        {!error && <Controller
+        <Controller
           uniqueKey={props.uniqueKey}
           schema={schema}
           disabled={props.disabled}
           value={valueRef.current}
           defaultValue={props.defaultValue}
           onChange={changeValue}
-        />}
+        />
       </div>
     </ErrorHandler>
     <Append />

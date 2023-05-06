@@ -20,7 +20,7 @@ import {
 } from '@zodui/react'
 import type { ReactFramework } from '@zodui/react/components/new.index'
 import type { ReactElement } from 'react'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import type { Schema, ZodTypeDef } from 'zod'
 import type z from 'zod'
 
@@ -144,11 +144,26 @@ export function ControllerRender<
 } & Props) {
   const errorHandler = useErrorHandlerContext()
   const Ctrl = useCoreContextField<(props: any) => ReactElement>(`framework.react.ctrls.${target.replace('.', ':')}`)
-  if (!Ctrl) {
-    return errorHandler.throwError(`Controller ${target} not found`)
+
+  const error = useMemo(() => {
+    if (!Ctrl) {
+      return new Error(`Controller ${target} not found`)
+    }
+    if (typeof Ctrl !== 'function') {
+      return new Error(`Controller ${target} is not a function`)
+    }
+    return null
+  }, [Ctrl, target])
+
+  useEffect(() => {
+    if (error === null) {
+      errorHandler.reset()
+    }
+  }, [error, errorHandler])
+
+  if (error && error !== errorHandler.error) {
+    return errorHandler.throwError(error)
   }
-  if (typeof Ctrl !== 'function') {
-    return errorHandler.throwError(`Controller ${target} is not a function`)
-  }
+
   return <Ctrl {...props} />
 }
