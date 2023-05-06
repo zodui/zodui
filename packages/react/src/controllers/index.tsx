@@ -152,16 +152,16 @@ export function ControllerRender<
     if (typeof Ctrl !== 'function') {
       return new Error(`Controller ${target} is not a function`)
     }
-    return null
+    return undefined
   }, [Ctrl, target])
 
   useEffect(() => {
-    if (error === null) {
+    if (error === undefined && errorHandler.error !== undefined) {
       errorHandler.reset()
     }
   }, [error, errorHandler])
 
-  if (error && error !== errorHandler.error) {
+  if (error) {
     return errorHandler.throwError(error)
   }
 
