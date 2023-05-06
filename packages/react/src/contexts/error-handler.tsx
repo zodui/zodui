@@ -36,6 +36,9 @@ export function useErrorHandler() {
       if (typeof error === 'string') {
         error = new Error(error)
       }
+      if (error.message === e?.message) {
+        return null
+      }
       return <ErrorComp error={error} setE={setE}/>
     },
     ThrowError({ error }) {
