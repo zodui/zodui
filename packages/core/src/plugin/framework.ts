@@ -1,7 +1,6 @@
 import type { Context, Icons } from '@zodui/core'
 import type { TypeMap } from '@zodui/core'
 import type { ControllerProps } from '@zodui/react'
-import type { ReactElement } from 'react'
 
 const PropsSymbol = Symbol('props')
 
@@ -118,7 +117,7 @@ export class Framework<
     P extends AllPaths<ControllerPropsMap & Controllers>,
     InnerProps = RevealPropsByPath<P, InnerControllerPropsMap<Controllers>>,
     Props = InnerProps extends AsProps<infer P> ? P : never
-  >(path: P | (string & {}), Ctrl: (props: Props) => ReactElement) {
+  >(path: P | (string & {}), Ctrl: FrameworkCtrl<Props>[K]) {
     this.ctx.set(`framework.${this.key}.ctrls.${path}`, Ctrl)
     return this
   }
@@ -138,6 +137,11 @@ export interface Frameworks {
     Controllers: {
     }
   }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export interface FrameworkCtrl<Props> {
+  [key: string]: any
 }
 
 export type FrameworksKeys = keyof Frameworks & string

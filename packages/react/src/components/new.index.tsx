@@ -12,6 +12,9 @@ declare module '@zodui/core' {
   export interface Frameworks {
     react: ReactFramework
   }
+  export interface FrameworkCtrl<Props> {
+    react: (props: Props) => ReactElement
+  }
 }
 
 export type ZElement<T = undefined> = T extends undefined ? ReactElement : (props: T) => ReactElement;
