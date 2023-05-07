@@ -1,9 +1,8 @@
 import type { Context as InnerCoreContext, Icons } from '@zodui/core'
 import { Context } from '@zodui/core'
+import type { ReactFramework } from '@zodui/react'
 import type { PropsWithChildren } from 'react'
 import { createContext, useContext, useEffect, useState } from 'react'
-
-import type { ReactFramework } from '../components/new.index'
 
 const CoreContext = createContext<InnerCoreContext>(null)
 

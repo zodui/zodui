@@ -13,12 +13,12 @@ import {
   isWhatType,
   isWhatTypes
 } from '@zodui/core/utils'
+import type { ReactFramework } from '@zodui/react'
 import {
   useControllerClassName,
   useCoreContextField,
   useErrorHandlerContext
 } from '@zodui/react'
-import type { ReactFramework } from '@zodui/react/components/new.index'
 import type { ReactElement } from 'react'
 import { useCallback, useEffect, useMemo } from 'react'
 import type { Schema, ZodTypeDef } from 'zod'
