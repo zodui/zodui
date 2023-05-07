@@ -80,7 +80,7 @@ export default () => new Plugin()
     ]
   ])
   .newSubControllerMatcher('multiple', [AllTypes.ZodTuple], [
-    [(modes, { schemas }) =>!modes.includes('no-range') && isEqual(schemas, [AllTypes.ZodDate, AllTypes.ZodDate]), ({
+    [(modes, { schemas }) => !modes.includes('no-range') && isEqual(schemas, [AllTypes.ZodDate, AllTypes.ZodDate]), ({
       modes,
       schemas: _,
       ...props
@@ -109,7 +109,7 @@ export default () => new Plugin()
       />
     }],
     // TODO support number range input
-    [(modes, { schemas }) =>!modes.includes('no-slider') && isEqual(schemas, [AllTypes.ZodNumber, AllTypes.ZodNumber]), ({
+    [(modes, { schemas }) => !modes.includes('no-slider') && isEqual(schemas, [AllTypes.ZodNumber, AllTypes.ZodNumber]), ({
       schemas: _,
       ...props
     }) => <ControllerRender target='Number.Slider' range {...props} />]
