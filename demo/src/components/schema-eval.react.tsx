@@ -23,7 +23,7 @@ export function Demo({
 }: DemoProps) {
   const [ctxInited, setCtxInited] = useState(false)
   useEffect(() => {
-    Context.global.use(() => import('@zodui/components-lib-tdesign')
+    return Context.global.use(() => import('@zodui/components-lib-tdesign')
       .then(({ TDesignComponentsLibForReact }) => {
         setCtxInited(true)
         return TDesignComponentsLibForReact
