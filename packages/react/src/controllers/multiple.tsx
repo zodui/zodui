@@ -1,7 +1,7 @@
 import './multiple.scss'
 
-import type { AllType, TypeMap } from '@zodui/core'
-import { AllTypes } from '@zodui/core'
+import type { AllType, MultipleType, TypeMap } from '@zodui/core'
+import { AllTypes, ComplexMultipleTypes, KeyEditableTypes } from '@zodui/core'
 import { getDefaultValue, isWhatType, isWhatTypes } from '@zodui/core/utils'
 import { Button, Input } from '@zodui/react'
 import { useErrorHandlerContext } from '@zodui/react'
@@ -17,8 +17,6 @@ import type {
   ZodTypeDef
 } from 'zod'
 
-import type { MultipleType } from '../configure'
-import { ComplexMultipleTypes, KeyEditableTypes } from '../configure'
 import { plgMaster } from '../plugins'
 import type { ControllerProps } from './index'
 import { Controller } from './index'

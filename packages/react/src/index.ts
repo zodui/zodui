@@ -1,5 +1,4 @@
 export * from './components'
-export { WrapModes } from './configure'
 export * from './contexts/controller-class-name'
 export * from './contexts/core'
 export * from './contexts/error-handler'

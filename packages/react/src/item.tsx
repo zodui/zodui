@@ -1,13 +1,12 @@
 import './item.scss'
 
-import { AllTypes } from '@zodui/core'
+import { AllTypes, WrapModes } from '@zodui/core'
 import { classnames, debounce, getModes, inlineMarkdown } from '@zodui/core/utils'
 import React, { forwardRef,useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
 import type { Schema as ZodSchema } from 'zod'
 import { ZodError } from 'zod'
 
 import { Button, Dropdown } from './components'
-import { WrapModes } from './configure'
 import { useErrorHandler } from './contexts/error-handler'
 import { useItemConfigurerContext } from './contexts/item-configurer'
 import { useItemSerter } from './contexts/item-serter'

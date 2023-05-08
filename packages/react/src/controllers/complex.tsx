@@ -1,6 +1,6 @@
 import './complex.scss'
 
-import type { ComponentProps, TypeMap  } from '@zodui/core'
+import type { ComplexType, ComponentProps, TypeMap } from '@zodui/core'
 import { AllTypes } from '@zodui/core'
 import { isWhatType } from '@zodui/core/utils'
 import { Select, useItemSerterContext } from '@zodui/react'
@@ -8,7 +8,6 @@ import type { ReactElement } from 'react'
 import { useEffect, useMemo, useState } from 'react'
 import type { ZodUnionOptions } from 'zod'
 
-import type { ComplexType } from '../configure'
 import { plgMaster } from '../plugins'
 import { Schema } from '../schema'
 import type { ControllerProps } from './index'

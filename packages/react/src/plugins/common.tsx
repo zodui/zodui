@@ -1,13 +1,12 @@
 import './common.scss'
 
-import { AllTypes } from '@zodui/core'
+import { AllTypes, WrapModes } from '@zodui/core'
 import { containSome } from '@zodui/core/utils'
 import { ControllerRender,Icon, Input, InputAdornment, useControllerClassNameContext } from '@zodui/react'
 import { useEffect, useMemo } from 'react'
 import { Radio, RadioGroup } from 'tdesign-react/esm'
 import type { Schema } from 'zod'
 
-import { WrapModes } from '../configure'
 import { Plugin } from './index'
 
 // TODO let button match range small
