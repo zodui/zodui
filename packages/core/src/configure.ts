@@ -1,5 +1,6 @@
-import { AllTypes } from '@zodui/core'
 import type { Mutable } from '@zodui/core/utils'
+
+import { AllTypes } from './type'
 
 /**
  * 为了设置 wrap 的默认值
