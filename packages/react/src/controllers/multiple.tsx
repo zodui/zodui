@@ -224,28 +224,28 @@ export function Multiple({
         return <div className={`${prefix}-item`} key={index}>
           {/* TODO display description */}
           {(
-          (dictKeys[index] ?? itemSchema?._def.label) || isKeyEditable
-        ) && <div className={
-          `${prefix}-item__label`
-          + (isKeyEditable ? ' editable' : '')
-        }>
-          {isKeyEditable
-            /*
-             * TODO use select when key is union literal type
-             *      disable or hidden option when it selected
-             */
-            ? <Input
-              className='key-input'
-              placeholder='请输入键名'
-              value={keys[index]}
-              onChange={v => setKeys(keys => {
-                const nKeys = keys.slice()
-                nKeys[index] = v.toString()
-                return nKeys
-              })}
-            />
-            : itemSchema._def.label ?? dictKeys[index]}
-        </div>}
+            (dictKeys[index] ?? itemSchema?._def.label) || isKeyEditable
+          ) && <div className={
+            `${prefix}-item__label`
+            + (isKeyEditable ? ' editable' : '')
+          }>
+            {isKeyEditable
+              /*
+               * TODO use select when key is union literal type
+               *      disable or hidden option when it selected
+               */
+              ? <Input
+                className='key-input'
+                placeholder='请输入键名'
+                value={keys[index]}
+                onChange={v => setKeys(keys => {
+                  const nKeys = keys.slice()
+                  nKeys[index] = v.toString()
+                  return nKeys
+                })}
+              />
+              : itemSchema._def.label ?? dictKeys[index]}
+          </div>}
           <div className={`${prefix}-item__index-tag`}>
             {index + 1}
           </div>
@@ -290,16 +290,16 @@ export function Multiple({
             />}
           </>}
           <Controller
-          disabled={props.disabled ?? false}
-          className={`${prefix}-item__container`}
-          schema={itemSchema}
-          value={item}
-          defaultValue={getDefaultValue(itemSchema)}
-          onChange={value => {
-            listRef.current[index] = value
-            changeList()
-          }}
-        />
+            disabled={props.disabled ?? false}
+            className={`${prefix}-item__container`}
+            schema={itemSchema}
+            value={item}
+            defaultValue={getDefaultValue(itemSchema)}
+            onChange={value => {
+              listRef.current[index] = value
+              changeList()
+            }}
+          />
           <Button
           theme='error'
           disabled={
