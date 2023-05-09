@@ -201,13 +201,13 @@ export function Multiple({
 
   return Component
     ? <Component
-      {...props}
-      modes={modes}
-      schema={schema}
-      schemas={schemas}
-      value={listRef.current}
-      onChange={changeList}
-    />
+        {...props}
+        modes={modes}
+        schema={schema}
+        schemas={schemas}
+        value={listRef.current}
+        onChange={changeList}
+      />
     : <>
       {listRef.current.length === 0 && <Button
         className={`${prefix}-create`}
