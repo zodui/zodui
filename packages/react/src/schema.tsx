@@ -92,17 +92,23 @@ export const Schema = forwardRef<SchemaRef, SchemaProps>((props, ref) => {
       ? Object.entries(model._def.shape()).map(([key, value]) => <Item
         ref={ele => itemRefs.current[key] = ele}
         key={key}
-        uniqueKey={`${props.prefix || ''}.${key}`}
-        label={value._def.label || key}
-        schema={value}
+        uKey={`${props.prefix || ''}.${key}`}
+        meta={{
+          label: value._def.label || key,
+          description: value._def.description
+        }}
+        model={value}
         disabled={disabled}
         onChange={async v => changeValue({ ...valueRef.current, [key]: v })}
       />)
       : <Item
         ref={ele => itemRefs.current['single'] = ele}
-        uniqueKey='single'
-        label={model._label || model._def?.description || model.type}
-        schema={model}
+        uKey='single'
+        meta={{
+          label: model._label || model._def?.description || model.type,
+          description: model._def.description
+        }}
+        model={model}
         disabled={disabled}
         value={valueRef.current}
         onChange={changeValue}

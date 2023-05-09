@@ -1,5 +1,6 @@
 import './item.scss'
 
+import type { Descriptor } from '@zodui/core'
 import { AllTypes, WrapModes } from '@zodui/core'
 import { classnames, debounce, getModes, inlineMarkdown } from '@zodui/core/utils'
 import React, { forwardRef,useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
@@ -18,38 +19,29 @@ export interface ItemRef {
   verify: () => Promise<any>
 }
 
-export interface ItemProps {
-  uniqueKey?: string
-  label: string
-  disabled?: boolean
-  value?: any
-  onChange?: (value: any) => (void | Promise<void>)
-  defaultValue?: any
-  schema: ZodSchema
+export interface ItemProps<M extends ZodSchema = any> extends Descriptor<M> {
   className?: string
 }
 
-/**
- * Item
- * - check controller data
- * - common contexts
- * - value operate and support extensible
- */
-export const Item = forwardRef<ItemRef, ItemProps>((props, ref) => {
+function InnerItem<M extends ZodSchema>(props: ItemProps<M>, ref: React.ForwardedRef<ItemRef>) {
   const configure = useItemConfigurerContext()
   const {
-    schema,
+    meta: {
+      label,
+      description
+    },
+    model,
     className
   } = props
   const wrapDefault = useMemo(
     () => WrapModes.some(mode => {
-      const modes = getModes(schema._mode)
+      const modes = getModes(model._mode)
       if (typeof mode === 'string')
         return modes.some(r => r?.startsWith(mode))
       else
         return modes.some(r => mode.test(r))
     }),
-    [schema._mode]
+    [model._mode]
   )
 
   const { Append, ItemSerter } = useItemSerter()
@@ -89,7 +81,7 @@ export const Item = forwardRef<ItemRef, ItemProps>((props, ref) => {
       rerender(r => !r)
     }
     // TODO make delay configurable
-  }, configure.verifyDebounceTime), [schema, configure.actualTimeVerify])
+  }, configure.verifyDebounceTime), [model, configure.actualTimeVerify])
 
   useImperativeHandle(ref, () => ({
     verify: async () => {
@@ -99,13 +91,13 @@ export const Item = forwardRef<ItemRef, ItemProps>((props, ref) => {
 
   return <ItemSerter>
     <ErrorHandler>
-      <div className={
-        `${prefix} ${schema.type}`
-        + (error ? ' error' : '')
-        + (wrapDefault ? ' wrap' : '')
-        + (schema._mode ? ` ${schema._mode}` : '')
-        + (className ? ` ${className}` : '')
-      }>
+      <div
+        className={classnames(`${prefix} ${model.type}`, {
+          error: !!error,
+          wrap: wrapDefault,
+          [model._mode]: !!model._mode,
+          [className]: !!className
+        })}>
         <div className={`${prefix}__more`}>
           <Dropdown
             menu={[
@@ -138,18 +130,18 @@ export const Item = forwardRef<ItemRef, ItemProps>((props, ref) => {
         </div>
         <div className={classnames(`${prefix}__label`, {
           // @ts-ignore
-          'is-optional': schema._def.typeName === AllTypes.ZodOptional
+          'is-optional': model._def.typeName === AllTypes.ZodOptional
         })}>
-          {props.label}
-          {schema._def.description
+          {label}
+          {description
             && <pre
               className={`${prefix}__label-description inline-md`}
-              dangerouslySetInnerHTML={{ __html: inlineMarkdown(schema._def.description) }}
+              dangerouslySetInnerHTML={{ __html: inlineMarkdown(description) }}
             />}
         </div>
         <Controller
-          uniqueKey={props.uniqueKey}
-          schema={schema}
+          uniqueKey={props.uKey}
+          schema={model}
           disabled={props.disabled}
           value={valueRef.current}
           defaultValue={props.defaultValue}
@@ -159,7 +151,7 @@ export const Item = forwardRef<ItemRef, ItemProps>((props, ref) => {
     </ErrorHandler>
     <Append />
     <ValueChecker value={valueRef.current}
-                  schema={schema}
+                  schema={model}
                   onValueChange={onValueChange}
     />
     {error &&
@@ -167,7 +159,20 @@ export const Item = forwardRef<ItemRef, ItemProps>((props, ref) => {
         {error.message}
       </div>}
   </ItemSerter>
-})
+}
+
+/**
+ * Item
+ * - check controller data
+ * - common contexts
+ * - value operate and support extensible
+ */
+export const Item = forwardRef(InnerItem) as {
+  <M extends ZodSchema>(
+    props: ItemProps<M> & { ref?: React.ForwardedRef<ItemRef> }
+  ): React.ReactElement
+  displayName?: string
+}
 
 Item.displayName = 'Item'
 

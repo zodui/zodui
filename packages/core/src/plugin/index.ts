@@ -1,6 +1,7 @@
 import type { FrameworksKeys } from './framework'
 import { Framework } from './framework'
 
+export * from './base'
 export type {
   ComponentProps,
   FrameworkComponents,
