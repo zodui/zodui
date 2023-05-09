@@ -138,14 +138,14 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
     .defineIcon('ArrowUp', ArrowUpIcon)
     .defineIcon('ArrowDown', ArrowDownIcon)
   ctxFgt
-    .defineCtrl('Number:Slider', props => <Slider {...props} />)
-    .defineCtrl('String:TextArea', props => <Textarea
+    .defineRndr('Number:Slider', props => <Slider {...props} />)
+    .defineRndr('String:TextArea', props => <Textarea
       autosize={{
         minRows: 1
       }}
       {...props}
     />)
-    .defineCtrl('Date:Picker', ({
+    .defineRndr('Date:Picker', ({
       isPanel,
       datetime: [enableDate, enableTime] = [true, true],
       ...props
@@ -163,7 +163,7 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
         ? <DatePickerPanel {...nProps} />
         : <DatePicker {...nProps} />
     })
-    .defineCtrl('Date:PickerRange', ({
+    .defineRndr('Date:PickerRange', ({
       isPanel,
       datetime: [enableDate, enableTime] = [true, true],
       ...props

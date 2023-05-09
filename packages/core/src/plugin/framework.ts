@@ -113,7 +113,7 @@ export class Framework<
     this.ctx.set(`framework.${this.key}.icons.${icon}`, Comp)
     return this
   }
-  defineCtrl<
+  defineRender<
     P extends AllPaths<ControllerPropsMap & Controllers>,
     InnerProps = RevealPropsByPath<P, InnerControllerPropsMap<Controllers>>,
     Props = InnerProps extends AsProps<infer P> ? P : never
@@ -121,10 +121,14 @@ export class Framework<
     this.ctx.set(`framework.${this.key}.ctrls.${path}`, Ctrl)
     return this
   }
-  // defineView(): Framework<K>
-  // defineSubCtrl(): Framework<K>
-  // defineSubView(): Framework<K>
-  // defineStructure(): Framework<K>
+  defineRndr = this.defineRender
+  // defineComposer(): Framework<K>
+  // defineCpsr(): Framework<K>
+  // defineDescriptor(): Framework<K>
+  // defineDesc(): Framework<K>
+  // defineSwitcher(): Framework<K>
+  // defineSwch(): Framework<K>
+  // defineUnit(): Framework<K>
 }
 
 export interface Frameworks {
