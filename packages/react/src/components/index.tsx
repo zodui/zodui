@@ -12,6 +12,7 @@ export * from './base'
 export {
   Icon
 } from './icon'
+export { Rndr } from './render'
 
 declare module '@zodui/core' {
   export interface Frameworks {

@@ -1,11 +1,6 @@
 import './index.scss'
 
-import type {
-  AllPaths,
-  AllType, AsProps, ControllerPropsMap,
-  InnerControllerPropsMap, RevealPropsByPath,
-  TypeMap
-} from '@zodui/core'
+import type { AllType, TypeMap } from '@zodui/core'
 import {
   AllTypes
 } from '@zodui/core'
@@ -14,14 +9,9 @@ import {
   isWhatType,
   isWhatTypes
 } from '@zodui/core/utils'
-import type { ReactFramework } from '@zodui/react'
-import {
-  useControllerClassName,
-  useCoreContextField,
-  useErrorHandlerContext
-} from '@zodui/react'
+import { useControllerClassName } from '@zodui/react'
 import type { ReactElement } from 'react'
-import { useCallback, useEffect, useMemo } from 'react'
+import { useCallback } from 'react'
 import type { Schema, ZodTypeDef } from 'zod'
 import type z from 'zod'
 
@@ -127,43 +117,4 @@ export function Controller(props: ControllerProps) {
     : <div className='zodui-controller'>
       <span style={{ width: '100%' }}>暂未支持的的类型 <code>{schema.type}</code></span>
     </div>
-}
-
-export function Rndr<
-  P extends AllPaths<ControllerPropsMap & ReactFramework['Controllers']>,
-  InnerProps = RevealPropsByPath<
-    P,
-    InnerControllerPropsMap<ReactFramework['Controllers']>
-  >,
-  Props = InnerProps extends AsProps<infer P> ? P : never
->({
-  target,
-  ...props
-}: {
-  target: P | (string & {})
-} & Props) {
-  const errorHandler = useErrorHandlerContext()
-  const Ctrl = useCoreContextField<(props: any) => ReactElement>(`framework.react.ctrls.${target.replace('.', ':')}`)
-
-  const error = useMemo(() => {
-    if (!Ctrl) {
-      return new Error(`Controller ${target} not found`)
-    }
-    if (typeof Ctrl !== 'function') {
-      return new Error(`Controller ${target} is not a function`)
-    }
-    return undefined
-  }, [Ctrl, target])
-
-  useEffect(() => {
-    if (error === undefined && errorHandler.error !== undefined) {
-      errorHandler.reset()
-    }
-  }, [error, errorHandler])
-
-  if (error) {
-    return errorHandler.throwError(error)
-  }
-
-  return <Ctrl {...props} />
 }
