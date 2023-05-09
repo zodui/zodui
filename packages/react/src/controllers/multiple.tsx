@@ -210,10 +210,10 @@ export function Multiple({
     />
     : <>
       {listRef.current.length === 0 && <Button
-      className={`${prefix}-create`}
-      icon='Add'
-      onClick={() => addNewItem()}
-    />}
+        className={`${prefix}-create`}
+        icon='Add'
+        onClick={() => addNewItem()}
+      />}
       {listRef.current.map((item, index) => {
         const itemSchema = getSchema(index)
         // fix delete schema flashing
