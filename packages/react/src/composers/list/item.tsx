@@ -3,15 +3,21 @@ import './item.scss'
 import type { DescriptorProps , DescriptorRef } from '@zodui/core'
 import { AllTypes, WrapModes } from '@zodui/core'
 import { classnames, debounce, getModes, inlineMarkdown } from '@zodui/core/utils'
-import React, { forwardRef,useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
+import {
+  Button, Controller, Dropdown,
+  useErrorHandler, useItemConfigurerContext, useItemSerter
+} from '@zodui/react'
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState
+} from 'react'
 import type { Schema as ZodSchema } from 'zod'
 import { ZodError } from 'zod'
-
-import { Button, Dropdown } from './components'
-import { useErrorHandler } from './contexts/error-handler'
-import { useItemConfigurerContext } from './contexts/item-configurer'
-import { useItemSerter } from './contexts/item-serter'
-import { Controller } from './controllers'
 
 const prefix = 'zodui-item'
 

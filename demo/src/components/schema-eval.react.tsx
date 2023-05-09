@@ -1,6 +1,6 @@
 import { Context } from '@zodui/core'
-import type { ItemConfigure, SchemaRef } from '@zodui/react'
-import { Schema, useItemConfigurer } from '@zodui/react'
+import type { ItemConfigure, ListRef } from '@zodui/react'
+import { List, useItemConfigurer } from '@zodui/react'
 import React, { useEffect, useRef, useState } from 'react'
 import type { ZodSchema } from 'zod'
 
@@ -57,7 +57,7 @@ export function Demo({
     })()
   }, [code])
 
-  const ref = useRef<SchemaRef>(null)
+  const ref = useRef<ListRef>(null)
 
   const [value, setValue] = useState<any>()
 
@@ -66,7 +66,7 @@ export function Demo({
   }, [k])
 
   return ctxInited && schema ? <ItemConfigurer>
-    <Schema
+    <List
       ref={ref}
       model={schema}
       value={value}

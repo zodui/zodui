@@ -3,13 +3,13 @@ import './complex.scss'
 import type { ComplexType, ComponentProps, TypeMap } from '@zodui/core'
 import { AllTypes } from '@zodui/core'
 import { isWhatType } from '@zodui/core/utils'
-import { Select, useItemSerterContext } from '@zodui/react'
+// TODO remove List import, and make Descriptors render target which can be customized
+import { List, Select, useItemSerterContext } from '@zodui/react'
 import type { ReactElement } from 'react'
 import { useEffect, useMemo, useState } from 'react'
 import type { ZodUnionOptions } from 'zod'
 
 import { plgMaster } from '../plugins'
-import { Schema } from '../schema'
 import type { ControllerProps } from './index'
 import { Controller } from './index'
 
@@ -76,7 +76,7 @@ export function Complex({
     <ItemSerter.Append deps={[schema.options, index]}>
       {/* 在里面控制是因为在 modes 修改后，将 append 内容清空 */}
       {modes.includes('append') && schema.options[index]._def.typeName !== AllTypes.ZodLiteral
-        && <Schema
+        && <List
           model={schema.options[index]}
         />}
     </ItemSerter.Append>

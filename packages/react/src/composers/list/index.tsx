@@ -1,20 +1,20 @@
-import './schema.scss'
+import './index.scss'
 
 import { AllTypes } from '@zodui/core'
 import { classnames, inlineMarkdown, isWhatType, merge } from '@zodui/core/utils'
 import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
 import type { Schema as ZodSchema } from 'zod'
 
-import { usePlugins } from './hooks'
+import { usePlugins } from '../../hooks'
+import common from '../../plugins/common'
 import type { ItemRef } from './item'
 import { Item } from './item'
-import common from './plugins/common'
 
-export interface SchemaRef {
+export interface ListRef {
   verify: () => Promise<any>
 }
 
-export interface SchemaProps {
+export interface ListProps {
   prefix?: string
   model: ZodSchema
   disabled?: boolean
@@ -25,7 +25,7 @@ export interface SchemaProps {
 
 const prefix = 'zodui-schema'
 
-export const Schema = forwardRef<SchemaRef, SchemaProps>((props, ref) => {
+export const List = forwardRef<ListRef, ListProps>((props, ref) => {
   const { inited } = usePlugins(common)
 
   const {
@@ -59,17 +59,17 @@ export const Schema = forwardRef<SchemaRef, SchemaProps>((props, ref) => {
   if (isWhatType(model, AllTypes.ZodIntersection)) {
     // TODO resolve ref merge
     return <>
-      <Schema prefix='intersect::left'
-              disabled={disabled}
-              model={model._def.left}
-              value={valueRef.current}
-              onChange={async v => changeValue(merge(valueRef.current, v))}
+      <List prefix='intersect::left'
+            disabled={disabled}
+            model={model._def.left}
+            value={valueRef.current}
+            onChange={async v => changeValue(merge(valueRef.current, v))}
       />
-      <Schema prefix='intersect::right'
-              disabled={disabled}
-              model={model._def.right}
-              value={valueRef.current}
-              onChange={async v => changeValue(merge(valueRef.current, v))}
+      <List prefix='intersect::right'
+            disabled={disabled}
+            model={model._def.right}
+            value={valueRef.current}
+            onChange={async v => changeValue(merge(valueRef.current, v))}
       />
     </>
   }
@@ -116,7 +116,7 @@ export const Schema = forwardRef<SchemaRef, SchemaProps>((props, ref) => {
   </div>
 })
 
-Schema.displayName = 'Schema'
+List.displayName = 'Schema'
 
 // TODO export Schema with Item
 // Schema.Item = Item
