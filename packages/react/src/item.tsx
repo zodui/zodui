@@ -1,6 +1,6 @@
 import './item.scss'
 
-import type { Descriptor } from '@zodui/core'
+import type { DescriptorProps , DescriptorRef } from '@zodui/core'
 import { AllTypes, WrapModes } from '@zodui/core'
 import { classnames, debounce, getModes, inlineMarkdown } from '@zodui/core/utils'
 import React, { forwardRef,useCallback, useEffect, useImperativeHandle, useMemo, useRef, useState } from 'react'
@@ -15,11 +15,10 @@ import { Controller } from './controllers'
 
 const prefix = 'zodui-item'
 
-export interface ItemRef {
-  verify: () => Promise<any>
+export interface ItemRef extends DescriptorRef {
 }
 
-export interface ItemProps<M extends ZodSchema = any> extends Descriptor<M> {
+export interface ItemProps<M extends ZodSchema = any> extends DescriptorProps<M> {
   className?: string
 }
 

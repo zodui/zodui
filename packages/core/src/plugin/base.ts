@@ -11,11 +11,15 @@ export interface SchemaResolver<
   onChange?: (value: V) => void | Promise<void>
 }
 
-export interface Composer<M extends ZodSchema> extends SchemaResolver<M> {
+export interface ComposerProps<M extends ZodSchema> extends SchemaResolver<M> {
   prefix?: string
 }
 
-export interface Descriptor<M extends ZodSchema> extends SchemaResolver<M> {
+export interface DescriptorRef {
+  verify: () => Promise<any>
+}
+
+export interface DescriptorProps<M extends ZodSchema> extends SchemaResolver<M> {
   uKey?: string
   meta: {
     label: string
@@ -23,11 +27,11 @@ export interface Descriptor<M extends ZodSchema> extends SchemaResolver<M> {
   }
 }
 
-export interface Switcher<M extends ZodSchema> extends SchemaResolver<M> {
+export interface SwitcherProps<M extends ZodSchema> extends SchemaResolver<M> {
   uKey?: string
   modes?: string[]
 }
 
-export interface Unit<M extends ZodSchema> extends SchemaResolver<M> {
+export interface UnitProps<M extends ZodSchema> extends SchemaResolver<M> {
   uKey?: string
 }
