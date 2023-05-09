@@ -251,43 +251,43 @@ export function Multiple({
           </div>
           {!isComplex && <>
             {index === 0
-            ? <Button
-              shape='square'
-              variant='outline'
-              icon='Prepend'
-              onClick={() => addNewItem('prepend')}
-            />
-            : <Button
-              shape='square'
-              variant='outline'
-              icon='ArrowUp'
-              onClick={() => {
-                const temp = listRef.current[index]
-                listRef.current[index] = listRef.current[index - 1]
-                listRef.current[index - 1] = temp
-                setRigger(r => !r)
-                changeList()
-              }}
-            />}
+              ? <Button
+                shape='square'
+                variant='outline'
+                icon='Prepend'
+                onClick={() => addNewItem('prepend')}
+              />
+              : <Button
+                shape='square'
+                variant='outline'
+                icon='ArrowUp'
+                onClick={() => {
+                  const temp = listRef.current[index]
+                  listRef.current[index] = listRef.current[index - 1]
+                  listRef.current[index - 1] = temp
+                  setRigger(r => !r)
+                  changeList()
+                }}
+              />}
             {index === listRef.current.length - 1
-            ? <Button
-              shape='square'
-              variant='outline'
-              icon='Append'
-              onClick={() => addNewItem('append')}
-            />
-            : <Button
-              shape='square'
-              variant='outline'
-              icon='ArrowDown'
-              onClick={() => {
-                const temp = listRef.current[index]
-                listRef.current[index] = listRef.current[index + 1]
-                listRef.current[index + 1] = temp
-                setRigger(r => !r)
-                changeList()
-              }}
-            />}
+              ? <Button
+                shape='square'
+                variant='outline'
+                icon='Append'
+                onClick={() => addNewItem('append')}
+              />
+              : <Button
+                shape='square'
+                variant='outline'
+                icon='ArrowDown'
+                onClick={() => {
+                  const temp = listRef.current[index]
+                  listRef.current[index] = listRef.current[index + 1]
+                  listRef.current[index + 1] = temp
+                  setRigger(r => !r)
+                  changeList()
+                }}
+              />}
           </>}
           <Controller
             disabled={props.disabled ?? false}
@@ -301,23 +301,23 @@ export function Multiple({
             }}
           />
           <Button
-          theme='error'
-          disabled={
-            isComplex
-              ? props.disabled ?? (item === undefined)
-              : props.disabled
-          }
-          icon={isComplex ? 'Clear' : 'Delete'}
-          onClick={() => {
-            if (isComplex) {
-              listRef.current[index] = undefined
-            } else {
-              listRef.current = listRef.current.filter((_, i) => i !== index)
+            theme='error'
+            disabled={
+              isComplex
+                ? props.disabled ?? (item === undefined)
+                : props.disabled
             }
-            setRigger(r => !r)
-            changeList()
-          }}
-        />
+            icon={isComplex ? 'Clear' : 'Delete'}
+            onClick={() => {
+              if (isComplex) {
+                listRef.current[index] = undefined
+              } else {
+                listRef.current = listRef.current.filter((_, i) => i !== index)
+              }
+              setRigger(r => !r)
+              changeList()
+            }}
+          />
           <Button icon='More' />
         </div>
       })}
