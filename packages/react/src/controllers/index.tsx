@@ -129,7 +129,7 @@ export function Controller(props: ControllerProps) {
     </div>
 }
 
-export function ControllerRender<
+export function Rndr<
   P extends AllPaths<ControllerPropsMap & ReactFramework['Controllers']>,
   InnerProps = RevealPropsByPath<
     P,

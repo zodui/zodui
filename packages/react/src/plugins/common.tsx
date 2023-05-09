@@ -2,7 +2,7 @@ import './common.scss'
 
 import { AllTypes, WrapModes } from '@zodui/core'
 import { containSome } from '@zodui/core/utils'
-import { ControllerRender,Icon, Input, InputAdornment, useControllerClassNameContext } from '@zodui/react'
+import { Icon, Input, InputAdornment, Rndr, useControllerClassNameContext } from '@zodui/react'
 import { useEffect, useMemo } from 'react'
 import { Radio, RadioGroup } from 'tdesign-react/esm'
 import type { Schema } from 'zod'
@@ -23,7 +23,7 @@ export default () => new Plugin()
   .newSubControllerMatcher('monad', [AllTypes.ZodNumber], [
     [
       modes => modes.includes('slider'),
-      props => <ControllerRender target='Number.Slider' {...props} />
+      props => <Rndr target='Number.Slider' {...props} />
     ],
     [
       modes => modes.includes('split'),
@@ -33,7 +33,7 @@ export default () => new Plugin()
   .newSubControllerMatcher('monad', [AllTypes.ZodString], [
     [
       modes => modes.includes('textarea'),
-      props => <ControllerRender target='String.TextArea' {...props} />
+      props => <Rndr target='String.TextArea' {...props} />
     ],
     [
       modes => modes.includes('secrets'),
@@ -67,7 +67,7 @@ export default () => new Plugin()
   .newSubControllerMatcher('monad', [AllTypes.ZodDate], [
     [
       modes => modes.includes('datetime') || modes.includes('time') || modes.includes('date'),
-      ({ modes, ...props }) => <ControllerRender
+      ({ modes, ...props }) => <Rndr
         target='Date:Picker'
         isPanel={modes.includes('panel')}
         datetime={[
@@ -100,7 +100,7 @@ export default () => new Plugin()
           datetime[1] ? 'time' : ''
         }-picker`)
       }, [datetime, modes, setClassName])
-      return <ControllerRender
+      return <Rndr
         target='Date:PickerRange'
         isPanel={modes.includes('panel')}
         datetime={datetime}
@@ -111,7 +111,7 @@ export default () => new Plugin()
     [(modes, { schemas }) => !modes.includes('no-slider') && isEqual(schemas, [AllTypes.ZodNumber, AllTypes.ZodNumber]), ({
       schemas: _,
       ...props
-    }) => <ControllerRender target='Number.Slider' range {...props} />]
+    }) => <Rndr target='Number.Slider' range {...props} />]
   ])
   .newSubControllerMatcher('complex', [AllTypes.ZodUnion], [
     [
