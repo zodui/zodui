@@ -108,6 +108,7 @@ module.exports = {
     'simple-import-sort/exports': 'error',
     'semi': ['error', 'never'],
     'comma-dangle': ['error', 'never'],
+    'comma-spacing': ['error', { before: false, after: true }],
     'block-spacing': 'error',
     'array-bracket-spacing': ['error', 'never'],
     'object-curly-spacing': ['error', 'always'],

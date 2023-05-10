@@ -60,7 +60,7 @@ export function Multiple({
     if (commonDef.typeName === AllTypes.ZodObject) {
       const dict = commonDef.shape() ?? {}
       return Object.entries(dict)
-        .reduce((acc, [key , s]) => {
+        .reduce((acc, [key, s]) => {
           let ns = s
           if (s._def.label === undefined)
             ns = s.label(key)

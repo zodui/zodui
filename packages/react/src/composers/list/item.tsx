@@ -1,6 +1,6 @@
 import './item.scss'
 
-import type { DescriptorProps , DescriptorRef } from '@zodui/core'
+import type { DescriptorProps, DescriptorRef } from '@zodui/core'
 import { AllTypes, WrapModes } from '@zodui/core'
 import { classnames, debounce, getModes, inlineMarkdown } from '@zodui/core/utils'
 import {
