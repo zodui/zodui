@@ -24,7 +24,7 @@ import { Monad } from './monad'
 import { Multiple } from './multiple'
 
 // TODO support literal type display
-const subControllers = [
+const switchers = [
   ['monad', monad, Monad],
   ['complex', complex, Complex],
   ['multiple', multiple, Multiple]
@@ -70,7 +70,7 @@ export function Switcher(props: ControllerProps) {
   const modes = useModes(schema)
 
   const SubController: () => ReactElement = useCallback(() => {
-    for (const [name, types, SubController] of subControllers) {
+    for (const [name, types, SubController] of switchers) {
       // let ts happy
       const checkTuple = [schema, SubController] as const
       if (isMatchSubControllersWhatTypes(types, checkTuple)) {
