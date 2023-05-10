@@ -11,7 +11,7 @@ import type { ZodUnionOptions } from 'zod'
 
 import { plgMaster } from '../plugins'
 import type { ControllerProps } from './index'
-import { Controller } from './index'
+import { Switcher } from './index'
 
 declare module '@zodui/react' {
   export interface ComplexSubController {
@@ -81,7 +81,7 @@ export function Complex({
         />}
     </ItemSerter.Append>
     {!modes.includes('append') && schema.options[index]._def.typeName !== AllTypes.ZodLiteral && <>
-      <Controller
+      <Switcher
         schema={schema.options[index]}
         {...props}
         onChange={rest.onChange}

@@ -55,9 +55,9 @@ export interface ControllerProps<T extends Schema = Schema> {
 }
 
 /**
- * Controller will try to resolve all schema and render it
+ * Switcher will try to resolve all schema and render it
  */
-export function Controller(props: ControllerProps) {
+export function Switcher(props: ControllerProps) {
   const { schema, ...rest } = props
   const { className: subClassName, ControllerClassName } = useControllerClassName()
   // props defaultValue is higher than schema defaultValue
@@ -93,7 +93,7 @@ export function Controller(props: ControllerProps) {
       ...assignDefFields
     } = schema._def
     Object.assign(innerType._def, assignDefFields)
-    return <Controller
+    return <Switcher
       {...props}
       schema={innerType}
       defaultValue={defaultValue}
@@ -106,7 +106,7 @@ export function Controller(props: ControllerProps) {
       ...assignDefFields
     } = schema._def
     Object.assign(innerType._def, assignDefFields)
-    return <Controller
+    return <Switcher
       {...props}
       schema={innerType}
     />

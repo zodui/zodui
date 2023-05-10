@@ -19,7 +19,7 @@ import type {
 
 import { plgMaster } from '../plugins'
 import type { ControllerProps } from './index'
-import { Controller } from './index'
+import { Switcher } from './index'
 
 declare module '@zodui/react' {
   export interface MultipleSubController {
@@ -289,7 +289,7 @@ export function Multiple({
                 }}
               />}
           </>}
-          <Controller
+          <Switcher
             disabled={props.disabled ?? false}
             className={`${prefix}-item__container`}
             schema={itemSchema}

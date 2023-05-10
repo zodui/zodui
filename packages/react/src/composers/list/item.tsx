@@ -4,7 +4,7 @@ import type { DescriptorProps , DescriptorRef } from '@zodui/core'
 import { AllTypes, WrapModes } from '@zodui/core'
 import { classnames, debounce, getModes, inlineMarkdown } from '@zodui/core/utils'
 import {
-  Button, Controller, Dropdown,
+  Button, Switcher, Dropdown,
   useErrorHandler, useItemConfigurerContext, useItemSerter
 } from '@zodui/react'
 import React, {
@@ -144,7 +144,7 @@ function InnerItem<M extends ZodSchema>(props: ItemProps<M>, ref: React.Forwarde
               dangerouslySetInnerHTML={{ __html: inlineMarkdown(description) }}
             />}
         </div>
-        <Controller
+        <Switcher
           uniqueKey={props.uKey}
           schema={model}
           disabled={props.disabled}
