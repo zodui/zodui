@@ -16,7 +16,7 @@ import React, {
   useRef,
   useState
 } from 'react'
-import type { Schema as ZodSchema } from 'zod'
+import type { Schema } from 'zod'
 import { ZodError } from 'zod'
 
 const prefix = 'zodui-item'
@@ -24,11 +24,11 @@ const prefix = 'zodui-item'
 export interface ItemRef extends DescriptorRef {
 }
 
-export interface ItemProps<M extends ZodSchema = any> extends DescriptorProps<M> {
+export interface ItemProps<M extends Schema = any> extends DescriptorProps<M> {
   className?: string
 }
 
-function InnerItem<M extends ZodSchema>(props: ItemProps<M>, ref: React.ForwardedRef<ItemRef>) {
+function InnerItem<M extends Schema>(props: ItemProps<M>, ref: React.ForwardedRef<ItemRef>) {
   const configure = useItemConfigurerContext()
   const {
     meta: {
@@ -173,7 +173,7 @@ function InnerItem<M extends ZodSchema>(props: ItemProps<M>, ref: React.Forwarde
  * - value operate and support extensible
  */
 export const Item = forwardRef(InnerItem) as {
-  <M extends ZodSchema>(
+  <M extends Schema>(
     props: ItemProps<M> & { ref?: React.ForwardedRef<ItemRef> }
   ): React.ReactElement
   displayName?: string
@@ -187,7 +187,7 @@ function ValueChecker({
   onValueChange
 }: {
   value: any
-  schema: ZodSchema
+  schema: Schema
   onValueChange: (func: (v: any) => any) => () => void
 }) {
   const { actualTimeVerify } = useItemConfigurerContext()
