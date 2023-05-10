@@ -8,7 +8,7 @@ import type { Schema as ZodSchema } from 'zod'
 
 import { usePlugins } from '../../hooks'
 import common from '../../plugins/common'
-import type { ItemRef } from './item'
+import type { ItemProps, ItemRef } from './item'
 import { Item } from './item'
 
 export interface ListRef extends ComposerRef {
@@ -110,12 +110,15 @@ function InnerList<M extends ZodSchema>(props: ListProps<M>, ref: React.Forwarde
   </div>
 }
 
-export const List = forwardRef(InnerList) as {
+export const List = forwardRef(InnerList) as unknown as {
   <M extends ZodSchema>(
     props: ListProps<M> & { ref?: React.ForwardedRef<ListRef> }
   ): React.ReactElement
   displayName?: string
-  Item?: typeof Item
+
+  Item: typeof Item
+  ItemRef: ItemRef
+  ItemProps: ItemProps
 }
 
 List.displayName = 'Schema'
