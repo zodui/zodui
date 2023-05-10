@@ -4,7 +4,7 @@ import type { DescriptorProps , DescriptorRef } from '@zodui/core'
 import { AllTypes, WrapModes } from '@zodui/core'
 import { classnames, debounce, getModes, inlineMarkdown } from '@zodui/core/utils'
 import {
-  Button, Switcher, Dropdown,
+  Button, Dropdown, Switcher,
   useErrorHandler, useItemConfigurerContext, useItemSerter
 } from '@zodui/react'
 import React, {
