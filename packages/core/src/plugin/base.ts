@@ -11,6 +11,10 @@ export interface SchemaResolver<
   onChange?: (value: V) => void | Promise<void>
 }
 
+export interface ComposerRef {
+  verify: () => Promise<any>
+}
+
 export interface ComposerProps<M extends ZodSchema> extends SchemaResolver<M> {
   prefix?: string
 }

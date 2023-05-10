@@ -1,8 +1,9 @@
 import './index.scss'
 
+import type { ComposerProps, ComposerRef } from '@zodui/core'
 import { AllTypes } from '@zodui/core'
 import { classnames, inlineMarkdown, isWhatType, merge } from '@zodui/core/utils'
-import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
+import React, { forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
 import type { Schema as ZodSchema } from 'zod'
 
 import { usePlugins } from '../../hooks'
@@ -10,22 +11,15 @@ import common from '../../plugins/common'
 import type { ItemRef } from './item'
 import { Item } from './item'
 
-export interface ListRef {
-  verify: () => Promise<any>
+export interface ListRef extends ComposerRef {
 }
 
-export interface ListProps {
-  prefix?: string
-  model: ZodSchema
-  disabled?: boolean
-  value?: any
-  defaultValue?: any
-  onChange?: (value: any) => (void | Promise<void>)
+export interface ListProps<M extends ZodSchema = any> extends ComposerProps<M> {
 }
 
 const prefix = 'zodui-schema'
 
-export const List = forwardRef<ListRef, ListProps>((props, ref) => {
+function InnerList<M extends ZodSchema>(props: ListProps<M>, ref: React.ForwardedRef<ListRef>) {
   const { inited } = usePlugins(common)
 
   const {
@@ -114,9 +108,16 @@ export const List = forwardRef<ListRef, ListProps>((props, ref) => {
         onChange={changeValue}
       />}
   </div>
-})
+}
+
+export const List = forwardRef(InnerList) as {
+  <M extends ZodSchema>(
+    props: ListProps<M> & { ref?: React.ForwardedRef<ListRef> }
+  ): React.ReactElement
+  displayName?: string
+  Item?: typeof Item
+}
 
 List.displayName = 'Schema'
 
-// TODO export Schema with Item
-// Schema.Item = Item
+List.Item = Item
