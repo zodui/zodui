@@ -4,7 +4,7 @@ import type { ComposerProps, ComposerRef } from '@zodui/core'
 import { AllTypes } from '@zodui/core'
 import { classnames, inlineMarkdown, isWhatType, merge } from '@zodui/core/utils'
 import React, { forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
-import type { Schema as ZodSchema } from 'zod'
+import type { Schema } from 'zod'
 
 import { usePlugins } from '../../hooks'
 import common from '../../plugins/common'
@@ -14,12 +14,13 @@ import { Item } from './item'
 export interface ListRef extends ComposerRef {
 }
 
-export interface ListProps<M extends ZodSchema = any> extends ComposerProps<M> {
+export interface ListProps<M extends Schema = any> extends ComposerProps<M> {
+  className?: string
 }
 
 const prefix = 'zodui-composer-list'
 
-function InnerList<M extends ZodSchema>(props: ListProps<M>, ref: React.ForwardedRef<ListRef>) {
+function InnerList<M extends Schema>(props: ListProps<M>, ref: React.ForwardedRef<ListRef>) {
   const { inited } = usePlugins(common)
 
   const {
@@ -54,12 +55,14 @@ function InnerList<M extends ZodSchema>(props: ListProps<M>, ref: React.Forwarde
     // TODO resolve ref merge
     return <>
       <List prefix='intersect::left'
+            className={props.className}
             disabled={disabled}
             model={model._def.left}
             value={valueRef.current}
             onChange={async v => changeValue(merge(valueRef.current, v))}
       />
       <List prefix='intersect::right'
+            className={props.className}
             disabled={disabled}
             model={model._def.right}
             value={valueRef.current}
@@ -68,7 +71,7 @@ function InnerList<M extends ZodSchema>(props: ListProps<M>, ref: React.Forwarde
     </>
   }
 
-  return <div className={prefix}>
+  return <div className={classnames(prefix, props.className)}>
     <div className={`${prefix}__header`}>
       {model._def.label && <h2 className={classnames(`${prefix}__label`, {
         // @ts-ignore
@@ -111,7 +114,7 @@ function InnerList<M extends ZodSchema>(props: ListProps<M>, ref: React.Forwarde
 }
 
 export const List = forwardRef(InnerList) as unknown as {
-  <M extends ZodSchema>(
+  <M extends Schema>(
     props: ListProps<M> & { ref?: React.ForwardedRef<ListRef> }
   ): React.ReactElement
   displayName?: string
