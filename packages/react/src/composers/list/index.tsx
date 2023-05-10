@@ -17,7 +17,7 @@ export interface ListRef extends ComposerRef {
 export interface ListProps<M extends ZodSchema = any> extends ComposerProps<M> {
 }
 
-const prefix = 'zodui-schema'
+const prefix = 'zodui-composer-list'
 
 function InnerList<M extends ZodSchema>(props: ListProps<M>, ref: React.ForwardedRef<ListRef>) {
   const { inited } = usePlugins(common)

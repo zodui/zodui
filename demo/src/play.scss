@@ -77,7 +77,7 @@ main {
     flex-grow: 1;
     min-width: 300px;
     height: 100%;
-    > .zodui-schema {
+    > .zodui-composer-list {
       position: absolute;
       top: 0;
       left: 0;
@@ -86,7 +86,7 @@ main {
       transition: .3s;
       overflow: overlay;
     }
-    &[data-mode="card"] > .zodui-schema {
+    &[data-mode="card"] > .zodui-composer-list {
       position: absolute;
       top: 50%;
       left: 50%;

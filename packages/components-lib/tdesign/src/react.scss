@@ -1,4 +1,4 @@
-.zodui-schema, .zodui-item, .zodui-controller {
+.zodui-composer-list, .zodui-item, .zodui-controller {
   --zodui-text-color: var(--td-text-color-primary);
   --zodui-text-color-placeholder: var(--td-text-color-placeholder);
 
@@ -23,7 +23,7 @@
 .zodui-tdesign-popup {
   --td-comp-margin-l: 5px;
 }
-.zodui-schema {
+.zodui-composer-list {
   color: var(--zodui-text-color);
   background-color: var(--zodui-bg-color);
 }
