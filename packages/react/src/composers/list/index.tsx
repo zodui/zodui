@@ -126,4 +126,7 @@ export const List = forwardRef(InnerList) as unknown as {
 
 List.displayName = 'Schema'
 
-List.Item = Item
+// TODO unable to export, because will cause hmr to fail
+// List.Item = Item
+
+export { Item as ListItem } from './item'
