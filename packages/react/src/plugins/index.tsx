@@ -1,6 +1,7 @@
 import type { AllType, ModesMap, TypeMap } from '@zodui/core'
-import type { ControllerProps } from '@zodui/react'
 import type { ReactElement } from 'react'
+
+import type { ControllerProps } from '../controllers'
 
 export interface ComponentMatcher<
   T extends AllType,

@@ -1,5 +1,6 @@
 import type { Frameworks } from '@zodui/core'
-import { useCoreContextComponent } from '@zodui/react'
+
+import { useCoreContextComponent } from '../contexts'
 
 export type Select = Frameworks['react']['Components']['Select']
 

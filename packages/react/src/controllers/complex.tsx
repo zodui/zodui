@@ -3,12 +3,14 @@ import './complex.scss'
 import type { ComplexType, ComponentProps, TypeMap } from '@zodui/core'
 import { AllTypes } from '@zodui/core'
 import { isWhatType } from '@zodui/core/utils'
-// TODO remove List import, and make Descriptors render target which can be customized
-import { List, Select, useItemSerterContext } from '@zodui/react'
 import type { ReactElement } from 'react'
 import { useEffect, useMemo, useState } from 'react'
 import type { ZodUnionOptions } from 'zod'
 
+import { Select } from '../components'
+// TODO remove List import, and make Descriptors render target which can be customized
+import { List } from '../composers'
+import { useItemSerterContext } from '../contexts'
 import { plgMaster } from '../plugins'
 import type { ControllerProps } from './index'
 import { Switcher } from './index'

@@ -3,8 +3,6 @@ import './multiple.scss'
 import type { AllType, MultipleType, TypeMap } from '@zodui/core'
 import { AllTypes, ComplexMultipleTypes, KeyEditableTypes } from '@zodui/core'
 import { getDefaultValue, isWhatType, isWhatTypes } from '@zodui/core/utils'
-import { Button, Input } from '@zodui/react'
-import { useErrorHandlerContext } from '@zodui/react'
 import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type {
   ZodArrayDef,
@@ -17,6 +15,8 @@ import type {
   ZodTypeDef
 } from 'zod'
 
+import { Button, Input } from '../components'
+import { useErrorHandlerContext } from '../contexts'
 import { plgMaster } from '../plugins'
 import type { ControllerProps } from './index'
 import { Switcher } from './index'

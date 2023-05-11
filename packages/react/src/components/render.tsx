@@ -1,8 +1,9 @@
 import type { AllPaths, AsProps, ControllerPropsMap, InnerControllerPropsMap, RevealPropsByPath } from '@zodui/core'
-import type { ReactFramework } from '@zodui/react'
-import { useCoreContextField, useErrorHandlerContext } from '@zodui/react'
 import type { ReactElement } from 'react'
 import { useEffect, useMemo } from 'react'
+
+import type { ReactFramework } from '../components'
+import { useCoreContextField, useErrorHandlerContext } from '../contexts'
 
 export function Rndr<
   P extends AllPaths<ControllerPropsMap & ReactFramework['Controllers']>,

@@ -1,8 +1,8 @@
 import type { MonadType, TypeMap } from '@zodui/core'
-import { Input, Switch } from '@zodui/react'
 import type { ReactElement } from 'react'
 import { useEffect, useState } from 'react'
 
+import { Input, Switch } from '../components'
 import { plgMaster } from '../plugins'
 import type { ControllerProps } from './index'
 

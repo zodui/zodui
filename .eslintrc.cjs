@@ -1,10 +1,32 @@
-// ALL_PACKAGES
-const allPackages = [
-  'core',
-  'react',
-  'components-lib/*',
-  'vue'
-]
+const pkgSpecialRules = {
+  'core': {},
+  'react': {
+    '@typescript-eslint/no-restricted-imports': [
+      'error',
+      {
+        patterns: [
+          {
+            group: ['**/dist', '**/dist/**'],
+            message: 'Don not import from dist',
+            allowTypeImports: false
+          },
+          {
+            group: ['**/src', '**/src/**'],
+            message: 'Don not import from src',
+            allowTypeImports: false
+          },
+          {
+            group: ['@zodui/react'],
+            message: 'Don not import from \'@zodui/react\', it will cause circular dependency, then cause hmr error',
+            allowTypeImports: false
+          }
+        ]
+      }
+    ],
+  },
+  'components-lib/*': {},
+  'vue': {}
+}
 
 const createPattern = () => [
   {
@@ -74,15 +96,16 @@ module.exports = {
         // end
       }
     },
-    ...allPackages.map(pkg => ({
-      files: [`packages/${pkg}/src/*.ts`],
+    ...Object.entries(pkgSpecialRules).map(([pkg, rules]) => ({
+      files: [`packages/${pkg}/src/**/*.ts`, `packages/${pkg}/src/**/*.tsx`],
       rules: {
         '@typescript-eslint/no-restricted-imports': [
           'error',
           {
             patterns: createPattern(pkg)
           }
-        ]
+        ],
+        ...rules
       }
     }))
   ],

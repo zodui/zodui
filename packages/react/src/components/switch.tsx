@@ -1,6 +1,7 @@
 import type { Frameworks } from '@zodui/core'
-import { useCoreContextComponent } from '@zodui/react'
 import { useCallback, useEffect, useState } from 'react'
+
+import { useCoreContextComponent } from '../contexts'
 
 export type Switch = Frameworks['react']['Components']['Switch']
 

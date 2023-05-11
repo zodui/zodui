@@ -124,9 +124,8 @@ export const List = forwardRef(InnerList) as unknown as {
   ItemProps: ItemProps
 }
 
-List.displayName = 'Schema'
+List.displayName = 'List-Composer'
 
-// TODO unable to export, because will cause hmr to fail
-// List.Item = Item
+List.Item = Item
 
 export { Item as ListItem } from './item'
