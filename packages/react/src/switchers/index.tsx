@@ -1,6 +1,6 @@
 import './index.scss'
 
-import type { AllType, TypeMap } from '@zodui/core'
+import type { AllType, SwitcherProps, TypeMap } from '@zodui/core'
 import {
   AllTypes
 } from '@zodui/core'
@@ -11,8 +11,9 @@ import {
 } from '@zodui/core/utils'
 import type { ReactElement } from 'react'
 import { useCallback } from 'react'
-import type { Schema, ZodTypeDef } from 'zod'
+import type { ZodTypeDef } from 'zod'
 import type z from 'zod'
+import type { Schema as ZodSchema } from 'zod/lib/types'
 
 import { useControllerClassName } from '../contexts'
 import {
@@ -36,85 +37,78 @@ function isWhatTypesSwitcherMatcher<T extends AllType>(
     z.Schema<any, ZodTypeDef & {
       typeName?: AllType
     }, any>,
-    (props: SwitcherProps<any>) => ReactElement
+    (props: SwitcherPropsForReact<any>) => ReactElement
   ]
-): tuple is [TypeMap[T], (props: SwitcherProps<TypeMap[T]>) => ReactElement] {
+): tuple is [TypeMap[T], (props: SwitcherPropsForReact<TypeMap[T]>) => ReactElement] {
   const [s] = tuple
   return isWhatTypes(s, types)
 }
 
-export interface SwitcherProps<T extends Schema = Schema> {
-  uniqueKey?: string
-  modes?: string[]
-  schema: T
-  defaultValue?: any
-  value?: any
-  onChange?: (value: any) => void
-  disabled?: boolean
+export interface SwitcherPropsForReact<M extends ZodSchema> extends SwitcherProps<M> {
   className?: string
 }
 
 /**
  * Switcher will try to resolve all schema and render it
  */
-export function Switcher(props: SwitcherProps) {
-  const { schema, ...rest } = props
+export function Switcher<M extends ZodSchema>(props: SwitcherPropsForReact<M>) {
+  const { model, ...rest } = props
   const { className: subClassName, ControllerClassName } = useControllerClassName()
   // props defaultValue is higher than schema defaultValue
   // because Component is user controlled
   // but schema defaultValue is not user controlled, so we should use props defaultValue first
-  const innerDefaultValue = useDefaultValue(schema)
+  const innerDefaultValue = useDefaultValue(model)
   const defaultValue = props.defaultValue ?? innerDefaultValue
 
   // TODO resolve parent modes?
-  const modes = useModes(schema)
+  const modes = useModes(model)
 
   const InnerSwitcher: () => ReactElement = useCallback(() => {
     for (const [name, types, InnerSwitcher] of switchers) {
       // let ts happy
-      const checkTuple = [schema, InnerSwitcher] as const
+      const checkTuple = [model, InnerSwitcher] as const
       if (isWhatTypesSwitcherMatcher(types, checkTuple)) {
         const [schema, InnerSwitcher] = checkTuple
         return <div className={`zodui-controller ${name} ${schema.type} ${subClassName}`}>
           <ControllerClassName>
-            <InnerSwitcher schema={schema} modes={modes} {...rest} />
+            <InnerSwitcher model={schema} modes={modes} {...rest} />
           </ControllerClassName>
         </div>
       }
     }
     return null
-  }, [schema, subClassName, ControllerClassName, modes, rest])
+  }, [model, subClassName, ControllerClassName, modes, rest])
 
-  if (isWhatType(schema, AllTypes.ZodDefault)) {
+  if (isWhatType(model, AllTypes.ZodDefault)) {
     const {
       innerType,
       defaultValue: _,
       typeName: __,
       ...assignDefFields
-    } = schema._def
+    } = model._def
     Object.assign(innerType._def, assignDefFields)
     return <Switcher
       {...props}
-      schema={innerType}
+      model={innerType}
       defaultValue={defaultValue}
     />
   }
-  if (isWhatType(schema, AllTypes.ZodOptional)) {
+  if (isWhatType(model, AllTypes.ZodOptional)) {
     const {
       innerType,
       typeName: __,
       ...assignDefFields
-    } = schema._def
+    } = model._def
     Object.assign(innerType._def, assignDefFields)
     return <Switcher
       {...props}
-      schema={innerType}
+      model={innerType}
     />
   }
 
   return InnerSwitcher
     ? <InnerSwitcher />
     : <div className='zodui-controller'>
-      <span style={{ width: '100%' }}>暂未支持的的类型 <code>{schema.type}</code></span>
+      <span style={{ width: '100%' }}>暂未支持的的类型 <code>{model.type}</code></span>
     </div>
 }

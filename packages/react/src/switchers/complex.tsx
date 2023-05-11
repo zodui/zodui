@@ -12,7 +12,7 @@ import { Select } from '../components'
 import { List } from '../composers'
 import { useItemSerterContext } from '../contexts'
 import { plgMaster } from '../plugins'
-import type { SwitcherProps } from './index'
+import type { SwitcherPropsForReact } from './index'
 import { Switcher } from './index'
 
 declare module '@zodui/react' {
@@ -39,30 +39,30 @@ function resolveSchemas(schemas: ZodUnionOptions): ComponentProps.SelectOptions[
 
 export function Complex({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  uniqueKey, // FIXME
+  uKey, // FIXME
   modes,
-  schema,
+  model,
   value,
   defaultValue,
   ...rest
-}: SwitcherProps<TypeMap[ComplexType]>) {
-  const options = useMemo(() => resolveSchemas(schema.options), [schema.options])
+}: SwitcherPropsForReact<TypeMap[ComplexType]>) {
+  const options = useMemo(() => resolveSchemas(model.options), [model.options])
   const [index, setIndex] = useState<number>(undefined)
   useEffect(() => {
     const v = value ?? defaultValue
-    const index = schema.options
+    const index = model.options
       .findIndex(option => isWhatType(option, AllTypes.ZodLiteral) && option._def.value === v)
     if (index === -1) return
 
     setIndex(index)
-  }, [value, defaultValue, schema.options])
+  }, [value, defaultValue, model.options])
   const props = {
-    title: schema._def.description,
+    title: model._def.description,
     ...rest,
     value: index,
     onChange(v: any) {
       setIndex(v)
-      const option = schema.options[v]
+      const option = model.options[v]
       if (isWhatType(option, AllTypes.ZodLiteral)) {
         rest.onChange?.(option._def.value)
       } else {
@@ -75,28 +75,28 @@ export function Complex({
   const ItemSerter = useItemSerterContext()
 
   const OptionRender = index ? <>
-    <ItemSerter.Append deps={[schema.options, index]}>
+    <ItemSerter.Append deps={[model.options, index]}>
       {/* 在里面控制是因为在 modes 修改后，将 append 内容清空 */}
-      {modes.includes('append') && schema.options[index]._def.typeName !== AllTypes.ZodLiteral
+      {modes.includes('append') && model.options[index]._def.typeName !== AllTypes.ZodLiteral
         && <List
-          model={schema.options[index]}
+          model={model.options[index]}
         />}
     </ItemSerter.Append>
-    {!modes.includes('append') && schema.options[index]._def.typeName !== AllTypes.ZodLiteral && <>
+    {!modes.includes('append') && model.options[index]._def.typeName !== AllTypes.ZodLiteral && <>
       <Switcher
-        schema={schema.options[index]}
+        model={model.options[index]}
         {...props}
         onChange={rest.onChange}
       />
     </>}
   </> : null
 
-  const { Component } = plgMaster.reveal(schema._def.typeName, 'SubController.complex', [modes]) ?? {}
+  const { Component } = plgMaster.reveal(model._def.typeName, 'SubController.complex', [modes]) ?? {}
 
   return Component
     ? <Component
       modes={modes}
-      schema={schema}
+      schema={model}
       options={options}
       OptionRender={OptionRender}
       {...props}

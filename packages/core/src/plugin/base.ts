@@ -5,7 +5,7 @@ export interface SchemaResolver<
   V = TypeOf<M>
 > {
   disabled?: boolean
-  model: ZodSchema
+  model: M
   value?: V
   defaultValue?: V
   onChange?: (value: V) => void | Promise<void>

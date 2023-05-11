@@ -151,8 +151,8 @@ function InnerItem<M extends Schema>(props: ItemProps<M>, ref: React.ForwardedRe
             />}
         </div>
         <Switcher
-          uniqueKey={props.uKey}
-          schema={model}
+          uKey={props.uKey}
+          model={model}
           disabled={props.disabled}
           value={valueRef.current}
           defaultValue={props.defaultValue}

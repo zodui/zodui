@@ -18,7 +18,7 @@ import type {
 import { Button, Input } from '../components'
 import { useErrorHandlerContext } from '../contexts'
 import { plgMaster } from '../plugins'
-import type { SwitcherProps } from './index'
+import type { SwitcherPropsForReact } from './index'
 import { Switcher } from './index'
 
 declare module '@zodui/react' {
@@ -37,18 +37,18 @@ declare module '@zodui/react' {
 
 const prefix = 'multiple'
 
-export interface MultipleProps extends SwitcherProps<TypeMap[MultipleType]> {
+export interface MultipleProps extends SwitcherPropsForReact<TypeMap[MultipleType]> {
 }
 
 export function Multiple({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  uniqueKey, // FIXME
+  uKey, // FIXME
   modes,
-  schema,
+  model,
   onChange,
   ...props
 }: MultipleProps) {
-  const commonDef = schema._def as (
+  const commonDef = model._def as (
     & Partial<ZodArrayDef<any>>
     & Partial<ZodTupleDef>
     & Partial<ZodSetDef>
@@ -75,20 +75,20 @@ export function Multiple({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [commonDef.typeName, commonDef.shape])
   const getSchema = useCallback((index?: number) => {
-    if (isWhatType(schema, AllTypes.ZodArray)) {
-      return schema._def.type
+    if (isWhatType(model, AllTypes.ZodArray)) {
+      return model._def.type
     }
-    if (isWhatType(schema, AllTypes.ZodTuple)) {
-      return schema._def.items[index]
+    if (isWhatType(model, AllTypes.ZodTuple)) {
+      return model._def.items[index]
     }
     if (
-      isWhatType(schema, AllTypes.ZodSet)
-      || isWhatType(schema, AllTypes.ZodRecord)
-      || isWhatType(schema, AllTypes.ZodMap)
+      isWhatType(model, AllTypes.ZodSet)
+      || isWhatType(model, AllTypes.ZodRecord)
+      || isWhatType(model, AllTypes.ZodMap)
     ) {
-      return schema._def.valueType
+      return model._def.valueType
     }
-    if (isWhatType(schema, AllTypes.ZodObject)) {
+    if (isWhatType(model, AllTypes.ZodObject)) {
       return Object.values(dict)[index]
     }
     return null
@@ -101,14 +101,14 @@ export function Multiple({
     commonDef.typeName
   ])
   const schemasLength = useMemo(() => {
-    if (isWhatType(schema, AllTypes.ZodArray) || isWhatType(schema, AllTypes.ZodSet)) {
+    if (isWhatType(model, AllTypes.ZodArray) || isWhatType(model, AllTypes.ZodSet)) {
       return Infinity
     }
-    if (isWhatType(schema, AllTypes.ZodTuple)) {
-      return schema._def.items.length
+    if (isWhatType(model, AllTypes.ZodTuple)) {
+      return model._def.items.length
     }
-    if (isWhatType(schema, AllTypes.ZodObject)) {
-      return Object.entries(schema._def.shape() ?? {}).length
+    if (isWhatType(model, AllTypes.ZodObject)) {
+      return Object.entries(model._def.shape() ?? {}).length
     }
     return 0
   // FIXME the next line
@@ -116,16 +116,16 @@ export function Multiple({
   }, [commonDef])
 
   const schemas = useMemo(() => {
-    if (isWhatType(schema, AllTypes.ZodTuple)) {
-      return schema._def.items
+    if (isWhatType(model, AllTypes.ZodTuple)) {
+      return model._def.items
     }
-    if (isWhatType(schema, AllTypes.ZodObject)) {
+    if (isWhatType(model, AllTypes.ZodObject)) {
       return Object.values(dict)
     }
     if (
-      isWhatType(schema, AllTypes.ZodSet)
-      || isWhatType(schema, AllTypes.ZodRecord)
-      || isWhatType(schema, AllTypes.ZodMap)
+      isWhatType(model, AllTypes.ZodSet)
+      || isWhatType(model, AllTypes.ZodRecord)
+      || isWhatType(model, AllTypes.ZodMap)
     ) {
       return Array.from({ length: schemasLength }).map((_, i) => getSchema(i))
     }
@@ -140,18 +140,18 @@ export function Multiple({
       ? Object
         .entries(dict)
         .map(([k, v]) => {
-          if (props.value && props.value[k] !== undefined) {
-            return props.value[k]
-          }
-          if (props.defaultValue && props.defaultValue[k] !== undefined) {
-            return props.defaultValue[k]
-          }
-          return getDefaultValue(v)
+          const value = props.value instanceof Map
+            ? props.value.get(k)
+            : !Array.isArray(props.value) && !(props.value instanceof Set)
+              ? props.value?.[k]
+              : undefined
+
+          return value ?? getDefaultValue(v)
         })
       : props.value ?? props.defaultValue
         ? Object.entries(props.value ?? props.defaultValue).map(([, v]) => v)
-        : isWhatType(schema, AllTypes.ZodTuple)
-          ? schema._def.items.map(getDefaultValue)
+        : isWhatType(model, AllTypes.ZodTuple)
+          ? model._def.items.map(getDefaultValue)
           : []
   )
 
@@ -166,11 +166,11 @@ export function Multiple({
       ...acc,
       [dictKeys[i] ?? i]: v
     }), {})
-    if (isWhatTypes(schema, [AllTypes.ZodArray, AllTypes.ZodTuple, AllTypes.ZodSet])) {
+    if (isWhatTypes(model, [AllTypes.ZodArray, AllTypes.ZodTuple, AllTypes.ZodSet])) {
       v = listRef.current
     }
     onChange?.(v)
-  }, [dictKeys, onChange, schema])
+  }, [dictKeys, onChange, model])
   // emit init list value
   useEffect(() => {
     changeList()
@@ -189,21 +189,21 @@ export function Multiple({
     changeList()
   }, [changeList, getSchema])
 
-  const isComplex = useMemo(() => ComplexMultipleTypes.includes(schema._def.typeName), [schema._def.typeName])
+  const isComplex = useMemo(() => ComplexMultipleTypes.includes(model._def.typeName), [model._def.typeName])
 
   const errorHandler = useErrorHandlerContext()
 
-  if (schemas.length === 0 && schema._def.typeName === AllTypes.ZodTuple) {
+  if (schemas.length === 0 && model._def.typeName === AllTypes.ZodTuple) {
     return errorHandler.throwError(new Error('Tuple 类型必须包含一个元素'))
   }
 
-  const { Component } = plgMaster.reveal(schema._def.typeName, 'SubController.multiple', [modes, { schemas }]) ?? {}
+  const { Component } = plgMaster.reveal(model._def.typeName, 'SubController.multiple', [modes, { schemas }]) ?? {}
 
   return Component
     ? <Component
         {...props}
         modes={modes}
-        schema={schema}
+        schema={model}
         schemas={schemas}
         value={listRef.current}
         onChange={changeList}
@@ -219,7 +219,7 @@ export function Multiple({
         // fix delete schema flashing
         if (!itemSchema) return <Fragment key={index} />
 
-        const isKeyEditable = KeyEditableTypes.includes(schema._def.typeName)
+        const isKeyEditable = KeyEditableTypes.includes(model._def.typeName)
 
         return <div className={`${prefix}-item`} key={index}>
           {/* TODO display description */}
@@ -292,7 +292,7 @@ export function Multiple({
           <Switcher
             disabled={props.disabled ?? false}
             className={`${prefix}-item__container`}
-            schema={itemSchema}
+            model={itemSchema}
             value={item}
             defaultValue={getDefaultValue(itemSchema)}
             onChange={value => {

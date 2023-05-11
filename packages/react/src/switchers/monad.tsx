@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import { Input, Switch } from '../components'
 import { plgMaster } from '../plugins'
-import type { SwitcherProps } from './index'
+import type { SwitcherPropsForReact } from './index'
 
 declare module '@zodui/react' {
   export interface MonadSubController {
@@ -16,14 +16,14 @@ declare module '@zodui/react' {
   }
 }
 
-export interface PrimitiveProps extends SwitcherProps<TypeMap[MonadType]> {
+export interface PrimitiveProps extends SwitcherPropsForReact<TypeMap[MonadType]> {
 }
 
 export function Monad({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  uniqueKey, // FIXME
+  uKey, // FIXME
   modes,
-  schema,
+  model,
   ...rest
 }: PrimitiveProps) {
   const [value, setValue] = useState(rest.defaultValue || rest.value)
@@ -40,23 +40,24 @@ export function Monad({
   }, [rest.defaultValue, rest.value])
 
   let InnerComp: ReactElement = null
-  switch (schema._def.typeName) {
+  switch (model._def.typeName) {
     case 'ZodNumber':
-      InnerComp = <Input type='number' {...props} />
+      InnerComp = <Input type='number' {...props as any} />
       break
     case 'ZodString':
-      InnerComp = <Input {...props} />
+      InnerComp = <Input {...props as any} />
       break
     case 'ZodDate':
-      InnerComp = <Input {...props} />
+      // TODO better date input default ui
+      InnerComp = <Input {...props as any} />
       break
     case 'ZodBoolean':
-      InnerComp = <Switch {...props} />
+      InnerComp = <Switch {...props as any} />
       break
   }
 
-  const { Component } = plgMaster.reveal(schema._def.typeName, 'SubController.monad', [modes]) ?? {}
+  const { Component } = plgMaster.reveal(model._def.typeName, 'SubController.monad', [modes]) ?? {}
   return Component
-    ? <Component modes={modes} schema={schema} {...props} />
+    ? <Component modes={modes} schema={model} {...props} />
     : InnerComp
 }
