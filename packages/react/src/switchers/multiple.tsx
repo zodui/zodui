@@ -135,25 +135,34 @@ export function Multiple({
   }, [dict, commonDef.typeName, commonDef.items, commonDef.valueType])
 
   const [_, setRigger] = useState(false)
-  const listRef = useRef<any[]>(
-    Object.keys(dict).length > 0
-      ? Object
+  function initValue() {
+    const value = props.value ?? props.defaultValue
+    if (Object.keys(dict).length > 0) {
+      return Object
         .entries(dict)
-        .map(([k, v]) => {
-          const value = props.value instanceof Map
-            ? props.value.get(k)
-            : !Array.isArray(props.value) && !(props.value instanceof Set)
-              ? props.value?.[k]
+        .map(([k, model]) => {
+          const itemVal = value instanceof Map
+            ? value.get(k)
+            : !Array.isArray(value) && !(value instanceof Set)
+              ? value?.[k]
               : undefined
 
-          return value ?? getDefaultValue(v)
+          return itemVal ?? getDefaultValue(model)
         })
-      : props.value ?? props.defaultValue
-        ? Object.entries(props.value ?? props.defaultValue).map(([, v]) => v)
-        : isWhatType(model, AllTypes.ZodTuple)
-          ? model._def.items.map(getDefaultValue)
-          : []
-  )
+    } else {
+      if (isWhatType(model, AllTypes.ZodTuple)) {
+        return model._def.items.map(getDefaultValue)
+      }
+      if (value instanceof Set) {
+        return Array.from(value)
+      }
+      if (Array.isArray(value)) {
+        return value
+      }
+    }
+    return []
+  }
+  const listRef = useRef<any[]>(initValue())
 
   const dictKeys = useMemo(() => Object.keys(dict ?? {}), [dict])
   const [keys, setKeys] = useState<string[]>([])
