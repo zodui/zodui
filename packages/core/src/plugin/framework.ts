@@ -1,6 +1,5 @@
-import type { Context, Icons } from '@zodui/core'
+import type { Context, Icons, SwitcherProps } from '@zodui/core'
 import type { TypeMap } from '@zodui/core'
-import type { SwitcherProps } from '@zodui/react'
 
 const PropsSymbol = Symbol('props')
 
