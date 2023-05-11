@@ -23,7 +23,7 @@ import {
 } from '../../contexts'
 import {
   Switcher
-} from '../../controllers'
+} from '../../switchers'
 
 const prefix = 'zodui-item'
 
