@@ -30,6 +30,7 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: React.ForwardedRe
     onChange,
     disabled
   } = props
+  const def = model._def
   const valueRef = useRef(value ?? defaultValue ?? {})
   const changeValue = useCallback((v: any) => {
     valueRef.current = v
@@ -51,20 +52,20 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: React.ForwardedRe
 
   if (!inited) return null
 
-  if (isWhatType(model, AllTypes.ZodIntersection)) {
+  if (isWhatType(def, AllTypes.ZodIntersection)) {
     // TODO resolve ref merge
     return <>
       <List prefix='intersect::left'
             className={props.className}
             disabled={disabled}
-            model={model._def.left}
+            model={def.left}
             value={valueRef.current}
             onChange={async v => changeValue(merge(valueRef.current, v))}
       />
       <List prefix='intersect::right'
             className={props.className}
             disabled={disabled}
-            model={model._def.right}
+            model={def.right}
             value={valueRef.current}
             onChange={async v => changeValue(merge(valueRef.current, v))}
       />
@@ -73,20 +74,20 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: React.ForwardedRe
 
   return <div className={classnames(prefix, props.className)}>
     <div className={`${prefix}__header`}>
-      {model._def.label && <h2 className={classnames(`${prefix}__label`, {
+      {def.label && <h2 className={classnames(`${prefix}__label`, {
         // @ts-ignore
-        'is-optional': model._def.typeName === AllTypes.ZodOptional
+        'is-optional': def.typeName === AllTypes.ZodOptional
       })}>
-        {model._def.label}
+        {def.label}
       </h2>}
-      {model._def.description
+      {def.description
         && <pre
           className={`${prefix}__desc inline-md`}
-          dangerouslySetInnerHTML={{ __html: inlineMarkdown(model._def.description) }}
+          dangerouslySetInnerHTML={{ __html: inlineMarkdown(def.description) }}
         />}
     </div>
-    {isWhatType(model, AllTypes.ZodObject)
-      ? Object.entries(model._def.shape()).map(([key, value]) => <Item
+    {isWhatType(def, AllTypes.ZodObject)
+      ? Object.entries(def.shape()).map(([key, value]) => <Item
         ref={ele => itemRefs.current[key] = ele}
         key={key}
         uKey={`${props.prefix || ''}.${key}`}
@@ -102,8 +103,8 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: React.ForwardedRe
         ref={ele => itemRefs.current['single'] = ele}
         uKey='single'
         meta={{
-          label: model._label || model._def?.description || model.type,
-          description: model._def.description
+          label: model._label || def?.description || model.type,
+          description: def.description
         }}
         model={model}
         disabled={disabled}
