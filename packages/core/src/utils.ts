@@ -22,14 +22,22 @@ export function getModes(mode: string) {
     ?? []
 }
 
-export function isWhatType<T extends AllType>(
-  s: Schema<any, ZodTypeDef & {
-    typeName?: AllType
-  }, any>,
-  type: T
-): s is TypeMap[T] {
-  return s?._def?.typeName === type
+interface IsWhatType {
+  <T extends AllType>(
+    s: Schema<any, ZodTypeDef & {
+      typeName?: AllType
+    }, any>,
+    type: T
+  ): s is TypeMap[T]
+  <T extends AllType>(
+    s: ZodTypeDef & {
+      typeName?: AllType
+    },
+    type: T
+  ): s is TypeMap[T]['_def']
 }
+
+export const isWhatType = ((s: any, type) => (s?._def || s)?.typeName === type) as IsWhatType
 
 export function isWhatTypes<T extends AllType>(
   s: Schema<any, ZodTypeDef & {
