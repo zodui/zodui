@@ -1,6 +1,6 @@
 import type { Context, Icons } from '@zodui/core'
 import type { TypeMap } from '@zodui/core'
-import type { ControllerProps } from '@zodui/react'
+import type { SwitcherProps } from '@zodui/react'
 
 const PropsSymbol = Symbol('props')
 
@@ -10,12 +10,12 @@ export interface ControllerPropsMap {
 }
 
 interface BuiltinControllerPropsMap {
-  Array: Record<string, AsProps<ControllerProps<TypeMap['ZodArray']>>>
-  Color: Record<string, AsProps<ControllerProps<TypeMap['ZodString']>>>
-  String: Record<string, AsProps<ControllerProps<TypeMap['ZodString']>>>
-  Number: Record<string, AsProps<ControllerProps<TypeMap['ZodNumber']>>>
-  Boolean: Record<string, AsProps<ControllerProps<TypeMap['ZodBoolean']>>>
-  Date: Record<string, AsProps<ControllerProps<TypeMap['ZodDate']>>>
+  Array: Record<string, AsProps<SwitcherProps<TypeMap['ZodArray']>>>
+  Color: Record<string, AsProps<SwitcherProps<TypeMap['ZodString']>>>
+  String: Record<string, AsProps<SwitcherProps<TypeMap['ZodString']>>>
+  Number: Record<string, AsProps<SwitcherProps<TypeMap['ZodNumber']>>>
+  Boolean: Record<string, AsProps<SwitcherProps<TypeMap['ZodBoolean']>>>
+  Date: Record<string, AsProps<SwitcherProps<TypeMap['ZodDate']>>>
 }
 
 type CalcPropsMap<Map> = {

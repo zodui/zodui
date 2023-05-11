@@ -12,7 +12,7 @@ import { Select } from '../components'
 import { List } from '../composers'
 import { useItemSerterContext } from '../contexts'
 import { plgMaster } from '../plugins'
-import type { ControllerProps } from './index'
+import type { SwitcherProps } from './index'
 import { Switcher } from './index'
 
 declare module '@zodui/react' {
@@ -45,7 +45,7 @@ export function Complex({
   value,
   defaultValue,
   ...rest
-}: ControllerProps<TypeMap[ComplexType]>) {
+}: SwitcherProps<TypeMap[ComplexType]>) {
   const options = useMemo(() => resolveSchemas(schema.options), [schema.options])
   const [index, setIndex] = useState<number>(undefined)
   useEffect(() => {

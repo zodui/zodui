@@ -18,7 +18,7 @@ import type {
 import { Button, Input } from '../components'
 import { useErrorHandlerContext } from '../contexts'
 import { plgMaster } from '../plugins'
-import type { ControllerProps } from './index'
+import type { SwitcherProps } from './index'
 import { Switcher } from './index'
 
 declare module '@zodui/react' {
@@ -37,7 +37,7 @@ declare module '@zodui/react' {
 
 const prefix = 'multiple'
 
-export interface MultipleProps extends ControllerProps<TypeMap[MultipleType]> {
+export interface MultipleProps extends SwitcherProps<TypeMap[MultipleType]> {
 }
 
 export function Multiple({

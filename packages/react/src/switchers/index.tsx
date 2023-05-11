@@ -30,20 +30,20 @@ const switchers = [
   ['multiple', multiple, Multiple]
 ] as const
 
-function isMatchSubControllersWhatTypes<T extends AllType>(
+function isWhatTypesSwitcherMatcher<T extends AllType>(
   types: T[],
   tuple: readonly [
     z.Schema<any, ZodTypeDef & {
       typeName?: AllType
     }, any>,
-    (props: ControllerProps<any>) => ReactElement
+    (props: SwitcherProps<any>) => ReactElement
   ]
-): tuple is [TypeMap[T], (props: ControllerProps<TypeMap[T]>) => ReactElement] {
+): tuple is [TypeMap[T], (props: SwitcherProps<TypeMap[T]>) => ReactElement] {
   const [s] = tuple
   return isWhatTypes(s, types)
 }
 
-export interface ControllerProps<T extends Schema = Schema> {
+export interface SwitcherProps<T extends Schema = Schema> {
   uniqueKey?: string
   modes?: string[]
   schema: T
@@ -57,7 +57,7 @@ export interface ControllerProps<T extends Schema = Schema> {
 /**
  * Switcher will try to resolve all schema and render it
  */
-export function Switcher(props: ControllerProps) {
+export function Switcher(props: SwitcherProps) {
   const { schema, ...rest } = props
   const { className: subClassName, ControllerClassName } = useControllerClassName()
   // props defaultValue is higher than schema defaultValue
@@ -69,15 +69,15 @@ export function Switcher(props: ControllerProps) {
   // TODO resolve parent modes?
   const modes = useModes(schema)
 
-  const SubController: () => ReactElement = useCallback(() => {
-    for (const [name, types, SubController] of switchers) {
+  const InnerSwitcher: () => ReactElement = useCallback(() => {
+    for (const [name, types, InnerSwitcher] of switchers) {
       // let ts happy
-      const checkTuple = [schema, SubController] as const
-      if (isMatchSubControllersWhatTypes(types, checkTuple)) {
-        const [schema, SubController] = checkTuple
+      const checkTuple = [schema, InnerSwitcher] as const
+      if (isWhatTypesSwitcherMatcher(types, checkTuple)) {
+        const [schema, InnerSwitcher] = checkTuple
         return <div className={`zodui-controller ${name} ${schema.type} ${subClassName}`}>
           <ControllerClassName>
-            <SubController schema={schema} modes={modes} {...rest} />
+            <InnerSwitcher schema={schema} modes={modes} {...rest} />
           </ControllerClassName>
         </div>
       }
@@ -112,8 +112,8 @@ export function Switcher(props: ControllerProps) {
     />
   }
 
-  return SubController
-    ? <SubController/>
+  return InnerSwitcher
+    ? <InnerSwitcher />
     : <div className='zodui-controller'>
       <span style={{ width: '100%' }}>暂未支持的的类型 <code>{schema.type}</code></span>
     </div>

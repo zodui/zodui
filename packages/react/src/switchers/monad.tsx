@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import { Input, Switch } from '../components'
 import { plgMaster } from '../plugins'
-import type { ControllerProps } from './index'
+import type { SwitcherProps } from './index'
 
 declare module '@zodui/react' {
   export interface MonadSubController {
@@ -16,7 +16,7 @@ declare module '@zodui/react' {
   }
 }
 
-export interface PrimitiveProps extends ControllerProps<TypeMap[MonadType]> {
+export interface PrimitiveProps extends SwitcherProps<TypeMap[MonadType]> {
 }
 
 export function Monad({
