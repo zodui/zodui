@@ -119,6 +119,9 @@ export interface ReactFramework {
     Number: {
       Slider: AsProps<{ range?: boolean }>
     }
+    String: {
+      TextArea: AsProps<{}>
+    }
     Date: RenderPropsMapDate
   }
   Components: {
