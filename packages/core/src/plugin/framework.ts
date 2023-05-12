@@ -116,7 +116,7 @@ export class Framework<
     P extends AllPaths<ControllerPropsMap & Controllers>,
     InnerProps = RevealPropsByPath<P, InnerControllerPropsMap<Controllers>>,
     Props = InnerProps extends AsProps<infer P> ? P : never
-  >(path: P | (string & {}), Ctrl: FrameworkCtrl<Props>[K]) {
+  >(path: P | (string & {}), Ctrl: FrameworkRndr<Props>[K]) {
     this.ctx.set(`framework.${this.key}.ctrls.${path}`, Ctrl)
     return this
   }
@@ -143,7 +143,7 @@ export interface Frameworks {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface FrameworkCtrl<Props> {
+export interface FrameworkRndr<Props> {
   [key: string]: any
 }
 

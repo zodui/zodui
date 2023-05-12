@@ -18,7 +18,7 @@ declare module '@zodui/core' {
   export interface Frameworks {
     react: ReactFramework
   }
-  export interface FrameworkCtrl<Props> {
+  export interface FrameworkRndr<Props> {
     react: (props: Props) => ReactElement
   }
 }
