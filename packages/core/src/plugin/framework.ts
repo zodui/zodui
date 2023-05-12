@@ -5,10 +5,10 @@ const PropsSymbol = Symbol('props')
 
 export type AsProps<T = {}> = T & { [PropsSymbol]: unknown }
 
-export interface ControllerPropsMap {
+export interface RenderPropsMap {
 }
 
-interface BuiltinControllerPropsMap {
+interface BuiltinRenderPropsMap {
   Array: Record<string, AsProps<SwitcherProps<TypeMap['ZodArray']>>>
   Color: Record<string, AsProps<SwitcherProps<TypeMap['ZodString']>>>
   String: Record<string, AsProps<SwitcherProps<TypeMap['ZodString']>>>
@@ -18,19 +18,19 @@ interface BuiltinControllerPropsMap {
 }
 
 type CalcPropsMap<Map> = {
-  [K in keyof Map]: K extends keyof BuiltinControllerPropsMap
+  [K in keyof Map]: K extends keyof BuiltinRenderPropsMap
     ? {
-      [KK in keyof Map[K]]: BuiltinControllerPropsMap[K][string] & Map[K][KK]
+      [KK in keyof Map[K]]: BuiltinRenderPropsMap[K][string] & Map[K][KK]
     }
     : {}
 }
 
-export type InnerControllerPropsMap<Map = {}> =
-  & BuiltinControllerPropsMap
-  & CalcPropsMap<ControllerPropsMap>
+export type InnerRenderPropsMap<Map = {}> =
+  & BuiltinRenderPropsMap
+  & CalcPropsMap<RenderPropsMap>
   & CalcPropsMap<Map>
 
-export type CalcPaths<Map = ControllerPropsMap, PrevK extends string = never> = Map extends AsProps
+export type CalcPaths<Map = RenderPropsMap, PrevK extends string = never> = Map extends AsProps
   ? PrevK
   : {
     [K in (keyof Map & string)]:
@@ -43,11 +43,11 @@ export type CalcPaths<Map = ControllerPropsMap, PrevK extends string = never> = 
       }`>
   }[keyof Map & string]
 
-export type AllPaths<M> = CalcPaths<M> | CalcPaths<BuiltinControllerPropsMap>
+export type AllPaths<M> = CalcPaths<M> | CalcPaths<BuiltinRenderPropsMap>
 
 export type RevealPropsByPath<
   Path extends string,
-  Map = InnerControllerPropsMap
+  Map = InnerRenderPropsMap
 > = Path extends `${infer Key}${'.' | ':'}${infer Rest}`
   ? Key extends keyof Map
     ? Map[Key] extends Record<string, any>
@@ -91,8 +91,8 @@ export class Framework<
     return this
   }
   defineRender<
-    P extends AllPaths<ControllerPropsMap & Renders>,
-    InnerProps = RevealPropsByPath<P, InnerControllerPropsMap<Renders>>,
+    P extends AllPaths<RenderPropsMap & Renders>,
+    InnerProps = RevealPropsByPath<P, InnerRenderPropsMap<Renders>>,
     Props = InnerProps extends AsProps<infer P> ? P : never
   >(path: P | (string & {}), Ctrl: FrameworkRndr<Props>[K]) {
     this.ctx.set(`framework.${this.key}.ctrls.${path}`, Ctrl)

@@ -105,7 +105,7 @@ export namespace InnerProps {
   // Drawer: () => <></>
 }
 
-interface ControllerPropsMapDate {
+interface RenderPropsMapDate {
   Picker: AsProps<{
     isPanel?: boolean
     datetime?: [true, true] | [true, false] | [false, true]
@@ -119,7 +119,7 @@ export interface ReactFramework {
     Number: {
       Slider: AsProps<{ range?: boolean }>
     }
-    Date: ControllerPropsMapDate
+    Date: RenderPropsMapDate
   }
   Components: {
     Input: <T extends ComponentProps.InputValue>(props: InnerProps.Input<T>) => ReactElement

@@ -1,4 +1,4 @@
-import type { AllPaths, AsProps, ControllerPropsMap, InnerControllerPropsMap, RevealPropsByPath } from '@zodui/core'
+import type { AllPaths, AsProps, RenderPropsMap, InnerRenderPropsMap, RevealPropsByPath } from '@zodui/core'
 import type { ReactElement } from 'react'
 import { useEffect, useMemo } from 'react'
 
@@ -6,10 +6,10 @@ import type { ReactFramework } from '../components'
 import { useCoreContextField, useErrorHandlerContext } from '../contexts'
 
 export function Rndr<
-  P extends AllPaths<ControllerPropsMap & ReactFramework['Renders']>,
+  P extends AllPaths<RenderPropsMap & ReactFramework['Renders']>,
   InnerProps = RevealPropsByPath<
     P,
-    InnerControllerPropsMap<ReactFramework['Renders']>
+    InnerRenderPropsMap<ReactFramework['Renders']>
   >,
   Props = InnerProps extends AsProps<infer P> ? P : never
 >({
