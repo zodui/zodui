@@ -88,7 +88,7 @@ export class Framework<
   K extends FrameworksKeys,
   N extends string = string,
   Components = Frameworks[K]['Components'],
-  Controllers = Frameworks[K]['Controllers'],
+  Renders = Frameworks[K]['Renders'],
 > {
   constructor(
     private readonly key: K,
@@ -113,8 +113,8 @@ export class Framework<
     return this
   }
   defineRender<
-    P extends AllPaths<ControllerPropsMap & Controllers>,
-    InnerProps = RevealPropsByPath<P, InnerControllerPropsMap<Controllers>>,
+    P extends AllPaths<ControllerPropsMap & Renders>,
+    InnerProps = RevealPropsByPath<P, InnerControllerPropsMap<Renders>>,
     Props = InnerProps extends AsProps<infer P> ? P : never
   >(path: P | (string & {}), Ctrl: FrameworkRndr<Props>[K]) {
     this.ctx.set(`framework.${this.key}.ctrls.${path}`, Ctrl)
@@ -133,12 +133,11 @@ export class Framework<
 export interface Frameworks {
   [key: string]: {
     Icon: any
+    Renders: {}
     /**
      * define framework special component func value to infer defineComp func type
      */
     Components: Record<string, any>
-    Controllers: {
-    }
   }
 }
 

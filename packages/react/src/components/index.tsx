@@ -115,6 +115,12 @@ interface ControllerPropsMapDate {
 
 export interface ReactFramework {
   Icon: (props: InnerProps.Icon) => ReactElement
+  Renders: {
+    Number: {
+      Slider: AsProps<{ range?: boolean }>
+    }
+    Date: ControllerPropsMapDate
+  }
   Components: {
     Input: <T extends ComponentProps.InputValue>(props: InnerProps.Input<T>) => ReactElement
     InputAdornment: (props: InnerProps.InputAdornment) => ReactElement
@@ -122,11 +128,5 @@ export interface ReactFramework {
     Select: <T extends ComponentProps.SelectValue>(props: InnerProps.Select<T>) => ReactElement
     Switch: (props: InnerProps.Switch) => ReactElement
     Dropdown: (props: InnerProps.Dropdown) => ReactElement
-  }
-  Controllers: {
-    Number: {
-      Slider: AsProps<{ range?: boolean }>
-    }
-    Date: ControllerPropsMapDate
   }
 }

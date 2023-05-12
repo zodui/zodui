@@ -6,10 +6,10 @@ import type { ReactFramework } from '../components'
 import { useCoreContextField, useErrorHandlerContext } from '../contexts'
 
 export function Rndr<
-  P extends AllPaths<ControllerPropsMap & ReactFramework['Controllers']>,
+  P extends AllPaths<ControllerPropsMap & ReactFramework['Renders']>,
   InnerProps = RevealPropsByPath<
     P,
-    InnerControllerPropsMap<ReactFramework['Controllers']>
+    InnerControllerPropsMap<ReactFramework['Renders']>
   >,
   Props = InnerProps extends AsProps<infer P> ? P : never
 >({
