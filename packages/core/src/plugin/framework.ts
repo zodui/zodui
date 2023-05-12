@@ -43,28 +43,6 @@ export type CalcPaths<Map = ControllerPropsMap, PrevK extends string = never> = 
       }`>
   }[keyof Map & string]
 
-// export type AllPathsTuple<Map = ControllerPropsMap, PrevK extends string[] = never> = Map extends AsProps
-//   ? PrevK
-//   : {
-//     [K in (keyof Map & string)]:
-//       | [K] extends [never] ? never : PrevK
-//       | AllPathsTuple<Map[K], [PrevK] extends [never] ? [K] : [...PrevK, K]>
-//   }[keyof Map & string]
-//
-// export type JoinString<T extends unknown[], RootCall = false> =
-//   T extends [infer First extends string, ...infer Rest]
-//     ? `${
-//       RootCall extends false
-//         ? (<G>() => G extends First ? 1 : 2) extends (<G>() => G extends string ? 1 : 2)
-//           ? `:${First}` : `.${First}`
-//         : First
-//     }${JoinString<Rest>}`
-//     : ''
-//
-// export type AllPaths<Map = ControllerPropsMap> = AllPathsTuple<Map> extends infer T extends string[]
-//   ? JoinString<T, true>
-//   : never
-
 export type AllPaths<M> = CalcPaths<M> | CalcPaths<BuiltinControllerPropsMap>
 
 export type RevealPropsByPath<
