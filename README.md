@@ -18,7 +18,7 @@ import zodui from 'zodui'
 
 import { List } from '@zodui/react'
 
-import '@zodui/react/register'
+import '@zodui/react'
 // or
 import react from '@zodui/react'
 useEffect(() => {

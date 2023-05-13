@@ -6,7 +6,6 @@
     "paths": {
       "zodui": ["packages/zodui/src"],
       "@zodui/*": ["packages/*/src"],
-      "@zodui/react/*": ["packages/react/src/*"],
       "@zodui/core/utils": ["packages/core/src/utils.ts"],
       "@zodui/components-lib-*": ["packages/components-lib/*/src"],
       "@zodui/plugin-*": ["packages/plugins/*/src"]
