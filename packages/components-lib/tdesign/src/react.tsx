@@ -169,9 +169,7 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
             {...props}
             value={time}
             defaultValue={defaultTime}
-            onChange={(v: string) => {
-              props.onChange?.(new Date(`1970-01-01 ${v}`))
-            }}
+            onChange={v => props.onChange?.(new Date(`1970-01-01 ${v}`))}
           />
       }
       const nProps = {
