@@ -161,9 +161,10 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
           ? <TimePickerPanel
             {...props}
             value={defaultTime || time}
-            onChange={(v: string) => {
-              props.onChange?.(new Date(`1970-01-01 ${v}`))
-            }}
+            // TODO 我也搞不懂为什么这个 onChange 函数的类型是 Function，我只能这样写了
+            //      有空可以去 declare module 里面将类型改一下，或者 push 一下上游更新这个类型
+            //      先这么凑合用用
+            onChange={(v: string) => props.onChange?.(new Date(`1970-01-01 ${v}`))}
           />
           : <TimePicker
             {...props}
