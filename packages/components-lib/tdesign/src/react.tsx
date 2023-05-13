@@ -151,9 +151,24 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
       ...props
     }) => {
       if (!enableDate) {
+        const time = `${props.value.getHours()}:${props.value.getMinutes()}:${props.value.getSeconds()}`
+        const defaultTime = `${props.defaultValue?.getHours()}:${props.defaultValue?.getMinutes()}:${props.defaultValue?.getSeconds()}`
         return isPanel
-          ? <TimePickerPanel onChange={() => {}} {...props} />
-          : <TimePicker {...props} />
+          ? <TimePickerPanel
+            {...props}
+            value={defaultTime || time}
+            onChange={(v: string) => {
+              props.onChange?.(new Date(`1970-01-01 ${v}`))
+            }}
+          />
+          : <TimePicker
+            {...props}
+            value={time}
+            defaultValue={defaultTime}
+            onChange={(v: string) => {
+              props.onChange?.(new Date(`1970-01-01 ${v}`))
+            }}
+          />
       }
       const nProps = {
         ...props,
