@@ -15,6 +15,7 @@ interface BuiltinRenderPropsMap {
   Number: Record<string, AsProps<SwitcherProps<TypeMap['ZodNumber']>>>
   Boolean: Record<string, AsProps<SwitcherProps<TypeMap['ZodBoolean']>>>
   Date: Record<string, AsProps<SwitcherProps<TypeMap['ZodDate']>>>
+  Range: Record<string, AsProps<SwitcherProps<TypeMap['ZodTuple']>>>
 }
 
 type CalcPropsMap<Map> = {

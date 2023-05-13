@@ -42,6 +42,10 @@ function isTargetType<T, Types extends T>(t: T | Types, types: Narrow<Types[]>):
   return types.includes(t)
 }
 
+function calcTimeStr(v?: Date) {
+  return v ? `${v.getHours()}:${v.getMinutes()}:${v.getSeconds()}` : undefined
+}
+
 export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
   const ctxFgt = ctx.framework('react')
   ctxFgt
@@ -151,8 +155,8 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
       ...props
     }) => {
       if (!enableDate) {
-        const time = `${props.value.getHours()}:${props.value.getMinutes()}:${props.value.getSeconds()}`
-        const defaultTime = `${props.defaultValue?.getHours()}:${props.defaultValue?.getMinutes()}:${props.defaultValue?.getSeconds()}`
+        const time = calcTimeStr(props.value)
+        const defaultTime = calcTimeStr(props.defaultValue)
         return isPanel
           ? <TimePickerPanel
             {...props}
@@ -186,7 +190,7 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
           onChange={v => props.onChange?.(new Date(v))}
         />
     })
-    .defineRndr('Date:PickerRange', ({
+    .defineRndr('Range:Date:Picker', ({
       isPanel,
       datetime: [enableDate, enableTime] = [true, true],
       ...props
@@ -197,15 +201,42 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
       if (!enableDate && enableTime) {
         return isPanel
           ? <>TDesign unable support&nbsp;<code>TimePickerRangePanel</code>.</>
-          : <TimeRangePicker {...props} />
+          : <TimeRangePicker
+            {...props}
+            value={[
+              calcTimeStr(props.value[0]),
+              calcTimeStr(props.value[1])
+            ]}
+            defaultValue={[
+              calcTimeStr(props.defaultValue[0]),
+              calcTimeStr(props.defaultValue[1])
+            ]}
+            onChange={v => props.onChange?.([
+              new Date(`1970-01-01 ${v[0]}`),
+              new Date(`1970-01-01 ${v[1]}`)
+            ])}
+          />
       }
       const nProps = {
         ...props,
         enableTimePicker: enableDate && enableTime
       }
       return isPanel
-        ? <DateRangePickerPanel {...nProps} />
-        : <DateRangePicker {...nProps} />
+        ? <DateRangePickerPanel
+          {...nProps}
+          onChange={v => props.onChange?.([
+            new Date(v[0]),
+            new Date(v[1])
+          ])}
+        />
+        : <DateRangePicker
+          {...nProps}
+          valueType='Date'
+          onChange={v => props.onChange?.([
+            new Date(v[0]),
+            new Date(v[1])
+          ])}
+        />
     })
 })
 

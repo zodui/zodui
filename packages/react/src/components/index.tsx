@@ -105,13 +105,16 @@ export namespace InnerProps {
   // Drawer: () => <></>
 }
 
-interface RenderPropsMapDate {
-  Picker: AsProps<{
-    isPanel?: boolean
-    datetime?: [true, true] | [true, false] | [false, true]
-  }>
-  PickerRange: this['Picker']
+interface DatePickerProps {
+  isPanel?: boolean
+  datetime?: [true, true] | [true, false] | [false, true]
 }
+
+interface RenderPropsMapDate {
+  Picker: AsProps<DatePickerProps>
+}
+
+type DateValueRange = [] | [Date | undefined, Date | undefined]
 
 export interface ReactFramework {
   Icon: (props: InnerProps.Icon) => ReactElement
@@ -123,6 +126,15 @@ export interface ReactFramework {
       TextArea: AsProps<{}>
     }
     Date: RenderPropsMapDate
+    Range: {
+      Date: {
+        Picker: AsProps<DatePickerProps & {
+          value?: DateValueRange
+          defaultValue?: DateValueRange
+          onChange?: (value: DateValueRange) => void | Promise<void>
+        }>
+      }
+    }
   }
   Components: {
     Input: <T extends ComponentProps.InputValue>(props: InnerProps.Input<T>) => ReactElement

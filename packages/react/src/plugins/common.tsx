@@ -102,7 +102,7 @@ export default () => new Plugin()
         }-picker`)
       }, [datetime, modes, setClassName])
       return <Rndr
-        target='Date:PickerRange'
+        target='Range.Date.Picker'
         isPanel={modes.includes('panel')}
         datetime={datetime}
         {...props}
