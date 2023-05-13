@@ -173,7 +173,7 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
 
       if (!enableDate && enableTime) {
         return isPanel
-          ? <>TDesign unable support&nbsp;<code>TimePickerPanel</code>.</>
+          ? <>TDesign unable support&nbsp;<code>TimePickerRangePanel</code>.</>
           : <TimeRangePicker {...props} />
       }
       const nProps = {
