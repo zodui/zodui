@@ -175,8 +175,16 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
         enableTimePicker: enableDate && enableTime
       }
       return isPanel
-        ? <DatePickerPanel {...nProps} />
-        : <DatePicker {...nProps} />
+        ? <DatePickerPanel
+          {...nProps}
+          // TODO 救救我吧，这都是写什么类型啊，为什么这个破 panel 还不支持 valueType 的呀，要命
+          onChange={v => props.onChange?.(new Date(v))}
+        />
+        : <DatePicker
+          {...nProps}
+          valueType='Date'
+          onChange={v => props.onChange?.(new Date(v))}
+        />
     })
     .defineRndr('Date:PickerRange', ({
       isPanel,
