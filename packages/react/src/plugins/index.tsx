@@ -24,7 +24,7 @@ export type SubControllerMatcher<
   /** IsParams */
   [modes: string[], options?: SubController['options']],
   /** Component Props */
-  & SwitcherPropsForReact<TypeMap[T]>
+  & Omit<SwitcherPropsForReact<TypeMap[T]>, keyof SubController['props']>
   // @ts-ignore
   & { modes?: (ModesMap[T] | (string & {}))[] }
   & SubController['props']
