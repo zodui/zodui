@@ -1,3 +1,5 @@
+import type { AllTypes } from '@zodui/core'
+
 import type { FrameworksKeys } from './framework'
 import { Framework } from './framework'
 
@@ -9,6 +11,23 @@ export type {
 export * from './framework'
 
 const effectSymbol = Symbol('effect')
+
+type Rule =
+  | string[]
+  | {
+  (modes: string[]): boolean
+}
+type MatcherRndr<C extends Function = Function> =
+  | string
+  | [rndrTarget: string, comp: C]
+  | [rndrTarget: string, props: Record<string, any>]
+type Matcher<C extends Function> =
+  | [rule: Rule, rndr: MatcherRndr<C>]
+interface DefineUnit<C extends Function> {
+  (name: string, types: AllTypes[], modes: Matcher<C>[]): this
+  composer(types: AllTypes[], modes: Matcher<C>[]): this
+  switcher(types: AllTypes[], modes: Matcher<C>[]): this
+}
 
 class Emitter {
   #listeners = new Map<string, Function[]>()
