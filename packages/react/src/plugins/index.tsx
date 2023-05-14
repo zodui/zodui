@@ -1,7 +1,7 @@
 import type { AllType, ModesMap, TypeMap } from '@zodui/core'
 import type { ReactElement } from 'react'
 
-import type { ControllerProps } from '../controllers'
+import type { SwitcherPropsForReact } from '../switchers'
 
 export interface ComponentMatcher<
   T extends AllType,
@@ -24,7 +24,7 @@ export type SubControllerMatcher<
   /** IsParams */
   [modes: string[], options?: SubController['options']],
   /** Component Props */
-  & ControllerProps<TypeMap[T]>
+  & SwitcherPropsForReact<TypeMap[T]>
   // @ts-ignore
   & { modes?: (ModesMap[T] | (string & {}))[] }
   & SubController['props']
