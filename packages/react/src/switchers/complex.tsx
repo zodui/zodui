@@ -96,7 +96,7 @@ export function Complex({
   return Component
     ? <Component
       modes={modes}
-      schema={model}
+      model={model}
       options={options}
       OptionRender={OptionRender}
       {...props}

@@ -25,6 +25,7 @@ declare module '@zodui/react' {
   export interface MultipleSubController {
     props: {
       schemas: TypeMap[AllType][]
+      onChange?: (value: any[]) => void | Promise<void>
     }
     options: {
       schemas: TypeMap[AllType][]
@@ -212,7 +213,7 @@ export function Multiple({
     ? <Component
         {...props}
         modes={modes}
-        schema={model}
+        model={model}
         schemas={schemas}
         value={listRef.current}
         onChange={changeList}
