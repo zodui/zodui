@@ -1,5 +1,6 @@
-import type { Context, Icons, SwitcherProps } from '@zodui/core'
+import type { Context, DefineUnit, Icons, SwitcherProps } from '@zodui/core'
 import type { TypeMap } from '@zodui/core'
+import { createDefineUnit } from '@zodui/core'
 
 const PropsSymbol = Symbol('props')
 
@@ -69,10 +70,12 @@ export class Framework<
   Components = Frameworks[K]['Components'],
   Renders = Frameworks[K]['Renders'],
 > {
+  defineUnit: DefineUnit<N, K>
   constructor(
     private readonly key: K,
     private readonly ctx: Context<N>
   ) {
+    this.defineUnit = createDefineUnit(ctx, this)
   }
   defineComp<
     Type extends keyof Components & string,
