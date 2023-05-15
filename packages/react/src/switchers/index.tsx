@@ -20,9 +20,16 @@ import {
   useDefaultValue,
   useModes
 } from '../utils'
+import type { StyledProps } from '../type'
 import { Complex } from './complex'
 import { Monad } from './monad'
 import { Multiple } from './multiple'
+
+declare module '@zodui/core' {
+  export interface UnitFrameworksComp<N, Props> {
+    react: (props: Props & StyledProps) => ReactElement
+  }
+}
 
 // TODO support literal type display
 const switchers = [
