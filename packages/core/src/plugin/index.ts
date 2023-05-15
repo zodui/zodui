@@ -46,7 +46,7 @@ export interface UnitFrameworksComp<N extends keyof UnitMap, Props> {
   [key: FrameworksKeys]: unknown
 }
 
-interface DefineUnit<FN extends FrameworksKeys = never> {
+interface DefineUnit<FK extends FrameworksKeys = never> {
   <
     N extends keyof UnitMap,
     T extends AllType
@@ -54,11 +54,11 @@ interface DefineUnit<FN extends FrameworksKeys = never> {
     name: N,
     types: T[],
     matchers: Matcher<
-      [FN] extends [never] ? never : UnitFrameworksComp<
+      [FK] extends [never] ? never : UnitFrameworksComp<
         N,
         & Omit<UnitProps<T, TypeMap[T]>, keyof UnitMap[N]['props']>
         & UnitMap[N]['props']
-      >[FN],
+      >[FK],
       N
     >[]
   ): this
