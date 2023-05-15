@@ -1,3 +1,4 @@
+import type { AllType, ModesMap } from '@zodui/core'
 import type { Schema as ZodSchema, TypeOf } from 'zod'
 
 export interface SchemaResolver<
@@ -36,6 +37,8 @@ export interface SwitcherProps<M extends ZodSchema> extends SchemaResolver<M> {
   modes?: string[]
 }
 
-export interface UnitProps<M extends ZodSchema> extends SchemaResolver<M> {
+export interface UnitProps<T extends AllType, M extends ZodSchema> extends SchemaResolver<M> {
   uKey?: string
+  // @ts-ignore
+  modes?: (ModesMap[T] | (string & {}))[]
 }

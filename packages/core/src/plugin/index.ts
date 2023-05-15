@@ -1,6 +1,5 @@
-import type { AllTypes } from '@zodui/core'
+import type { AllType, FrameworksKeys, TypeMap, UnitProps } from '@zodui/core'
 
-import type { FrameworksKeys } from './framework'
 import { Framework } from './framework'
 
 export * from './base'
@@ -12,21 +11,59 @@ export * from './framework'
 
 const effectSymbol = Symbol('effect')
 
-type Rule =
+type Rule<N extends keyof UnitMap> =
   | string[]
-  | {
-  (modes: string[]): boolean
-}
-type MatcherRndr<C extends Function = Function> =
+  | [N] extends [never]
+    ? { (modes: string[]): boolean }
+    : { (modes: string[], opts?: UnitMap[N]['options']): boolean }
+
+type MatcherRndr<C> =
   | string
-  | [rndrTarget: string, comp: C]
+  | [C] extends [never]
+    ? [rndrTarget: string, comp: C]
+    : never
   | [rndrTarget: string, props: Record<string, any>]
-type Matcher<C extends Function> =
-  | [rule: Rule, rndr: MatcherRndr<C>]
-interface DefineUnit<C extends Function> {
-  (name: string, types: AllTypes[], modes: Matcher<C>[]): this
-  composer(types: AllTypes[], modes: Matcher<C>[]): this
-  switcher(types: AllTypes[], modes: Matcher<C>[]): this
+
+type Matcher<
+  C,
+  N extends keyof UnitMap = never
+> =
+  | [rule: Rule<N>, rndr: MatcherRndr<C>]
+
+export interface UnitMap {
+  [key: string]: {
+    props: unknown
+    options: unknown
+  }
+  monad: {
+    props: {}
+    options: {}
+  }
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export interface UnitFrameworksComp<N extends keyof UnitMap, Props> {
+  [key: FrameworksKeys]: unknown
+}
+
+interface DefineUnit<FN extends FrameworksKeys = never> {
+  <
+    N extends keyof UnitMap,
+    T extends AllType
+  >(
+    name: N,
+    types: T[],
+    matchers: Matcher<
+      [FN] extends [never] ? never : UnitFrameworksComp<
+        N,
+        & Omit<UnitProps<T, TypeMap[T]>, keyof UnitMap[N]['props']>
+        & UnitMap[N]['props']
+      >[FN],
+      N
+    >[]
+  ): this
+  composer<T extends AllType>(types: T[], matchers: Matcher<never>[]): this
+  switcher<T extends AllType>(types: T[], matchers: Matcher<never>[]): this
 }
 
 class Emitter {
