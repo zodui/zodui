@@ -1,10 +1,5 @@
-import type { CSSProperties } from 'react'
+import type { StyledProps } from '@zodui/react'
 import type {} from 'tdesign-react/esm'
-
-interface StyledProps {
-  className?: string
-  style?: CSSProperties
-}
 
 declare module 'tdesign-react/esm' {
   import type { JSXElementConstructor, ReactElement, Ref } from 'react'
