@@ -72,7 +72,7 @@ export class Framework<
 > {
   defineUnit: DefineUnit<N, K>
   constructor(
-    private readonly key: K,
+    public readonly key: K,
     private readonly ctx: Context<N>
   ) {
     this.defineUnit = createDefineUnit(ctx, this)
