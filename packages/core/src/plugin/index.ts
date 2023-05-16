@@ -77,8 +77,20 @@ export function createDefineUnit<
   ctx: Context<PluginName>,
   framework?: Framework<FK>
 ) {
+  const prevKey = framework ? `framework.${framework.key}.units` : `units`
   let du = function (name, types, matchers) {
-    // TODO set it to store
+    const keys = types.map(type => `${prevKey}.${name}.${type}`)
+
+    keys.forEach(k => {
+      const [list = []] = ctx.get<typeof matchers>(k)
+      ctx.set(k, list.concat(matchers))
+    })
+    ctx[effectSymbol].push(() => {
+      keys.forEach(k => {
+        const [list = []] = ctx.get<typeof matchers>(k)
+        ctx.set(k, list.filter(m => matchers.includes(m)))
+      })
+    })
     return this
   } as DefineUnit<PluginName, FK>
   // bind will lose filed, so we need bind ctx when create du
