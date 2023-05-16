@@ -6,7 +6,8 @@ export * from './base'
 export type {
   ComponentProps,
   FrameworkComponents,
-  Icons } from './components'
+  Icons
+} from './components'
 export * from './framework'
 
 const effectSymbol = Symbol('effect')
