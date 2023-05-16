@@ -94,7 +94,7 @@ export function createDefineUnit<
     })
     return this
   } as DefineUnit<PluginName, FK>
-  // bind will lose filed, so we need bind ctx when create du
+  // bind will lose fields, so we need bind ctx when create du
   // bind type infer is not good, so we need to use `as` to fix it
   du = du.bind(ctx) as DefineUnit<PluginName, FK>
   du.composer = function (types, matchers) {
