@@ -49,13 +49,16 @@ export interface UnitFrameworksComp<N extends keyof UnitMap, Props> {
 
 export interface DefineUnit<
   PluginName extends string = string,
-  FK extends FrameworksKeys = never
+  FK extends FrameworksKeys = never,
+  This = FK extends never
+    ? Context<PluginName>
+    : Framework<FK, PluginName>
 > {
   <
     N extends keyof UnitMap,
     T extends AllType
   >(
-    this: Context<PluginName>,
+    this: This,
     name: N,
     types: T[],
     matchers: Matcher<
@@ -66,18 +69,23 @@ export interface DefineUnit<
       >[FK],
       N
     >[]
-  ): Context<PluginName>
-  composer<T extends AllType>(this: Context<PluginName>, types: T[], matchers: Matcher<never>[]): Context<PluginName>
-  switcher<T extends AllType>(this: Context<PluginName>, types: T[], matchers: Matcher<never>[]): Context<PluginName>
+  ): This
+  composer<T extends AllType>(this: This, types: T[], matchers: Matcher<never>[]): This
+  switcher<T extends AllType>(this: This, types: T[], matchers: Matcher<never>[]): This
 }
 
 export function createDefineUnit<
   PluginName extends string = string,
-  FK extends FrameworksKeys = never
+  FK extends FrameworksKeys = never,
+  This = FK extends never
+    ? Context<PluginName>
+    : Framework<FK, PluginName>
 >(
   ctx: Context<PluginName>,
   framework?: Framework<FK>
 ) {
+  type DU = DefineUnit<PluginName, FK, This>
+  const innerThis = (framework ?? ctx) as This
   const prevKey = framework ? `framework.${framework.key}.units` : `units`
   let du = function (name, types, matchers) {
     const keys = types.map(type => `${prevKey}.${name}.${type}`)
@@ -92,20 +100,20 @@ export function createDefineUnit<
       )
     })
     return this
-  } as DefineUnit<PluginName, FK>
+  } as DU
   // bind will lose fields, so we need bind ctx when create du
   // bind type infer is not good, so we need to use `as` to fix it
-  du = du.bind(ctx) as DefineUnit<PluginName, FK>
+  du = du.bind(innerThis) as DU
   du.composer = function (types, matchers) {
     // TODO set it to store
     return this
   }
-  du.composer = du.composer.bind(ctx)
+  du.composer = du.composer.bind(innerThis)
   du.switcher = function (types, matchers) {
     // TODO set it to store
     return this
   }
-  du.switcher = du.switcher.bind(ctx)
+  du.switcher = du.switcher.bind(innerThis)
   return du
 }
 
