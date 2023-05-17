@@ -83,14 +83,13 @@ export function createDefineUnit<
     const keys = types.map(type => `${prevKey}.${name}.${type}`)
 
     keys.forEach(k => {
-      const [list = []] = ctx.get<typeof matchers>(k)
-      ctx.set(k, list.concat(matchers))
-    })
-    ctx[effectSymbol].push(() => {
-      keys.forEach(k => {
-        const [list = []] = ctx.get<typeof matchers>(k)
-        ctx.set(k, list.filter(m => matchers.includes(m)))
-      })
+      ctx.upd<typeof matchers>(
+        k, (list = []) => {
+          return list.concat(matchers)
+        }, list => {
+          return list.filter(m => matchers.includes(m))
+        }
+      )
     })
     return this
   } as DefineUnit<PluginName, FK>
@@ -159,6 +158,15 @@ export class Context<
       if (storeV === v) {
         this.store?.delete(k)
       }
+    })
+    return this
+  }
+  upd<T>(k: string, func: (v: T) => T | Promise<T>, effect: (v: T) => T | Promise<T>) {
+    const newValue = func(this.store?.get(k))
+    this.store?.set(k, newValue)
+    this.emitter.do(k, newValue)
+    this[effectSymbol].push(() => {
+      this.store?.set(k, effect(this.store?.get(k)))
     })
     return this
   }
