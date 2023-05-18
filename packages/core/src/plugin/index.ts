@@ -50,7 +50,7 @@ export interface UnitFrameworksComp<N extends keyof UnitMap, Props> {
 export interface DefineUnit<
   PluginName extends string = string,
   FK extends FrameworksKeys = never,
-  This = FK extends never
+  This = [FK] extends [never]
     ? Context<PluginName>
     : Framework<FK, PluginName>
 > {
