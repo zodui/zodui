@@ -20,9 +20,11 @@ type Rule<N extends keyof UnitMap> =
 
 type MatcherRndr<C> =
   | string
-  | [C] extends [never]
-    ? [rndrTarget: string, comp: C]
-    : never
+  | (
+    [C] extends [never]
+      ? [rndrTarget: string, comp: C]
+      : never
+  )
   | [rndrTarget: string, props: Record<string, any>]
 
 type Matcher<
