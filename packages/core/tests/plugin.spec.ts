@@ -1,4 +1,4 @@
-import { Context, definePlugin } from '@zodui/core'
+import { AllTypes, Context, definePlugin } from '@zodui/core'
 import { expect } from 'chai'
 
 declare module '@zodui/core' {
@@ -26,6 +26,18 @@ describe('Plugin', function () {
     ctx.framework('__test__')
       .defineComp('A2', 'A2')
       .defineComp('A3', 'A3')
+  })
+  const p2 = definePlugin('test', ctx => {
+    ctx
+      .defineUnit('monad', [AllTypes.ZodNumber], [
+        [modes => modes.includes('a'), 'a']
+      ])
+  })
+  const p3 = definePlugin('test', ctx => {
+    ctx
+      .defineUnit('monad', [AllTypes.ZodNumber], [
+        [modes => modes.includes('b'), 'b']
+      ])
   })
   const p_01 = definePlugin('test', ctx => {
     ctx.use(p0)
@@ -113,5 +125,17 @@ describe('Plugin', function () {
     expect(
       ctx.get('v')[0]
     ).to.equal('value3')
+  })
+  it('should control Context frame array of units', () => {
+    const off0 = Context.global.use(p2)
+    const off1 = Context.global.use(p3)
+    expect(Context.global.get<string[]>('units.monad.ZodNumber')[0][0][1]).to.equal('a')
+    expect(Context.global.get<string[]>('units.monad.ZodNumber')[0][1][1]).to.equal('b')
+    off0()
+    expect(Context.global.get<string[]>('units.monad.ZodNumber')[0][0][1]).to.equal(undefined)
+    expect(Context.global.get<string[]>('units.monad.ZodNumber')[0][1][1]).to.equal('b')
+    off1()
+    expect(Context.global.get<string[]>('units.monad.ZodNumber')[0][0][1]).to.equal(undefined)
+    expect(Context.global.get<string[]>('units.monad.ZodNumber')[0][1][1]).to.equal(undefined)
   })
 })
