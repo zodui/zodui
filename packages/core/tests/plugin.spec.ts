@@ -39,6 +39,23 @@ describe('Plugin', function () {
         [modes => modes.includes('b'), 'b']
       ])
   })
+  const p4 = definePlugin('test', ctx => {
+    ctx
+      .framework('__test__')
+      .defineUnit('monad', [AllTypes.ZodNumber], [
+        [modes => modes.includes('a'), 'a']
+      ])
+      .defineUnit('monad', [AllTypes.ZodString], [
+        [modes => modes.includes('b'), 'b']
+      ])
+  })
+  const p5 = definePlugin('test', ctx => {
+    ctx
+      .framework('__test__')
+      .defineUnit('monad', [AllTypes.ZodNumber], [
+        [modes => modes.includes('c'), 'c']
+      ])
+  })
   const p_01 = definePlugin('test', ctx => {
     ctx.use(p0)
     ctx.use(p1)
@@ -138,6 +155,24 @@ describe('Plugin', function () {
     expect(unit[0][1]).to.equal('b')
     off1()
     ;[unit] = Context.global.get<string[][]>('units.monad.ZodNumber')
+    expect(unit[0]).to.equal(undefined)
+  })
+  it('should control Framework frame array of units', () => {
+    const off0 = Context.global.use(p4)
+    const off1 = Context.global.use(p5)
+    let unit: string[][]
+    ;[unit] = Context.global.get<string[][]>('framework.__test__.units.monad.ZodNumber')
+    expect(unit[0][1]).to.equal('a')
+    expect(unit[1][1]).to.equal('c')
+    ;[unit] = Context.global.get<string[][]>('framework.__test__.units.monad.ZodString')
+    expect(unit[0][1]).to.equal('b')
+    off0()
+    ;[unit] = Context.global.get<string[][]>('framework.__test__.units.monad.ZodNumber')
+    expect(unit[0][1]).to.equal('c')
+    ;[unit] = Context.global.get<string[][]>('framework.__test__.units.monad.ZodString')
+    expect(unit[0]).to.equal(undefined)
+    off1()
+    ;[unit] = Context.global.get<string[][]>('framework.__test__.units.monad.ZodNumber')
     expect(unit[0]).to.equal(undefined)
   })
 })
