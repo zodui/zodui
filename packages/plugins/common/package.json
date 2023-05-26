@@ -2,11 +2,9 @@
   "name": "@zodui/plugin-common",
   "version": "0.1.0",
   "description": "Common plugin for ZodUI",
-  "main": "dist/index.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "scripts": {
-    "build": "tsc"
-  },
   "dependencies": {
   }
 }
