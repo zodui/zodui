@@ -7,6 +7,7 @@ export const CommonPlugin = definePlugin('CommonPlugin', ctx => {
     [modes => modes.includes('slider'), 'Number.Slider']
   ])
   // TODO add more unit define
+  // 对不起！！！！
 })
 
 export default CommonPlugin
