@@ -26,6 +26,9 @@ type MatcherRndr<C> =
       : never
   )
   | [rndrTarget: string, props: Record<string, any>]
+  | ((props: {
+    modes: string[]
+  }) => [rndrTarget: string, props: Record<string, any>])
 
 type Matcher<
   C,
