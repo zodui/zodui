@@ -18,7 +18,10 @@ type Rule<N extends keyof UnitMap> =
     ? { (modes: string[]): boolean }
     : { (modes: string[], opts?: UnitMap[N]['options']): boolean }
 
-type MatcherRndr<C> =
+type MatcherRndr<
+  C,
+  N extends keyof UnitMap = never
+> =
   | string
   | (
     [C] extends [never]
@@ -26,15 +29,17 @@ type MatcherRndr<C> =
       : never
   )
   | [rndrTarget: string, props: Record<string, any>]
-  | ((props: {
-    modes: string[]
-  }) => [rndrTarget: string, props: Record<string, any>])
+  | ((
+    props:
+      & { modes: string[] }
+      & UnitMap[N]['options']
+  ) => [rndrTarget: string, props: Record<string, any>])
 
 type Matcher<
   C,
   N extends keyof UnitMap = never
 > =
-  | [rule: Rule<N>, rndr: MatcherRndr<C>]
+  | [rule: Rule<N>, rndr: MatcherRndr<C, N>]
 
 export interface UnitMap {
   [key: string]: {
@@ -44,6 +49,15 @@ export interface UnitMap {
   monad: {
     props: {}
     options: {}
+  }
+  multiple: {
+    props: {
+      schemas: TypeMap[AllType][]
+      onChange?: (value: any[]) => void | Promise<void>
+    }
+    options: {
+      schemas: TypeMap[AllType][]
+    }
   }
 }
 
