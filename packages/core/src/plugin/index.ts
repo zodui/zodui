@@ -25,15 +25,15 @@ type MatcherRndr<
   | string
   | (
     [C] extends [never]
-      ? [rndrTarget: string, comp: C]
-      : never
+      // When the component is not set, returns a function that takes props and returns a component Rndr String and its props
+      ? ((
+        props:
+          & { modes: string[] }
+          & UnitMap[N]['options']
+      ) => [rndrTarget: string, props: Record<string, any>])
+      : C
   )
   | [rndrTarget: string, props: Record<string, any>]
-  | ((
-    props:
-      & { modes: string[] }
-      & UnitMap[N]['options']
-  ) => [rndrTarget: string, props: Record<string, any>])
 
 type Matcher<
   C,
