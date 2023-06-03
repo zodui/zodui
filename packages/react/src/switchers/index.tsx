@@ -16,11 +16,11 @@ import type z from 'zod'
 import type { Schema as ZodSchema } from 'zod/lib/types'
 
 import { useControllerClassName } from '../contexts'
+import type { StyledProps } from '../type'
 import {
   useDefaultValue,
   useModes
 } from '../utils'
-import type { StyledProps } from '../type'
 import { Complex } from './complex'
 import { Monad } from './monad'
 import { Multiple } from './multiple'
