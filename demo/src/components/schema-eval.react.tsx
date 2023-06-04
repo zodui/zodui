@@ -23,12 +23,24 @@ export function Demo({
 }: DemoProps) {
   const [ctxInited, setCtxInited] = useState(false)
   useEffect(() => {
-    return Context.global.use(() => import('@zodui/components-lib-tdesign')
+    let flag = false
+    const e0 = Context.global.use(() => import('@zodui/components-lib-tdesign')
       .then(({ TDesignComponentsLibForReact }) => {
-        setCtxInited(true)
+        flag
+          ? setCtxInited(true)
+          : (flag = true)
         return TDesignComponentsLibForReact
       })
     )
+    const e1 = Context.global.use(() => import('@zodui/plugin-common')
+      .then(({ CommonPluginForReact }) => {
+        flag
+          ? setCtxInited(true)
+          : (flag = true)
+        return CommonPluginForReact
+      })
+    )
+    return () => (e0(), e1())
   }, [])
   // TODO may be better?
   // Context.global.use(() => import('@zodui/components-lib-tdesign')
