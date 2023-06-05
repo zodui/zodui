@@ -35,7 +35,7 @@ type MatcherRndr<
   )
   | [rndrTarget: string, props: Record<string, any>]
 
-type Matcher<
+export type Matcher<
   C,
   N extends keyof UnitMap = never
 > =
@@ -61,8 +61,12 @@ export interface UnitMap {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export interface UnitFrameworksComp<N extends keyof UnitMap, Props> {
+export interface UnitFrameworksComp<
+  /* eslint-disable @typescript-eslint/no-unused-vars */
+  N extends keyof UnitMap = keyof UnitMap,
+  Props = {}
+  /* eslint-enable @typescript-eslint/no-unused-vars */
+> {
   [key: FrameworksKeys]: unknown
 }
 
