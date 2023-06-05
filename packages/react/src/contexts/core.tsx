@@ -1,7 +1,7 @@
-import type { Context as InnerCoreContext, Icons } from '@zodui/core'
+import type { Context as InnerCoreContext, Icons, Matcher, UnitFrameworksComp } from '@zodui/core'
 import { Context } from '@zodui/core'
 import type { PropsWithChildren } from 'react'
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 
 import type { ReactFramework } from '../components'
 
@@ -34,3 +34,30 @@ export const useCoreContextComponent = <
 export const useCoreContextIcon = <
   K extends Icons,
 >(k: K | (string & {})) => useCoreContextField<ReactFramework['Icon']>(`framework.react.icons.${k}`)
+
+// TODO support generic for name and type
+export const useCoreContextUnit = (
+  name: string,
+  type: string,
+  modes: string[]
+) => {
+  const suffix = `${name}.${type}`
+  const topMatchers = useCoreContextField<
+    Matcher<never>[]
+  >(`units.${suffix}`)
+  const matchers = useCoreContextField<
+    Matcher<UnitFrameworksComp['react']>[]
+  >(`framework.react.units.${suffix}`)
+
+  const [, topRNDR] = useMemo(
+    () => topMatchers?.find(([match]) => match(modes)) ?? [], [
+      topMatchers,
+      modes
+    ])
+  const [, RNDR] = useMemo(
+    () => matchers?.find(([match]) => match(modes)) ?? [], [
+      matchers,
+      modes
+    ])
+  return (RNDR ?? topRNDR) as UnitFrameworksComp['react']
+}

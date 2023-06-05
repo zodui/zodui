@@ -3,7 +3,7 @@ import type { ReactElement } from 'react'
 import { useEffect, useState } from 'react'
 
 import { Input, Switch } from '../components'
-import { plgMaster } from '../plugins'
+import { useCoreContextUnit } from '../contexts'
 import type { SwitcherPropsForReact } from './index'
 
 declare module '@zodui/react' {
@@ -56,8 +56,8 @@ export function Monad({
       break
   }
 
-  const { Component } = plgMaster.reveal(model._def.typeName, 'SubController.monad', [modes]) ?? {}
-  return Component
-    ? <Component modes={modes} model={model} {...props} />
+  const RNDR = useCoreContextUnit('monad', model._def.typeName, modes)
+  return RNDR
+    ? <RNDR modes={modes} model={model} {...props} />
     : InnerComp
 }
