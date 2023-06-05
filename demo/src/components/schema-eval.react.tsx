@@ -42,10 +42,6 @@ export function Demo({
     )
     return () => (e0(), e1())
   }, [])
-  // TODO may be better?
-  // Context.global.use(() => import('@zodui/components-lib-tdesign')
-  //   .then(({ TDesignComponentsLibForReact }) => TDesignComponentsLibForReact)
-  // )
 
   const { configure, ItemConfigurer } = useItemConfigurer(cc)
 
