@@ -1,4 +1,4 @@
-import type { FrameworksKeys } from './framework'
+import type { FrameworkKeys } from './framework'
 
 export type Icons =
   | 'Add'
@@ -13,7 +13,7 @@ export type Icons =
 
 export interface FrameworkComponents {
   [key: string]: {
-    [K in FrameworksKeys]: any
+    [K in FrameworkKeys]: any
   }
 }
 

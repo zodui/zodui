@@ -1,4 +1,4 @@
-import type { AllType, FrameworksKeys, TypeMap, UnitProps } from '@zodui/core'
+import type { AllType, FrameworkKeys, TypeMap, UnitProps } from '@zodui/core'
 
 import { Framework } from './framework'
 
@@ -67,12 +67,12 @@ export interface UnitFrameworksComp<
   Props = {}
   /* eslint-enable @typescript-eslint/no-unused-vars */
 > {
-  [key: FrameworksKeys]: unknown
+  [key: FrameworkKeys]: unknown
 }
 
 export interface DefineUnit<
   PluginName extends string = string,
-  FK extends FrameworksKeys = never,
+  FK extends FrameworkKeys = never,
   This = [FK] extends [never]
     ? Context<PluginName>
     : Framework<FK, PluginName>
@@ -99,7 +99,7 @@ export interface DefineUnit<
 
 export function createDefineUnit<
   PluginName extends string = string,
-  FK extends FrameworksKeys = never,
+  FK extends FrameworkKeys = never,
   This = FK extends never
     ? Context<PluginName>
     : Framework<FK, PluginName>
@@ -254,7 +254,7 @@ export class Context<
     this[effectSymbol].push(wrapEffect)
     return wrapEffect
   }
-  framework<K extends FrameworksKeys>(key: K): Framework<K, PluginName> {
+  framework<K extends FrameworkKeys>(key: K): Framework<K, PluginName> {
     return new Framework(key, this)
   }
 }

@@ -65,7 +65,7 @@ export type RevealPropsByPath<
     : never
 
 export class Framework<
-  K extends FrameworksKeys,
+  K extends FrameworkKeys,
   N extends string = string,
   Components = Frameworks[K]['Components'],
   Renders = Frameworks[K]['Renders'],
@@ -128,4 +128,4 @@ export interface FrameworkRndr<Props> {
   [key: string]: any
 }
 
-export type FrameworksKeys = keyof Frameworks & string
+export type FrameworkKeys = keyof Frameworks & string
