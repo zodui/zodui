@@ -4,6 +4,7 @@ import type { PropsWithChildren } from 'react'
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 
 import type { ReactFramework } from '../components'
+import { Rndr } from '../components'
 
 const CoreContext = createContext<InnerCoreContext>(null)
 
@@ -40,7 +41,7 @@ export const useCoreContextUnit = (
   name: string,
   type: string,
   modes: string[]
-) => {
+): UnitFrameworksComp['react'] => {
   const suffix = `${name}.${type}`
   const topMatchers = useCoreContextField<
     Matcher<never>[]
@@ -59,5 +60,25 @@ export const useCoreContextUnit = (
       matchers,
       modes
     ])
-  return (RNDR ?? topRNDR) as UnitFrameworksComp['react']
+  if (topRNDR) {
+    let func: UnitFrameworksComp['react']
+    switch (typeof topRNDR) {
+      case 'string':
+        func = props => <Rndr
+          target={topRNDR}
+          {...props}
+        />
+        break
+      case 'object':
+        if (Array.isArray(topRNDR)) {
+          const [target, propsOrPropsFunc] = topRNDR
+          func = props => <Rndr
+            target={target}
+            {...(typeof propsOrPropsFunc === 'function' ? propsOrPropsFunc(props) : propsOrPropsFunc)}
+          />
+        }
+    }
+    return func
+  }
+  return RNDR as UnitFrameworksComp['react']
 }
