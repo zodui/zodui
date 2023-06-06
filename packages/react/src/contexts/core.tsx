@@ -50,7 +50,7 @@ export const useCoreContextUnit = (
     Matcher<UnitFrameworksComp['react']>[]
   >(`framework.react.units.${suffix}`)
 
-  const [, topRNDR] = useMemo(
+  const [, topMatchUnit] = useMemo(
     () => topMatchers?.find(([match]) => match(modes)) ?? [], [
       topMatchers,
       modes
@@ -60,25 +60,27 @@ export const useCoreContextUnit = (
       matchers,
       modes
     ])
-  if (topRNDR) {
-    let func: UnitFrameworksComp['react']
-    switch (typeof topRNDR) {
-      case 'string':
-        func = props => <Rndr
-          target={topRNDR}
-          {...props}
-        />
-        break
-      case 'object':
-        if (Array.isArray(topRNDR)) {
-          const [target, propsOrPropsFunc] = topRNDR
+  const topRndr = useMemo(() => {
+    if (topMatchUnit) {
+      let func: UnitFrameworksComp['react']
+      switch (typeof topMatchUnit) {
+        case 'string':
           func = props => <Rndr
-            target={target}
-            {...(typeof propsOrPropsFunc === 'function' ? propsOrPropsFunc(props) : propsOrPropsFunc)}
+            target={topMatchUnit}
+            {...props}
           />
-        }
+          break
+        case 'object':
+          if (Array.isArray(topMatchUnit)) {
+            const [target, propsOrPropsFunc] = topMatchUnit
+            func = props => <Rndr
+              target={target}
+              {...(typeof propsOrPropsFunc === 'function' ? propsOrPropsFunc(props) : propsOrPropsFunc)}
+            />
+          }
+      }
+      return func
     }
-    return func
-  }
-  return RNDR as UnitFrameworksComp['react']
+  }, [topMatchUnit])
+  return topRndr ?? RNDR as UnitFrameworksComp['react']
 }
