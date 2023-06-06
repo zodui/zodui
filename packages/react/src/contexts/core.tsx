@@ -55,7 +55,7 @@ export const useCoreContextUnit = (
       topMatchers,
       modes
     ])
-  const [, RNDR] = useMemo(
+  const [, matchUnit] = useMemo(
     () => matchers?.find(([match]) => match(modes)) ?? [], [
       matchers,
       modes
@@ -82,5 +82,5 @@ export const useCoreContextUnit = (
       return func
     }
   }, [topMatchUnit])
-  return topRndr ?? RNDR as UnitFrameworksComp['react']
+  return topRndr ?? matchUnit as UnitFrameworksComp['react']
 }
