@@ -1,4 +1,4 @@
-import type { AllPaths, AsProps, RenderPropsMap, InnerRenderPropsMap, RevealPropsByPath } from '@zodui/core'
+import type { AllPaths, AsProps, InnerRenderPropsMap, RenderPropsMap, RevealPropsByPath } from '@zodui/core'
 import type { ReactElement } from 'react'
 import { useEffect, useMemo } from 'react'
 
