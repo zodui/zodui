@@ -56,8 +56,8 @@ export function Monad({
       break
   }
 
-  const RNDR = useCoreContextUnit('monad', model._def.typeName, modes)
-  return RNDR
-    ? <RNDR modes={modes} model={model} {...props} />
+  const Unit = useCoreContextUnit('monad', model._def.typeName, modes)
+  return Unit
+    ? <Unit modes={modes} model={model} {...props} />
     : InnerComp
 }
