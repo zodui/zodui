@@ -1,4 +1,4 @@
-import type { Context as InnerCoreContext, Icons, Matcher, UnitFrameworksComp } from '@zodui/core'
+import type { Context as InnerCoreContext, Icons, Matcher, TypeMap, UnitFrameworksComp, UnitMap, UnitProps } from '@zodui/core'
 import { Context } from '@zodui/core'
 import type { PropsWithChildren } from 'react'
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
@@ -36,12 +36,19 @@ export const useCoreContextIcon = <
   K extends Icons,
 >(k: K | (string & {})) => useCoreContextField<ReactFramework['Icon']>(`framework.react.icons.${k}`)
 
-// TODO support generic for name and type
-export const useCoreContextUnit = (
-  name: string,
-  type: string,
+export function useCoreContextUnit<
+  N extends string,
+  T extends keyof TypeMap,
+  R extends UnitFrameworksComp<
+    N,
+    & Omit<UnitProps<T, TypeMap[T]>, keyof UnitMap[N]['props']>
+    & UnitMap[N]['props']
+  >['react']
+>(
+  name: N,
+  type: T,
   modes: string[]
-): UnitFrameworksComp['react'] => {
+): R {
   const suffix = `${name}.${type}`
   const topMatchers = useCoreContextField<
     Matcher<never>[]
@@ -62,25 +69,25 @@ export const useCoreContextUnit = (
     ])
   const topRndr = useMemo(() => {
     if (topMatchUnit) {
-      let func: UnitFrameworksComp['react']
+      let func: R
       switch (typeof topMatchUnit) {
         case 'string':
-          func = props => <Rndr
+          func = (props => <Rndr
             target={topMatchUnit}
             {...props}
-          />
+          />) as R
           break
         case 'object':
           if (Array.isArray(topMatchUnit)) {
             const [target, propsOrPropsFunc] = topMatchUnit
-            func = props => <Rndr
+            func = (props => <Rndr
               target={target}
               {...(typeof propsOrPropsFunc === 'function' ? propsOrPropsFunc(props) : propsOrPropsFunc)}
-            />
+            />) as R
           }
       }
       return func
     }
   }, [topMatchUnit])
-  return topRndr ?? matchUnit as UnitFrameworksComp['react']
+  return (topRndr ?? matchUnit) as R
 }
