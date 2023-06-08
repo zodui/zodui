@@ -25,7 +25,7 @@ export function usePlugins(...plugins: (Plugin | (() => Plugin))[]) {
 }
 
 export function useCoreContextUnit<
-  N extends string,
+  N extends keyof UnitMap,
   T extends keyof TypeMap,
   R extends UnitFrameworksComp<
     N,
