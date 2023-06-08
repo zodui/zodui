@@ -6,16 +6,6 @@ import { Input, Switch } from '../components'
 import { useCoreContextUnit } from '../hooks'
 import type { SwitcherPropsForReact } from './index'
 
-declare module '@zodui/react' {
-  export interface MonadSubController {
-    props: {}
-    options: {}
-  }
-  interface SubControllerMap {
-    monad: MonadSubController
-  }
-}
-
 export interface PrimitiveProps extends SwitcherPropsForReact<TypeMap[MonadType]> {
 }
 
