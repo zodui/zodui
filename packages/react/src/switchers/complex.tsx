@@ -60,7 +60,7 @@ export function Complex({
 
   const ItemSerter = useItemSerterContext()
 
-  const OptionRender = index ? <>
+  const OptionRender = index !== undefined ? <>
     <ItemSerter.Append deps={[model.options, index]}>
       {/* 在里面控制是因为在 modes 修改后，将 append 内容清空 */}
       {modes.includes('append') && model.options[index]._def.typeName !== AllTypes.ZodLiteral
