@@ -3,7 +3,6 @@ import './complex.scss'
 import type { ComplexType, ComponentProps, TypeMap } from '@zodui/core'
 import { AllTypes } from '@zodui/core'
 import { isWhatType } from '@zodui/core/utils'
-import type { ReactElement } from 'react'
 import { useEffect, useMemo, useState } from 'react'
 import type { ZodUnionOptions } from 'zod'
 
@@ -11,22 +10,9 @@ import { Select } from '../components'
 // TODO remove List import, and make Descriptors render target which can be customized
 import { List } from '../composers'
 import { useItemSerterContext } from '../contexts'
-import { plgMaster } from '../plugins'
+import { useCoreContextUnit } from '../hooks'
 import type { SwitcherPropsForReact } from './index'
 import { Switcher } from './index'
-
-declare module '@zodui/react' {
-  export interface ComplexSubController {
-    props: {
-      options: ComponentProps.SelectOptions[]
-      OptionRender: ReactElement
-    }
-    options: {}
-  }
-  interface SubControllerMap {
-    complex: ComplexSubController
-  }
-}
 
 function resolveSchemas(schemas: ZodUnionOptions): ComponentProps.SelectOptions[] {
   // TODO resolve not literal type, it not contain value
@@ -91,10 +77,10 @@ export function Complex({
     </>}
   </> : null
 
-  const { Component } = plgMaster.reveal(model._def.typeName, 'SubController.complex', [modes]) ?? {}
+  const Unit = useCoreContextUnit('complex', model._def.typeName, modes)
 
-  return Component
-    ? <Component
+  return Unit
+    ? <Unit
       modes={modes}
       model={model}
       options={options}

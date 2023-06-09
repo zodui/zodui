@@ -1,4 +1,4 @@
-import type { AllType, FrameworkKeys, TypeMap, UnitProps } from '@zodui/core'
+import type { ComponentProps, AllType, FrameworkKeys, TypeMap, UnitProps } from '@zodui/core'
 
 import { Framework } from './framework'
 
@@ -48,6 +48,13 @@ export interface UnitMap {
   }
   monad: {
     props: {}
+    options: {}
+  }
+  complex: {
+    props: {
+      options: ComponentProps.SelectOptions[]
+      OptionRender: any
+    }
     options: {}
   }
   multiple: {
