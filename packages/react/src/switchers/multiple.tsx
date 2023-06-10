@@ -17,9 +17,9 @@ import type {
 
 import { Button, Input } from '../components'
 import { useErrorHandlerContext } from '../contexts'
-import { plgMaster } from '../plugins'
 import type { SwitcherPropsForReact } from './index'
 import { Switcher } from './index'
+import { useCoreContextUnit } from '../hooks'
 
 declare module '@zodui/react' {
   export interface MultipleSubController {
@@ -202,15 +202,14 @@ export function Multiple({
   const isComplex = useMemo(() => ComplexMultipleTypes.includes(model._def.typeName), [model._def.typeName])
 
   const errorHandler = useErrorHandlerContext()
+  const Unit = useCoreContextUnit('complex', model._def.typeName, modes)
 
   if (schemas.length === 0 && model._def.typeName === AllTypes.ZodTuple) {
     return errorHandler.throwError(new Error('Tuple 类型必须包含一个元素'))
   }
 
-  const { Component } = plgMaster.reveal(model._def.typeName, 'SubController.multiple', [modes, { schemas }]) ?? {}
-
-  return Component
-    ? <Component
+  return Unit
+    ? <Unit
         {...props}
         modes={modes}
         model={model}
