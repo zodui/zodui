@@ -17,9 +17,9 @@ import type {
 
 import { Button, Input } from '../components'
 import { useErrorHandlerContext } from '../contexts'
+import { useCoreContextUnit } from '../hooks'
 import type { SwitcherPropsForReact } from './index'
 import { Switcher } from './index'
-import { useCoreContextUnit } from '../hooks'
 
 declare module '@zodui/react' {
   export interface MultipleSubController {
