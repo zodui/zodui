@@ -1,4 +1,4 @@
-import type { ComponentProps, AllType, FrameworkKeys, TypeMap, UnitProps } from '@zodui/core'
+import type { AllType, ComponentProps, FrameworkKeys, TypeMap, UnitProps } from '@zodui/core'
 
 import { Framework } from './framework'
 
