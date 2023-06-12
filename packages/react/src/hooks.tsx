@@ -35,7 +35,8 @@ export function useCoreContextUnit<
 >(
   name: N,
   type: T,
-  modes: string[]
+  modes: string[],
+  opts?: UnitMap[N]['options']
 ): R {
   const suffix = `${name}.${type}`
   const topMatchers = useCoreContextField<
@@ -46,15 +47,19 @@ export function useCoreContextUnit<
   >(`framework.react.units.${suffix}`)
 
   const [, topMatchUnit] = useMemo(
-    () => topMatchers?.find(([match]) => match(modes)) ?? [], [
+    () => topMatchers?.find(([match]) => match(modes, opts)) ?? [], [
       topMatchers,
-      modes
-    ])
+      modes,
+      opts
+    ]
+  )
   const [, matchUnit] = useMemo(
-    () => matchers?.find(([match]) => match(modes)) ?? [], [
+    () => matchers?.find(([match]) => match(modes, opts)) ?? [], [
       matchers,
-      modes
-    ])
+      modes,
+      opts
+    ]
+  )
   const topRndr = useMemo(() => {
     if (topMatchUnit) {
       let func: R
