@@ -202,9 +202,7 @@ export function Multiple({
   const isComplex = useMemo(() => ComplexMultipleTypes.includes(model._def.typeName), [model._def.typeName])
 
   const errorHandler = useErrorHandlerContext()
-  const Unit = useCoreContextUnit('multiple', model._def.typeName, modes, {
-    schemas
-  })
+  const Unit = useCoreContextUnit('multiple', model._def.typeName, modes, { schemas })
 
   if (schemas.length === 0 && model._def.typeName === AllTypes.ZodTuple) {
     return errorHandler.throwError(new Error('Tuple 类型必须包含一个元素'))
