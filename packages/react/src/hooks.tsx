@@ -40,7 +40,7 @@ export function useCoreContextUnit<
 ): R {
   const suffix = `${name}.${type}`
   const topMatchers = useCoreContextField<
-    Matcher<never>[]
+    Matcher[]
   >(`units.${suffix}`)
   const matchers = useCoreContextField<
     Matcher<UnitFrameworksComp['react']>[]

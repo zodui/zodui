@@ -36,7 +36,7 @@ type MatcherRndr<
   | [rndrTarget: string, props: Record<string, any>]
 
 export type Matcher<
-  C,
+  C = never,
   N extends keyof UnitMap = never
 > =
   | [rule: Rule<N>, rndr: MatcherRndr<C, N>]
@@ -100,8 +100,8 @@ export interface DefineUnit<
       N
     >[]
   ): This
-  composer<T extends AllType>(this: This, types: T[], matchers: Matcher<never>[]): This
-  switcher<T extends AllType>(this: This, types: T[], matchers: Matcher<never>[]): This
+  composer<T extends AllType>(this: This, types: T[], matchers: Matcher[]): This
+  switcher<T extends AllType>(this: This, types: T[], matchers: Matcher[]): This
 }
 
 export function createDefineUnit<
