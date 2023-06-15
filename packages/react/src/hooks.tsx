@@ -39,9 +39,7 @@ export function useCoreContextUnit<
   opts?: UnitMap[N]['options']
 ): R {
   const suffix = `${name}.${type}`
-  const topMatchers = useCoreContextField<
-    Matcher[]
-  >(`units.${suffix}`)
+  const topMatchers = useCoreContextField<Matcher[]>(`units.${suffix}`)
   const matchers = useCoreContextField<
     Matcher<UnitFrameworksComp['react']>[]
   >(`framework.react.units.${suffix}`)
