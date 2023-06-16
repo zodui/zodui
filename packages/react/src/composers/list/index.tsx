@@ -6,8 +6,6 @@ import { classnames, inlineMarkdown, isWhatType, merge } from '@zodui/core/utils
 import React, { forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
 import type { Schema } from 'zod'
 
-import { usePlugins } from '../../hooks'
-import common from '../../plugins/common'
 import type { ItemProps, ItemRef } from './item'
 import { Item } from './item'
 
@@ -21,8 +19,6 @@ export interface ListProps<M extends Schema = any> extends ComposerProps<M> {
 const prefix = 'zodui-composer-list'
 
 function InnerList<M extends Schema>(props: ListProps<M>, ref: React.ForwardedRef<ListRef>) {
-  const { inited } = usePlugins(common)
-
   const {
     model,
     value,
@@ -49,8 +45,6 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: React.ForwardedRe
       return valueRef.current
     }
   }), [])
-
-  if (!inited) return null
 
   if (isWhatType(def, AllTypes.ZodIntersection)) {
     // TODO resolve ref merge
