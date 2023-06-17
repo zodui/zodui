@@ -1,6 +1,5 @@
 export * from './components'
 export * from './composers'
 export * from './contexts'
-export * from './plugins'
 export * from './switchers'
 export * from './type'
