@@ -2,15 +2,18 @@ import './index.scss'
 
 import type { AllType, SwitcherProps, TypeMap } from '@zodui/core'
 import {
-  AllTypes
+  AllTypes,
+  complex,
+  monad,
+  multiple
 } from '@zodui/core'
-import { complex, monad, multiple } from '@zodui/core'
 import {
+  classnames,
   isWhatType,
   isWhatTypes
 } from '@zodui/core/utils'
 import type { ReactElement } from 'react'
-import { useCallback } from 'react'
+import { useMemo } from 'react'
 import type { ZodTypeDef } from 'zod'
 import type z from 'zod'
 import type { Schema as ZodSchema } from 'zod/lib/types'
@@ -26,6 +29,7 @@ import { Monad } from './monad'
 import { Multiple } from './multiple'
 
 declare module '@zodui/core' {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   export interface UnitFrameworksComp<N, Props> {
     react: (props: Props & StyledProps) => ReactElement
   }
@@ -47,8 +51,7 @@ function isWhatTypesSwitcherMatcher<T extends AllType>(
     (props: SwitcherPropsForReact<any>) => ReactElement
   ]
 ): tuple is [TypeMap[T], (props: SwitcherPropsForReact<TypeMap[T]>) => ReactElement] {
-  const [s] = tuple
-  return isWhatTypes(s, types)
+  return isWhatTypes(tuple[0], types)
 }
 
 export interface SwitcherPropsForReact<M extends ZodSchema> extends SwitcherProps<M> {
@@ -70,21 +73,18 @@ export function Switcher<M extends ZodSchema>(props: SwitcherPropsForReact<M>) {
   // TODO resolve parent modes?
   const modes = useModes(model)
 
-  const InnerSwitcher: () => ReactElement = useCallback(() => {
+  const [name, InnerSwitcher = null] = useMemo(() => {
     for (const [name, types, InnerSwitcher] of switchers) {
       // let ts happy
       const checkTuple = [model, InnerSwitcher] as const
       if (isWhatTypesSwitcherMatcher(types, checkTuple)) {
         const [schema, InnerSwitcher] = checkTuple
-        return <div className={`zodui-controller ${name} ${schema.type} ${subClassName}`}>
-          <ControllerClassName>
-            <InnerSwitcher model={schema} modes={modes} {...rest} />
-          </ControllerClassName>
-        </div>
+        // eslint-disable-next-line react/jsx-key
+        return [name, <InnerSwitcher model={schema} modes={modes}{...rest} />] as const
       }
     }
-    return null
-  }, [model, subClassName, ControllerClassName, modes, rest])
+    return []
+  }, [model, modes, rest])
 
   if (isWhatType(model, AllTypes.ZodDefault)) {
     const {
@@ -113,9 +113,18 @@ export function Switcher<M extends ZodSchema>(props: SwitcherPropsForReact<M>) {
     />
   }
 
-  return InnerSwitcher
-    ? <InnerSwitcher />
-    : <div className='zodui-controller'>
-      <span style={{ width: '100%' }}>暂未支持的的类型 <code>{model.type}</code></span>
-    </div>
+  return <div className={classnames(
+    'zodui-controller',
+    ...(InnerSwitcher ? [
+      name,
+      model.type,
+      subClassName
+    ] : [])
+  )}>
+    <ControllerClassName>
+      {InnerSwitcher
+        ? InnerSwitcher
+        : <span style={{ width: '100%' }}>暂未支持的的类型 <code>{model.type}</code></span>}
+    </ControllerClassName>
+  </div>
 }
