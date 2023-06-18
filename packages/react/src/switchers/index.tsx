@@ -80,7 +80,7 @@ export function Switcher<M extends ZodSchema>(props: SwitcherPropsForReact<M>) {
       if (isWhatTypesSwitcherMatcher(types, checkTuple)) {
         const [schema, InnerSwitcher] = checkTuple
         // eslint-disable-next-line react/jsx-key
-        return [name, <InnerSwitcher model={schema} modes={modes}{...rest} />] as const
+        return [name, <InnerSwitcher model={schema} modes={modes} {...rest} />] as const
       }
     }
     return []
