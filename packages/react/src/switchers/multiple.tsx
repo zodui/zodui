@@ -1,6 +1,6 @@
 import './multiple.scss'
 
-import type { AllType, MultipleType, TypeMap } from '@zodui/core'
+import type { MultipleType, TypeMap } from '@zodui/core'
 import { AllTypes, ComplexMultipleTypes, KeyEditableTypes } from '@zodui/core'
 import { getDefaultValue, isWhatType, isWhatTypes } from '@zodui/core/utils'
 import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -20,21 +20,6 @@ import { useErrorHandlerContext } from '../contexts'
 import { useCoreContextUnit } from '../hooks'
 import type { SwitcherPropsForReact } from './index'
 import { Switcher } from './index'
-
-declare module '@zodui/react' {
-  export interface MultipleSubController {
-    props: {
-      schemas: TypeMap[AllType][]
-      onChange?: (value: any[]) => void | Promise<void>
-    }
-    options: {
-      schemas: TypeMap[AllType][]
-    }
-  }
-  interface SubControllerMap {
-    multiple: MultipleSubController
-  }
-}
 
 const prefix = 'multiple'
 
