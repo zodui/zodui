@@ -1,10 +1,6 @@
-import { getDefaultValue, getModes } from '@zodui/core/utils'
+import { getDefaultValue } from '@zodui/core/utils'
 import { useEffect, useMemo } from 'react'
 import type z from 'zod'
-
-export function useModes<T extends z.ZodTypeAny>(schema: T) {
-  return useMemo(() => getModes(schema._mode), [schema._mode])
-}
 
 export function useDefaultValue(s: z.Schema) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
