@@ -19,13 +19,13 @@ import type z from 'zod'
 import type { Schema as ZodSchema } from 'zod/lib/types'
 
 import { useControllerClassName } from '../contexts'
+import {
+  useModes
+} from '../hooks/useModes'
 import type { StyledProps } from '../type'
 import {
   useDefaultValue
 } from '../utils'
-import {
-  useModes
-} from '../hooks/useModes'
 import { Complex } from './complex'
 import { Monad } from './monad'
 import { Multiple } from './multiple'
