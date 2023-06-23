@@ -19,6 +19,7 @@ import type z from 'zod'
 import type { Schema as ZodSchema } from 'zod/lib/types'
 
 import { useControllerClassName } from '../contexts'
+import { useDefaultValue } from '../hooks/useDefaultValue'
 import {
   useModes
 } from '../hooks/useModes'
@@ -26,7 +27,6 @@ import type { StyledProps } from '../type'
 import { Complex } from './complex'
 import { Monad } from './monad'
 import { Multiple } from './multiple'
-import { useDefaultValue } from '../hooks/useDefaultValue'
 
 declare module '@zodui/core' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
