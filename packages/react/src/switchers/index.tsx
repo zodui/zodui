@@ -23,12 +23,10 @@ import {
   useModes
 } from '../hooks/useModes'
 import type { StyledProps } from '../type'
-import {
-  useDefaultValue
-} from '../utils'
 import { Complex } from './complex'
 import { Monad } from './monad'
 import { Multiple } from './multiple'
+import { useDefaultValue } from '../hooks/useDefaultValue'
 
 declare module '@zodui/core' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
