@@ -10,7 +10,7 @@ import { Select } from '../components'
 // TODO remove List import, and make Descriptors render target which can be customized
 import { List } from '../composers'
 import { useItemSerterContext } from '../contexts'
-import { useCoreContextUnit } from '../hooks'
+import { useCoreContextUnit } from '../hooks/useCoreContextUnit'
 import type { SwitcherPropsForReact } from './index'
 import { Switcher } from './index'
 

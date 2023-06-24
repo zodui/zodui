@@ -17,7 +17,7 @@ import type {
 
 import { Button, Input } from '../components'
 import { useErrorHandlerContext } from '../contexts'
-import { useCoreContextUnit } from '../hooks'
+import { useCoreContextUnit } from '../hooks/useCoreContextUnit'
 import type { SwitcherPropsForReact } from './index'
 import { Switcher } from './index'
 

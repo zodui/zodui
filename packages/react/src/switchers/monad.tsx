@@ -3,7 +3,7 @@ import type { ReactElement } from 'react'
 import { useEffect, useState } from 'react'
 
 import { Input, Switch } from '../components'
-import { useCoreContextUnit } from '../hooks'
+import { useCoreContextUnit } from '../hooks/useCoreContextUnit'
 import type { SwitcherPropsForReact } from './index'
 
 export interface PrimitiveProps extends SwitcherPropsForReact<TypeMap[MonadType]> {

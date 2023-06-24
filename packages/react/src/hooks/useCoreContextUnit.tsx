@@ -1,8 +1,8 @@
 import type { Matcher, TypeMap, UnitFrameworksComp, UnitMap, UnitProps } from '@zodui/core'
 import { useMemo } from 'react'
 
-import { Rndr } from './components'
-import { useCoreContextField } from './contexts'
+import { Rndr } from '../components'
+import { useCoreContextField } from '../contexts'
 
 export function useCoreContextUnit<
   N extends keyof UnitMap,
