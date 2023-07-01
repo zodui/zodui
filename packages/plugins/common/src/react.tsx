@@ -17,7 +17,7 @@ export const CommonPluginForReact = definePlugin('CommonPlugin', ctx => {
     ])
     .defineUnit('monad', [AllTypes.ZodString], [
       [
-        modes => modes.includes('textarea'),
+        modes => modes.includes('secret'),
         props => <Input type='password' {...props} />
       ],
       [
