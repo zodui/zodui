@@ -11,7 +11,7 @@ export const CommonPlugin = definePlugin('CommonPlugin', ctx => {
       [modes => modes.includes('slider'), 'Number.Slider']
     ])
     .defineUnit('monad', [AllTypes.ZodString], [
-      [modes => modes.includes('slider'), 'String.TextArea']
+      [modes => modes.includes('textarea'), 'String.TextArea']
     ])
     .defineUnit('monad', [AllTypes.ZodDate], [
       [
