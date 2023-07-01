@@ -6,15 +6,14 @@ import { classnames, inlineMarkdown, isWhatType, merge } from '@zodui/core/utils
 import React, { forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
 import type { Schema } from 'zod'
 
+import type { StyledProps } from '../../type'
 import type { ItemProps, ItemRef } from './item'
 import { Item } from './item'
 
 export interface ListRef extends ComposerRef {
 }
 
-export interface ListProps<M extends Schema = any> extends ComposerProps<M> {
-  className?: string
-}
+export interface ListProps<M extends Schema = any> extends ComposerProps<M>, StyledProps {}
 
 const prefix = 'zodui-composer-list'
 
@@ -51,6 +50,7 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: React.ForwardedRe
     return <>
       <List prefix='intersect::left'
             className={props.className}
+            style={props.style}
             disabled={disabled}
             model={def.left}
             value={valueRef.current}
@@ -58,6 +58,7 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: React.ForwardedRe
       />
       <List prefix='intersect::right'
             className={props.className}
+            style={props.style}
             disabled={disabled}
             model={def.right}
             value={valueRef.current}
@@ -66,7 +67,7 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: React.ForwardedRe
     </>
   }
 
-  return <div className={classnames(prefix, props.className)}>
+  return <div className={classnames(prefix, props.className)} style={props.style}>
     <div className={`${prefix}__header`}>
       {def.label && <h2 className={classnames(`${prefix}__label`, {
         // @ts-ignore
