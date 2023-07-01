@@ -21,6 +21,9 @@ export const useCoreContextField = <T, >(k: string) => {
   const [InnerTarget, onTargetChange] = ctx.get<T>(k)
   const [Target, setTarget] = useState<T>(() => InnerTarget)
   useEffect(() => {
+    setTarget(() => InnerTarget)
+  }, [InnerTarget])
+  useEffect(() => {
     return onTargetChange((newTarget: T) => setTarget(() => newTarget))
   }, [onTargetChange])
   return Target
