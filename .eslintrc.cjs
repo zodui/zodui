@@ -55,7 +55,8 @@ module.exports = {
   ignorePatterns: [
     'demo/public/*',
     'demo/dist/*',
-    'pages/*'
+    'pages/*',
+    '**/dist/*'
   ],
   overrides: [
     {
