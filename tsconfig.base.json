@@ -12,5 +12,6 @@
     "noImplicitAny": true,
     "strictNullChecks": false,
     "moduleResolution": "node",
+    "resolveJsonModule": true
   },
 }
