@@ -7,20 +7,26 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
+      "inner-src": "./src/index.ts",
       "import": "./dist/index.esm.js",
       "require": "./dist/index.js"
     },
     "./utils": {
       "types": "./dist/utils.d.ts",
+      "inner-src": "./src/utils.ts",
       "import": "./dist/utils.esm.js",
       "require": "./dist/utils.js"
     },
     "./external": {
       "types": "./dist/external.d.ts",
+      "inner-src": "./src/external.ts",
       "import": "./dist/external.esm.js",
       "require": "./dist/external.js"
     },
     "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "rollup -c"
   },
   "dependencies": {
     "zod": "^3.21.4"
