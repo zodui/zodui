@@ -1,10 +1,11 @@
 import './react.scss'
+
 import 'tdesign-react/esm/style/index.js'
 
+import React from 'react'
 import { definePlugin } from '@zodui/core'
 import type { Narrow } from '@zodui/core/utils'
 import { Icon } from '@zodui/react'
-import React from 'react'
 import {
   AddIcon,
   ArrowDownIcon,
@@ -94,7 +95,7 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
       value={props.value}
       onChange={v => props.onChange?.(v as any)}
     />)
-    .defineComp('Switch', props => <Switch {...props}/>)
+    .defineComp('Switch', props => <Switch {...props} />)
     .defineComp('Dropdown', props => <Dropdown
         popupProps={{
           showArrow: true,
