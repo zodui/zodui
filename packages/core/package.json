@@ -34,6 +34,11 @@
     },
     "./package.json": "./package.json"
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "rollup -c && yarn build:dts",
     "build:esm:dts": "tsc -p tsconfig.dts.json --outDir dist/esm --module esnext",
