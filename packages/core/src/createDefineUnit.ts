@@ -1,4 +1,5 @@
-import type { Context, Framework, FrameworkKeys, Matcher, UnitMap, UnitProps } from './plugin'
+import type { Context } from './context'
+import type { Framework, FrameworkKeys, Matcher, UnitMap, UnitProps } from './plugin'
 import type { AllType, TypeMap } from './type'
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
