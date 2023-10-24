@@ -1,5 +1,8 @@
-import type { Context, DefineUnit, Icons, SwitcherProps, TypeMap } from '@zodui/core'
-import { createDefineUnit } from '@zodui/core'
+import type { Icons, SwitcherProps, TypeMap } from '@zodui/core'
+
+import type { Context } from '../context'
+import type { DefineUnit } from '../createDefineUnit'
+import { createDefineUnit } from '../createDefineUnit'
 
 const PropsSymbol = Symbol('props')
 

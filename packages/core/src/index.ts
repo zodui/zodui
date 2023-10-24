@@ -1,3 +1,5 @@
 export * from './configure'
+export * from './context'
+export * from './createDefineUnit'
 export * from './plugin'
 export * from './type'
