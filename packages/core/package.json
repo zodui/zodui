@@ -1,6 +1,6 @@
 {
   "name": "@zodui/core",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "license": "MIT",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -35,7 +35,8 @@
     "./package.json": "./package.json"
   },
   "files": [
-    "dist",
+    "dist/cjs",
+    "dist/esm",
     "README.md",
     "LICENSE"
   ],
