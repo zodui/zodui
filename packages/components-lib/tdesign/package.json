@@ -1,4 +1,7 @@
 {
   "name": "@zodui/components-lib-tdesign",
-  "version": "0.1.0"
+  "version": "0.1.0",
+  "dependencies": {
+    "tdesign-react": "^1.0.3"
+  }
 }

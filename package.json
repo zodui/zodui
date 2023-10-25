@@ -11,7 +11,9 @@
   },
   "workspaces": [
     "demo",
-    "packages/*"
+    "packages/*",
+    "packages/components-lib/*",
+    "packages/plugins/*"
   ],
   "devDependencies": {
     "@rollup/plugin-json": "^6.0.0",
