@@ -23,7 +23,7 @@
     "react": "^18.2.0"
   },
   "dependencies": {
-    "@zodui/core": "link:../core",
+    "@zodui/core": "workspace:^",
     "zod": "^3.21.4",
     "react": "^18.2.0"
   },
