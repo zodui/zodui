@@ -793,6 +793,11 @@
   resolved "https://mirrors.tencent.com/npm/@yarnpkg%2flockfile/-/lockfile-1.1.0.tgz#e77a97fbd345b76d83245edcd17d393b1b41fb31"
   integrity sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==
 
+"@zodui/core@link:packages/core":
+  version "0.0.2"
+  dependencies:
+    zod "^3.21.4"
+
 acorn-jsx@^5.3.2:
   version "5.3.2"
   resolved "https://mirrors.tencent.com/npm/acorn-jsx/-/acorn-jsx-5.3.2.tgz#7ed5bb55908b3b2f1bc55c6af1653bada7f07937"

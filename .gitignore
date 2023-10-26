@@ -1,5 +1,6 @@
 # Temp files
 .temp.tsconfig.*
+temp
 
 # IDE
 .vscode
