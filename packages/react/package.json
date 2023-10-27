@@ -23,9 +23,6 @@
   "scripts": {
     "build": "rollup -c"
   },
-  "peerDependencies": {
-    "react": "^18.2.0"
-  },
   "dependencies": {
     "@zodui/core": "workspace:^",
     "zod": "^3.21.4",
