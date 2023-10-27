@@ -3,7 +3,8 @@ import './item.scss'
 import type { DescriptorProps, DescriptorRef } from '@zodui/core'
 import { AllTypes, WrapModes } from '@zodui/core'
 import { classnames, debounce, getModes, inlineMarkdown } from '@zodui/core/utils'
-import React, {
+import type { ForwardedRef, ReactElement } from 'react'
+import {
   forwardRef,
   useCallback,
   useEffect,
@@ -34,7 +35,7 @@ export interface ItemProps<M extends Schema = any> extends DescriptorProps<M> {
   className?: string
 }
 
-function InnerItem<M extends Schema>(props: ItemProps<M>, ref: React.ForwardedRef<ItemRef>) {
+function InnerItem<M extends Schema>(props: ItemProps<M>, ref: ForwardedRef<ItemRef>) {
   const configure = useItemConfigurerContext()
   const {
     meta: {
@@ -180,8 +181,8 @@ function InnerItem<M extends Schema>(props: ItemProps<M>, ref: React.ForwardedRe
  */
 export const Item = forwardRef(InnerItem) as {
   <M extends Schema>(
-    props: ItemProps<M> & { ref?: React.ForwardedRef<ItemRef> }
-  ): React.ReactElement
+    props: ItemProps<M> & { ref?: ForwardedRef<ItemRef> }
+  ): ReactElement
   displayName?: string
 }
 

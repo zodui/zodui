@@ -3,7 +3,8 @@ import './index.scss'
 import type { ComposerProps, ComposerRef } from '@zodui/core'
 import { AllTypes } from '@zodui/core'
 import { classnames, inlineMarkdown, isWhatType, merge } from '@zodui/core/utils'
-import React, { forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
+import type { ForwardedRef, ReactElement } from 'react'
+import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
 import type { Schema } from 'zod'
 
 import type { StyledProps } from '../../type'
@@ -17,7 +18,7 @@ export interface ListProps<M extends Schema = any> extends ComposerProps<M>, Sty
 
 const prefix = 'zodui-composer-list'
 
-function InnerList<M extends Schema>(props: ListProps<M>, ref: React.ForwardedRef<ListRef>) {
+function InnerList<M extends Schema>(props: ListProps<M>, ref: ForwardedRef<ListRef>) {
   const {
     model,
     value,
@@ -111,8 +112,8 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: React.ForwardedRe
 
 export const List = forwardRef(InnerList) as unknown as {
   <M extends Schema>(
-    props: ListProps<M> & { ref?: React.ForwardedRef<ListRef> }
-  ): React.ReactElement
+    props: ListProps<M> & { ref?: ForwardedRef<ListRef> }
+  ): ReactElement
   displayName?: string
 
   Item: typeof Item
