@@ -3,6 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "jsx": "react-jsx",
+    "jsxImportSource": "react",
     "paths": {
       "zodui": ["packages/zodui/src"],
       "@zodui/*": ["packages/*/src"],
