@@ -130,10 +130,10 @@ importers:
   packages/components-lib/tdesign:
     dependencies:
       '@zodui/core':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../core
       '@zodui/react':
-        specifier: workspace:*
+        specifier: workspace:^
         version: link:../../react
       react:
         specifier: ^18.2.0
