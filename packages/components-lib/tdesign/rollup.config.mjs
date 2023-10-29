@@ -16,6 +16,7 @@ const commonOutputOptions = {
 
 const external = Object
   .keys(pkg.dependencies)
+  // TODO 处理 exports 或者是处理所有的 sub path import dependency
   .concat(/@zodui\/core\/.*/)
 
 export default defineConfig([
