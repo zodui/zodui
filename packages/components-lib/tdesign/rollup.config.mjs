@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'rollup'
 import autoprefixer from 'autoprefixer'
+import copy from "rollup-plugin-copy";
 import { dts } from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
 import postcss from 'rollup-plugin-postcss'
@@ -19,24 +20,24 @@ const external = Object
 
 export default defineConfig([
   {
-    input: 'src/index.ts',
+    input: ['src/index.ts', 'src/react.tsx'],
     output: [
       {
         ...commonOutputOptions,
         format: 'esm',
         entryFileNames: '[name].esm.js'
       },
-      {
-        ...commonOutputOptions,
-        format: 'iife',
-        entryFileNames: '[name].iife.js'
-      },
-      {
-        ...commonOutputOptions,
-        name: 'ZodReact',
-        format: 'umd',
-        entryFileNames: '[name].umd.js'
-      }
+      // {
+      //   ...commonOutputOptions,
+      //   format: 'iife',
+      //   entryFileNames: '[name].iife.js'
+      // },
+      // {
+      //   ...commonOutputOptions,
+      //   name: 'ZodReact',
+      //   format: 'umd',
+      //   entryFileNames: '[name].umd.js'
+      // }
     ],
     plugins: [
       postcss({
@@ -50,9 +51,10 @@ export default defineConfig([
     external
   },
   {
-    input: 'src/index.ts',
+    input: ['src/index.ts', 'src/react.tsx'],
     output: {
-      dir: 'dist'
+      dir: 'dist',
+      entryFileNames: ({ name }) => `${name.replace(/^src\//, '')}.d.ts`
     },
     plugins: [
       {
@@ -62,7 +64,12 @@ export default defineConfig([
           }
         }
       },
-      dts({ tsconfig: './tsconfig.dts.json' })
+      dts({ tsconfig: './tsconfig.dts.json' }),
+      copy({
+        targets: [
+          { src: 'src/react.fix.d.ts', dest: 'dist' },
+        ]
+      })
     ],
     external
   }

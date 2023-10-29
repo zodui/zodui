@@ -1,11 +1,10 @@
 import './react.scss'
-
 import 'tdesign-react/esm/style/index.js'
 
-import React from 'react'
 import { definePlugin } from '@zodui/core'
 import type { Narrow } from '@zodui/core/utils'
 import { Icon } from '@zodui/react'
+import { cloneElement } from 'react'
 import {
   AddIcon,
   ArrowDownIcon,
@@ -117,7 +116,7 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
             : i.icon,
           content: typeof i.label === 'string'
             ? <span title={i.title}>{i.label}</span>
-            : React.cloneElement(i.label, {
+            : cloneElement(i.label, {
               title: i.title
             }),
           value: i.value,
