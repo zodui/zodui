@@ -1,6 +1,6 @@
 {
   "name": "@zodui/components-lib-tdesign",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zodui/zodui.git",
@@ -17,6 +17,7 @@
   "types": "dist/index.d.ts",
   "files": ["dist", "README.md"],
   "exports": {
+    "./dist/*": "./dist/*",
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.esm.js",
