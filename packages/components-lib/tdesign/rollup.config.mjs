@@ -1,7 +1,7 @@
 // @ts-check
 import { defineConfig } from 'rollup'
 import autoprefixer from 'autoprefixer'
-import copy from "rollup-plugin-copy";
+import copy from 'rollup-plugin-copy'
 import { dts } from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
 import postcss from 'rollup-plugin-postcss'
