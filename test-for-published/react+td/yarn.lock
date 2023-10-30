@@ -374,17 +374,17 @@
   resolved "https://registry.npmjs.org/@types/prop-types/-/prop-types-15.7.9.tgz#b6f785caa7ea1fe4414d9df42ee0ab67f23d8a6d"
   integrity sha512-n1yyPsugYNSmHgxDFjicaI2+gCNjsBck8UX9kuofAKlc0h1bL+20oSF72KeNaW2DUlesbEVCFgyV2dPGTiY42g==
 
-"@types/react-dom@^18.0.11":
-  version "18.2.14"
-  resolved "https://registry.npmjs.org/@types/react-dom/-/react-dom-18.2.14.tgz#c01ba40e5bb57fc1dc41569bb3ccdb19eab1c539"
-  integrity sha512-V835xgdSVmyQmI1KLV2BEIUgqEuinxp9O4G6g3FqO/SqLac049E53aysv0oEFD2kHfejeKU+ZqL2bcFWj9gLAQ==
+"@types/react-dom@^16.9.21":
+  version "16.9.21"
+  resolved "https://mirrors.tencent.com/npm/@types/react-dom/-/react-dom-16.9.21.tgz#4f937ae64f39c2766401750e069319224348306c"
+  integrity sha512-QdKxI502bJXRfFR8/pH0iCyt51EcPf1+hgCIZKJ9SBunj0NZpKK5j1FDoCGeGj/6ROK8gUesj41V3C64Rz2kHw==
   dependencies:
-    "@types/react" "*"
+    "@types/react" "^16"
 
-"@types/react@*", "@types/react@^18.0.28":
-  version "18.2.33"
-  resolved "https://registry.npmjs.org/@types/react/-/react-18.2.33.tgz#055356243dc4350a9ee6c6a2c07c5cae12e38877"
-  integrity sha512-v+I7S+hu3PIBoVkKGpSYYpiBT1ijqEzWpzQD62/jm4K74hPpSP7FF9BnKG6+fg2+62weJYkkBWDJlZt5JO/9hg==
+"@types/react@^16", "@types/react@^16.14.50":
+  version "16.14.50"
+  resolved "https://mirrors.tencent.com/npm/@types/react/-/react-16.14.50.tgz#ec9c30f2f0c7d9aa748949536d88e3439526a25d"
+  integrity sha512-7TWZ/HjhXsRK3BbhSFxTinbSft3sUXJAU3ONngT0rpcKJaIOlxkRke4bidqQTopUbEv1ApC5nlSEkIpX43MkTg==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -421,10 +421,10 @@
     magic-string "^0.27.0"
     react-refresh "^0.14.0"
 
-"@zodui/components-lib-tdesign@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.npmjs.org/@zodui/components-lib-tdesign/-/components-lib-tdesign-0.0.3.tgz#5aa0f99b5d4bd261b2c0cf0c154fd310a57856f1"
-  integrity sha512-tGRbwmnXySPtcI9yCtqUeWQ/vU0ULefDFdZd+vHdq+xoVy5257cgLuN1ySC66+z0ks3MMUwnizQ3RrNyQgJLPA==
+"@zodui/components-lib-tdesign@^0.0.4":
+  version "0.0.4"
+  resolved "https://mirrors.tencent.com/npm/@zodui/components-lib-tdesign/-/components-lib-tdesign-0.0.4.tgz#2b1e4d897fef398e3c1bc7832f629478a3e47ddc"
+  integrity sha512-RRcrhLz/dSPOMCKcoPwVE3jWdvfntt94gxjCw9aPev5U1nRFrSjbAHgfFfnrdX5963SZtbm4b9JCM2hYpW+czg==
   dependencies:
     "@zodui/core" "^0.0.2"
     "@zodui/react" "^0.0.2"
@@ -445,6 +445,15 @@
   dependencies:
     "@zodui/core" "^0.0.2"
     react "^18.2.0"
+    zod "^3.21.4"
+
+"@zodui/react@^0.0.3":
+  version "0.0.3"
+  resolved "https://mirrors.tencent.com/npm/@zodui/react/-/react-0.0.3.tgz#ef617da19cfb13fb9819d33321bbae000c6b3972"
+  integrity sha512-yfPfK8vjQH4dBeuGPVbb7fxTL+c2V0Rk8vSSLwppYAi+ODSAJ/ikNWa87T3gQ/VE7dakqWCNm8fmMkN+PVF8YA==
+  dependencies:
+    "@zodui/core" "^0.0.2"
+    react "^16.13.1"
     zod "^3.21.4"
 
 ansi-styles@^3.2.1:
@@ -798,13 +807,15 @@ raf@~3.4.1:
   dependencies:
     performance-now "^2.1.0"
 
-react-dom@^18.2.0:
-  version "18.2.0"
-  resolved "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz#22aaf38708db2674ed9ada224ca4aa708d821e3d"
-  integrity sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==
+react-dom@^16.13.1:
+  version "16.14.0"
+  resolved "https://mirrors.tencent.com/npm/react-dom/-/react-dom-16.14.0.tgz#7ad838ec29a777fb3c75c3a190f661cf92ab8b89"
+  integrity sha512-1gCeQXDLoIqMgqD3IO2Ah9bnf0w9kzhwN5q4FGnHZ67hBm9yePzB5JJAIQCc8x3pFnNlwFq4RidZggNAAkzWWw==
   dependencies:
     loose-envify "^1.1.0"
-    scheduler "^0.23.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+    scheduler "^0.19.1"
 
 react-fast-compare@^3.0.1:
   version "3.2.2"
@@ -844,6 +855,15 @@ react-transition-group@~4.4.1:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
+react@^16.13.1:
+  version "16.14.0"
+  resolved "https://mirrors.tencent.com/npm/react/-/react-16.14.0.tgz#94d776ddd0aaa37da3eda8fc5b6b18a4c9a3114d"
+  integrity sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==
+  dependencies:
+    loose-envify "^1.1.0"
+    object-assign "^4.1.1"
+    prop-types "^15.6.2"
+
 react@^18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
@@ -878,12 +898,13 @@ sax@^1.2.4:
   resolved "https://registry.npmjs.org/sax/-/sax-1.3.0.tgz#a5dbe77db3be05c9d1ee7785dbd3ea9de51593d0"
   integrity sha512-0s+oAmw9zLl1V1cS9BtZN7JAd0cW5e0QH4W3LWEK6a4LaLEA2OTpGYWDY+6XasBLtz6wkm3u1xRw95mRuJ59WA==
 
-scheduler@^0.23.0:
-  version "0.23.0"
-  resolved "https://registry.npmjs.org/scheduler/-/scheduler-0.23.0.tgz#ba8041afc3d30eb206a487b6b384002e4e61fdfe"
-  integrity sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==
+scheduler@^0.19.1:
+  version "0.19.1"
+  resolved "https://mirrors.tencent.com/npm/scheduler/-/scheduler-0.19.1.tgz#4f3e2ed2c1a7d65681f4c854fa8c5a1ccb40f196"
+  integrity sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==
   dependencies:
     loose-envify "^1.1.0"
+    object-assign "^4.1.1"
 
 semver@^5.6.0:
   version "5.7.2"
