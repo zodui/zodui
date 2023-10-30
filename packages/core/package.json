@@ -1,15 +1,21 @@
 {
   "name": "@zodui/core",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "exports": {
     ".": {
-      "types":  "./dist/esm/index.d.ts",
-      "import": "./dist/esm/index.js",
-      "inner-src": "./src/index.ts"
+      "inner-src": "./src/index.ts",
+      "import": {
+        "types":   "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types":   "./dist/esm/index.d.ts",
+        "default": "./dist/esm/index.js"
+      }
     },
     "./utils": {
       "inner-src": "./src/utils.ts",
