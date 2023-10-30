@@ -1,6 +1,6 @@
 {
   "name": "@zodui/components-lib-tdesign",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zodui/zodui.git",
@@ -37,7 +37,7 @@
     "build": "rollup -c"
   },
   "peerDependencies": {
-    "react": "^18.2.0"
+    "react": "^16.13.1"
   },
   "dependencies": {
     "@zodui/core": "workspace:^",
@@ -46,6 +46,6 @@
     "tdesign-icons-react": "^0.3.2"
   },
   "devDependencies": {
-    "@types/react": "^18.0.28"
+    "@types/react": "^16.14.50"
   }
 }
