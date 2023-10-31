@@ -7,7 +7,7 @@ import type { ReactFramework } from '../components'
 
 const CoreContext = createContext<InnerCoreContext>(null)
 
-export const CoreContextProvider = (props: PropsWithChildren) => {
+export const CoreContextProvider = (props: PropsWithChildren<{}>) => {
   const ctx = useContext(CoreContext) ?? Context.global
   useEffect(() => {
   }, [])

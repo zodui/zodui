@@ -22,7 +22,7 @@ export function useItemConfigurer(c: ItemConfigure = {}) {
   return {
     configure,
     setConfigure: setIConfigure,
-    ItemConfigurer: ({ children }: PropsWithChildren) => <ItemConfigurer.Provider value={configure}>
+    ItemConfigurer: ({ children }: PropsWithChildren<{}>) => <ItemConfigurer.Provider value={configure}>
       {children}
     </ItemConfigurer.Provider>
   }

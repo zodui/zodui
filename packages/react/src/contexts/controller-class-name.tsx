@@ -11,7 +11,7 @@ export function useControllerClassName() {
   const [className, setClassName] = useState('')
   return {
     className,
-    ControllerClassName: ({ children }: PropsWithChildren) => <ControllerClassName.Provider value={{ setClassName }}>
+    ControllerClassName: ({ children }: PropsWithChildren<{}>) => <ControllerClassName.Provider value={{ setClassName }}>
       {children}
     </ControllerClassName.Provider>
   }

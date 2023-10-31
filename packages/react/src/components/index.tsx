@@ -52,7 +52,7 @@ export namespace InnerProps {
     & ComponentProps.Input<T>
   export type InputAdornment =
     & BaseProps
-    & PropsWithChildren
+    & PropsWithChildren<{}>
     & Omit<ComponentProps.InputAdornment, 'prev' | 'next'>
     & {
       prev?: ZElement

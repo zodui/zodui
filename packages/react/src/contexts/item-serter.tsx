@@ -8,7 +8,7 @@ import {
   useEffect, useRef, useState
 } from 'react'
 
-interface RenderProps extends PropsWithChildren {
+interface RenderProps extends PropsWithChildren<{}> {
   deps?: any[]
 }
 
@@ -39,7 +39,7 @@ export function useItemSerter() {
       return <>{item}</>
     },
 
-    ItemSerter: ({ children }: PropsWithChildren) => <ItemSerterContext.Provider value={{
+    ItemSerter: ({ children }: PropsWithChildren<{}>) => <ItemSerterContext.Provider value={{
       Append: ({ children, deps = [] }: RenderProps) => {
         // TODO let memo watch children change, or let react manage itself dependencies
         // eslint-disable-next-line react-hooks/exhaustive-deps
