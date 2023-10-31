@@ -1,7 +1,7 @@
 {
   "name": "@zodui/react",
   "description": "Zod UI for React",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zodui/zodui.git",
@@ -17,7 +17,7 @@
   "module": "dist/index.esm.js",
   "unpkg": "dist/index.umd.js",
   "jsdelivr": "dist/index.umd.js",
-  "browser": "dist/index.umd.js",
+  "browser": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "files": ["dist", "README.md"],
   "scripts": {
