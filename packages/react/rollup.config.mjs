@@ -62,7 +62,39 @@ export default defineConfig([
           }
         }
       },
-      dts({ tsconfig: './tsconfig.dts.json' })
+      dts({ tsconfig: './tsconfig.dts.json' }),
+      {
+        generateBundle(options, bundle) {
+          let lastExportLine = ''
+          for (let i = bundle['index.d.ts'].code.length - 2; i >= 0; i--) {
+            if (bundle['index.d.ts'].code[i] === '\n') {
+              lastExportLine = bundle['index.d.ts'].code.slice(i + 1)
+              break
+            }
+          }
+          // pick type export from index.d.ts
+          // export { type A, B, type C }
+          const typeExports = [
+            ...lastExportLine.matchAll(/type (\w+)(?:, )?/g)
+          ].map(([, type]) => type)
+          const typeExportLine = typeExports
+            .reduce(
+              (acc, type, index) => `${acc}${index > 0 ? ', ' : ''}${type}`,
+              'export type { '
+            )
+            .concat(' };\n')
+          // add type export to index.d.ts
+          lastExportLine = lastExportLine.replace(
+            /type (\w+)(?:, )?/g,
+            ''
+          )
+          lastExportLine = typeExportLine + lastExportLine
+          bundle['index.d.ts'].code = bundle['index.d.ts'].code.replace(
+            /export \{.*};\n/,
+            lastExportLine
+          )
+        }
+      }
     ],
     external
   }
