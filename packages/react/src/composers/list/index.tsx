@@ -43,8 +43,11 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: ForwardedRef<List
       })
       await Promise.all(promises)
       return valueRef.current
+    },
+    reset() {
+      changeValue(defaultValue ?? {})
     }
-  }), [])
+  }), [changeValue, defaultValue])
 
   if (isWhatType(def, AllTypes.ZodIntersection)) {
     // TODO resolve ref merge
@@ -114,7 +117,7 @@ export const List = forwardRef(InnerList) as unknown as {
   <M extends Schema>(
     props: ListProps<M> & { ref?: ForwardedRef<ListRef> }
   ): ReactElement
-  displayName?: string
+  displayName: 'List-Composer'
 
   Item: typeof Item
   ItemRef: ItemRef

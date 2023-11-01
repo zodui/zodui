@@ -13,6 +13,7 @@ export interface SchemaResolver<
 }
 
 export interface ComposerRef {
+  reset: () => void
   verify: () => Promise<any>
 }
 
