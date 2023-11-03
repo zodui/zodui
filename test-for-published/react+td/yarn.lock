@@ -421,38 +421,29 @@
     magic-string "^0.27.0"
     react-refresh "^0.14.0"
 
-"@zodui/components-lib-tdesign@^0.0.4":
-  version "0.0.4"
-  resolved "https://mirrors.tencent.com/npm/@zodui/components-lib-tdesign/-/components-lib-tdesign-0.0.4.tgz#2b1e4d897fef398e3c1bc7832f629478a3e47ddc"
-  integrity sha512-RRcrhLz/dSPOMCKcoPwVE3jWdvfntt94gxjCw9aPev5U1nRFrSjbAHgfFfnrdX5963SZtbm4b9JCM2hYpW+czg==
+"@zodui/components-lib-tdesign@^0.1.0":
+  version "0.1.1"
+  resolved "https://mirrors.tencent.com/npm/@zodui/components-lib-tdesign/-/components-lib-tdesign-0.1.1.tgz#2b14aed75415dfdeaddecd0fedecb026149e4edc"
+  integrity sha512-4xwsTT7h4+JfpTgnDOwvOlmCjFVXZ2n/RPJ0If5Ao6m+Z1Sd3+Ha2c+3mJkF1ixPzOjpXDlP4r95JGOO4/nyJA==
   dependencies:
-    "@zodui/core" "^0.0.2"
-    "@zodui/react" "^0.0.2"
+    "@zodui/core" "^0.1.0"
+    "@zodui/react" "^0.1.3"
     tdesign-icons-react "^0.3.2"
     tdesign-react "^1.3.0"
 
-"@zodui/core@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.npmjs.org/@zodui/core/-/core-0.0.2.tgz#fbe48ae143aeb475dca677e8b718e70b03faef33"
-  integrity sha512-FmP3W8HypWY0qmMg+ZiP8SZpGMaknBBrTVwMlAtYQ0gm4+8d2G3Anv1P1BN1ZwPP0YPbbzCl8UD20+054WI9FA==
+"@zodui/core@^0.1.0":
+  version "0.1.0"
+  resolved "https://mirrors.tencent.com/npm/@zodui/core/-/core-0.1.0.tgz#24ef998d9e1dba5976ae1aa4e5365aa4dea53733"
+  integrity sha512-Oe+gtnP3l+Kp3Jlp6aSBmGR+xZWwT0KcURH27QS/NQy55zBR74PkNPkQBX43DoxortCTwmYHJc9deuCaHmMiJg==
   dependencies:
     zod "^3.21.4"
 
-"@zodui/react@^0.0.2":
-  version "0.0.2"
-  resolved "https://registry.npmjs.org/@zodui/react/-/react-0.0.2.tgz#5b92728c0644fff7b8f38fb7294440596c3e304f"
-  integrity sha512-U8UxctsMPlR+be6DudQHSJrFPreZJwLfPCucd9kiF2CzZo5lmF6RP6Ni+q6VCvPuV6D1WVS/BW+y59aDvVWVLQ==
+"@zodui/react@^0.1.3":
+  version "0.1.3"
+  resolved "https://mirrors.tencent.com/npm/@zodui/react/-/react-0.1.3.tgz#023231860d8d97f54145cbd7b89e92e9aa301970"
+  integrity sha512-obPAB1yMLkF9obnXN9nrXxh92ljRqP6j66bpE4fv88Zl7TizJgAQQ4UC4UULFoe9cR9GLa+xenvCyvjJxcD6YQ==
   dependencies:
-    "@zodui/core" "^0.0.2"
-    react "^18.2.0"
-    zod "^3.21.4"
-
-"@zodui/react@^0.0.3":
-  version "0.0.3"
-  resolved "https://mirrors.tencent.com/npm/@zodui/react/-/react-0.0.3.tgz#ef617da19cfb13fb9819d33321bbae000c6b3972"
-  integrity sha512-yfPfK8vjQH4dBeuGPVbb7fxTL+c2V0Rk8vSSLwppYAi+ODSAJ/ikNWa87T3gQ/VE7dakqWCNm8fmMkN+PVF8YA==
-  dependencies:
-    "@zodui/core" "^0.0.2"
+    "@zodui/core" "^0.1.0"
     react "^16.13.1"
     zod "^3.21.4"
 
@@ -863,13 +854,6 @@ react@^16.13.1:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-
-react@^18.2.0:
-  version "18.2.0"
-  resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
-  integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
-  dependencies:
-    loose-envify "^1.1.0"
 
 regenerator-runtime@^0.13.4:
   version "0.13.11"
