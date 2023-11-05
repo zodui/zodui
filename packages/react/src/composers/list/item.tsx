@@ -76,6 +76,9 @@ function InnerItem<M extends Schema>(props: ItemProps<M>, ref: ForwardedRef<Item
 
   const [_, rerender] = useState(false)
   const valueRef = useRef<number>(value ?? defaultValue)
+  if (valueRef.current !== value) {
+    valueRef.current = value
+  }
   const valueChangeListener = useRef<(v: any) => any>()
   const onValueChange = useCallback((func: (v: any) => any) => {
     valueChangeListener.current = func
