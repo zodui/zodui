@@ -12,9 +12,18 @@ export interface SchemaResolver<
   onChange?: (value: V) => void | Promise<void>
 }
 
-export interface ComposerRef {
+export interface ComposerRef<
+  M extends ZodSchema = any,
+  V = TypeOf<M>
+> {
+  /**
+   * Reset the composer to the default value of the model and its properties.
+   */
   reset: () => void
-  verify: () => Promise<any>
+  /**
+   * Verify the composer and return the value.
+   */
+  verify: () => Promise<V>
 }
 
 export interface ComposerProps<M extends ZodSchema> extends SchemaResolver<M> {

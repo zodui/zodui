@@ -11,7 +11,7 @@ import type { StyledProps } from '../../type'
 import type { ItemProps, ItemRef } from './item'
 import { Item } from './item'
 
-export interface ListRef extends ComposerRef {
+export interface ListRef<M extends Schema = any> extends ComposerRef<M> {
 }
 
 export interface ListProps<M extends Schema = any> extends ComposerProps<M>, StyledProps {}
@@ -118,7 +118,7 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: ForwardedRef<List
 
 export const List = forwardRef(InnerList) as unknown as {
   <M extends Schema>(
-    props: ListProps<M> & { ref?: ForwardedRef<ListRef> }
+    props: ListProps<M> & { ref?: ForwardedRef<ListRef<M>> }
   ): ReactElement
   displayName: 'List-Composer'
 
