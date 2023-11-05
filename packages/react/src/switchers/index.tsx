@@ -59,7 +59,7 @@ export interface SwitcherPropsForReact<M extends ZodSchema> extends SwitcherProp
 }
 
 /**
- * Switcher will try to resolve all schema and render it
+ * Switcher will try to resolve all schemas and render it
  */
 export function Switcher<M extends ZodSchema>(props: SwitcherPropsForReact<M>) {
   const { model, ...rest } = props
