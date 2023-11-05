@@ -1,5 +1,5 @@
 import type { PropsWithChildren } from 'react'
-import { createContext, useContext, useState } from 'react'
+import { createContext, useCallback, useContext, useState } from 'react'
 
 interface ControllerClassNameContext {
   setClassName: (className: string) => void
@@ -11,9 +11,9 @@ export function useControllerClassName() {
   const [className, setClassName] = useState('')
   return {
     className,
-    ControllerClassName: ({ children }: PropsWithChildren<{}>) => <ControllerClassName.Provider value={{ setClassName }}>
+    ControllerClassName: useCallback(({ children }: PropsWithChildren<{}>) => <ControllerClassName.Provider value={{ setClassName }}>
       {children}
-    </ControllerClassName.Provider>
+    </ControllerClassName.Provider>, [])
   }
 }
 

@@ -39,7 +39,7 @@ export function useItemSerter() {
       return <>{item}</>
     },
 
-    ItemSerter: ({ children }: PropsWithChildren<{}>) => <ItemSerterContext.Provider value={{
+    ItemSerter: useCallback(({ children }: PropsWithChildren<{}>) => <ItemSerterContext.Provider value={{
       Append: ({ children, deps = [] }: RenderProps) => {
         // TODO let memo watch children change, or let react manage itself dependencies
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,7 +48,7 @@ export function useItemSerter() {
       }
     }}>
       {children}
-    </ItemSerterContext.Provider>
+    </ItemSerterContext.Provider>, [prevChange])
   }
 }
 
