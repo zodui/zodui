@@ -2,7 +2,7 @@ import './item.scss'
 
 import type { DescriptorProps, DescriptorRef } from '@zodui/core'
 import { AllTypes, WrapModes } from '@zodui/core'
-import { classnames, debounce, getModes, inlineMarkdown } from '@zodui/core/utils'
+import { classnames, getModes, inlineMarkdown } from '@zodui/core/utils'
 import type { ForwardedRef, ReactElement } from 'react'
 import {
   forwardRef,
@@ -35,6 +35,17 @@ export interface ItemProps<M extends Schema = any> extends DescriptorProps<M> {
   className?: string
 }
 
+export const useRetimer = () => {
+  const timerIdRef = useRef<number>()
+
+  return useCallback((timerId?: number) => {
+    if (typeof timerIdRef.current === 'number') {
+      clearTimeout(timerIdRef.current)
+    }
+    timerIdRef.current = timerId
+  }, [])
+}
+
 function InnerItem<M extends Schema>(props: ItemProps<M>, ref: ForwardedRef<ItemRef>) {
   const configure = useItemConfigurerContext()
   const {
@@ -42,6 +53,9 @@ function InnerItem<M extends Schema>(props: ItemProps<M>, ref: ForwardedRef<Item
       label,
       description
     },
+    value,
+    defaultValue,
+    onChange,
     model,
     className
   } = props
@@ -61,7 +75,7 @@ function InnerItem<M extends Schema>(props: ItemProps<M>, ref: ForwardedRef<Item
   const { error, ErrorHandler } = useErrorHandler()
 
   const [_, rerender] = useState(false)
-  const valueRef = useRef<number>(props.value ?? props.defaultValue)
+  const valueRef = useRef<number>(value ?? defaultValue)
   const valueChangeListener = useRef<(v: any) => any>()
   const onValueChange = useCallback((func: (v: any) => any) => {
     valueChangeListener.current = func
@@ -69,31 +83,38 @@ function InnerItem<M extends Schema>(props: ItemProps<M>, ref: ForwardedRef<Item
       valueChangeListener.current = undefined
     }
   }, [])
-  // FIXME the next line is working but eslint isn't happy
-  //       with the dependency array
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const changeValue = useCallback(debounce(async (v: any, must = false, doVerify = configure.actualTimeVerify) => {
-    try {
-      const rv = doVerify
-        ? await valueChangeListener.current?.(v) ?? v
-        : v
-      await props.onChange?.(rv)
-      valueRef.current = rv
-    } catch (e) {
-      if (e instanceof ZodError) {
-        // if configure must param, then must be set value, but not emit value change out
-        if (must) {
-          valueRef.current = v
-        }
-        // TODO dispatch error resolve logic
-      } else
-        throw e
-    }
-    if (must) {
-      rerender(r => !r)
-    }
-    // TODO make delay configurable
-  }, configure.verifyDebounceTime), [model, configure.actualTimeVerify])
+  const valueChangeRetimer = useRetimer()
+  const changeValue = useCallback((v: any, must = false, doVerify = configure.actualTimeVerify) => {
+    valueChangeRetimer(setTimeout(async () => {
+      const prev = valueRef.current
+      try {
+        const rv = doVerify
+          ? await valueChangeListener.current?.(v) ?? v
+          : v
+        valueRef.current = rv
+        await onChange?.(rv)
+      } catch (e) {
+        valueRef.current = prev
+        if (e instanceof ZodError) {
+          // if configure must param, then must be set value, but not emit value change out
+          if (must) {
+            valueRef.current = v
+          }
+          // TODO dispatch error resolve logic
+        } else
+          throw e
+      }
+      if (must) {
+        rerender(r => !r)
+      }
+      // TODO make delay configurable
+    }, configure.verifyDebounceTime) as unknown as number)
+  }, [
+    valueChangeRetimer,
+    configure.verifyDebounceTime,
+    configure.actualTimeVerify,
+    onChange
+  ])
 
   useImperativeHandle(ref, () => ({
     verify: async () => {
@@ -129,7 +150,7 @@ function InnerItem<M extends Schema>(props: ItemProps<M>, ref: ForwardedRef<Item
             onAction={async v => {
               switch (v) {
                 case 'reset':
-                  await changeValue(props.defaultValue, true)
+                  await changeValue(defaultValue, true)
                   break
                 case 'clear':
                   await changeValue(undefined, true)
@@ -156,7 +177,7 @@ function InnerItem<M extends Schema>(props: ItemProps<M>, ref: ForwardedRef<Item
           model={model}
           disabled={props.disabled}
           value={valueRef.current}
-          defaultValue={props.defaultValue}
+          defaultValue={defaultValue}
           onChange={changeValue}
         />
       </div>
