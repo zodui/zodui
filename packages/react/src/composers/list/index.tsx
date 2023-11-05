@@ -46,6 +46,9 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: ForwardedRef<List
     },
     reset() {
       changeValue(defaultValue ?? {})
+    },
+    watch() {
+      throw new Error('Not implemented')
     }
   }), [changeValue, defaultValue])
 

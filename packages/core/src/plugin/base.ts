@@ -24,6 +24,11 @@ export interface ComposerRef<
    * Verify the composer and return the value.
    */
   verify: () => Promise<V>
+  watch: {
+    (): V
+    <K extends keyof V>(key: K): V[K]
+    <K extends keyof V>(key: K, callback: (value: V[K]) => void): void
+  }
 }
 
 export interface ComposerProps<M extends ZodSchema> extends SchemaResolver<M> {
