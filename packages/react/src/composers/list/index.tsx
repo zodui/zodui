@@ -96,7 +96,10 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: ForwardedRef<List
         }}
         model={value}
         disabled={disabled}
-        onChange={async v => changeValue({ ...valueRef.current, [key]: v })}
+        value={valueRef.current[
+          key as keyof typeof valueRef.current
+        ]}
+        onChange={v => changeValue({ ...valueRef.current, [key]: v })}
       />)
       : <Item
         ref={ele => itemRefs.current['single'] = ele}
