@@ -65,7 +65,7 @@ export function Switcher<M extends ZodSchema>(props: SwitcherPropsForReact<M>) {
   const { model, ...rest } = props
   const { className: subClassName, ControllerClassName } = useControllerClassName()
   // props defaultValue is higher than schema defaultValue
-  // because Component is user controlled
+  // because the Component is user controlled
   // but schema defaultValue is not user controlled, so we should use props defaultValue first
   const innerDefaultValue = useDefaultValue(model)
   const defaultValue = props.defaultValue ?? innerDefaultValue
