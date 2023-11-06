@@ -3,7 +3,7 @@ import './multiple.scss'
 import type { MultipleType, TypeMap } from '@zodui/core'
 import { AllTypes, ComplexMultipleTypes, KeyEditableTypes } from '@zodui/core'
 import { getDefaultValue, isWhatType, isWhatTypes } from '@zodui/core/utils'
-import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { Fragment, useCallback, useMemo, useRef, useState } from 'react'
 import type {
   ZodArrayDef,
   ZodMapDef,
@@ -157,19 +157,22 @@ export function Multiple({
     if (value !== undefined) {
       listRef.current = value
     }
-    let v = listRef.current.reduce((acc, v, i) => ({
-      ...acc,
-      [dictKeys[i] ?? i]: v
-    }), {})
+    let v: any
     if (isWhatTypes(model, [AllTypes.ZodArray, AllTypes.ZodTuple, AllTypes.ZodSet])) {
       v = listRef.current
+    } else {
+      v = listRef.current.reduce((acc, v, i) => ({
+        ...acc,
+        [dictKeys[i] ?? i]: v
+      }), {})
     }
     onChange?.(v)
   }, [dictKeys, onChange, model])
+  // TODO check logic and if not need to remove the next lines which commented
   // emit init list value
-  useEffect(() => {
-    changeList()
-  }, [changeList])
+  // useEffect(() => {
+  //   changeList()
+  // }, [changeList])
 
   const addNewItem = useCallback((type: 'append' | 'prepend' = 'append') => {
     const l = listRef.current
