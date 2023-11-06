@@ -48,6 +48,9 @@
   &.dict, &.object, &.tuple {
     width: 284px;
   }
+  &.array:has(> .multiple-item > .zodui-controller.multiple.object) {
+    width: 588px;
+  }
 
   display: flex;
   justify-content: right;
@@ -63,7 +66,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    > .zodui-controller { width: 200px !important; }
+    > .zodui-controller {
+      width: 200px !important;
+      &.multiple.object {
+        width: 420px !important;
+        align-items: flex-end;
+      }
+    }
     > &__label {
       z-index: 10;
       position: absolute;
