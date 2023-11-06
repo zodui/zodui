@@ -29,6 +29,7 @@ export interface ComposerRef<
     <K extends keyof V>(key: K): V[K]
     <K extends keyof V>(key: K, callback: (value: V[K]) => void): void
   }
+  values: V
 }
 
 export interface ComposerProps<M extends ZodSchema> extends SchemaResolver<M> {
