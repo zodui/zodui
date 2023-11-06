@@ -7,7 +7,7 @@ import { Context } from '@zodui/core'
 import { z } from '@zodui/core/external'
 import type { ListRef } from '@zodui/react'
 import { List } from '@zodui/react'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 export default function App() {
   useEffect(() => {
@@ -15,6 +15,8 @@ export default function App() {
     return () => e0()
   }, [])
   const listRef = useRef<ListRef>()
+  const [foo, setFoo] = useState('' as string | undefined)
+  const [bar, setBar] = useState(['1', '2'])
 
   return <>
     Hello ZodUI!
@@ -25,8 +27,15 @@ export default function App() {
     <List
       ref={listRef}
       model={z.object({
-        foo: z.string().label('hi')
+        foo: z.string(),
+        bar: z.array(z.string())
       })}
+      value={{ foo, bar }}
+      onChange={v => {
+        console.log(v)
+        setFoo(v.foo)
+        setBar(v.bar)
+      }}
     />
   </>
 }
