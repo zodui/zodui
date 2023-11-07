@@ -130,7 +130,7 @@ function commonInjectOptionsData() {
     findFilesBy(targetPath, ['.ts', '.d.ts'], addDtsFileContent)
   }
 
-  importDTSFiles('zod', path.join(__dirname, '../node_modules', 'zod/lib'))
+  importDTSFiles('zod', path.join(__dirname, './node_modules', 'zod/lib'))
   importDTSFiles('@zodui/core', path.join(__dirname, '../packages/core/src'))
 
   const zoduiExternalPath = process.env.NODE_ENV === 'development'
