@@ -2,9 +2,46 @@
   "name": "@zodui/plugin-common",
   "version": "0.1.0",
   "description": "Common plugin for ZodUI",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zodui/zodui.git",
+    "directory": "packages/plugins/common"
+  },
+  "bugs": {
+    "url": "https://github.com/zodui/zodui/issues"
+  },
+  "homepage": "https://github.com/zodui/zodui",
+  "author": "YiJie <yijie4188@gmail.com>",
+  "license": "MIT",
+  "main": "dist/index.esm.js",
+  "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
+  "files": ["dist", "README.md"],
+  "exports": {
+    "./dist/*": "./dist/*",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "inner-src": "./src/index.ts"
+    },
+    "./react": {
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.esm.js",
+      "inner-src": "./src/react.tsx"
+    }
+  },
+  "scripts": {
+    "build": "rollup -c"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "@zodui/react": "workspace:^"
+  },
   "dependencies": {
+    "@zodui/core": "workspace:^"
+  },
+  "devDependencies": {
+    "@types/react": "^16.14.50",
+    "zod": "^3.21.4"
   }
 }
