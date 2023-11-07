@@ -8,6 +8,7 @@
     "build": "vite build"
   },
   "devDependencies": {
+    "rollup": "^3",
     "@rollup/plugin-virtual": "^3.0.2",
     "@types/ejs": "^3.1.2",
     "@types/marked": "^4.0.8",
@@ -19,7 +20,7 @@
     "marked": "^4.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "vite": "^4.1.4",
+    "vite": "^4.5.0",
     "vite-plugin-html": "^3.2.0",
     "vite-tsconfig-paths": "^4.0.5",
     "zod": "^3.21.4"
