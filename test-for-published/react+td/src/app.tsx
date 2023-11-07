@@ -16,7 +16,7 @@ export default function App() {
   }, [])
   const listRef = useRef<ListRef>()
   const [foo, setFoo] = useState('' as string | undefined)
-  const [bar, setBar] = useState(['1', '2'])
+  const [bar, setBar] = useState([])
 
   return <>
     Hello ZodUI!
@@ -28,7 +28,10 @@ export default function App() {
       ref={listRef}
       model={z.object({
         foo: z.string(),
-        bar: z.array(z.string())
+        bar: z.array(z.object({
+          path: z.string(),
+          type: z.string()
+        }))
       })}
       value={{ foo, bar }}
       onChange={v => {
