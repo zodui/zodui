@@ -36,7 +36,8 @@ export const monad = innerMonad as Mutable<typeof innerMonad>
 export type MonadType = (typeof monad)[number]
 
 const innerComplexTypes = [
-  AllTypes.ZodUnion
+  AllTypes.ZodUnion,
+  AllTypes.ZodDiscriminatedUnion
 ] as const
 
 export const complex = innerComplexTypes as Mutable<typeof innerComplexTypes>

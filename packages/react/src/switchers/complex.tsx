@@ -36,12 +36,18 @@ export function Complex({
   const [index, setIndex] = useState<number>(undefined)
   useEffect(() => {
     const v = value ?? defaultValue
-    const index = model.options
-      .findIndex(option => isWhatType(option, AllTypes.ZodLiteral) && option._def.value === v)
+    let index = -1
+    if (isWhatType(model, AllTypes.ZodUnion)) {
+      index = model.options
+        .findIndex(option => isWhatType(option, AllTypes.ZodLiteral) && option._def.value === v)
+    }
+    if (isWhatType(model, AllTypes.ZodDiscriminatedUnion)) {
+      console.log(model, model.options)
+    }
     if (index === -1) return
 
     setIndex(index)
-  }, [value, defaultValue, model.options])
+  }, [value, defaultValue, model.options, model])
   const props = {
     title: model._def.description,
     ...rest,
@@ -90,10 +96,15 @@ export function Complex({
     // TODO support `'' | (string & {})` type
     //      display select input
     : <>
-      <Select
-        options={options}
-        {...props}
-      />
-      {OptionRender}
+      {isWhatType(model, AllTypes.ZodUnion) && <>
+        <Select
+          options={options}
+          {...props}
+        />
+        {OptionRender}
+      </>}
+      {isWhatType(model, AllTypes.ZodDiscriminatedUnion) && <>
+        {OptionRender}
+      </>}
     </>
 }
