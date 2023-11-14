@@ -25,9 +25,6 @@ export function Monad({
       rest.onChange?.(v)
     }
   }
-  useEffect(() => {
-    setValue(rest.defaultValue || rest.value)
-  }, [rest.defaultValue, rest.value])
 
   let InnerComp: ReactElement = null
   switch (model._def.typeName) {
