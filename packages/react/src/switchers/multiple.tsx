@@ -163,11 +163,11 @@ export function Multiple({
     } else {
       v = listRef.current.reduce((acc, v, i) => ({
         ...acc,
-        [dictKeys[i] ?? i]: v
+        [dictKeys[i] ?? keys[i] ?? i]: v
       }), {})
     }
     onChange?.(v)
-  }, [dictKeys, onChange, model])
+  }, [model, onChange, dictKeys, keys])
   // TODO check logic and if not need to remove the next lines which commented
   // emit init list value
   // useEffect(() => {
