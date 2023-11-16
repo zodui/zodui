@@ -1,6 +1,6 @@
 import type { MonadType, TypeMap } from '@zodui/core'
 import type { ReactElement } from 'react'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { Input, Switch } from '../components'
 import { useCoreContextUnit } from '../hooks/useCoreContextUnit'
@@ -16,15 +16,27 @@ export function Monad({
   model,
   ...rest
 }: PrimitiveProps) {
-  const [value, setValue] = useState(() => rest.value ?? rest.defaultValue)
-  useEffect(() => setValue(rest.value), [rest.value])
+  const onChange = rest.onChange
+  const changeValue = useCallback((v: PrimitiveProps['value']) => {
+    setValue(v)
+    onChange?.(v)
+  }, [onChange])
+  const [value, setValue] = useState(rest.value ?? rest.defaultValue)
+  const isMounted = useRef(false)
+  useEffect(() => {
+    if (isMounted.current) {
+      setValue(rest.value)
+    } else {
+      isMounted.current = true
+      const nv = rest.value ?? rest.defaultValue
+      changeValue(nv)
+    }
+  }, [changeValue, rest.defaultValue, rest.value])
+
   const props = {
     ...rest,
     value,
-    onChange: (v: any) => {
-      setValue(v)
-      rest.onChange?.(v)
-    }
+    onChange: changeValue
   }
 
   let InnerComp: ReactElement = null
