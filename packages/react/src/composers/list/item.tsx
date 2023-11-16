@@ -75,8 +75,9 @@ function InnerItem<M extends Schema>(props: ItemProps<M>, ref: ForwardedRef<Item
   const { error, ErrorHandler } = useErrorHandler()
 
   const [_, rerender] = useState(false)
-  const valueRef = useRef<number>(value ?? defaultValue)
-  if (valueRef.current !== value) {
+  const [isMustSet, setIsMustSet] = useState(false)
+  const valueRef = useRef(value ?? defaultValue)
+  if (valueRef.current !== value && !isMustSet) {
     valueRef.current = value
   }
   const valueChangeListener = useRef<(v: any) => any>()
@@ -96,12 +97,14 @@ function InnerItem<M extends Schema>(props: ItemProps<M>, ref: ForwardedRef<Item
           : v
         valueRef.current = rv
         await onChange?.(rv)
+        setIsMustSet(must)
       } catch (e) {
         valueRef.current = prev
         if (e instanceof ZodError) {
           // if configure must param, then must be set value, but not emit value change out
           if (must) {
             valueRef.current = v
+            setIsMustSet(true)
           }
           // TODO dispatch error resolve logic
         } else
@@ -153,10 +156,10 @@ function InnerItem<M extends Schema>(props: ItemProps<M>, ref: ForwardedRef<Item
             onAction={async v => {
               switch (v) {
                 case 'reset':
-                  await changeValue(defaultValue, true)
+                  changeValue(defaultValue, true)
                   break
                 case 'clear':
-                  await changeValue(undefined, true)
+                  changeValue(undefined, true, false)
                   break
               }
             }}

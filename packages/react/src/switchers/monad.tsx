@@ -16,7 +16,8 @@ export function Monad({
   model,
   ...rest
 }: PrimitiveProps) {
-  const [value, setValue] = useState(rest.defaultValue || rest.value)
+  const [value, setValue] = useState(() => rest.value ?? rest.defaultValue)
+  useEffect(() => setValue(rest.value), [rest.value])
   const props = {
     ...rest,
     value,
@@ -25,7 +26,6 @@ export function Monad({
       rest.onChange?.(v)
     }
   }
-  useEffect(() => setValue(rest.value), [rest.value])
 
   let InnerComp: ReactElement = null
   switch (model._def.typeName) {
