@@ -15,8 +15,10 @@ export default function App() {
     return () => e0()
   }, [])
   const listRef = useRef<ListRef>()
-  const [foo, setFoo] = useState('' as string | undefined)
-  const [bar, setBar] = useState([])
+  const [value, setValue] = useState({
+    boz: { path: '2' },
+    bar: [{ path: '2' }]
+  })
 
   return <>
     Hello ZodUI!
@@ -27,17 +29,35 @@ export default function App() {
     <List
       ref={listRef}
       model={z.object({
-        foo: z.string(),
+        // foo: z.string(),
+        fuo: z.string().default('1'),
         bar: z.array(z.object({
           path: z.string(),
-          type: z.string()
-        }))
+          type: z.string(),
+          nums: z.number()
+        })),
+        // baz: z.union([z.string(), z.number()]),
+        // bor: z.discriminatedUnion('type', [
+        //   z.object({
+        //     path: z.string(),
+        //     type: z.literal('1')
+        //   }),
+        //   z.object({
+        //     path: z.string(),
+        //     name: z.string(),
+        //     type: z.literal('2')
+        //   })
+        // ])
+        // boz: z.object({
+        //   path: z.string(),
+        //   type: z.string()
+        // }),
+        // bkr: z.record(z.string(), z.string()),
       })}
-      value={{ foo, bar }}
+      value={value}
       onChange={v => {
         console.log(v)
-        setFoo(v.foo)
-        setBar(v.bar)
+        setValue(v)
       }}
     />
   </>

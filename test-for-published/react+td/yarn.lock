@@ -471,12 +471,28 @@
   dependencies:
     zod "^3.21.4"
 
+"@zodui/core@^0.1.2":
+  version "0.1.2"
+  resolved "https://mirrors.tencent.com/npm/@zodui/core/-/core-0.1.2.tgz#b14b5321606e60d54f23000ce9eb05e48d4a4101"
+  integrity sha512-TK7JO/SWxcjCUQJjZvVXYkw6pf5Pn2rBd1La7dJknwKXC8Cdotf8HX7Br7uxos555IfZkAxv2SF8iIhseuUtRA==
+  dependencies:
+    zod "^3.21.4"
+
 "@zodui/react@^0.1.3":
   version "0.1.4"
   resolved "https://mirrors.tencent.com/npm/@zodui/react/-/react-0.1.4.tgz#f1efc15e87a1a4cb96b59a615883aebf175140e0"
   integrity sha512-5qers75n2f+a26wvYbn7oPrFD2JSOPs4PYcxvds7nRCEK7MF82fJTMvxEAEsHtwGmAQxjKxS3qPfoG+dO+T5zw==
   dependencies:
     "@zodui/core" "^0.1.1"
+    react "^16.13.1"
+    zod "^3.21.4"
+
+"@zodui/react@^0.1.8":
+  version "0.1.10"
+  resolved "https://mirrors.tencent.com/npm/@zodui/react/-/react-0.1.10.tgz#ccd14af09e7348a03ffbe7d33b71403b5c6650a7"
+  integrity sha512-dlxzCeEZ2uCb7ULi24lGUiH58NE3WCw3CiCA3lXwOg2ITenEKUeb7XKill2cZYLqgk7zDR68Bf6J3lI64JHxVA==
+  dependencies:
+    "@zodui/core" "^0.1.2"
     react "^16.13.1"
     zod "^3.21.4"
 

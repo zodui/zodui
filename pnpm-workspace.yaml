@@ -1,5 +1,6 @@
 packages:
   - 'demo'
+  - 'site'
   - 'packages/*'
   - 'packages/components-lib/*'
   - 'packages/plugins/*'

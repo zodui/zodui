@@ -10,7 +10,7 @@
     "@types/react-dom": "^16.9.21",
     "@vitejs/plugin-react": "^4.1.1",
     "@zodui/components-lib-tdesign": "^0.1.1",
-    "@zodui/react": "^0.1.3",
+    "@zodui/react": "^0.1.10",
     "less": "^4.2.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
