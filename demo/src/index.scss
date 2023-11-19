@@ -101,6 +101,7 @@ main.home {
     > h1 {
       position: relative;
       font-size: 12rem;
+      user-select: none;
       > span {
         color: #3E67B1;
       }
