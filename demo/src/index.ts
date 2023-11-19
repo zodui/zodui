@@ -21,11 +21,11 @@ let page = 0
 main.addEventListener('scroll', () => {
   const progress = Math.round((
     main.scrollTop / (main.scrollHeight - main.clientHeight)
-  ) * 40) / 40
-  main.style.setProperty('--progress', progress.toString())
-  // 判断整数
-  if (progress === Math.floor(progress)) {
-    page = progress
-    main.setAttribute('data-page', progress.toString())
+  ) * 1000) / 1000
+  const np = progress * (pList.length - 1)
+  main.style.setProperty('--page', np.toString())
+  if (np === Math.floor(np)) {
+    page = np
+    main.setAttribute('data-page', page.toString())
   }
 })

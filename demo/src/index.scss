@@ -38,10 +38,12 @@ main.home {
   &::-webkit-scrollbar {
     display: none;
   }
-  &[data-page="1"] {
+  &:not([data-page="0"]) {
     > .p1 > .start-button {
       pointer-events: none;
     }
+  }
+  &[data-page="2"] {
   }
   > .p1, .p2, .p3, .p4, .p5 {
     scroll-snap-align: center;
@@ -116,19 +118,19 @@ main.home {
       align-items: start;
       justify-content: center;
       position: fixed;
-      bottom: calc(100px + var(--progress) * 80%);
+      bottom: calc(100px + var(--page) * 80%);
       filter: drop-shadow(0 2px #3E67B1);
       font-size: 20px;
       font-weight: bold;
       user-select: none;
       cursor: pointer;
       transform:
-        scale(calc(10 * var(--progress) + 1));
+        scale(calc(10 * var(--page) + 1));
       transition: .05s;
       > span.content {
         z-index: 2;
         color: #cfd7ea;
-        opacity: calc(1 - var(--progress));
+        opacity: calc(1 - var(--page));
         transition: .05s;
       }
       > .zod {
