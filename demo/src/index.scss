@@ -162,13 +162,17 @@ main.home {
   > .p2 {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
     gap: 20px;
-    padding: 200px 80px;
+    padding: 0 80px;
     width: calc(100% - 160px);
-    height: calc(100vh - 400px);
+    height: 100vh;
     > section {
+      flex-grow: 1;
       position: relative;
-      width: calc(25% - 30px / 4 - 50px - 4px);
+      min-width: 200px;
       padding: 20px;
       height: 150px;
       border: 2px solid #3335;
