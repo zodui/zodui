@@ -29,7 +29,8 @@ main.home {
   color: #333;
   background-image: linear-gradient(120deg, #cfd7ea 20%, #a1c4fd 80%);
 
-  overflow: overlay;
+  overflow-y: overlay;
+  overflow-x: hidden;
   scroll-behavior: smooth;
   scroll-snap-type: y mandatory;
   -ms-overflow-style: none;
@@ -115,6 +116,7 @@ main.home {
       justify-content: center;
       position: fixed;
       bottom: calc(100px + var(--progress) * 80%);
+      filter: drop-shadow(0 2px #3E67B1);
       font-size: 20px;
       font-weight: bold;
       user-select: none;
@@ -141,7 +143,7 @@ main.home {
           height: 20px;
           border-left: 30px solid transparent;
           border-right: 30px solid transparent;
-          border-bottom: 20px solid #3E67B1;
+          border-bottom: 20px solid #18263f;
         }
         > .zod-bottom {
           z-index: 1;
@@ -149,7 +151,7 @@ main.home {
           top: 0;
           width: 0;
           height: 60px;
-          border-top: 60px solid #3E67B1;
+          border-top: 60px solid #18263f;
           border-left: 50px solid transparent;
           border-right: 50px solid transparent;
         }
