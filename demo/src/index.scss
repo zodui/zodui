@@ -22,21 +22,33 @@ html[theme-mode='dark'] main > .p1 {
     }
   }
 }
-main {
-  display: flex;
+main.home {
+  margin-top: -60px;
+  height: 100vh;
+
+  color: #333;
+  background-image: linear-gradient(120deg, #cfd7ea 20%, #a1c4fd 80%);
+
+  overflow: overlay;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  > .p1, .p2, .p3, .p4, .p5 {
+    scroll-snap-align: center;
+    width: 100%;
+    height: 100vh;
+  }
   > .p1 {
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: -60px;
-    width: 100%;
-    height: calc(100% + 60px);
-    color: #333;
-    background-image: linear-gradient(120deg, #cfd7ea 20%, #a1c4fd 80%);
-    overflow: hidden;
-    transition: .3s;
+    transition: .1s;
     > h1 {
       position: relative;
       font-size: 100px;
@@ -89,6 +101,69 @@ main {
           border-left: 50px solid transparent;
           border-right: 50px solid transparent;
         }
+      }
+    }
+  }
+  > .p2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 200px 80px;
+    width: calc(100% - 160px);
+    height: calc(100vh - 400px);
+    > section {
+      position: relative;
+      width: calc(25% - 30px / 4 - 50px);
+      padding: 20px;
+      height: 150px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 6px 16px #3333;
+      opacity: .8;
+      backdrop-filter: blur(16px);
+      overflow: hidden;
+      transition: .3s;
+      &:hover {
+        opacity: 1;
+        box-shadow: 0 6px 16px #3335;
+      }
+      &:nth-child(1) {
+        background-image: linear-gradient(140deg, #fff 65%, #f5e2c9);
+      }
+      &:nth-child(2) {
+        background-image: linear-gradient(140deg, #fff 65%, #a8eaf5);
+      }
+      &:nth-child(3) {
+        background-image: linear-gradient(140deg, #fff 65%, #84dafa);
+      }
+      &:nth-child(4) {
+        background-image: linear-gradient(140deg, #fff 65%, #ceefb7);
+      }
+      &:nth-child(5) {
+        background-image: linear-gradient(140deg, #fff 65%, #fce2e2);
+      }
+      &:nth-child(6) {
+        background-image: linear-gradient(140deg, #fff 65%, #f5f5f5);
+      }
+      &:nth-child(7) {
+        background-image: linear-gradient(140deg, #fff 65%, #f5f5f5);
+      }
+      &:nth-child(8) {
+        background-image: linear-gradient(140deg, #fff 65%, #f5f5f5);
+      }
+      > h2 {
+        margin: 0;
+        font-size: 20px;
+      }
+      > p {
+        color: #888;
+      }
+      > span.bg-icon {
+        position: absolute;
+        bottom: -20px;
+        right: -20px;
+        opacity: .2;
+        font-size: 100px;
       }
     }
   }
