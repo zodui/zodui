@@ -21,8 +21,10 @@ let page = 0
 main.addEventListener('scroll', () => {
   const progress = Math.round((
     main.scrollTop / (main.scrollHeight - main.clientHeight)
-  ) * 1000) / 1000
-  const np = progress * (pList.length - 1)
+  ) * 100) / 100
+  let np = progress * (pList.length - 1)
+  if (np < 0.05) np = 0
+
   main.style.setProperty('--page', np.toString())
   if (np === Math.floor(np)) {
     page = np

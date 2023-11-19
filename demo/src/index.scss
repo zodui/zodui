@@ -43,7 +43,20 @@ main.home {
       pointer-events: none;
     }
   }
+  &[data-page="1"], &[data-page="2"] {
+    > .p2 {
+      pointer-events: none;
+      > section:not(:nth-child(1)) {
+        opacity: calc(2 - var(--page));
+      }
+    }
+  }
   &[data-page="2"] {
+    > .p2 > section:nth-child(1) {
+      background-image: none;
+      border: 2px solid transparent;
+      box-shadow: 0 0 0 transparent;
+    }
   }
   > .p1, .p2, .p3, .p4, .p5 {
     scroll-snap-align: center;
@@ -162,6 +175,9 @@ main.home {
     }
   }
   > .p2 {
+    position: sticky;
+    top: 0;
+
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
