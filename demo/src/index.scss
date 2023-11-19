@@ -37,6 +37,11 @@ main.home {
   &::-webkit-scrollbar {
     display: none;
   }
+  &[data-page="1"] {
+    > .p1 > .start-button {
+      pointer-events: none;
+    }
+  }
   > .p1, .p2, .p3, .p4, .p5 {
     scroll-snap-align: center;
     width: 100%;
@@ -94,30 +99,34 @@ main.home {
     }
     > h1 {
       position: relative;
-      font-size: 100px;
+      font-size: 12rem;
       > span {
         color: #3E67B1;
       }
       > pre.slogan {
         position: absolute;
         right: 0;
-        font-size: 1rem;
+        font-size: 1.5rem;
       }
     }
     > .start-button {
       display: flex;
       align-items: start;
       justify-content: center;
-      position: absolute;
-      bottom: 100px;
+      position: fixed;
+      bottom: calc(100px + var(--progress) * 80%);
       font-size: 20px;
       font-weight: bold;
       user-select: none;
       cursor: pointer;
+      transform:
+        scale(calc(10 * var(--progress) + 1));
+      transition: .05s;
       > span.content {
-        color: #cfd7ea;
         z-index: 2;
-        transition: .3s;
+        color: #cfd7ea;
+        opacity: calc(1 - var(--progress));
+        transition: .05s;
       }
       > .zod {
         position: absolute;
@@ -156,50 +165,49 @@ main.home {
     height: calc(100vh - 400px);
     > section {
       position: relative;
-      width: calc(25% - 30px / 4 - 50px);
+      width: calc(25% - 30px / 4 - 50px - 4px);
       padding: 20px;
       height: 150px;
-      background-color: #fff;
+      border: 2px solid #3335;
       border-radius: 10px;
       box-shadow: 0 6px 16px #3333;
-      opacity: .8;
-      backdrop-filter: blur(16px);
+      backdrop-filter: blur(4px);
       overflow: hidden;
       transition: .3s;
       &:hover {
-        opacity: 1;
         box-shadow: 0 6px 16px #3335;
       }
       &:nth-child(1) {
-        background-image: linear-gradient(140deg, #fff 65%, #f5e2c9);
+        background-image: linear-gradient(140deg, #ffffffef 65%, #f5e2c9aa);
       }
       &:nth-child(2) {
-        background-image: linear-gradient(140deg, #fff 65%, #a8eaf5);
+        background-image: linear-gradient(140deg, #ffffffef 65%, #a8eaf5aa);
       }
       &:nth-child(3) {
-        background-image: linear-gradient(140deg, #fff 65%, #84dafa);
+        background-image: linear-gradient(140deg, #ffffffef 65%, #84dafaaa);
       }
       &:nth-child(4) {
-        background-image: linear-gradient(140deg, #fff 65%, #ceefb7);
+        background-image: linear-gradient(140deg, #ffffffef 65%, #ceefb7aa);
       }
       &:nth-child(5) {
-        background-image: linear-gradient(140deg, #fff 65%, #fce2e2);
+        background-image: linear-gradient(140deg, #ffffffef 65%, #fce2e2aa);
       }
       &:nth-child(6) {
-        background-image: linear-gradient(140deg, #fff 65%, #f5f5f5);
+        background-image: linear-gradient(140deg, #ffffffef 65%, #f5f5f5aa);
       }
       &:nth-child(7) {
-        background-image: linear-gradient(140deg, #fff 65%, #f5f5f5);
+        background-image: linear-gradient(140deg, #ffffffef 65%, #f5f5f5aa);
       }
       &:nth-child(8) {
-        background-image: linear-gradient(140deg, #fff 65%, #f5f5f5);
+        background-image: linear-gradient(140deg, #ffffffef 65%, #f5f5f5aa);
       }
       > h2 {
         margin: 0;
-        font-size: 20px;
+        font-size: 2em;
       }
       > p {
         color: #888;
+        font-size: 1.5em;
       }
       > span.bg-icon {
         position: absolute;
