@@ -22,17 +22,6 @@ html[theme-mode='dark'] main > .p1 {
     }
   }
 }
-@keyframes upAndDown {
-  0% {
-    bottom: 90px;
-  }
-  50% {
-    bottom: 120px;
-  }
-  100% {
-    bottom: 90px;
-  }
-}
 main {
   display: flex;
   > .p1 {
@@ -41,8 +30,9 @@ main {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    margin-top: -60px;
     width: 100%;
-    height: 100%;
+    height: calc(100% + 60px);
     color: #333;
     background-image: linear-gradient(120deg, #cfd7ea 20%, #a1c4fd 80%);
     overflow: hidden;
@@ -69,10 +59,6 @@ main {
       font-weight: bold;
       user-select: none;
       cursor: pointer;
-      animation: upAndDown 1s infinite;
-      &:hover {
-        animation-play-state: paused;
-      }
       > span.content {
         color: #cfd7ea;
         z-index: 2;
@@ -103,11 +89,6 @@ main {
           border-left: 50px solid transparent;
           border-right: 50px solid transparent;
         }
-      }
-      &:hover > .zod {
-        left: calc(-25px * 2);
-        transform: scale(1.5);
-        filter: drop-shadow(0 0 16px #7796e3);
       }
     }
   }

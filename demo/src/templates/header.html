@@ -5,6 +5,7 @@
   }
 
   #header {
+    z-index: 1;
     position: absolute;
     top: 0;
     left: 0;
@@ -14,54 +15,13 @@
     padding: 5px 30px;
     width: calc(100vw - 60px);
     height: 50px;
-    background-color: #3E67B1;
-    box-shadow: 0 0 10px gray;
+    background-color: #3E67B100;
     transition: .3s;
     overflow: hidden;
   }
   #header > .header-left {
     display: flex;
     align-items: center;
-    gap: 80px;
-  }
-  #header > .header-left > .tabs {
-    position: relative;
-    display: flex;
-    gap: 20px;
-    height: 100%;
-    color: white;
-    font-size: 16px;
-  }
-  #header > .header-left > .tabs > .active-bar {
-    position: absolute;
-    bottom: -25px;
-    left: 0;
-    width: 100px;
-    height: 5px;
-    background-color: #6f92e3;
-    transition: .3s;
-  }
-  #header > .header-left > .tabs > .tab {
-    width: 100px;
-    text-align: center;
-    user-select: none;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: .3s;
-  }
-  #header > .header-left > .tabs > .tab > a {
-    color: white;
-    text-decoration: none;
-  }
-  #header > .header-left > a:active,
-  #header > .header-left > a:hover {
-  }
-  #header > .header-left > .tabs > .tab.disabled {
-    cursor: not-allowed;
-  }
-  #header > .header-left > .tabs > .tab:not(.disabled):hover {
-    text-shadow: 0 0 16px lightgray;
   }
   #header > .header-left > a {
     display: flex;
@@ -75,6 +35,48 @@
   #header > .header-left > a:active,
   #header > .header-left > a:hover {
     text-shadow: 0 0 16px lightgray;
+  }
+  #header > .header-left > .tabs {
+    position: relative;
+    display: flex;
+    gap: 20px;
+    height: 100%;
+    color: #888;
+    font-size: 16px;
+  }
+  #header > .header-left > .tabs > .active-bar {
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    width: 100px;
+    height: 5px;
+    background-color: #6f92e3;
+    transition: .3s;
+  }
+  #header > .header-left > .tabs > .tab {
+    padding: 4px;
+    width: 100px;
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: .3s;
+  }
+  #header > .header-left > .tabs > .tab.disabled {
+    cursor: not-allowed;
+  }
+  #header > .header-left > .tabs > .tab:not(.disabled) {
+    color: #333;
+  }
+  #header > .header-left > .tabs > .tab:not(.disabled):hover {
+    color: #0648b7;
+    background-color: white;
+    border-radius: 4px;
+  }
+  #header > .header-left > .tabs > .tab > a {
+    color: inherit;
+    text-decoration: none;
   }
 
   #header > .header-right {
@@ -95,8 +97,6 @@
            width='48'
            height='48'
       >
-      &nbsp;
-      Zod&nbsp;<span style='color: white'>UI</span>
     </a>
     <div class='tabs'>
       <div class='active-bar'></div>
@@ -131,7 +131,7 @@
     const index = window.TABS.findIndex(t => t.href === window.location.pathname)
     if (index > -1) {
       activeBar.style.bottom = '-20px'
-      activeBar.style.left = `${index * 120}px`
+      activeBar.style.left = `${index * 130}px`
     }
   })
 </script>
