@@ -172,8 +172,9 @@ main.home {
     > section {
       flex-grow: 1;
       position: relative;
-      min-width: 200px;
       padding: 20px;
+      min-width: 200px;
+      width: 400px;
       height: 150px;
       border: 2px solid #3335;
       border-radius: 10px;
