@@ -49,6 +49,48 @@ main.home {
     align-items: center;
     justify-content: center;
     transition: .1s;
+    > .form, .code {
+      position: absolute;
+      opacity: .8;
+      border-radius: 8px;
+      box-shadow: 0 6px 16px #3333;
+      transition: .3s;
+      &:hover {
+        &::before {
+          backdrop-filter: blur(0px);
+        }
+      }
+      &::before {
+        content: '';
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        width: calc(100% + 10px);
+        height: calc(100% + 10px);
+        background-image: radial-gradient(#fff5 10%, #fff0);
+        backdrop-filter: blur(4px);
+      }
+      img { border-radius: 8px }
+    }
+    > .form {
+      right: -100px;
+      bottom: -60px;
+      transform: rotateX(20deg) rotateY(-40deg) rotateZ(10deg);
+      &:hover {
+        right: 30px;
+        transform: rotateX(0) rotateY(0) rotateZ(5deg);
+      }
+    }
+    > .code {
+      left: -50px;
+      bottom: -60px;
+      transform: rotateX(20deg) rotateY(40deg) rotateZ(-10deg);
+      &:hover {
+        left: 30px;
+        bottom: -20px;
+        transform: rotateX(0) rotateY(0) rotateZ(-5deg);
+      }
+    }
     > h1 {
       position: relative;
       font-size: 100px;
