@@ -63,7 +63,6 @@ function updateTransformStyle(x: string, y: string) {
 }
 function update(e: MouseEvent) {
   mouse.update(e)
-  console.log(logo.offsetHeight, logo.offsetWidth, mouse.x, mouse.y)
   updateTransformStyle(
     (mouse.y / logo.offsetHeight / 2).toFixed(2),
     (mouse.x / logo.offsetWidth / 2).toFixed(2)
