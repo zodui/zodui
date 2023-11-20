@@ -193,8 +193,8 @@ main.home {
       padding: 20px;
       min-width: 200px;
       width: 400px;
-      height: 150px;
-      border: 2px solid #3335;
+      height: 120px;
+      border: 2px solid #fff5;
       border-radius: 10px;
       box-shadow: 0 6px 16px #3333;
       backdrop-filter: blur(4px);
@@ -237,10 +237,10 @@ main.home {
       }
       > span.bg-icon {
         position: absolute;
-        bottom: -20px;
+        bottom: -40px;
         right: -20px;
         opacity: .2;
-        font-size: 100px;
+        font-size: 120px;
       }
     }
   }
