@@ -97,7 +97,7 @@ main.home {
     > .form {
       right: -100px;
       bottom: -60px;
-      transform: rotateX(20deg) rotateY(-40deg) rotateZ(10deg);
+      transform: rotateX(20deg) rotateY(-30deg) rotateZ(15deg);
       &:hover {
         right: 30px;
         transform: rotateX(0) rotateY(0) rotateZ(5deg);
@@ -106,7 +106,7 @@ main.home {
     > .code {
       left: -50px;
       bottom: -60px;
-      transform: rotateX(20deg) rotateY(40deg) rotateZ(-10deg);
+      transform: rotateX(20deg) rotateY(40deg) rotateZ(-15deg);
       &:hover {
         left: 30px;
         bottom: -20px;
