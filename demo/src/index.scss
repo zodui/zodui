@@ -113,6 +113,13 @@ main.home {
         transform: rotateX(0) rotateY(0) rotateZ(-5deg);
       }
     }
+    > img.favicon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -140%);
+      width: 256px;
+    }
     > h1 {
       position: relative;
       font-size: 12rem;
