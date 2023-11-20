@@ -31,3 +31,48 @@ main.addEventListener('scroll', () => {
     main.setAttribute('data-page', page.toString())
   }
 })
+
+const logo = document.querySelector<HTMLDivElement>('.p1 > .logo')
+const favicon = logo.querySelector<HTMLLinkElement>('img')
+
+const mouse = {
+  x: 0,
+  y: 0,
+  _x: 0,
+  _y: 0,
+  update(event: MouseEvent) {
+    this.x = this._x - event.offsetX
+    this.y = event.offsetY - this._y
+  },
+  setOrigin(e: HTMLElement) {
+    this._x = e.offsetWidth / 2
+    this._y = e.offsetHeight / 2
+  }
+}
+mouse.setOrigin(logo)
+let counter = 0
+function isTimeToChange() {
+  return counter++ % 10 === 0
+}
+function updateTransformStyle(x: string, y: string) {
+  const style = `rotateX(${x}deg) rotateY(${y}deg)`
+  ;['transform', '-webkit-transform', '-moz-transform', '-ms-transform', '-o-transform']
+    .forEach(p => {
+      favicon.style.setProperty(p, style)
+    })
+}
+function update(e: MouseEvent) {
+  mouse.update(e)
+  console.log(logo.offsetHeight, logo.offsetWidth, mouse.x, mouse.y)
+  updateTransformStyle(
+    (mouse.y / logo.offsetHeight / 2).toFixed(2),
+    (mouse.x / logo.offsetWidth / 2).toFixed(2)
+  )
+}
+logo.addEventListener('mouseenter', update)
+logo.addEventListener('mouseleave', () => {
+  favicon.style.setProperty('transform', 'none')
+})
+logo.addEventListener('mousemove', e => {
+  if (isTimeToChange()) update(e)
+})
