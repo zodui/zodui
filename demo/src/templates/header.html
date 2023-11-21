@@ -1,6 +1,6 @@
 <style data-name='header'>
   html[theme-mode='dark'] #header {
-    background-color: #31518c11;
+    background-color: #31518c;
   }
 
   #header {
@@ -14,7 +14,7 @@
     padding: 5px 30px;
     width: calc(100vw - 60px);
     height: 50px;
-    background-color: #3E67B100;
+    background-color: #3E67B1;
     backdrop-filter: blur(10px);
     transition: .3s;
     overflow: hidden;
@@ -27,22 +27,15 @@
   #header > .header-left > a {
     display: flex;
     align-items: center;
-    font-size: 20px;
-    font-weight: bold;
     text-decoration: none;
-    color: #18263F;
     transition: .3s;
-  }
-  #header > .header-left > a:active,
-  #header > .header-left > a:hover {
-    text-shadow: 0 0 16px lightgray;
   }
   #header > .header-left > .tabs {
     position: relative;
     display: flex;
     gap: 20px;
     height: 100%;
-    color: #888;
+    color: #aaa;
     font-size: 16px;
   }
   #header > .header-left > .tabs > .active-bar {
@@ -68,11 +61,11 @@
     cursor: not-allowed;
   }
   #header > .header-left > .tabs > .tab:not(.disabled) {
-    color: #333;
+    color: #ddd;
   }
   #header > .header-left > .tabs > .tab:not(.disabled):hover {
-    color: #0648b7;
-    background-color: white;
+    color: #0648b7 !important;
+    background-color: #fffa;
     border-radius: 4px;
   }
   #header > .header-left > .tabs > .tab > a {

@@ -1,3 +1,23 @@
+html[theme-mode='dark'] #header {
+  background-color: #31518c11 !important;
+  > .header-left > .tabs {
+    color: #666 !important;
+  }
+  > .header-left > .tabs > .tab:not(.disabled) {
+    color: #aaa !important;
+    &:hover { color: #0648b7 !important }
+  }
+}
+#header {
+  background-color: #3E67B100 !important;
+  > .header-left > .tabs {
+    color: #888 !important;
+  }
+  > .header-left > .tabs > .tab:not(.disabled) {
+    color: #666 !important;
+  }
+}
+
 html[theme-mode='dark'] main > .p1 {
   color: #ccc;
   background-image: linear-gradient(120deg, #1d3259 20%, #354e7e 80%);
