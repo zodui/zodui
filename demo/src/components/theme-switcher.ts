@@ -38,19 +38,28 @@ window
     updateTheme(mediaQueryListEvent.matches ? 'dark' : '')
   })
 
-const themeSwitches = document.querySelectorAll<HTMLDivElement>('.theme-switch')
+const themeSwitcher = document.querySelector<HTMLDivElement>('.theme-switcher')
+themeSwitcher.addEventListener('click', e => {
+  const target = e.target
+  if (target instanceof HTMLElement || target instanceof SVGElement) {
+    if (target.closest('.dark-and-light')) {
+      const auto = themeSwitcher.querySelector('.auto') as HTMLDivElement
+      auto.classList.remove('active')
 
-themeSwitches.forEach(themeSwitch => {
-  themeSwitch.dataset.mode = localStorage.getItem(THEME_STORE_KEY) ?? 'auto'
-
-  updateTheme()
-  themeSwitch.addEventListener('click', function (e) {
-    let switchChild = e.target as HTMLElement
-    while (switchChild.parentNode !== this) {
-      switchChild = switchChild.parentNode as HTMLElement
+      const darkAndLight = target.closest('.dark-and-light') as HTMLDivElement
+      const mode = {
+        dark: 'light',
+        light: 'dark'
+      }[darkAndLight.dataset.mode]
+      darkAndLight.dataset.mode = mode
+      localStorage.setItem(THEME_STORE_KEY, mode)
+      updateTheme(mode)
     }
-    themeSwitch.dataset.mode = switchChild.dataset.mode
-    localStorage.setItem(THEME_STORE_KEY, switchChild.dataset.mode ?? 'auto')
-    updateTheme()
-  })
+    if (target.closest('.auto')) {
+      const auto = target.closest('.auto') as HTMLDivElement
+      auto.classList.toggle('active')
+      localStorage.setItem(THEME_STORE_KEY, auto.dataset.mode)
+      updateTheme()
+    }
+  }
 })
