@@ -90,12 +90,13 @@ const ejsOptions: EJSOptions = {
   }
 }
 
-const docsPages: Exclude<Parameters<typeof createHtmlPlugin>[0], undefined>['pages'] = []
+const documentsContent = fs.readFileSync(path.resolve(__dirname, './src/docs.html'), 'utf-8')
+const documentsPages: Exclude<Parameters<typeof createHtmlPlugin>[0], undefined>['pages'] = []
 {
-  const docsPath = path.resolve(__dirname, './docs')
-  findFilesBy(docsPath, ['.md'], filePath => {
-    const docFilePath = path.relative(docsPath, filePath)
-    docsPages.push({
+  const documentsBasePath = path.resolve(__dirname, './docs')
+  findFilesBy(documentsBasePath, ['.md'], filePath => {
+    const docFilePath = path.relative(documentsBasePath, filePath)
+    documentsPages.push({
       filename: `docs/${
         docFilePath.replace(/\.md$/, '')
       }`,
@@ -191,14 +192,11 @@ export default defineConfig({
   plugins: [
     react(),
     tsconfigPaths(),
-    process.env.NODE_ENV !== 'development' ? (() => {
-      const docsContent = fs.readFileSync(path.resolve(__dirname, './src/docs.html'), 'utf-8')
-      return virtual({
-        'docs/guide/index.html': docsContent,
-        'docs/guide/monad.html': docsContent,
-        'docs/main.html': docsContent
-      })
-    })() : [],
+    process.env.NODE_ENV !== 'development' && virtual({
+      'docs/guide/index.html': documentsContent,
+      'docs/guide/monad.html': documentsContent,
+      'docs/main.html': documentsContent
+    }),
     createHtmlPlugin({
       pages: [
         {
@@ -228,7 +226,7 @@ export default defineConfig({
               ejsOptions
             }
           })),
-        ...docsPages
+        ...documentsPages
       ]
     })
   ]
