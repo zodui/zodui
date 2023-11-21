@@ -183,6 +183,7 @@ export default defineConfig({
     }, process.env.NODE_ENV !== 'development' ? {
       external: ['zod', 'zodui/external'],
       input: {
+        // TODO generate by documentsPages
         'docs/guide/index': 'docs/guide/index.html',
         'docs/guide/monad': 'docs/guide/monad.html',
         'docs/main': 'docs/main.html'
