@@ -55,6 +55,7 @@ export function docsTemplateRender(p: string) {
       </li>`).join('')
   }</ul>`.trim()
   return `
+    <div class='left-panel'></div>
     <div class='container'>
       <div class='markdown-body'>
         ${marked(content)}
