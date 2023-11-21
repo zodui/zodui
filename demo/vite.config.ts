@@ -16,6 +16,9 @@ import Preview from './src/builder/marked-plugins/preview'
 
 const ZOD_EXTERNAL_FILE_PATH = path.join(__dirname, '../packages/core/src/external.ts')
 
+// TODO left documents tree panel
+// TODO bottom help us improve this page, such as edit in github, create issue, etc.
+// TODO bottom next and prev
 MD_PLUGIN.push(Preview, Header)
 
 function findFilesBy(
