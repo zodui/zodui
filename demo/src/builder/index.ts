@@ -39,25 +39,31 @@ export function docsTemplateRender(p: string) {
     title: string
     children?: Record<string, string>
   }>)
-  const menuHTML = `<ul class='menu'>
+  const menuHTML = `
+  <ul class='menu'>
+    <h4>菜单</h4>
     ${Object.entries(menu).map(([title, { href, children }]) => `
       <li class='menu-item'>
         <a href='#${href}'>${title}</a>
         ${
-          children && Object.keys(children).length > 0 ? `<ul class='menu-sub'>${
-            Object.entries(children)
-              .map(([title, href]) => `<li class='menu-sub-item'><a href='#${href}'>${title}</a></li>`)
-              .join('')
-          }</ul>` : ''
-        }
+    children && Object.keys(children).length > 0 ? `<ul class='menu-sub'>${
+      Object.entries(children)
+        .map(([title, href]) => `<li class='menu-sub-item'><a href='#${href}'>${title}</a></li>`)
+        .join('')
+    }</ul>` : ''
+  }
       </li>`).join('')
-    }</ul>`
+  }</ul>`.trim()
   return `
-    <div class='markdown-body'>
-      ${marked(content)}
+    <div class='container'>
+      <div class='markdown-body'>
+        ${marked(content)}
+      </div>
+      <div class='comments'></div>
+      <div class='report'></div>
+      <div class='edit-in-github'></div>
     </div>
     ${menuHTML}
-    <div style='min-height: 50%' class='comments'></div>
   `.trim()
 }
 

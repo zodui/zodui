@@ -8,6 +8,8 @@ div.zodui-preview {
   --bg-color: #3E67B1;
   --bg-hover-color: #3A4F7A;
   --fr-color: #F5F5F5;
+
+  display: flex;
   position: relative;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -47,8 +49,8 @@ div.zodui-preview {
     }
   }
   > .wrap {
+    flex-grow: 1;
     position: relative;
-    height: 100%;
     border-radius: 4px;
     overflow: hidden;
     > .exchange {
