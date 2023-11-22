@@ -15,6 +15,7 @@ div.zodui-preview {
   margin-bottom: 20px;
   min-height: 330px;
   > .draw-bar {
+    z-index: 1;
     display: flex;
     gap: 10px;
     padding: 8px;
@@ -49,6 +50,7 @@ div.zodui-preview {
     }
   }
   > .wrap {
+    z-index: 2;
     flex-grow: 1;
     position: relative;
     border-radius: 4px;
