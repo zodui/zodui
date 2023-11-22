@@ -46,12 +46,12 @@ export function docsTemplateRender(p: string) {
       <li class='menu-item'>
         <a href='#${href}'>${title}</a>
         ${
-    children && Object.keys(children).length > 0 ? `<ul class='menu-sub'>${
-      Object.entries(children)
-        .map(([title, href]) => `<li class='menu-sub-item'><a href='#${href}'>${title}</a></li>`)
-        .join('')
-    }</ul>` : ''
-  }
+          children && Object.keys(children).length > 0 ? `<ul class='menu-sub'>${
+            Object.entries(children)
+              .map(([title, href]) => `<li class='menu-sub-item'><a href='#${href}'>${title}</a></li>`)
+              .join('')
+          }</ul>` : ''
+        }
       </li>`).join('')
   }</ul>`.trim()
   return `

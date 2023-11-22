@@ -1,8 +1,8 @@
 html[theme-mode='dark'] body > main {
   background-color: #1c1c1c !important;
-}
-html[theme-mode='dark'] body > main > .menu {
-  color: lightgrey;
+  > .menu {
+    color: lightgrey;
+  }
 }
 body > main {
   --padding: 100px;
@@ -13,6 +13,7 @@ body > main {
   width: calc(100% - var(--padding) * 2);
   color: #2d2d2d;
   overflow: overlay;
+  scroll-behavior: smooth;
   background-image: none !important;
   background-color: #ededed !important;
   > div.left-panel {
@@ -55,8 +56,17 @@ body > main {
     min-width: 300px;
     color: #4d4d4d;
     > h4 { margin-top: 0; }
-    > li {
+    ul {
+      padding-inline-start: 20px;
+    }
+    li {
       list-style: none;
+      box-sizing: border-box;
+      border-left: 2px solid transparent;
+      &.active {
+        font-weight: bold;
+        border-left: 2px solid #3E67B1;
+      }
     }
     a {
       display: block;
