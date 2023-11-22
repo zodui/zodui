@@ -22,7 +22,7 @@ div.zodui-preview {
     position: absolute;
     top: calc(100% - 50px);
     right: -36px;
-    width: 126px;
+    width: 160px;
     height: 24px;
     background-color: var(--bg-color);
     color: var(--fr-color);
@@ -32,7 +32,7 @@ div.zodui-preview {
       background-color: var(--bg-hover-color);
     }
     &.display {
-      right: -142px;
+      right: -176px;
       > .icon[data-key="open/close"] {
         transform: rotate(180deg);
       }
