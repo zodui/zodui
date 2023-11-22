@@ -188,7 +188,6 @@ export default defineConfig({
       input: {
         // TODO generate by documentsPages
         'docs/guide/index': 'docs/guide/index.html',
-        'docs/guide/monad': 'docs/guide/monad.html',
         'docs/main': 'docs/main.html'
       }
     } : {})
@@ -198,7 +197,6 @@ export default defineConfig({
     tsconfigPaths(),
     process.env.NODE_ENV !== 'development' && virtual({
       'docs/guide/index.html': documentsContent,
-      'docs/guide/monad.html': documentsContent,
       'docs/main.html': documentsContent
     }),
     createHtmlPlugin({
