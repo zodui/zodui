@@ -1,8 +1,10 @@
 import './header.client.scss'
 
-const hash = location.hash ? decodeURIComponent(location.hash) : null
-let menuItem: HTMLLIElement | null = null
+const main = document.querySelector<HTMLDivElement>('body > main')
 const menu = document.querySelector('ul.menu')
+let menuItem: HTMLLIElement | null = null
+
+const hash = location.hash ? decodeURIComponent(location.hash) : null
 
 document.querySelectorAll<HTMLDivElement>('.anchor-point')
   .forEach(e => {
@@ -17,14 +19,34 @@ document.querySelectorAll<HTMLDivElement>('.anchor-point')
     }
   })
 
-addEventListener('hashchange', () => {
-  if (!location.hash) return
+function throttle<T extends (...args: any[]) => any>(fn: T, delay: number) {
+  let last = 0
+  return function (...args: Parameters<T>) {
+    const now = Date.now()
+    if (now - last > delay) {
+      fn(...args)
+      last = now
+    }
+  }
+}
 
-  const hash = decodeURIComponent(location.hash)
-  const newMenuItem = menu.querySelector(`a[href="${hash}"]`).parentElement as HTMLLIElement
+main.addEventListener('scroll', throttle(() => {
+  const anchors = document.querySelectorAll<HTMLDivElement>('.anchor-point')
+  let activeAnchor: HTMLDivElement | null = null
+  for (let i = 0; i < anchors.length; i++) {
+    const anchor = anchors[i]
+    const rect = anchor.getBoundingClientRect()
+    if (rect.top < 124) {
+      activeAnchor = anchor
+    } else {
+      break
+    }
+  }
+  if (!activeAnchor) return
+  const id = activeAnchor.id
+  const newMenuItem = menu.querySelector(`a[href="#${id}"]`)?.parentElement as HTMLLIElement
   if (!newMenuItem) return
-
   menuItem?.classList.remove('active')
   newMenuItem.classList.add('active')
   menuItem = newMenuItem
-})
+}, 100))

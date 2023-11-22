@@ -10,7 +10,7 @@ export default defineMDPlugin({
 
     // TODO turn href to click function, inorder to smooth scroll
     return `<${tagName} class='anchor-point' id='${sluggerText}'>
-      <a href='#${sluggerText}'>#</a>
+      <a href='#${level > 1 ? sluggerText : ''}'>#</a>
       ${raw}
     </${tagName}>`
   }
