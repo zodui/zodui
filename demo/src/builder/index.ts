@@ -41,7 +41,7 @@ export function docsTemplateRender(p: string) {
   }>)
   const menuHTML = `
   <ul class='menu'>
-    <h4>菜单</h4>
+    <h3>菜单</h3>
     ${Object.entries(menu).map(([title, { href, children }]) => `
       <li class='menu-item'>
         <a href='#${href}'>${title}</a>
