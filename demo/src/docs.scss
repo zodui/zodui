@@ -1,0 +1,72 @@
+html[theme-mode='dark'] body > main {
+  background-color: #1c1c1c !important;
+}
+html[theme-mode='dark'] body > main > .menu {
+  color: lightgrey;
+}
+body > main {
+  --padding: 100px;
+
+  display: flex;
+  position: relative;
+  padding: 0 var(--padding);
+  width: calc(100% - var(--padding) * 2);
+  color: #2d2d2d;
+  overflow: overlay;
+  background-image: none !important;
+  background-color: #ededed !important;
+  > div.left-panel {
+    position: sticky;
+    top: 0;
+    min-width: 300px;
+    border-right: 1px solid #d9d9d9;
+  }
+  > div.container {
+    position: relative;
+    padding: 0 50px;
+    > div.pagination {
+      display: flex;
+      justify-content: space-between;
+      padding: 20px 0 100px;
+      margin-top: 20px;
+      border-top: 1px solid #d9d9d9;
+      > div {
+        padding: 10px 100px;
+        font-size: 1.2rem;
+        user-select: none;
+        &.prev {
+          padding-left: 0;
+        }
+        &.next {
+          padding-right: 0;
+          text-align: right;
+        }
+      }
+    }
+    > .markdown-body:first-child {
+      margin-top: 40px;
+    }
+  }
+  > ul.menu {
+    position: sticky;
+    top: 0;
+    margin: 0;
+    padding: 10px 0;
+    min-width: 300px;
+    color: #4d4d4d;
+    > h4 { margin-top: 0; }
+    > li {
+      list-style: none;
+    }
+    a {
+      display: block;
+      padding: 4px;
+      text-decoration: none;
+      transition: .3s;
+      color: inherit;
+    }
+    a:hover {
+      color: #3E67B1;
+    }
+  }
+}

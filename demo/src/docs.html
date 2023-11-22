@@ -4,53 +4,10 @@
   <%- include('components/meta') %>
   <%- include('templates/lib') %>
   <link rel='stylesheet' href='/style/github-markdown.css'>
-  <script type='module'>import 'highlight.js/styles/a11y-light.css'</script>
-  <style>
-    html[theme-mode='dark'] body > main {
-      background-color: #1c1c1c !important;
-    }
-    html[theme-mode='dark'] body > main > .menu {
-      color: lightgrey;
-    }
-    body > main {
-      position: relative;
-      display: flex;
-      color: #2d2d2d;
-      overflow: overlay;
-      background-image: none !important;
-      background-color: #ededed !important;
-    }
-    body > main > div.left-panel {
-      width: 500px;
-    }
-    body > main > div.container {
-      padding: 20px 100px;
-    }
-    body > main > ul.menu {
-      width: 370px;
-      color: #4d4d4d;
-    }
-    body > main > ul.menu {
-      padding-left: 0;
-    }
-    body > main > ul.menu > h4 { margin-top: 0; }
-    body > main > ul.menu > li {
-      list-style: none;
-    }
-    body > main > ul.menu a {
-      display: block;
-      padding: 4px;
-      text-decoration: none;
-      transition: .3s;
-      color: inherit;
-    }
-    body > main > ul.menu a:hover {
-      color: #3E67B1;
-    }
-    body > main > .markdown-body:first-child {
-      margin-top: 40px;
-    }
-  </style>
+  <script type='module'>
+    import 'highlight.js/styles/a11y-light.css'
+    import './docs.scss'
+  </script>
 </head>
 <body>
   <%- include('templates/header') %>

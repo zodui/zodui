@@ -60,9 +60,21 @@ export function docsTemplateRender(p: string) {
       <div class='markdown-body'>
         ${marked(content)}
       </div>
+      <div class='operates'>
+        <div class='report'></div>
+        <div class='edit-in-github'></div>
+      </div>
+      <div class='pagination'>
+        <div class='prev'>
+          &lt;
+          上一篇
+        </div>
+        <div class='next'>
+          下一篇
+          &gt;
+        </div>
+      </div>
       <div class='comments'></div>
-      <div class='report'></div>
-      <div class='edit-in-github'></div>
     </div>
     ${menuHTML}
   `.trim()
