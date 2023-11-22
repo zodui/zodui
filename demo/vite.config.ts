@@ -99,10 +99,11 @@ const documentsPages: Exclude<Parameters<typeof createHtmlPlugin>[0], undefined>
   const documentsBasePath = path.resolve(__dirname, './docs')
   findFilesBy(documentsBasePath, ['.md'], filePath => {
     const docFilePath = path.relative(documentsBasePath, filePath)
+    const filename = `docs/${
+      docFilePath.replace(/\.md$/, '')
+    }`
     documentsPages.push({
-      filename: `docs/${
-        docFilePath.replace(/\.md$/, '')
-      }`,
+      filename,
       template: 'src/docs.html',
       injectOptions: {
         data: () => ({
@@ -185,20 +186,21 @@ export default defineConfig({
       }
     }, process.env.NODE_ENV !== 'development' ? {
       external: ['zod', 'zodui/external'],
-      input: {
-        // TODO generate by documentsPages
-        'docs/guide/index': 'docs/guide/index.html',
-        'docs/main': 'docs/main.html'
-      }
+      input: documentsPages.reduce((input, { filename }) => {
+        input[filename] = `${filename}.html`
+        return input
+      }, {} as Record<string, string>)
     } : {})
   },
   plugins: [
     react(),
     tsconfigPaths(),
-    process.env.NODE_ENV !== 'development' && virtual({
-      'docs/guide/index.html': documentsContent,
-      'docs/main.html': documentsContent
-    }),
+    process.env.NODE_ENV !== 'development' && virtual(
+      documentsPages.reduce((input, { filename }) => {
+        input[`${filename}.html`] = documentsContent
+        return input
+      }, {} as Record<string, string>)
+    ),
     createHtmlPlugin({
       pages: [
         {
