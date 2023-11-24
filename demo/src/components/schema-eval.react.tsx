@@ -6,17 +6,12 @@ import { List, useItemConfigurer } from '@zodui/react'
 import React, { useEffect, useRef, useState } from 'react'
 import type { ZodSchema } from 'zod'
 
-import { createEmitter } from '../emitter'
-
 interface DemoProps {
   k?: string
   c?: string
 
   configure?: ItemConfigure
 }
-
-window.evalerValueEmitter = createEmitter<[value: any]>()
-window.evalerConfigureEmitter = createEmitter<[configure: any]>()
 
 export function Demo({
   k = '',

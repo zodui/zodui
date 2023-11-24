@@ -1,3 +1,8 @@
+import { createEmitter } from './emitter'
+
+window.evalerValueEmitter = createEmitter()
+window.evalerConfigureEmitter = createEmitter()
+
 const codeChangeListeners: Record<string, Function[]> = {}
 
 window.onCodeChange = function (key, fn) {
