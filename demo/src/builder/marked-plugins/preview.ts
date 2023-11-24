@@ -6,11 +6,17 @@ function uuid() {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
 }
 
+const previewCodeWrapper = (zodString: string) => `
+import * as z from 'zod'
+
+export default ${zodString}
+`.trim()
+
 export default defineMDPlugin({
   code(code, lang) {
     if (lang?.includes('zodui:preview')) {
       const id = uuid()
-      const previewCode = code.split('// preview\n')[1]
+      const previewCode = previewCodeWrapper(code)
       return `
       </div>
       <div class='zodui-preview' data-schema-eval-key='${id}' data-code='${
@@ -37,7 +43,7 @@ export default defineMDPlugin({
         </div>
         <div class='wrap'>
           <div class='markdown-body'>
-            ${marked(`\`\`\`typescript\n${previewCode}\n\`\`\``)}
+            ${marked(`\`\`\`typescript\n${code}\n\`\`\``)}
           </div>
           <%- include('components/schema-eval', {
             key: '${id}'

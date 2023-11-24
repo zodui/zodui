@@ -85,11 +85,7 @@ z.object({
 上面这段代码生成的数据对象传递给给我们的渲染组件后，我们可以得到如下的内容：
 
 ```typescript zodui:preview
-// preview
-import * as z from 'zod'
-
-// 可参考 zod 描述部分应当如何定义，无法直接在项目中进行使用
-export default z.object({
+z.object({
   name: z
     .string()
     .label('名称'),
