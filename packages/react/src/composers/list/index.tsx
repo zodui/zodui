@@ -36,7 +36,6 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: ForwardedRef<List
         : undefined
     return value ?? defaultValue ?? defaultByModel
   })())
-  console.log(valueRef)
   const changeValue = useCallback((v: any) => {
     valueRef.current = v
     onChange?.(v)
