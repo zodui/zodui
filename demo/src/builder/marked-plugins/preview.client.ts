@@ -17,22 +17,20 @@ document.querySelectorAll<HTMLDivElement>('.zodui-preview')
     } = ele.dataset
     const originalCode = decodeURIComponent(code)
     emitCode(schemaEvalKey, originalCode)
-    const [, evaler] = ele.querySelector('.wrap')!.children
+    const [mdEle] = ele.querySelector('.wrap')!.children
     const drawBar = ele.querySelector('.draw-bar')!
-    let isDrawBarVisible = false
     drawBar.querySelector('.icon[data-key="open/close"]')!.addEventListener('click', () => {
-      if (isDrawBarVisible) {
+      if (drawBar.classList.contains('display')) {
         drawBar.classList.remove('display')
       } else {
         drawBar.classList.add('display')
       }
-      isDrawBarVisible = !isDrawBarVisible
     })
     drawBar.querySelector('.icon[data-key="Code"]')!.addEventListener('click', () => {
-      if (evaler.classList.contains('hidden')) {
-        evaler.classList.remove('hidden')
+      if (mdEle.classList.contains('display')) {
+        mdEle.classList.remove('display')
       } else {
-        evaler.classList.add('hidden')
+        mdEle.classList.add('display')
       }
     })
     drawBar.querySelector('.icon[data-key="Playground"]')!.addEventListener('click', () => {
