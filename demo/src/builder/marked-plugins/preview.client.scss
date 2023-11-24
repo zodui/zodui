@@ -18,7 +18,7 @@ div.zodui-preview {
     gap: 10px;
     padding: 8px;
     position: absolute;
-    top: calc(100% - 50px);
+    top: calc(100% - 64px);
     right: -36px;
     width: 160px;
     height: 24px;
@@ -48,10 +48,11 @@ div.zodui-preview {
     }
   }
   > .wrap {
-    z-index: 2;
+    z-index: 3;
     position: relative;
     overflow: hidden;
-    border-radius: 4px;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 4px 6px #5552;
     > .markdown-body, > .schema-eval-container {
       min-height: 100px;
     }
@@ -74,6 +75,25 @@ div.zodui-preview {
       }
       > * {
         height: 100%;
+      }
+    }
+  }
+  > .output {
+    position: relative;
+    z-index: 2;
+    height: 24px;
+    background-color: #f5f5f5;
+    border-radius: 0 0 8px 8px;
+    > .material-icons {
+      position: absolute;
+      bottom: 0;
+      right: 50%;
+      transform: translateX(50%);
+      cursor: pointer;
+      user-select: none;
+      transition: .3s;
+      &:hover {
+        filter: drop-shadow(0 0 4px #0008);
       }
     }
   }

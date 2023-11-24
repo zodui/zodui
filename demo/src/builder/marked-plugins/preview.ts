@@ -49,6 +49,9 @@ export default defineMDPlugin({
             key: '${id}'
           }) %>
         </div>
+        <div class='output'>
+          <span class='material-icons'>expand_more</span>
+        </div>
       </div>
       <div class='markdown-body'>`
     }
