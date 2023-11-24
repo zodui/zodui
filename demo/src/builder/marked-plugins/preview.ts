@@ -50,6 +50,7 @@ export default defineMDPlugin({
           }) %>
         </div>
         <div class='output'>
+          <div class='content'></div>
           <span class='material-icons'>expand_more</span>
         </div>
       </div>

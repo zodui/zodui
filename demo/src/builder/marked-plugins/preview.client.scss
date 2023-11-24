@@ -81,9 +81,14 @@ div.zodui-preview {
   > .output {
     position: relative;
     z-index: 2;
-    height: 24px;
+    padding-bottom: 24px;
     background-color: #f5f5f5;
     border-radius: 0 0 8px 8px;
+    > .content {
+      padding: 10px;
+      margin: 0;
+      border-bottom: 1px solid #ccc;
+    }
     > .material-icons {
       position: absolute;
       bottom: 0;
