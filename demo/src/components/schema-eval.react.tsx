@@ -67,9 +67,7 @@ export function Demo({
       onChange={v => window.evalerValueEmitter.emit(k, v)}
     />
     {!configure.actualTimeVerify && <>
-      <button onClick={async () => {
-        await ref.current?.verify()
-      }}>
+      <button onClick={() => ref.current?.verify()}>
         verify
       </button>
     </>}
