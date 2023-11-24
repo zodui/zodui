@@ -1,4 +1,6 @@
+import { TDesignComponentsLibForReact } from '@zodui/components-lib-tdesign'
 import { Context } from '@zodui/core'
+import { CommonPluginForReact } from '@zodui/plugin-common'
 import type { ItemConfigure, ListRef } from '@zodui/react'
 import { List, useItemConfigurer } from '@zodui/react'
 import React, { useEffect, useRef, useState } from 'react'
@@ -21,25 +23,9 @@ export function Demo({
   c,
   configure: cc
 }: DemoProps) {
-  const [ctxInited, setCtxInited] = useState(false)
   useEffect(() => {
-    let flag = false
-    const e0 = Context.global.use(() => import('@zodui/components-lib-tdesign')
-      .then(({ TDesignComponentsLibForReact }) => {
-        flag
-          ? setCtxInited(true)
-          : (flag = true)
-        return TDesignComponentsLibForReact
-      })
-    )
-    const e1 = Context.global.use(() => import('@zodui/plugin-common')
-      .then(({ CommonPluginForReact }) => {
-        flag
-          ? setCtxInited(true)
-          : (flag = true)
-        return CommonPluginForReact
-      })
-    )
+    const e0 = Context.global.use(TDesignComponentsLibForReact)
+    const e1 = Context.global.use(CommonPluginForReact)
     return () => (e0(), e1())
   }, [])
 
@@ -67,13 +53,13 @@ export function Demo({
 
   const ref = useRef<ListRef>(null)
 
-  const [value, setValue] = useState<any>()
+  const [value, setValue] = useState<any>(undefined)
 
   useEffect(() => {
     return evalerValueEmitter.on(`${k}::init`, setValue)
   }, [k])
 
-  return ctxInited && schema ? <ItemConfigurer>
+  return schema ? <ItemConfigurer>
     <List
       ref={ref}
       model={schema}
