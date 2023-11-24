@@ -27,7 +27,7 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: ForwardedRef<List
     disabled
   } = props
   const def = model._def
-  const valueRef = useRef(() => {
+  const valueRef = useRef((() => {
     // TODO resolve more types
     const defaultByModel = model._type === AllTypes.ZodObject
       ? {}
@@ -35,7 +35,8 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: ForwardedRef<List
         ? []
         : undefined
     return value ?? defaultValue ?? defaultByModel
-  })
+  })())
+  console.log(valueRef)
   const changeValue = useCallback((v: any) => {
     valueRef.current = v
     onChange?.(v)
