@@ -49,9 +49,18 @@ document.querySelectorAll<HTMLDivElement>('.zodui-preview')
       // TODO open in CodeSandBox
     })
 
-    const eleOutputContent = ele.querySelector<HTMLDivElement>(':scope > .output > .content')!
+    const eleOutput = ele.querySelector<HTMLDivElement>(':scope > .output')!
+    const eleOutputContent = eleOutput.querySelector<HTMLDivElement>(':scope > .content')!
+    const eleOutputDown = eleOutput.querySelector<HTMLSpanElement>(':scope > .down')!
     eleOutputContent.innerText = 'null'
     evalerValueEmitter.on(schemaEvalKey, (value: unknown) => {
       eleOutputContent.innerHTML = marked(`\`\`\`json\n${JSON.stringify(value, null, 2)}\n\`\`\``)
+    })
+    eleOutputDown.addEventListener('click', () => {
+      if (eleOutput.classList.contains('display')) {
+        eleOutput.classList.remove('display')
+      } else {
+        eleOutput.classList.add('display')
+      }
     })
   })
