@@ -12,7 +12,12 @@ Zod 支持了许多不同的类型，这些类型可以用来描述数据的基�
 字符串类型，对应 JavaScript 中的 [`string`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String) 类型。
 
 ```typescript zodui:preview
-z.string()
+z.tuple([
+  z.string(),
+  z.string().mode('secret'),
+  z.string().mode('textarea'),
+  z.string().mode('link')
+])
 ```
 
 ### 数字
@@ -20,7 +25,11 @@ z.string()
 数字类型，对应 JavaScript 中的 [`number`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Number) 类型。
 
 ```typescript zodui:preview
-z.number()
+z.tuple([
+  z.number(),
+  z.number().mode('split'),
+  z.number().mode('slider')
+])
 ```
 
 ### 布尔
