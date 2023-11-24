@@ -1,8 +1,8 @@
 import './index.scss'
 
 import type { ComposerProps, ComposerRef } from '@zodui/core'
-import { AllTypes } from '@zodui/core'
-import { classnames, inlineMarkdown, isWhatType, merge } from '@zodui/core/utils'
+import { AllTypes, multiple } from '@zodui/core'
+import { classnames, inlineMarkdown, isWhatType, isWhatTypes, merge } from '@zodui/core/utils'
 import type { ForwardedRef, ReactElement } from 'react'
 import { forwardRef, useCallback, useImperativeHandle, useRef } from 'react'
 import type { Schema } from 'zod'
@@ -86,8 +86,9 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: ForwardedRef<List
     </>
   }
 
+  const isMultiple = isWhatTypes(model, multiple)
   return <div className={classnames(prefix, props.className)} style={props.style}>
-    <div className={`${prefix}__header`}>
+    {isMultiple && <div className={`${prefix}__header`}>
       {def.label && <h2 className={classnames(`${prefix}__label`, {
         // @ts-ignore
         'is-optional': def.typeName === AllTypes.ZodOptional
@@ -99,7 +100,7 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: ForwardedRef<List
           className={`${prefix}__desc inline-md`}
           dangerouslySetInnerHTML={{ __html: inlineMarkdown(def.description) }}
         />}
-    </div>
+    </div>}
     {isWhatType(def, AllTypes.ZodObject)
       ? Object.entries(def.shape()).map(([key, value]) => <Item
         ref={ele => itemRefs.current[key] = ele}
