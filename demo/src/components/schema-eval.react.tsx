@@ -29,7 +29,7 @@ export function Demo({
   const [code, setCode] = useState<string>(c ?? '')
   useEffect(() => onCodeChange(k, setCode), [k])
 
-  const [[schema] = [], setSchema] = useState<[ZodSchema]>()
+  const [[schema] = [], setSchema] = useState<[ZodSchema | ZodSchema[]]>()
   useEffect(() => {
     if (!code) return
 
@@ -38,7 +38,7 @@ export function Demo({
         const mjsEvalerURL = URL.createObjectURL(new Blob([code], { type: 'text/javascript' }))
         const module = await import(/* @vite-ignore */ mjsEvalerURL)
 
-        if (module.default && module.default._def)
+        if (module.default)
           setSchema([module.default])
       } catch (e) {
         console.error(e)
@@ -46,7 +46,7 @@ export function Demo({
     })()
   }, [code])
 
-  const ref = useRef<ListRef>(null)
+  const refs = useRef<ListRef[]>([])
 
   const [value, setValue] = useState<any>(undefined)
 
@@ -55,14 +55,22 @@ export function Demo({
   }, [k])
 
   return schema ? <ItemConfigurer>
-    <List
-      ref={ref}
-      model={schema}
-      value={value}
-      onChange={v => window.evalerValueEmitter.emit(k, v)}
-    />
+    {Array.isArray(schema)
+      ? schema.map((s, i) => <List
+        key={i}
+        ref={r => refs.current = [...refs.current, r]}
+        model={s}
+        value={value}
+        onChange={v => window.evalerValueEmitter.emit(k, v)}
+      />)
+      : <List
+        ref={r => refs.current = [r]}
+        model={schema}
+        value={value}
+        onChange={v => window.evalerValueEmitter.emit(k, v)}
+      />}
     {!configure.actualTimeVerify && <>
-      <button onClick={() => ref.current?.verify()}>
+      <button onClick={() => Promise.all(refs.current.map(r => r.verify()))}>
         verify
       </button>
     </>}
