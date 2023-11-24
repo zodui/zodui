@@ -111,7 +111,7 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: ForwardedRef<List
         }}
         model={value}
         disabled={disabled}
-        value={valueRef.current[
+        value={valueRef.current?.[
           key as keyof typeof valueRef.current
         ]}
         onChange={v => changeValue({ ...valueRef.current, [key]: v })}
