@@ -11,7 +11,83 @@ export function defineMDPlugin(renderer: marked.RendererObject, src: string | st
   return [renderer, srcs.map(src => `<script type='module' src='${src}'></script>`).join('')] as const
 }
 
-export function docsTemplateRender(p: string) {
+type TreeNode = {
+  path: string
+  children?: TreeNode[]
+}
+
+function getAllFileTree(dirPath: string) {
+  const files = fs.readdirSync(dirPath)
+  return files.reduce((acc, cur) => {
+    const filePath = path.join(dirPath, cur)
+    const stats = fs.statSync(filePath)
+    if (stats.isDirectory()) {
+      acc.push({
+        path: filePath,
+        children: getAllFileTree(filePath)
+      })
+    } else if (stats.isFile()) {
+      acc.push({
+        path: filePath
+      })
+    }
+    return acc
+  }, [] as TreeNode[])
+}
+
+interface DocumentFileTree {
+  title: string
+  href: string
+  children?: DocumentFileTree[]
+}
+
+interface DirectoryMeta {
+  title: string
+  children: string[]
+}
+
+const baseDFTMap = new Map<string, DocumentFileTree>()
+
+function getDocumentFileTree(tree: TreeNode[], p: string, base = p): DocumentFileTree {
+  const dirMeta = (JSON.parse(fs.readFileSync(
+    path.resolve(p, './meta.json'), 'utf-8')
+  ) as DirectoryMeta)
+  const dft: DocumentFileTree = {
+    title: dirMeta.title,
+    href: p.replace(base, '')
+  }
+  dirMeta.children.forEach(filename => {
+    if (!dft.children) {
+      dft.children = []
+    }
+
+    const { path: realPath, children } = tree.find(({ path }) => path.endsWith(filename)) ?? {}
+    if (!children) {
+      const mdContent = fs.readFileSync(realPath!, 'utf-8')
+      const mdHeader = /^# (.*)\n/[Symbol.match](mdContent)
+      if (!mdHeader) {
+        console.warn(`文件 ${realPath} 未包含标题`)
+        return
+      }
+      dft.children?.push({
+        title: mdHeader[1],
+        href: realPath?.replace(base, '')
+      })
+    } else {
+      dft.children?.push(getDocumentFileTree(children, realPath!, base))
+    }
+  })
+  return dft
+}
+
+export function docsTemplateRender(p: string, base: string) {
+  const tree = baseDFTMap.has(base)
+    ? baseDFTMap.get(base)!
+    : getDocumentFileTree(getAllFileTree(base), base, path.dirname(base))
+  baseDFTMap.set(base, tree)
+  const tabs = tree.children
+  const activeTab = tabs.find(tab => `/${p}`.startsWith(tab.href))
+
   const slugger = new Slugger()
   const content = fs.readFileSync(path.resolve(process.cwd(), p), 'utf-8')
 
@@ -55,7 +131,21 @@ export function docsTemplateRender(p: string) {
       </li>`).join('')
   }</ul>`.trim()
   return `
-    <div class='left-panel'></div>
+    <div class='left-panel'>
+      <div class='tabs'>
+        ${tree.children.map(tree => `<div class='${
+          'tab'
+          + (tree === activeTab ? ' active' : '')
+        }'>${tree.title}</div>`).join('')}
+      </div>
+      <div class='tree'>
+        ${tree.children.map(tree => `
+          <ul class='tree-item'>
+            <li class='tree-item-title'>${tree.title}</li>
+          </ul>
+        `).join('')}
+      </div>
+    </div>
     <div class='container'>
       <div class='markdown-body'>
         ${marked(content)}

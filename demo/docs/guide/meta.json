@@ -1,9 +1,7 @@
 {
   "title": "指南",
   "children": [
-    "./start",
-    "./basic",
-    "./advanced",
-    "./expert"
+    "start",
+    "basic"
   ]
 }
