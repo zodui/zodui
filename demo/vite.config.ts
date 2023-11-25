@@ -80,10 +80,13 @@ const ejsOptions: EJSOptions = {
   // @ts-ignore
   includer(originalPath) {
     if (originalPath.startsWith('docs/')) {
-      return { template: docsTemplateRender(
-        originalPath,
-        path.resolve(__dirname, './docs')
-      ) }
+      return {
+        template: docsTemplateRender(
+          originalPath,
+          path.resolve(__dirname, './docs'),
+          base.slice(0, -1)
+        )
+      }
     }
 
     const paths = [
