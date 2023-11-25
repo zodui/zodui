@@ -96,6 +96,37 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
   const activeClassification = activeTab?.children?.find(page => `/${p}`.startsWith(page.href))
   const activePage = activeClassification?.children?.find(page => `/${pWithoutExt}` === page.href)
 
+  const prevPage = (() => {
+    if (!activePage) {
+      return null
+    }
+    const classificationIndex = activeTab.children.findIndex(classification => classification === activeClassification)
+    const pageIndex = activeClassification.children.findIndex(page => page === activePage)
+    if (pageIndex === 0) {
+      return activeTab
+        .children[classificationIndex - 1]
+        ?.children
+        ?.slice(-1)[0]
+        ?? null
+    }
+    return activeClassification!.children![pageIndex - 1]
+  })()
+  const nextPage = (() => {
+    if (!activePage) {
+      return null
+    }
+    const classificationIndex = activeTab.children.findIndex(classification => classification === activeClassification)
+    const pageIndex = activeClassification.children.findIndex(page => page === activePage)
+    if (pageIndex === activeClassification.children.length - 1) {
+      return activeTab
+        .children[classificationIndex + 1]
+        ?.children
+        ?.slice(0)[0]
+        ?? null
+    }
+    return activeClassification!.children![pageIndex + 1]
+  })()
+
   const slugger = new Slugger()
   const content = fs.readFileSync(path.resolve(process.cwd(), p), 'utf-8')
 
@@ -177,14 +208,26 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
         <div class='edit-in-github'></div>
       </div>
       <div class='pagination'>
-        <div class='prev'>
-          &lt;
-          上一篇
-        </div>
-        <div class='next'>
-          下一篇
-          &gt;
-        </div>
+        ${prevPage ? `<a href='${urlBase}${prevPage?.href ?? ''}'>
+          <div class='prev'>
+            <div class='operate'>
+              <span class='material-icons'>chevron_left</span>
+              上一篇
+            </div>
+            <br>
+            <div class='title'>${prevPage?.title ?? ''}</div>
+          </div>
+        </a>` : ''}
+        ${nextPage ? `<a href='${urlBase}${nextPage?.href ?? ''}'>
+          <div class='next'>
+            <div class='operate'>
+              下一篇
+              <span class='material-icons'>chevron_right</span>
+            </div>
+            <br>
+            <div class='title'>${nextPage?.title ?? ''}</div>
+          </div>
+        </a>` : ''}
       </div>
       <div class='comments'></div>
     </div>
