@@ -1,8 +1,6 @@
 html[theme-mode='dark'] body > main {
-  background-color: #1c1c1c !important;
-  > .menu {
-    color: lightgrey;
-  }
+  background-color: #303845 !important;
+  color: #ebebf599;
 }
 body > main {
   --padding: 100px;
@@ -15,7 +13,17 @@ body > main {
   overflow: overlay;
   scroll-behavior: smooth;
   background-image: none !important;
-  background-color: #ededed !important;
+  background-color: #f6f6f6 !important;
+  a {
+    display: inline-block;
+    padding: 0;
+    text-decoration: none;
+    transition: .15s;
+    color: inherit;
+    &:hover {
+      color: #3E67B1;
+    }
+  }
   > div.left-panel {
     position: sticky;
     top: 0;
@@ -75,12 +83,13 @@ body > main {
     min-width: 200px;
   }
   ul {
-    color: #4d4d4d;
     padding-inline-start: 0;
     user-select: none;
     > h4 { margin-top: 0; }
     ul { padding-inline-start: 20px }
     li {
+      margin-top: 8px;
+      padding: 0 0 0 4px;
       list-style: none;
       box-sizing: border-box;
       border-left: 2px solid transparent;
@@ -88,16 +97,6 @@ body > main {
         font-weight: bold;
         border-left: 2px solid #3E67B1;
       }
-    }
-    a {
-      display: block;
-      padding: 4px;
-      text-decoration: none;
-      transition: .15s;
-      color: inherit;
-    }
-    a:hover {
-      color: #3E67B1;
     }
   }
 }
