@@ -54,7 +54,9 @@ function getDocumentFileTree(tree: TreeNode[], p: string, base = p): DocumentFil
   ) as DirectoryMeta)
   const dft: DocumentFileTree = {
     title: dirMeta.title,
-    href: p.replace(base, '')
+    href: p
+      .replace(base, '')
+      .replace(/.md$/, '')
   }
   dirMeta.children.forEach(filename => {
     if (!dft.children) {
@@ -71,7 +73,9 @@ function getDocumentFileTree(tree: TreeNode[], p: string, base = p): DocumentFil
       }
       dft.children?.push({
         title: mdHeader[1],
-        href: realPath?.replace(base, '')
+        href: realPath
+          .replace(base, '')
+          .replace(/.md$/, '')
       })
     } else {
       dft.children?.push(getDocumentFileTree(children, realPath!, base))
@@ -80,13 +84,20 @@ function getDocumentFileTree(tree: TreeNode[], p: string, base = p): DocumentFil
   return dft
 }
 
-export function docsTemplateRender(p: string, base: string) {
+export function docsTemplateRender(p: string, base: string, urlBase: string) {
+  const pWithoutExt = p.replace(/.md$/, '')
+
   const tree = baseDFTMap.has(base)
     ? baseDFTMap.get(base)!
     : getDocumentFileTree(getAllFileTree(base), base, path.dirname(base))
   baseDFTMap.set(base, tree)
   const tabs = tree.children
   const activeTab = tabs.find(tab => `/${p}`.startsWith(tab.href))
+  const activeClassification = activeTab?.children?.find(page => `/${p}`.startsWith(page.href))
+  const activePage = activeClassification?.children?.find(page => `/${pWithoutExt}` === page.href)
+  console.log('activeTab', activeTab, p, pWithoutExt)
+  console.log('activeClassification', activeClassification)
+  console.log('activePage', activePage)
 
   const slugger = new Slugger()
   const content = fs.readFileSync(path.resolve(process.cwd(), p), 'utf-8')
@@ -133,15 +144,23 @@ export function docsTemplateRender(p: string, base: string) {
   return `
     <div class='left-panel'>
       <div class='tabs'>
-        ${tree.children.map(tree => `<div class='${
+        ${tabs.map(tree => `<div class='${
           'tab'
           + (tree === activeTab ? ' active' : '')
         }'>${tree.title}</div>`).join('')}
       </div>
       <div class='tree'>
-        ${tree.children.map(tree => `
+        ${activeTab.children.map(classification => `
           <ul class='tree-item'>
-            <li class='tree-item-title'>${tree.title}</li>
+            <li class='tree-item-title'>${classification.title}</li>
+            <ul class='tree-item-children'>
+              ${classification.children.map(page => `<li class='${
+                'tree-item-children-item'
+                + (page === activePage ? ' active' : '')
+              }'>
+                <a href='${urlBase}${page.href}'>${page.title}</a>
+              </li>`).join('')}
+            </ul>
           </ul>
         `).join('')}
       </div>

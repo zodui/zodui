@@ -73,11 +73,13 @@ body > main {
     margin: 0;
     padding: 10px 0;
     min-width: 200px;
+  }
+  ul {
     color: #4d4d4d;
+    padding-inline-start: 0;
+    user-select: none;
     > h4 { margin-top: 0; }
-    ul {
-      padding-inline-start: 20px;
-    }
+    ul { padding-inline-start: 20px }
     li {
       list-style: none;
       box-sizing: border-box;
@@ -91,7 +93,7 @@ body > main {
       display: block;
       padding: 4px;
       text-decoration: none;
-      transition: .3s;
+      transition: .15s;
       color: inherit;
     }
     a:hover {
