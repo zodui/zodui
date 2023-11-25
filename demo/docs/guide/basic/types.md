@@ -165,6 +165,34 @@ z.tuple([
 ])
 ```
 
+[//]: # (TODO link to plugin system)
+通过[插件]()，哪怕是简单的元组，我们也可以玩出来一些有趣的东西。
+
+```typescript zodui:preview
+z.object({
+  t0: z
+    .tuple([z.date(), z.date()])
+    .mode('date')
+    .label('日期范围')
+    .describe('日期范围模式下，输入框将会渲染为两个输入框，你可以通过交互来输入对应的内容。'),
+  t1: z
+    .tuple([z.date(), z.date()])
+    .mode('datetime')
+    .label('日期时间范围')
+    .describe('日期时间范围模式下，输入框与上面的日期范围模式类似，只是在输入框的右侧增加了一个下拉框来选择时间。'),
+  // t2: z
+  //   .tuple([z.date(), z.date()])
+  //   .mode('time')
+  //   .label('时间范围')
+  //   .describe('日期时间范围模式下，输入框与上面的日期范围模式类似，只是在输入框的右侧增加了一个下拉框来选择时间。'),
+  t3: z
+    .tuple([z.date(), z.date()])
+    .mode('date panel wrap')
+    .label('日期范围')
+    .describe('日期范围模式并且叠加了表盘的情况下，交互区域将会以无须下拉的表盘的形式展示。'),
+})
+```
+
 ### 枚举
 
 没做，感觉现在的有点扭曲，还不想写。
