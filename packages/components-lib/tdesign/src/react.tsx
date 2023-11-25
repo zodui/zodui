@@ -107,11 +107,18 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
         card: 'default-filled',
         undefined: undefined
       } as const)[props.variant]}
-      options={props.options}
+      options={props.variant !== 'outline' ? props.options : []}
       value={props.value}
       defaultValue={props.defaultValue}
       onChange={v => props.onChange?.(v as any)}
-    />)
+      >
+      {props.variant === 'outline' ? props.options.map(opt => <Radio.Button
+        key={opt.value}
+        value={opt.value}
+        title={opt.title}
+        disabled={opt.disabled}
+      >{opt.label}</Radio.Button>) : null}
+    </Radio.Group>)
     .defineComp('Dropdown', props => <Dropdown
         popupProps={{
           showArrow: true,
