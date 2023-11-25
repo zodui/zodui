@@ -130,7 +130,7 @@ body > main {
       }
     }
   }
-  > ul.menu {
+  > div.menu {
     position: sticky;
     top: 0;
     margin: 0;
@@ -138,29 +138,31 @@ body > main {
     min-width: 200px;
     font-size: 1rem;
   }
-  ul {
-    padding-inline-start: 0;
-    font-size: 1.1rem;
-    user-select: none;
-    transition: .1s;
-    > h4 { margin-top: 0; }
+  > div.left-panel, > div.menu {
     ul {
       padding-inline-start: 0;
-      li {
-        padding: 0 0 0 20px;
+      font-size: 1.1rem;
+      user-select: none;
+      transition: .1s;
+      > h4 { margin-top: 0; }
+      ul {
+        padding-inline-start: 0;
+        li {
+          padding: 0 0 0 20px;
+        }
       }
-    }
-    li {
-      margin-top: 8px;
-      padding: 0;
-      list-style: none;
-      box-sizing: border-box;
-      border-left: 2px solid transparent;
-      transition: padding .1s;
-      &.active {
-        padding: 0 0 0 10px;
-        font-weight: bold;
-        border-left: 2px solid #3E67B1;
+      li {
+        margin-top: 8px;
+        padding: 0;
+        list-style: none;
+        box-sizing: border-box;
+        border-left: 2px solid transparent;
+        transition: padding .1s;
+        &.active {
+          padding: 0 0 0 10px;
+          font-weight: bold;
+          border-left: 2px solid #3E67B1;
+        }
       }
     }
   }

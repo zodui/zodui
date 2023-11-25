@@ -1,7 +1,7 @@
 import './header.client.scss'
 
 const main = document.querySelector<HTMLDivElement>('body > main')
-const menu = document.querySelector('ul.menu')
+const menu = document.querySelector('div.menu')
 let menuItem: HTMLLIElement | null = null
 
 const hash = location.hash ? decodeURIComponent(location.hash) : null

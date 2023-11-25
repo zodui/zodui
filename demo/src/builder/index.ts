@@ -175,20 +175,22 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
     children?: Record<string, string>
   }>)
   const menuHTML = `
-  <ul class='menu'>
-    <h3>菜单</h3>
-    ${Object.entries(menu).map(([title, { href, children }]) => `
-      <li class='menu-item'>
-        <a href='#${href}'>${title}</a>
-        ${
-          children && Object.keys(children).length > 0 ? `<ul class='menu-sub'>${
-            Object.entries(children)
-              .map(([title, href]) => `<li class='menu-sub-item'><a href='#${href}'>${title}</a></li>`)
-              .join('')
-          }</ul>` : ''
-        }
-      </li>`).join('')
-  }</ul>`.trim()
+    <div class='menu'>
+      <h3>菜单</h3>
+      <ul>
+        ${Object.entries(menu).map(([title, { href, children }]) => `
+          <li class='menu-item'>
+            <a href='#${href}'>${title}</a>
+            ${
+              children && Object.keys(children).length > 0 ? `<ul class='menu-sub'>${
+                Object.entries(children)
+                  .map(([title, href]) => `<li class='menu-sub-item'><a href='#${href}'>${title}</a></li>`)
+                  .join('')
+              }</ul>` : ''
+            }
+          </li>`).join('')
+      }</ul>
+    </div>`.trim()
   return `
     <div class='left-panel'>
       <div class='selector'>
