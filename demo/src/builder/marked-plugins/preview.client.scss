@@ -1,13 +1,20 @@
 html[theme-mode='dark'] div.zodui-preview {
   --bg-color: #3A4F7A;
+  --bg-color-for-component: #242424;
   --bg-hover-color: #5675bd;
   --fr-color: #F5F5F5;
+  --fr-color-for-component: #fff;
+  > .wrap {
+    box-shadow: 0 4px 6px #0002;
+  }
 }
 
 div.zodui-preview {
   --bg-color: #3E67B1;
+  --bg-color-for-component: #fff;
   --bg-hover-color: #3A4F7A;
   --fr-color: #F5F5F5;
+  --fr-color-for-component: #33333388;
 
   position: relative;
   margin-top: 20px;
@@ -84,7 +91,8 @@ div.zodui-preview {
     position: relative;
     z-index: 2;
     padding-bottom: 24px;
-    background-color: #f5f5f5;
+    color: var(--fr-color-for-component);
+    background-color: var(--bg-color-for-component);
     border-radius: 0 0 8px 8px;
     > .content {
       padding: 0;
