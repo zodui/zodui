@@ -95,9 +95,6 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
   const activeTab = tabs.find(tab => `/${p}`.startsWith(tab.href))
   const activeClassification = activeTab?.children?.find(page => `/${p}`.startsWith(page.href))
   const activePage = activeClassification?.children?.find(page => `/${pWithoutExt}` === page.href)
-  console.log('activeTab', activeTab, p, pWithoutExt)
-  console.log('activeClassification', activeClassification)
-  console.log('activePage', activePage)
 
   const slugger = new Slugger()
   const content = fs.readFileSync(path.resolve(process.cwd(), p), 'utf-8')
