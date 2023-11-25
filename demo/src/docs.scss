@@ -45,6 +45,20 @@ body > main {
     top: 0;
     min-width: 300px;
     border-right: 1px solid #d9d9d9;
+    > .selector > .schema-eval-container > .zodui-composer-list {
+      background-color: transparent;
+      > .zodui-item {
+        padding: 5px;
+        width: calc(100% - 10px);
+        .zodui-item__more {
+          display: none;
+        }
+        .zodui-item__label {
+          font-size: 1.2rem;
+          &::after { display: none; }
+        }
+      }
+    }
     > .tabs {
       display: flex;
       justify-content: space-between;

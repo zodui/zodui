@@ -84,6 +84,26 @@ function getDocumentFileTree(tree: TreeNode[], p: string, base = p): DocumentFil
   return dft
 }
 
+const documentSelectorSchemaString = `
+import z from 'zod'
+
+export default z.object({
+  framework: z
+    .union([
+      z.literal('React'),
+      z.literal('Vue'),
+      // z.literal('angular'),
+    ])
+    .default('React')
+    .label('框架'),
+  'components-lib': z
+    .union([
+      z.literal('TDesign'),
+      z.literal('Ant Design'),
+    ])
+    .default('TDesign')
+    .label('组件库'),
+})`.trim()
 export function docsTemplateRender(p: string, base: string, urlBase: string) {
   const pWithoutExt = p.replace(/.md$/, '')
 
@@ -171,6 +191,12 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
   }</ul>`.trim()
   return `
     <div class='left-panel'>
+      <div class='selector'>
+        <%- include('components/schema-eval', {
+          key: 'document-selector',
+          code: \`${documentSelectorSchemaString}\`,
+        }) %>
+      </div>
       <div class='tabs'>
         ${tabs.map(tab => `<div class='${
           'tab'
