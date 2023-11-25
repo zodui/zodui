@@ -90,32 +90,114 @@ z.boolean()
 ]
 ```
 
-### 字符
-
 ## 组合类型
 
-### 对象
+在大部分场景下，单一的元素并不能解决实际的业务问题，有时候我们便需要将多个元素组合在一起来解决实际的业务问题。\
+为了适应实际场景中的业务需求，我们可以由一些简单类型通过复合器构造出我们需要的组合类型。
 
-### 字典
-
-### 图（Map）
+> 除了使用复合器来构造组合类型之外，我们还可以使用复合器来构造运算类型，你可以在[运算类型](#运算类型)中看到这种交互模式应该如何被定义。
 
 ### 数组
 
-### 元组
+数组复合器，对应 JavaScript 中的 [`Array`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array) 类型。
+
+```typescript zodui:preview
+z.object({
+  strings: z.array(z.string()).label('字符串数组'),
+  numbers: z.array(z.number()).label('数字数组'),
+  objects: z.array(z.object({
+    name: z.string().label('姓名'),
+    age: z.number().label('年龄')
+  })).label('对象数组'),
+})
+```
+
+### 对象
+
+对象复合器，对应 JavaScript 中的 [`Object`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object) 类型。
+
+```typescript zodui:preview
+z.object({
+  name: z.string().label('姓名'),
+  age: z.number().label('年龄')
+})
+```
+
+### 图（Map）
+
+图复合器，对应 JavaScript 中的 [`Map`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Map) 类型。
+
+```typescript zodui:preview
+z.object({
+  stringMap: z.map(z.string(), z.string()).label('字符串 Map'),
+  numberMap: z.map(z.string(), z.number()).label('数字 Map'),
+  numberKeyMap: z.map(z.number(), z.string()).label('数字 Map').describe('数字作为键的 Map')
+})
+```
 
 ### 集合（Set）
 
+集合复合器，对应 JavaScript 中的 [`Set`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Set) 类型。
+
+```typescript zodui:preview
+z.set(z.string())
+```
+
+### 字典
+
+字典复合器，在 JavaScript 中并不存在字典类型，但是我们可以通过对象来模拟字典类型，所以在 Zod 中也是如此。在这里我们使用了 Object 来做字典类型的模拟，我们限制了字典的键的类型为字符串，值的类型为用户的输入。
+
+> 在 TC39 的提案中，已经有了字典类型的提案，但是目前的进度缓慢，而且似乎即将被废弃，所以我们在这里并没有使用这个提案中的不可变字典类型。
+> 详情可以参考 [TC39/proposal-record-tuple](https://github.com/tc39/proposal-record-tuple)。
+
+```typescript zodui:preview
+z.record(z.string())
+```
+
+### 元组
+
+元组复合器，在 JavaScript 中并不存在元组类型，与 Record 类似的我们使用了 Array 来做元组类型的模拟，我们限制了元组的长度为用户的输入类型长度，每一位都是由元组定义中固定位置的类型所限制的。
+
+```typescript zodui:preview
+z.tuple([
+  z.string(),
+  z.number()
+])
+```
+
+### 枚举
+
+没做，感觉现在的有点扭曲，还不想写。
+
+### 递归
+
+Zod 没支持，但是我支持了，但是暂时不想写文档，晚点再写。
+
 ## 特殊类型
 
-### 空类型
+除了上面的类型之外，Zod 还支持了一些特殊的类型，这些类型在实际的业务场景中也算比较常见。但是实际上来说其中的部分并不是在 JavaScript 中存在的类型，只是在原本的类型语义上进行扩展从而形成的新类型。\
+我们来看看这些类型在交互中存在着怎么样的作用。
 
-### 任意类型
+### 空
 
-### 不存在的类型
+没支持😭。
+
+### 谁都行！（Any 和 Unknown）
+
+没支持😭。
+
+### 不存在！（Never）
+
+没支持😭。
 
 ## 运算类型
 
+如果你对 TypeScript 有所了解，那么你应该知道 TypeScript 中的类型运算符，Zod 也支持了一些类型运算符，这些类型运算符可以帮助你更好的描述你的类型。
+
 ### 联合类型
 
+`|`。
+
 ### 交叉类型
+
+`&`。
