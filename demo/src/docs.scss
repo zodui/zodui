@@ -66,11 +66,16 @@ body > main {
     position: relative;
     padding: 0 50px;
     > div.pagination {
-      display: flex;
-      justify-content: space-between;
-      padding: 20px 0 100px;
+      position: relative;
+      padding: 20px 0 150px;
       margin-top: 20px;
       border-top: 1px solid #d9d9d9;
+      > a:has(> .prev) {
+        float: left;
+      }
+      > a:has(> .next) {
+        float: right;
+      }
       > a > div {
         position: relative;
         padding: 10px 100px;
