@@ -1,3 +1,15 @@
+#header {
+  z-index: 1;
+  background-color: #3E67B1bb !important;
+  > .header-left > .tabs {
+    color: #dededeaa !important;
+  }
+  > .header-left > .tabs > .tab:not(.disabled) {
+    color: #1c1c1caa !important;
+    &:hover { color: #0648b7 !important }
+  }
+}
+
 html[theme-mode='dark'] body > main {
   background-color: #303845 !important;
   color: #ebebf599;
@@ -5,10 +17,14 @@ html[theme-mode='dark'] body > main {
 body > main {
   --padding: 100px;
 
+  z-index: 0;
   display: flex;
   position: relative;
+  margin-top: -60px;
   padding: 0 var(--padding);
+  padding-top: 60px;
   width: calc(100% - var(--padding) * 2);
+  height: calc(100vh - 60px);
   color: #2d2d2d;
   overflow: overlay;
   scroll-behavior: smooth;
