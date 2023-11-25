@@ -24,6 +24,18 @@ if (matchedElement) {
     main.scrollTo({ top: matchedElement!.offsetTop - 10 })
   }, 500)
 }
+document.querySelectorAll('a[href^="#"]')
+  .forEach(e => {
+    e.addEventListener('click', e => {
+      e.preventDefault()
+      const aLinkEle = e.currentTarget as HTMLAnchorElement
+      const hash = aLinkEle.getAttribute('href')
+      if (!hash) return
+      const header = document.querySelector<HTMLHeadElement>(hash)
+      if (!header) return
+      main.scrollTo({ top: header.offsetTop - 10 })
+    })
+  })
 
 function throttle<T extends (...args: any[]) => any>(fn: T, delay: number) {
   let last = 0
