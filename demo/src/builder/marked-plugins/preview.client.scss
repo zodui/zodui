@@ -92,6 +92,7 @@ div.zodui-preview {
       max-height: 0;
       overflow: overlay;
       border-bottom: 1px solid #ccc;
+      transition: .1s;
     }
     > .material-icons {
       position: absolute;
