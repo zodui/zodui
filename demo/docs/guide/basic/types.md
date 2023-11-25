@@ -196,8 +196,99 @@ Zod 没支持，但是我支持了，但是暂时不想写文档，晚点再写�
 
 ### 联合类型
 
-`|`。
+在 TypeScript 中我们可以通过 `|`（联合） 运算符来实现的，同样的 Zod 也支持了这一种类型运算的定义方式，通过使用 `z.union` 便可以定义你需要的联合类型。
+
+```typescript zodui:preview
+[
+  z
+    .union([
+      z.string().label('字符串'),
+      z.number().label('数字')
+    ])
+    .label('字符串或数字')
+    .describe(
+      '联合基础类型的情况下，输入框首先将会渲染为一个下拉框，你可以通过单击下拉框来选择需要的类型。\n' +
+      '下拉框的选项的文本由对应的类型的 label 属性决定，你可以通过 label 属性来修改对应的文本。\n' +
+      '当你选择了对应的类型之后，输入框将会渲染为对应的类型的输入框，你可以通过交互来输入对应的内容。'
+    ),
+  z
+    .union([
+      z.literal('a').label('A'),
+      z.literal('b').label('B'),
+      z.literal(1).label('数字 1'),
+      z.literal({
+        type: '类型',
+        name: '名称'
+      }).label('一个对象')
+    ])
+    .label('A 或 B 或者其他的 literal（字面量） 类型')
+    .describe(
+      '联合 literal（字面量）类型的情况下，输入框首先将会渲染为一个下拉框，你可以通过单击下拉框来选择需要的类型。\n' +
+      '下拉框的选项的文本由对应的类型的 label 属性决定，你可以通过 label 属性来修改对应的文本。'
+    )
+]
+```
+
+除了默认的 select 交互模式你还可以选择使用 radio 的方式来进行渲染，你可以通过 `z.union` 的 `mode` 方法来进行设置。
+
+```typescript zodui:preview
+z
+  .union([
+    z.literal('a').label('A'),
+    z.literal('b').label('B'),
+    z.literal(1).label('数字 1'),
+    z.literal({
+      type: '类型',
+      name: '名称'
+    }).label('一个对象')
+  ])
+  .mode('radio')
+  .label('A 或 B 或者其他的 literal（字面量） 类型')
+  .describe(
+    '联合 literal（字面量）类型的情况下，输入框首先将会渲染为一个单选框，你可以通过单击单选框来选择需要的类型。\n' +
+    '单选框的选项的文本由对应的类型的 label 属性决定，你可以通过 label 属性来修改对应的文本。'
+  )
+```
+
+除此之外，如果你存在表单联动的需求，其实你也可以善用联合类型来实现这一需求。
+
+```typescript zodui:preview
+z
+  .union([
+    z.object({
+      type: z.string(),
+    }),
+    z.object({
+      type: z.literal('a').label('A'),
+      name: z.string().label('名称')
+    }),
+    z.object({
+      type: z.literal('b').label('B'),
+      age: z.number().label('年龄')
+    })
+  ])
+```
 
 ### 交叉类型
 
-`&`。
+在 TypeScript 中我们可以通过 `&`（交叉） 运算符来实现的，同样的 Zod 也支持了这一种类型运算的定义方式，通过使用 `z.intersection` 便可以定义你需要的交叉类型。
+
+```typescript zodui:preview
+z
+  .intersection(
+    z
+      .object({
+        name: z.string().label('名称'),
+        age: z.number().label('年龄')
+      })
+      .label('基础信息'),
+    z
+      .object({
+        location: z.string().label('位置'),
+        address: z.string().label('地址')
+      })
+      .label('背景信息')
+  )
+  .label('名称与年龄')
+  .describe('交叉类型的情况下，输入框将会渲染为两个输入框，你可以通过交互来输入对应的内容。')
+```
