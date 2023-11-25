@@ -141,10 +141,16 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
   return `
     <div class='left-panel'>
       <div class='tabs'>
-        ${tabs.map(tree => `<div class='${
+        ${tabs.map(tab => `<div class='${
           'tab'
-          + (tree === activeTab ? ' active' : '')
-        }'>${tree.title}</div>`).join('')}
+          + (tab === activeTab ? ' active' : '')
+        }'>
+        <a href='${urlBase}${(() => {
+          const firstClassification = tab.children?.[0]
+          const firstPage = firstClassification?.children?.[0]
+          return firstPage?.href ?? firstClassification?.href ?? tab.href
+        })()}'>${tab.title}</a>
+      </div>`).join('')}
       </div>
       ${activeClassification ? `<div class='tree'>
         ${activeTab.children.map(classification => `
