@@ -90,7 +90,7 @@ export namespace ComponentProps {
      * @default {'row'}
      */
     direction?: 'row' | 'column'
-    options?: SelectOptions[]
+    options?: RadioGroupOption[]
     value?: T
     defaultValue?: T
     onChange?: (v: T) => void
