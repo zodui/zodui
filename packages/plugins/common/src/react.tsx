@@ -95,7 +95,7 @@ export const CommonPluginForReact = definePlugin('CommonPlugin', ctx => {
           }-picker`)
         }, [datetime, modes, setClassName])
         return <Rndr
-          target='Range.Date.Picker'
+          target='Range:Date:Picker'
           isPanel={modes.includes('panel')}
           datetime={datetime}
           {...props}
