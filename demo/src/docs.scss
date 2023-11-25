@@ -50,11 +50,14 @@ body > main {
       > .zodui-item {
         padding: 5px;
         width: calc(100% - 10px);
+        &:hover {
+          background-color: #fff;
+        }
         .zodui-item__more {
           display: none;
         }
         .zodui-item__label {
-          font-size: 1.2rem;
+          font-size: 1.1rem;
           &::after { display: none; }
         }
       }
