@@ -34,6 +34,7 @@ document.querySelectorAll('a[href^="#"]')
       const header = document.querySelector<HTMLHeadElement>(hash)
       if (!header) return
       main.scrollTo({ top: header.offsetTop - 10 })
+      history.pushState(null, '', hash)
     })
   })
 
