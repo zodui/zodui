@@ -146,7 +146,7 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
           + (tree === activeTab ? ' active' : '')
         }'>${tree.title}</div>`).join('')}
       </div>
-      <div class='tree'>
+      ${activeClassification ? `<div class='tree'>
         ${activeTab.children.map(classification => `
           <ul class='tree-item'>
             <li class='tree-item-title'>${classification.title}</li>
@@ -160,7 +160,7 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
             </ul>
           </ul>
         `).join('')}
-      </div>
+      </div>` : ''}
     </div>
     <div class='container'>
       <div class='markdown-body'>
