@@ -21,7 +21,7 @@ document.querySelectorAll<HTMLDivElement>('.anchor-point')
   })
 if (matchedElement) {
   setTimeout(() => {
-    matchedElement.scrollIntoView()
+    main.scrollTo({ top: matchedElement!.offsetTop - 10 })
   }, 500)
 }
 
