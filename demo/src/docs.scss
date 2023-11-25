@@ -45,7 +45,7 @@ body > main {
     top: 0;
     min-width: 300px;
     border-right: 1px solid #d9d9d9;
-    > div.tabs {
+    > .tabs {
       display: flex;
       justify-content: space-between;
       border-bottom: 1px solid #d9d9d9;
@@ -118,19 +118,29 @@ body > main {
     margin: 0;
     padding: 10px 0;
     min-width: 200px;
+    font-size: 1rem;
   }
   ul {
     padding-inline-start: 0;
+    font-size: 1.1rem;
     user-select: none;
+    transition: .1s;
     > h4 { margin-top: 0; }
-    ul { padding-inline-start: 20px }
+    ul {
+      padding-inline-start: 0;
+      li {
+        padding: 0 0 0 20px;
+      }
+    }
     li {
       margin-top: 8px;
-      padding: 0 0 0 4px;
+      padding: 0;
       list-style: none;
       box-sizing: border-box;
       border-left: 2px solid transparent;
+      transition: padding .1s;
       &.active {
+        padding: 0 0 0 10px;
         font-weight: bold;
         border-left: 2px solid #3E67B1;
       }

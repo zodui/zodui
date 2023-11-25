@@ -183,21 +183,19 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
         })()}'>${tab.title}</a>
       </div>`).join('')}
       </div>
-      ${activeClassification ? `<div class='tree'>
-        ${activeTab.children.map(classification => `
-          <ul class='tree-item'>
-            <li class='tree-item-title'>${classification.title}</li>
-            <ul class='tree-item-children'>
-              ${classification.children.map(page => `<li class='${
-                'tree-item-children-item'
-                + (page === activePage ? ' active' : '')
-              }'>
-                <a href='${urlBase}${page.href}'>${page.title}</a>
-              </li>`).join('')}
-            </ul>
+      ${activeClassification ? `<ul class='classifications'>
+        ${activeTab.children.map(classification => `<li class='classification'>
+          ${classification.title}
+          <ul class='classification-pages'>
+            ${classification.children.map(page => `<li class='${
+              'classification-page'
+              + (page === activePage ? ' active' : '')
+            }'>
+              <a href='${urlBase}${page.href}'>${page.title}</a>
+            </li>`).join('')}
           </ul>
-        `).join('')}
-      </div>` : ''}
+        </li>`).join('')}
+      </ul>` : ''}
     </div>
     <div class='container'>
       <div class='markdown-body'>
