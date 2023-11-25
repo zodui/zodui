@@ -148,8 +148,8 @@ importers:
         specifier: ^0.3.2
         version: 0.3.2(react-dom@16.14.0)(react@16.14.0)
       tdesign-react:
-        specifier: ^1.3.0
-        version: 1.3.0(react-dom@16.14.0)(react@16.14.0)
+        specifier: ^1.3.1
+        version: 1.3.1(react-dom@16.14.0)(react@16.14.0)
     devDependencies:
       '@types/react':
         specifier: ^16.14.50
@@ -4745,8 +4745,8 @@ packages:
       react-dom: 16.14.0(react@16.14.0)
     dev: false
 
-  /tdesign-react@1.3.0(react-dom@16.14.0)(react@16.14.0):
-    resolution: {integrity: sha512-SKiL4kTUCb63jA659unbaUJqKDVH9vNFH59M3tXa8qkq9nE7IMIBqREmYoGO8zuzay4CvFA7kWMPCtFpCmi5ow==}
+  /tdesign-react@1.3.1(react-dom@16.14.0)(react@16.14.0):
+    resolution: {integrity: sha512-GjPOz6UhGqBjUEyKmQui5WBMwecTfM8IYQ8Z8Qtq30GckfNrfYvWWgKcb+beYU6qjmIsRDhswD3t0iF/W4PBKA==}
     peerDependencies:
       react: '>=16.13.1'
       react-dom: '>=16.13.1'
