@@ -1,6 +1,7 @@
 import { AllTypes, definePlugin } from '@zodui/core'
-import { Icon, Input, InputAdornment, Rndr, useControllerClassNameContext } from '@zodui/react'
+import { Icon, Input, InputAdornment, RadioGroup, Rndr, useControllerClassNameContext } from '@zodui/react'
 import { useEffect, useMemo } from 'react'
+import { undefined } from 'zod'
 
 import Common from './index'
 import { isEqual } from './utils'
@@ -43,6 +44,33 @@ export const CommonPluginForReact = definePlugin('CommonPlugin', ctx => {
           >
           <Input {...props}/>
         </InputAdornment>
+      ]
+    ])
+    .defineUnit('complex', [AllTypes.ZodUnion], [
+      [
+        modes => ['radio', 'radio-outline', 'radio-card'].some(mode => modes.includes(mode)),
+        props => {
+          const direction = useMemo(() => {
+            if (props.modes.includes('direction-row')) {
+              return 'row'
+            }
+            if (props.modes.includes('direction-column')) {
+              return 'column'
+            }
+          }, [props.modes])
+          const variant = useMemo(() => {
+            if (props.modes.includes('radio-outline')) {
+              return 'outline'
+            }
+            if (props.modes.includes('radio-card')) {
+              return 'card'
+            }
+          }, [props.modes])
+          return <RadioGroup
+            {...props}
+            {...{ variant, direction }}
+          />
+        }
       ]
     ])
     .defineUnit('multiple', [AllTypes.ZodTuple], [

@@ -1,5 +1,6 @@
 export { Button } from './button'
 export { Dropdown } from './dropdown'
 export { Input, InputAdornment } from './input'
+export { RadioGroup } from './radio-group'
 export { Select } from './select'
 export { Switch } from './switch'

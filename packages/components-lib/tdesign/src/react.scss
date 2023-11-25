@@ -32,7 +32,16 @@
   .t-button.t-button--variant-outline.t-button--shape-square {
     min-width: 32px;
   }
-
+  .zodui-tdesign-radio-group {
+    &--direction-row {
+      flex-direction: row;
+    }
+    &--direction-column {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+    }
+  }
   &.union {
     &.radio-inline > .zodui-item__control > div {
       display: flex;
@@ -67,5 +76,8 @@
         200px - var(--td-comp-size-xxs) / 0.618
       ) / 2);
     }
+  }
+  .t-radio-group {
+    width: 100%;
   }
 }

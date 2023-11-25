@@ -100,7 +100,9 @@ export namespace InnerProps {
       children?: ReactElement
       onAction?: (value: string | number, item: DropdownMenuItem) => void
     }
-  // RadioGroup: () => <></>
+  export type RadioGroup<T extends ComponentProps.RadioGroupValue> =
+    & BaseProps
+    & ComponentProps.RadioGroup<T>
   // Dialog: () => <></>
   // Drawer: () => <></>
 }
@@ -143,5 +145,6 @@ export interface ReactFramework {
     Select: <T extends ComponentProps.SelectValue>(props: InnerProps.Select<T>) => ReactElement
     Switch: (props: InnerProps.Switch) => ReactElement
     Dropdown: (props: InnerProps.Dropdown) => ReactElement
+    RadioGroup: <T extends ComponentProps.RadioGroupValue>(props: InnerProps.RadioGroup<T>) => ReactElement
   }
 }

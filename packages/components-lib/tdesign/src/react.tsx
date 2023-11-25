@@ -2,6 +2,7 @@ import './react.scss'
 import 'tdesign-react/esm/style/index.js'
 
 import { definePlugin } from '@zodui/core'
+import { classnames } from '@zodui/core/utils'
 import type { Narrow } from '@zodui/core/utils'
 import { Icon } from '@zodui/react'
 import { cloneElement } from 'react'
@@ -20,6 +21,7 @@ import {
   DatePicker, DatePickerPanel, DateRangePicker, DateRangePickerPanel,
   Dropdown,
   Input, InputAdornment, InputNumber,
+  Radio,
   Select,
   Slider,
   Switch,
@@ -95,6 +97,21 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
       onChange={v => props.onChange?.(v as any)}
     />)
     .defineComp('Switch', props => <Switch {...props} />)
+    .defineComp('RadioGroup', props => <Radio.Group
+      allowUncheck
+      className={classnames(props.className, {
+        [`zodui-tdesign-radio-group--direction-${props.direction ?? 'row'}`]: !!props.direction
+      })}
+      variant={({
+        outline: 'outline',
+        card: 'default-filled',
+        undefined: undefined
+      } as const)[props.variant]}
+      options={props.options}
+      value={props.value}
+      defaultValue={props.defaultValue}
+      onChange={v => props.onChange?.(v as any)}
+    />)
     .defineComp('Dropdown', props => <Dropdown
         popupProps={{
           showArrow: true,
