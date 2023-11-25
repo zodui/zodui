@@ -6,6 +6,9 @@ import { List, useItemConfigurer } from '@zodui/react'
 import React, { useEffect, useRef, useState } from 'react'
 import type { ZodSchema } from 'zod'
 
+Context.global.use(TDesignComponentsLibForReact)
+Context.global.use(CommonPluginForReact)
+
 interface DemoProps {
   k?: string
   c?: string
@@ -18,12 +21,6 @@ export function Demo({
   c,
   configure: cc
 }: DemoProps) {
-  useEffect(() => {
-    const e0 = Context.global.use(TDesignComponentsLibForReact)
-    const e1 = Context.global.use(CommonPluginForReact)
-    return () => (e0(), e1())
-  }, [])
-
   const { configure, ItemConfigurer } = useItemConfigurer(cc)
 
   const [code, setCode] = useState<string>(c ?? '')
