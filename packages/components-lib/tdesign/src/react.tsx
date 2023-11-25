@@ -49,6 +49,15 @@ function calcTimeStr(v?: Date) {
 export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
   const ctxFgt = ctx.framework('react')
   ctxFgt
+    .defineComp('Button', ({ theme, ...props }) => <Button
+      theme={({
+        info: 'default',
+        error: 'danger',
+        warning: 'warning',
+        success: 'success'
+      } as const)[theme]}
+      {...props}
+    />)
     .defineComp('Input', ({
       type,
       mode,
@@ -80,15 +89,6 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
     .defineComp('InputAdornment', ({ prev, next, ...props }) => (
       <InputAdornment prepend={prev} append={next} {...props} />
     ))
-    .defineComp('Button', ({ theme, ...props }) => <Button
-      theme={({
-        info: 'default',
-        error: 'danger',
-        warning: 'warning',
-        success: 'success'
-      } as const)[theme]}
-      {...props}
-    />)
     .defineComp('Select', props => <Select
       {...props}
       value={props.value}
