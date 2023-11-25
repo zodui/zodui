@@ -56,6 +56,17 @@ export function useCoreContextUnit<
               {...(typeof propsOrPropsFunc === 'function' ? propsOrPropsFunc(props) : propsOrPropsFunc)}
             />) as R
           }
+          break
+        case 'function': {
+          func = (props => {
+            const [target, propsOrPropsFunc] = topMatchUnit({ modes, ...props })
+            return <Rndr
+              target={target}
+              {...(typeof propsOrPropsFunc === 'function' ? propsOrPropsFunc(props) : propsOrPropsFunc)}
+            />
+          }) as R
+          break
+        }
       }
       return func
     }
