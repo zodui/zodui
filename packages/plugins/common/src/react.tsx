@@ -1,7 +1,6 @@
 import { AllTypes, definePlugin } from '@zodui/core'
 import { Icon, Input, InputAdornment, RadioGroup, Rndr, useControllerClassNameContext } from '@zodui/react'
 import { useEffect, useMemo } from 'react'
-import { undefined } from 'zod'
 
 import Common from './index'
 import { isEqual } from './utils'
