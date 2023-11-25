@@ -6,6 +6,7 @@ let menuItem: HTMLLIElement | null = null
 
 const hash = location.hash ? decodeURIComponent(location.hash) : null
 
+let matchedElement: HTMLDivElement | null = null
 document.querySelectorAll<HTMLDivElement>('.anchor-point')
   .forEach(e => {
     const id = e.id
@@ -15,9 +16,14 @@ document.querySelectorAll<HTMLDivElement>('.anchor-point')
         newMenuItem.classList.add('active')
         menuItem = newMenuItem
       }
-      document.querySelector(hash)?.scrollIntoView()
+      matchedElement = e
     }
   })
+if (matchedElement) {
+  setTimeout(() => {
+    matchedElement.scrollIntoView()
+  }, 500)
+}
 
 function throttle<T extends (...args: any[]) => any>(fn: T, delay: number) {
   let last = 0
