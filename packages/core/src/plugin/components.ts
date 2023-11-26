@@ -50,11 +50,11 @@ export namespace ComponentProps {
     onClick?: () => void
   }
   export type SelectValue = string | number | undefined | (string | number)[]
-  export type SelectOptions = Option
+  export type SelectOption = Option
   // TODO support input select
   // TODO support multiple select
   export type Select<T extends SelectValue> = {
-    options?: SelectOptions[]
+    options?: SelectOption[]
     value?: T
     defaultValue?: T
     onChange?: (v: T) => void
