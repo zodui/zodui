@@ -2,6 +2,7 @@
   "title": "基础",
   "children": [
     "types.md",
+    "calc-type.md",
     "create-a-form.md",
     "custom-mode.md"
   ]
