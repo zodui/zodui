@@ -170,6 +170,9 @@ export default z.object({
         })
       })}${hash}`)
     })
+    evalerValueEmitter.on('playground', v => {
+      console.log('Playground form value:', v)
+    })
 
     setTimeout(() => {
       document.querySelector('body > main').classList.remove('loading')
