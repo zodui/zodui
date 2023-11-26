@@ -1,7 +1,7 @@
 import './header.client.scss'
 
 const main = document.querySelector<HTMLDivElement>('body > main')
-const menu = document.querySelector('div.menu')
+const quickAccess = document.querySelector('div.quick-access')
 let menuItem: HTMLLIElement | null = null
 
 const hash = location.hash ? decodeURIComponent(location.hash) : null
@@ -11,7 +11,7 @@ document.querySelectorAll<HTMLDivElement>('.anchor-point')
   .forEach(e => {
     const id = e.id
     if (hash && id === hash.slice(1)) {
-      const newMenuItem = menu.querySelector(`a[href="${hash}"]`).parentElement as HTMLLIElement
+      const newMenuItem = quickAccess.querySelector(`a[href="${hash}"]`).parentElement as HTMLLIElement
       if (newMenuItem) {
         newMenuItem.classList.add('active')
         menuItem = newMenuItem
@@ -38,18 +38,17 @@ document.querySelectorAll('a[href^="#"]')
     })
   })
 
-function throttle<T extends (...args: any[]) => any>(fn: T, delay: number) {
-  let last = 0
-  return function (...args: Parameters<T>) {
-    const now = Date.now()
-    if (now - last > delay) {
-      fn(...args)
-      last = now
-    }
+function debounce<T extends (...args: any[]) => any>(fn: T, delay: number) {
+  let timer: number | null = null
+  return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
+    if (timer) clearTimeout(timer)
+    timer = setTimeout(() => {
+      fn.apply(this, args)
+    }, delay) as unknown as number
   }
 }
 
-main.addEventListener('scroll', throttle(() => {
+main.addEventListener('scroll', debounce(() => {
   const anchors = document.querySelectorAll<HTMLDivElement>('.anchor-point')
   let activeAnchor: HTMLDivElement | null = null
   for (let i = 0; i < anchors.length; i++) {
@@ -63,9 +62,9 @@ main.addEventListener('scroll', throttle(() => {
   }
   if (!activeAnchor) return
   const id = activeAnchor.id
-  const newMenuItem = menu.querySelector(`a[href="#${id}"]`)?.parentElement as HTMLLIElement
-  if (!newMenuItem) return
+  const newMenuItem = quickAccess.querySelector(`a[href="#${id}"]`)?.parentElement as HTMLLIElement
   menuItem?.classList.remove('active')
-  newMenuItem.classList.add('active')
   menuItem = newMenuItem
-}, 100))
+  if (!newMenuItem) return
+  newMenuItem.classList.add('active')
+}, 50))

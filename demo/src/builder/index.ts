@@ -175,8 +175,8 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
     children?: Record<string, string>
   }>)
   const menuHTML = `
-    <div class='menu'>
-      <h3>菜单</h3>
+    <div class='quick-access'>
+      <h3>摘要</h3>
       <ul>
         ${Object.entries(menu).map(([title, { href, children }]) => `
           <li class='menu-item'>
