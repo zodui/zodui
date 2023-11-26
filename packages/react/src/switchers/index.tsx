@@ -113,6 +113,9 @@ export function Switcher<M extends ZodSchema>(props: SwitcherPropsForReact<M>) {
     />
   }
 
+  const SpecialSwitchers = [
+    defineSwitcher(AllTypes.ZodLiteral, ({ model }) => <>{JSON.stringify(model.value)}</>)
+  ] as const
   return <div className={classnames(
     'zodui-controller',
     ...(InnerSwitcher ? [
@@ -124,7 +127,22 @@ export function Switcher<M extends ZodSchema>(props: SwitcherPropsForReact<M>) {
     <ControllerClassName>
       {InnerSwitcher
         ? InnerSwitcher
-        : <span style={{ width: '100%' }}>暂未支持的的类型 <code>{model.type}</code></span>}
+        : SpecialSwitchers
+          .reduce<ReactElement>((acc, [type, SpecialSwitcher]) => {
+            if (isWhatType(model, type)) {
+              return <SpecialSwitcher model={model} />
+            }
+            return acc
+          }, null)
+          ?? <span style={{ width: '100%' }}>暂未支持的的类型 <code>{model.type}</code></span>
+      }
     </ControllerClassName>
   </div>
+}
+
+function defineSwitcher<
+  T extends AllType,
+  M extends TypeMap[T]
+>(type: T, Switcher: (props: { model: M }) => ReactElement) {
+  return [type, Switcher] as const
 }
