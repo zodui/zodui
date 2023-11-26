@@ -111,7 +111,7 @@ z
         .date()
         .mode('datetime panel wrap')
         .label('生日')
-    }).label('填写信息'),
+    }).label('基本信息'),
   ])
   .mode('append')
   .label('A/B/C?')
