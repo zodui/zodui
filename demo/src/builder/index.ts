@@ -3,6 +3,20 @@ import hljs from 'highlight.js'
 import { marked, Slugger } from 'marked'
 import path from 'path'
 
+const reportBodyRender = (pWithoutExt: string) => `
+## 文档路径
+
+网络位置：[/${pWithoutExt}](https://zodui.github.io/zodui/docs/${pWithoutExt})
+
+项目文件位置：[/demo/${pWithoutExt}.md](https://github.com/zodui/zodui/blob/master/demo/${pWithoutExt}.md)
+
+## 出现的问题
+
+## 期望的结果
+
+## 建议的修改
+`.trim()
+
 export const MD_PLUGIN: (readonly [marked.RendererObject, string])[] = []
 
 export function defineMDPlugin(renderer: marked.RendererObject, src: string | string[]) {
@@ -191,6 +205,12 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
           </li>`).join('')
       }</ul>
     </div>`.trim()
+
+  const reportQS = new URLSearchParams({
+    labels: 'documentation',
+    title: `Doc: ${pWithoutExt}`,
+    body: reportBodyRender(pWithoutExt)
+  })
   return `
     <div class='left-panel'>
       <div class='selector'>
@@ -230,8 +250,18 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
         ${marked(content)}
       </div>
       <div class='operates'>
-        <div class='report'></div>
-        <div class='edit-in-github'></div>
+        <div class='report'>
+          <span class='material-icons'>report</span>
+          <a href='${
+            `https://github.com/zodui/zodui/issues/new?${reportQS.toString()}`
+          }' target='_blank'>报告此页</a>
+        </div>
+        <div class='edit-in-github'>
+          <span class='material-icons'>edit</span>
+          <a href='${
+            `https://github.com/zodui/zodui/edit/master/demo/${p}`
+          }' target='_blank'>在 Github 上编辑此页</a>
+        </div>
       </div>
       <div class='pagination'>
         ${prevPage ? `<a href='${urlBase}${prevPage?.href ?? ''}'>

@@ -122,6 +122,20 @@ body > main {
         }
       }
     }
+    > div.operates {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      font-size: 1rem;
+      > div {
+        display: flex;
+        align-items: center;
+        span.material-icons {
+          margin-right: 5px;
+          font-size: 1.4rem;
+        }
+      }
+    }
     > .markdown-body {
       > h1, > h2, > h3, > h4, > h5, > h6 {
         &:first-child {
