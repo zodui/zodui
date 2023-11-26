@@ -18,7 +18,12 @@ export interface FrameworkComponents {
 }
 
 export namespace ComponentProps {
-  // TODO abstract SelectOption value and RadioGroupOption value
+  export type Option = {
+    label?: string
+    title?: string
+    value: string | number
+    disabled?: boolean
+  }
   export type InputValue = string | number | undefined
   export type Input<T extends InputValue = InputValue> =
     & {
@@ -45,11 +50,7 @@ export namespace ComponentProps {
     onClick?: () => void
   }
   export type SelectValue = string | number | undefined | (string | number)[]
-  export type SelectOptions = {
-    label: string
-    title: string
-    value: string | number
-  }
+  export type SelectOptions = Option
   // TODO support input select
   // TODO support multiple select
   export type Select<T extends SelectValue> = {
@@ -78,12 +79,7 @@ export namespace ComponentProps {
     onAction?: (value: string | number, item: DropdownMenuItem) => void
   }
   export type RadioGroupValue = string | number | undefined
-  export type RadioGroupOption = {
-    label?: string
-    title?: string
-    value: string | number
-    disabled?: boolean
-  }
+  export type RadioGroupOption = Option
   export type RadioGroup<T extends RadioGroupValue> = {
     variant?: 'outline' | 'card'
     /**

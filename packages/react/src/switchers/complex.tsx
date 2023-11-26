@@ -14,7 +14,7 @@ import { useCoreContextUnit } from '../hooks/useCoreContextUnit'
 import type { SwitcherPropsForReact } from './index'
 import { Switcher } from './index'
 
-function resolveSchemas(schemas: ZodUnionOptions): ComponentProps.SelectOptions[] {
+function resolveSchemas(schemas: ZodUnionOptions): ComponentProps.Option[] {
   // TODO resolve not literal type, it not contain value
   return schemas.map((schema, index) => ({
     label: schema._def.label || schema._def.description || schema._def.value || `${index}nd`,
