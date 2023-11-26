@@ -112,6 +112,13 @@ export function Switcher<M extends ZodSchema>(props: SwitcherPropsForReact<M>) {
       model={innerType}
     />
   }
+  if (isWhatType(model, AllTypes.ZodIntersection)) {
+    // TODO resolve never type case
+    return <>
+      <Switcher model={model._def.left} />
+      <Switcher model={model._def.right} />
+    </>
+  }
 
   const SpecialSwitchers = [
     defineSwitcher(AllTypes.ZodLiteral, ({ model }) => <>{JSON.stringify(model.value)}</>)
