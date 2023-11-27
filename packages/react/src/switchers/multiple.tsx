@@ -3,7 +3,7 @@ import './multiple.scss'
 import type { MultipleType, TypeMap } from '@zodui/core'
 import { AllTypes, ComplexMultipleTypes, KeyEditableTypes } from '@zodui/core'
 import { getDefaultValue, isWhatType, isWhatTypes } from '@zodui/core/utils'
-import React, { Fragment, useCallback, useMemo, useRef, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type {
   ZodArrayDef,
   ZodMapDef,
@@ -43,8 +43,8 @@ export function Multiple({
     & Partial<ZodObjectDef>
   ) & ZodTypeDef
   const dict = useMemo(() => {
-    if (commonDef.typeName === AllTypes.ZodObject) {
-      const dict = commonDef.shape() ?? {}
+    if (isWhatType(model, AllTypes.ZodObject)) {
+      const dict = model.shape
       return Object.entries(dict)
         .reduce((acc, [key, s]) => {
           let ns = s
@@ -57,9 +57,7 @@ export function Multiple({
         }, {} as ZodRawShape)
     }
     return {}
-  // FIXME the next line
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [commonDef.typeName, commonDef.shape])
+  }, [model])
   const getSchema = useCallback((index?: number) => {
     if (isWhatType(model, AllTypes.ZodArray)) {
       return model._def.type
@@ -121,7 +119,7 @@ export function Multiple({
   }, [dict, commonDef.typeName, commonDef.items, commonDef.valueType])
 
   const [_, setRigger] = useState(false)
-  function initValue() {
+  const initValue = useCallback(() => {
     const value = props.value ?? props.defaultValue
     if (Object.keys(dict).length > 0) {
       return Object
@@ -147,8 +145,15 @@ export function Multiple({
       }
     }
     return []
-  }
+  }, [dict, model, props.defaultValue, props.value])
+  // TODO refactor to use state
   const listRef = useRef<any[]>(initValue())
+  useEffect(() => {
+    listRef.current = initValue().map((v, i) => {
+      return v ?? listRef.current[i]
+    })
+    setRigger(r => !r)
+  }, [schemas, initValue])
 
   const dictKeys = useMemo(() => Object.keys(dict ?? {}), [dict])
   const [keys, setKeys] = useState<string[]>([])
