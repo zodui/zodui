@@ -23,6 +23,7 @@
     .union([
       z.literal('a').label('A'),
       z.literal('b').label('B'),
+      z.literal(true),
       z.literal(1).label('数字 1'),
       z.literal({
         type: '类型',
