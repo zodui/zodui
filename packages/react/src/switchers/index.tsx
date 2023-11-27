@@ -115,8 +115,8 @@ export function Switcher<M extends ZodSchema>(props: SwitcherPropsForReact<M>) {
   if (isWhatType(model, AllTypes.ZodIntersection)) {
     // TODO resolve never type case
     return <>
-      <Switcher model={model._def.left} />
-      <Switcher model={model._def.right} />
+      <Switcher {...props} model={model._def.left} />
+      <Switcher {...props} model={model._def.right} />
     </>
   }
 
