@@ -3,14 +3,15 @@ import './complex.scss'
 import type { ComplexType, ComponentProps, TypeMap } from '@zodui/core'
 import { AllTypes } from '@zodui/core'
 import { isWhatType } from '@zodui/core/utils'
-import { useEffect, useMemo, useState } from 'react'
-import type { ZodUnionOptions } from 'zod'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import type { ZodTypeAny, ZodUnionOptions } from 'zod'
 
 import { Select } from '../components'
 // TODO remove List import, and make Descriptors render target which can be customized
 import { List } from '../composers'
 import { useItemSerterContext } from '../contexts'
 import { useCoreContextUnit } from '../hooks/useCoreContextUnit'
+import { useValue } from '../hooks/useValue'
 import type { SwitcherPropsForReact } from './index'
 import { Switcher } from './index'
 
@@ -28,60 +29,113 @@ export function Complex({
   uKey, // FIXME
   modes,
   model,
-  value,
+  value: _value,
   defaultValue,
   ...rest
 }: SwitcherPropsForReact<TypeMap[ComplexType]>) {
-  const options = useMemo(() => resolveSchemas(model.options), [model.options])
+  const [value, changeValue] = useValue(_value, defaultValue, rest.onChange)
   const [index, setIndex] = useState<number>(undefined)
+  const changeIndex = useCallback((v: number) => {
+    setIndex(v)
+    const optionModel = model.options[v]
+    if (isWhatType(optionModel, AllTypes.ZodLiteral)) {
+      changeValue?.(optionModel._def.value)
+    }
+  }, [model.options, changeValue])
+  const dependKeys = useMemo(() => {
+    if (isWhatType(model, AllTypes.ZodDiscriminatedUnion))
+      return [model.discriminator]
+    return []
+  }, [model])
+  const dependValues = useMemo(() => {
+    return dependKeys.map(key => value?.[key])
+  }, [dependKeys, value])
+  const dependKeysOptions = useMemo(() => {
+    const map = new Map<string, ZodTypeAny[]>()
+    model.options.forEach((option: ZodTypeAny) => {
+      if (isWhatType(option, AllTypes.ZodObject)) {
+        dependKeys.forEach(key => {
+          if (option.shape[key]) {
+            if (!map.has(key)) map.set(key, [])
+            map
+              .get(key)
+              .push(option.shape[key])
+          }
+        })
+      }
+    })
+    return map
+  }, [dependKeys, model.options])
+  const options = useMemo(() => resolveSchemas(model.options), [model.options])
+  const activeOption = useMemo(() => {
+    if (isWhatType(model, AllTypes.ZodDiscriminatedUnion)) {
+      const key = model.discriminator
+      const dependKeyOptions = dependKeysOptions.get(key)
+      const keyIndex = dependKeys.findIndex(k => k === key)
+      if (!dependKeyOptions) return
+      const literals = dependKeyOptions.reduce((prev, curr) => prev.or(curr))
+      let index = 0
+      for (let i = 0; i < dependKeyOptions.length; i++) {
+        const literal = dependKeyOptions[i]
+        if (literal._def.value === dependValues[keyIndex]) {
+          index = i
+          break
+        }
+      }
+
+      const template = model.options[index]
+      if (isWhatType(template, AllTypes.ZodObject)) {
+        return template.setKey(key, literals)
+      }
+      return
+    }
+
+    const option = model.options[index] as ZodTypeAny | undefined
+    if (index === undefined) return
+    if (index < 0 || index >= model.options.length) {
+      setIndex(undefined)
+      return
+    }
+    return option
+  }, [dependKeys, dependKeysOptions, dependValues, index, model])
   useEffect(() => {
-    const v = value ?? defaultValue
+    const v = value
     let index = -1
     if (isWhatType(model, AllTypes.ZodUnion)) {
       index = model.options
         .findIndex(option => isWhatType(option, AllTypes.ZodLiteral) && option._def.value === v)
     }
     if (isWhatType(model, AllTypes.ZodDiscriminatedUnion)) {
-      console.log(model, model.options)
+      // console.log(model, model.options)
+      // TODO support calc index when model has default value or value
     }
     if (index === -1) return
 
     setIndex(index)
-  }, [value, defaultValue, model.options, model])
-  const props = {
-    title: model._def.description,
-    ...rest,
-    value: index,
-    onChange(v: any) {
-      setIndex(v)
-      const option = model.options[v]
-      if (isWhatType(option, AllTypes.ZodLiteral)) {
-        rest.onChange?.(option._def.value)
-      } else {
-        const dValue = option._def.defaultValue
-        dValue && rest.onChange?.(dValue)
-      }
-    }
-  }
+  }, [value, model.options, model])
 
   const ItemSerter = useItemSerterContext()
 
-  const OptionRender = index !== undefined ? <>
-    <ItemSerter.Append deps={[model.options, index]}>
+  // TODO rename to OptionsRender
+  const OptionRender = activeOption && <>
+    <ItemSerter.Append deps={[
+      modes,
+      model.options, activeOption, changeValue
+    ]}>
       {/* 在里面控制是因为在 modes 修改后，将 append 内容清空 */}
-      {modes.includes('append') && model.options[index]._def.typeName !== AllTypes.ZodLiteral
+      {modes.includes('append') && activeOption._def.typeName !== AllTypes.ZodLiteral
         && <List
-          model={model.options[index]}
+          model={activeOption}
+          onChange={changeValue}
         />}
     </ItemSerter.Append>
-    {!modes.includes('append') && model.options[index]._def.typeName !== AllTypes.ZodLiteral && <>
+    {!modes.includes('append') && activeOption._def.typeName !== AllTypes.ZodLiteral && <>
       <Switcher
-        model={model.options[index]}
-        {...props}
-        onChange={rest.onChange}
+        model={activeOption}
+        onChange={changeValue}
       />
     </>}
-  </> : null
+  </>
 
   const Unit = useCoreContextUnit('complex', model._def.typeName, modes)
 
@@ -91,7 +145,7 @@ export function Complex({
       model={model}
       options={options}
       OptionRender={OptionRender}
-      {...props}
+      {...rest}
     />
     // TODO support `'' | (string & {})` type
     //      display select input
@@ -99,7 +153,8 @@ export function Complex({
       {isWhatType(model, AllTypes.ZodUnion) && <>
         <Select
           options={options}
-          {...props}
+          value={index}
+          onChange={changeIndex}
         />
         {OptionRender}
       </>}
