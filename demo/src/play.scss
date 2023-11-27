@@ -79,6 +79,7 @@ main {
     flex-grow: 1;
     min-width: 300px;
     height: 100%;
+    overflow: overlay;
     > .zodui-composer-list {
       transition: .3s;
     }
@@ -88,7 +89,6 @@ main {
       position: relative;
       align-items: center;
       filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
-      overflow: overlay;
       > .zodui-composer-list {
         &:first-child {
           margin-top: 10%;
