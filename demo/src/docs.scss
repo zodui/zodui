@@ -13,6 +13,9 @@
 html[theme-mode='dark'] body > main {
   background-color: #303845 !important;
   color: #ebebf599;
+  > div.container > .markdown-body {
+    --color-canvas-subtle: #333d;
+  }
 }
 body > main {
   --padding: 100px;
@@ -137,6 +140,7 @@ body > main {
       }
     }
     > .markdown-body {
+      --color-canvas-subtle: #fff;
       > h1, > h2, > h3, > h4, > h5, > h6 {
         margin-top: 40px !important;
       }
