@@ -1,6 +1,7 @@
 import { AllTypes, definePlugin } from '@zodui/core'
-import { Icon, Input, InputAdornment, RadioGroup, Rndr, useControllerClassNameContext } from '@zodui/react'
+import { Icon, Input, InputAdornment, RadioGroup, Rndr, Switch, useControllerClassNameContext } from '@zodui/react'
 import { useEffect, useMemo } from 'react'
+import type { ZodLiteral, ZodUnion } from 'zod'
 
 import Common from './index'
 import { isEqual } from './utils'
@@ -70,6 +71,14 @@ export const CommonPluginForReact = definePlugin('CommonPlugin', ctx => {
             {...{ variant, direction }}
           />
         }
+      ],
+      [
+        // TODO better
+        (modes, { model }) => !modes.includes('no-switch') && (model as ZodUnion<[ZodLiteral<any>, ...ZodLiteral<any>[]]>).options.every(option => (
+          option._def.typeName === AllTypes.ZodLiteral
+          && typeof option.value === 'boolean'
+        )),
+        props => <Switch {...props} />
       ]
     ])
     .defineUnit('multiple', [AllTypes.ZodTuple], [
