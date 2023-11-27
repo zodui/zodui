@@ -4,6 +4,7 @@ import type { ComplexType, ComponentProps, TypeMap } from '@zodui/core'
 import { AllTypes } from '@zodui/core'
 import { isWhatType } from '@zodui/core/utils'
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import type { ZodLiteral, ZodUnion } from 'zod'
 import type { ZodTypeAny, ZodUnionOptions } from 'zod'
 
 import { Select } from '../components'
@@ -85,7 +86,10 @@ export function Complex({
 
       const template = model.options[index]
       if (isWhatType(template, AllTypes.ZodObject)) {
-        return template.setKey(key, literals)
+        return template.setKey(key, literals.label(
+          // FIXME remove type assert
+          (literals as ZodUnion<[ZodLiteral<any>, ...ZodLiteral<any>[]]>).options[index]._def.label
+        ))
       }
       return
     }
