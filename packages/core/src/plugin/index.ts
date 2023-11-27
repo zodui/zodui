@@ -50,10 +50,12 @@ export interface UnitMap {
   }
   complex: {
     props: {
-      options: ComponentProps.SelectOptions[]
+      options: ComponentProps.Option[]
       OptionRender: any
     }
-    options: {}
+    options: {
+      model: TypeMap[AllType]
+    }
   }
   multiple: {
     props: {

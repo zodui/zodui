@@ -141,7 +141,7 @@ export function Complex({
     </>}
   </>
 
-  const Unit = useCoreContextUnit('complex', model._def.typeName, modes)
+  const Unit = useCoreContextUnit('complex', model._def.typeName, modes, { model })
 
   return Unit
     ? <Unit

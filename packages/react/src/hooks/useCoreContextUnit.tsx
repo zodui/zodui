@@ -70,6 +70,6 @@ export function useCoreContextUnit<
       }
       return func
     }
-  }, [topMatchUnit])
+  }, [modes, topMatchUnit])
   return (topRndr ?? matchUnit) as R
 }
