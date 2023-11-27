@@ -122,23 +122,45 @@ z
 
 ### 表单的联动
 
-除此之外，如果你存在一些较为复杂的表单联动的需求，其实你也可以善用联合类型来实现这一类需求。
+此外，你也可以善用联合类型来实现一些较为复杂的表单联动的需求。
+
+> 熟悉 TypeScript 的应该对「Discriminated Union（鉴别式联合）」或称「Tagged Union（标记式联合）」的这个概念不会陌生，如果不记得了可以在这里阅读官方的定义 [TypeScript Handbook/narrowing#discriminated-unions](https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions)。\
+> 除此之外你还可以阅读「[什么是鉴别式联合类型？](https://www.geeksforgeeks.org/what-are-discriminated-union-types/)」对其进行进一步的了解。
+
+假设我们正在设计一个表单，这个表单中有两个选项，分别是 `A` 和 `B`，当我们选择了 `A` 的时候，我们需要填写 `名称`，当我们选择了 `B` 的时候，我们需要填写 `年龄`，这个时候我们就可以通过联合类型来实现这个需求。\
+首先我们可以使用 TypeScript 对类型进行定义，然后再将其转换为 Zod 的类型。
+
+```typescript
+type AOrB =
+| {
+  type: 'a'
+  name: string
+}
+| {
+  type: 'b'
+  age: number
+}
+```
+
+我们可以使用 [`zod.discriminatedUnion`](https://zod.dev/?id=discriminated-unions) 来实现这个需求，这个方法接受两个参数，第一个参数是一个字符串，这个字符串是用来区分联合类型的，第二个参数是一个数组，这个数组中包含了所有的联合类型的定义。\
+在这里我们将 `type` 作为区分联合类型的元素，然后将 `A` 和 `B` 作为联合类型的定义，这样我们就可以实现这个需求了。
 
 ```typescript zodui:preview
 z
-  .discriminatedUnion([
-    z.object({
-      type: z.string(),
-    }),
+  .discriminatedUnion('type', [
     z.object({
       type: z.literal('a').label('A'),
       name: z.string().label('名称')
     }),
     z.object({
       type: z.literal('b').label('B'),
-      age: z.number().label('年龄')
+      age: z.number().mode('split').label('年龄')
     })
   ])
+  .label('A/B?')
+  .describe(
+    '现在你可以选择右侧的`A`或`B`选项试试看。'
+  )
 ```
 
 ```typescript zodui:preview
