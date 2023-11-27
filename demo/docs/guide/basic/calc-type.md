@@ -147,21 +147,39 @@ type AOrB =
 在这里我们将 `type` 作为区分联合类型的元素，然后将 `A` 和 `B` 作为联合类型的定义，这样我们就可以实现这个需求了。
 
 ```typescript zodui:preview
-z
-  .discriminatedUnion('type', [
-    z.object({
-      type: z.literal('a').label('A'),
-      name: z.string().label('名称')
-    }),
-    z.object({
-      type: z.literal('b').label('B'),
-      age: z.number().mode('split').label('年龄')
-    })
-  ])
-  .label('A/B?')
-  .describe(
-    '现在你可以选择右侧的`A`或`B`选项试试看。'
-  )
+[
+  z
+    .discriminatedUnion('type', [
+      z.object({
+        type: z.literal('a').label('A'),
+        name: z.string().label('名称')
+      }),
+      z.object({
+        type: z.literal('b').label('B'),
+        age: z.number().mode('split').label('年龄')
+      })
+    ])
+    .label('A/B?')
+    .describe(
+      '现在你可以选择右侧的`A`或`B`选项试试看。'
+    ),
+  z
+    .discriminatedUnion('displayAge', [
+      z.object({
+        name: z.string().label('名称'),
+        displayAge: z.literal(false).label('显示年龄')
+      }),
+      z.object({
+        name: z.string().label('名称'),
+        displayAge: z.literal(true).label('显示年龄'),
+        age: z.number().mode('split').label('年龄')
+      })
+    ])
+    .label('开关')
+    .describe(
+      '觉得年龄信息无所谓？试试点击右侧的`显示年龄`选项。'
+    )
+]
 ```
 
 没写好，没想好，没设计好，别看这块😭（~~或者一起来建设~~）。
