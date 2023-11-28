@@ -2,10 +2,10 @@ import './react.scss'
 import 'tdesign-react/esm/style/index.js'
 
 import { definePlugin } from '@zodui/core'
-import { classnames } from '@zodui/core/utils'
 import type { Narrow } from '@zodui/core/utils'
+import { classnames } from '@zodui/core/utils'
 import { Icon } from '@zodui/react'
-import { cloneElement } from 'react'
+import { cloneElement, useCallback } from 'react'
 import {
   AddIcon,
   ArrowDownIcon,
@@ -178,6 +178,13 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
       datetime: [enableDate, enableTime] = [true, true],
       ...props
     }) => {
+      const onChange = props.onChange
+      const changeValue = useCallback((v: string | number | Date) => {
+        if (v === undefined)
+          return onChange?.(undefined)
+
+        return onChange?.(new Date(v))
+      }, [onChange])
       if (!enableDate) {
         const time = calcTimeStr(props.value)
         const defaultTime = calcTimeStr(props.defaultValue)
@@ -188,13 +195,13 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
             // TODO 我也搞不懂为什么这个 onChange 函数的类型是 Function，我只能这样写了
             //      有空可以去 declare module 里面将类型改一下，或者 push 一下上游更新这个类型
             //      先这么凑合用用
-            onChange={(v: string) => props.onChange?.(new Date(`1970-01-01 ${v}`))}
+            onChange={(v: string) => changeValue(`1970-01-01 ${v}`)}
           />
           : <TimePicker
             {...props}
             value={time}
             defaultValue={defaultTime}
-            onChange={v => props.onChange?.(new Date(`1970-01-01 ${v}`))}
+            onChange={v => changeValue(`1970-01-01 ${v}`)}
           />
       }
       const nProps = {
@@ -205,12 +212,12 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
         ? <DatePickerPanel
           {...nProps}
           // TODO 救救我吧，这都是写什么类型啊，为什么这个破 panel 还不支持 valueType 的呀，要命
-          onChange={v => props.onChange?.(new Date(v))}
+          onChange={v => changeValue(v)}
         />
         : <DatePicker
           {...nProps}
           valueType='Date'
-          onChange={v => props.onChange?.(new Date(v))}
+          onChange={v => changeValue(v)}
         />
     })
     .defineRndr('Range:Date:Picker', ({
