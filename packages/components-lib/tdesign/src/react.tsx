@@ -4,7 +4,7 @@ import 'tdesign-react/esm/style/index.js'
 import { definePlugin } from '@zodui/core'
 import type { Narrow } from '@zodui/core/utils'
 import { classnames } from '@zodui/core/utils'
-import { Icon } from '@zodui/react'
+import { Icon, useValue } from '@zodui/react'
 import { cloneElement, useCallback } from 'react'
 import {
   AddIcon,
@@ -166,15 +166,20 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
     .defineIcon('ArrowUp', ArrowUpIcon)
     .defineIcon('ArrowDown', ArrowDownIcon)
   ctxFgt
-    // @ts-ignore
-    .defineRndr('Number:Slider', props => <Slider
-      {...props}
-      {...(props.range ? {
-        defaultValue: props.defaultValue ?? [0, 0],
+    .defineRndr('Number:Slider', props => {
+      const [value, changeValue] = useValue(props.value, props.defaultValue, props.onChange)
+      return <Slider
+        {...props}
+        value={value}
         // @ts-ignore
-        onChange: (v: number[]) => props.onChange?.(v)
-      } : {})}
-    />)
+        onChange={changeValue}
+        {...(props.range ? {
+          defaultValue: props.defaultValue ?? [0, 0],
+          // @ts-ignore
+          onChange: ([l, r]: number[]) => changeValue?.([l ?? 0, r ?? 0])
+        } : {})}
+      />
+    })
     .defineRndr('String:TextArea', props => <Textarea
       autosize={{
         minRows: 1
