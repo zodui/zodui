@@ -120,8 +120,7 @@ export function Complex({
 
   const ItemSerter = useItemSerterContext()
 
-  // TODO rename to OptionsRender
-  const OptionRender = activeOption && <>
+  const OptionsRender = activeOption && <>
     <ItemSerter.Append deps={[
       modes,
       model.options, activeOption, changeValue
@@ -148,7 +147,7 @@ export function Complex({
       modes={modes}
       model={model}
       options={options}
-      OptionRender={OptionRender}
+      OptionRender={OptionsRender}
       {...rest}
     />
     // TODO support `'' | (string & {})` type
@@ -160,10 +159,10 @@ export function Complex({
           value={index}
           onChange={changeIndex}
         />
-        {OptionRender}
+        {OptionsRender}
       </>}
       {isWhatType(model, AllTypes.ZodDiscriminatedUnion) && <>
-        {OptionRender}
+        {OptionsRender}
       </>}
     </>
 }
