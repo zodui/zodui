@@ -104,16 +104,16 @@ import z from 'zod'
 export default z.object({
   framework: z
     .union([
-      z.literal('React'),
-      z.literal('Vue'),
+      z.literal('React').label('React'),
+      z.literal('Vue').label('Vue'),
       // z.literal('angular'),
     ])
     .default('React')
     .label('框架'),
   'components-lib': z
     .union([
-      z.literal('TDesign'),
-      z.literal('Ant Design'),
+      z.literal('TDesign').label('TDesign'),
+      z.literal('Ant Design').label('Ant Design'),
     ])
     .default('TDesign')
     .label('组件库'),
