@@ -55,8 +55,8 @@ export interface UnitMap {
   monad: {
     props: {
       // TODO support get value type from generic by higher order function
-      value: unknown
-      defaultValue: unknown
+      value?: unknown
+      defaultValue?: unknown
       onChange?: (value: unknown) => void | Promise<void>
     }
     options: {}
