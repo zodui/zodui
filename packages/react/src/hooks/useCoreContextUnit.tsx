@@ -43,7 +43,7 @@ export function useCoreContextUnit<
       let func: R
       const resolveProps = (propsResolver: PropsResolver, props: Parameters<R>[0]) => typeof propsResolver === 'function'
         ? propsResolver(props)
-        : propsResolver
+        : { ...propsResolver, ...props }
       switch (typeof topMatchUnit) {
         case 'string':
           func = (props => <Rndr
