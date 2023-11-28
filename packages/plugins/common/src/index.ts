@@ -16,18 +16,18 @@ export const CommonPlugin = definePlugin('CommonPlugin', ctx => {
     .defineUnit('monad', [AllTypes.ZodNumber, AllTypes.ZodString, AllTypes.ZodDate], [
       [
         modes => modes.includes('datetime') || modes.includes('time') || modes.includes('date'),
-        ({ modes, type }) => ['Date:Picker', ({ value, defaultValue, onChange, ...props }) => {
+        ({ modes, modelType }) => ['Date:Picker', ({ value, defaultValue, onChange, ...props }) => {
           const passer = {
             inn: (v: unknown) => ({
               [AllTypes.ZodNumber]: () => v ? new Date(Number(v)) : undefined,
               [AllTypes.ZodString]: () => v ? new Date(String(v)) : undefined,
               [AllTypes.ZodDate]: () => v
-            })[type](),
+            })[modelType](),
             out: (v: Date) => ({
               [AllTypes.ZodNumber]: () => v.getTime(),
               [AllTypes.ZodString]: () => v.toISOString(),
               [AllTypes.ZodDate]: () => v
-            })[type]()
+            })[modelType]()
           }
           return {
             isPanel: modes.includes('panel'),
