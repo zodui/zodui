@@ -64,7 +64,7 @@ export function useCoreContextUnit<
           const [target, propsResolver] = topMatchUnit({
             modes,
             // FIXME
-            type: type as never,
+            modelType: type as never,
             ...(opts as {})
           })
           func = (props => <Rndr

@@ -32,7 +32,7 @@ type MatcherRndr<
       ? ((
         opts:
           & { modes: string[] }
-          & { type: T }
+          & { modelType: T }
           & UnitMap[N]['options']
       // TODO infer rndr props by target
       ) => [rndrTarget: string, rndrProps: PropsResolver<N>])
