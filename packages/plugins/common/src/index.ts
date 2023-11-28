@@ -21,7 +21,8 @@ export const CommonPlugin = definePlugin('CommonPlugin', ctx => {
             inn: (v: unknown) => ({
               [AllTypes.ZodNumber]: () => v ? new Date(Number(v)) : undefined,
               [AllTypes.ZodString]: () => v ? new Date(String(v)) : undefined,
-              [AllTypes.ZodDate]: () => v
+              // FIXME?
+              [AllTypes.ZodDate]: () => v as Date
             })[modelType](),
             out: (v: Date) => ({
               [AllTypes.ZodNumber]: () => v.getTime(),
