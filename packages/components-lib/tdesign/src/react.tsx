@@ -166,7 +166,15 @@ export const TDesignComponentsLibForReact = definePlugin('TDesign', ctx => {
     .defineIcon('ArrowUp', ArrowUpIcon)
     .defineIcon('ArrowDown', ArrowDownIcon)
   ctxFgt
-    .defineRndr('Number:Slider', props => <Slider {...props} />)
+    // @ts-ignore
+    .defineRndr('Number:Slider', props => <Slider
+      {...props}
+      {...(props.range ? {
+        defaultValue: props.defaultValue ?? [0, 0],
+        // @ts-ignore
+        onChange: (v: number[]) => props.onChange?.(v)
+      } : {})}
+    />)
     .defineRndr('String:TextArea', props => <Textarea
       autosize={{
         minRows: 1
