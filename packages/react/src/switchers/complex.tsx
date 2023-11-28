@@ -150,6 +150,7 @@ export function Complex({
       OptionRender={OptionsRender}
       {...rest}
       value={value}
+      defaultValue={defaultValue}
       onChange={changeValue}
     />
     // TODO support `'' | (string & {})` type
