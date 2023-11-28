@@ -120,7 +120,7 @@ div.zodui-preview {
         max-height: 250px;
       }
       > .material-icons {
-        transform: rotate(180deg);
+        transform: translateX(50%) rotate(180deg);
         transform-origin: center;
       }
     }
