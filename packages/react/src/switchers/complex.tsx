@@ -149,6 +149,8 @@ export function Complex({
       options={options}
       OptionRender={OptionsRender}
       {...rest}
+      value={value}
+      onChange={changeValue}
     />
     // TODO support `'' | (string & {})` type
     //      display select input
