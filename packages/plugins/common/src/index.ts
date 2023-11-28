@@ -8,7 +8,7 @@ export { CommonPluginForReact } from './react'
 export const CommonPlugin = definePlugin('CommonPlugin', ctx => {
   ctx
     .defineUnit('monad', [AllTypes.ZodNumber], [
-      [modes => modes.includes('slider'), 'Number.Slider']
+      [modes => modes.includes('slider'), 'Number:Slider']
     ])
     .defineUnit('monad', [AllTypes.ZodString], [
       [modes => modes.includes('textarea'), 'String.TextArea']
@@ -48,7 +48,7 @@ export const CommonPlugin = definePlugin('CommonPlugin', ctx => {
       [(modes, { schemas }) => !modes.includes('no-slider') && isEqual(schemas, [AllTypes.ZodNumber, AllTypes.ZodNumber]), ({
         schemas: _,
         ...props
-      }) => ['Number.Slider', { range: true, ...props }]]
+      }) => ['Number:Slider', { range: true, ...props }]]
     ])
 })
 
