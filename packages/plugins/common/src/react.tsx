@@ -1,6 +1,6 @@
 import { AllTypes, definePlugin } from '@zodui/core'
 import { Icon, Input, InputAdornment, RadioGroup, Rndr, Switch, useControllerClassNameContext } from '@zodui/react'
-import { useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import type { ZodLiteral, ZodUnion } from 'zod'
 
 import Common from './index'
@@ -66,9 +66,29 @@ export const CommonPluginForReact = definePlugin('CommonPlugin', ctx => {
               return 'card'
             }
           }, [props.modes])
+          // TODO refactor as hook
+          const getIndexByValue = useCallback((value: any) => {
+            const option = props.model.options.find(option => (
+              option._def.typeName === AllTypes.ZodLiteral
+              && option._def.value === value
+            ))
+            if (option) {
+              return props.model.options.indexOf(option)
+            }
+          }, [props.model.options])
+          const index = useMemo(() => getIndexByValue(props.value), [props.value, getIndexByValue])
+          const defaultIndex = useMemo(() => getIndexByValue(props.defaultValue), [props.defaultValue, getIndexByValue])
           return <RadioGroup
             {...props}
             {...{ variant, direction }}
+            value={index}
+            defaultValue={defaultIndex}
+            onChange={index => {
+              const optionModel = props.model.options[index]
+              if (optionModel._def.typeName === AllTypes.ZodLiteral) {
+                props.onChange?.(optionModel._def.value)
+              }
+            }}
           />
         }
       ],
