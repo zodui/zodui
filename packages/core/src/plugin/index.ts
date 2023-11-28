@@ -22,7 +22,8 @@ export type PropsResolver<
 
 type MatcherRndr<
   C,
-  N extends keyof UnitMap = never
+  N extends keyof UnitMap = never,
+  T extends AllType = never
 > =
   | string
   | (
@@ -31,7 +32,9 @@ type MatcherRndr<
       ? ((
         opts:
           & { modes: string[] }
+          & { type: T }
           & UnitMap[N]['options']
+      // TODO infer rndr props by target
       ) => [rndrTarget: string, rndrProps: PropsResolver<N>])
       : C
   )
@@ -39,9 +42,10 @@ type MatcherRndr<
 
 export type Matcher<
   C = never,
-  N extends keyof UnitMap = never
+  N extends keyof UnitMap = never,
+  T extends AllType = never
 > =
-  | [rule: Rule<N>, rndr: MatcherRndr<C, N>]
+  | [rule: Rule<N>, rndr: MatcherRndr<C, N, T>]
 
 export interface UnitMap {
   [key: string]: {
@@ -49,7 +53,12 @@ export interface UnitMap {
     options: unknown
   }
   monad: {
-    props: {}
+    props: {
+      // TODO support get value type from generic by higher order function
+      value: unknown
+      defaultValue: unknown
+      onChange?: (value: unknown) => void | Promise<void>
+    }
     options: {}
   }
   complex: {

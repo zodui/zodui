@@ -31,7 +31,8 @@ export interface DefineUnit<
         & Omit<UnitProps<T, TypeMap[T]>, keyof UnitMap[N]['props']>
         & UnitMap[N]['props']
       >[FK],
-      N
+      N,
+      T
     >[]
   ): This
   composer<T extends AllType>(this: This, types: T[], matchers: Matcher[]): This

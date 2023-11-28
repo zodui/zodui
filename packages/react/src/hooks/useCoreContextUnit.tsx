@@ -61,7 +61,12 @@ export function useCoreContextUnit<
           }
           break
         case 'function': {
-          const [target, propsResolver] = topMatchUnit({ modes, ...(opts as {}) })
+          const [target, propsResolver] = topMatchUnit({
+            modes,
+            // FIXME
+            type: type as never,
+            ...(opts as {})
+          })
           func = (props => <Rndr
             target={target}
             {...resolveProps(propsResolver, props)}
@@ -71,6 +76,6 @@ export function useCoreContextUnit<
       }
       return func
     }
-  }, [modes, opts, topMatchUnit])
+  }, [modes, opts, topMatchUnit, type])
   return (topRndr ?? matchUnit) as R
 }
