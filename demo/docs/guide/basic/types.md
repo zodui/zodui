@@ -205,6 +205,10 @@ z.object({
     .mode('date panel wrap')
     .label('日期范围')
     .describe('日期范围模式并且叠加了表盘的情况下，交互区域将会以无须下拉的表盘的形式展示。'),
+  t4: z
+    .tuple([z.number(), z.number()])
+    .label('数字范围')
+    .describe('当数据由固定的俩个数字类型元组构成时，根据插件会渲染成一个 Silder 组件，你可以通过拖拽来选择对应的范围。'),
 })
 ```
 
