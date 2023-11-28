@@ -16,6 +16,10 @@ type Rule<N extends keyof UnitMap> =
     ? { (modes: string[]): boolean }
     : { (modes: string[], opts?: UnitMap[N]['options']): boolean }
 
+export type PropsResolver<
+  N extends keyof UnitMap = never
+> = Record<string, any> | ((props: UnitMap[N]['props']) => Record<string, any>)
+
 type MatcherRndr<
   C,
   N extends keyof UnitMap = never
@@ -25,13 +29,13 @@ type MatcherRndr<
     [C] extends [never]
       // When the component is not set, returns a function that takes props and returns a component Rndr String and its props
       ? ((
-        props:
+        opts:
           & { modes: string[] }
           & UnitMap[N]['options']
-      ) => [rndrTarget: string, props: Record<string, any>])
+      ) => [rndrTarget: string, rndrProps: PropsResolver<N>])
       : C
   )
-  | [rndrTarget: string, props: Record<string, any>]
+  | [rndrTarget: string, rndrProps: PropsResolver<N>]
 
 export type Matcher<
   C = never,

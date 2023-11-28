@@ -1,4 +1,4 @@
-import type { Matcher, TypeMap, UnitFrameworksComp, UnitMap, UnitProps } from '@zodui/core'
+import type { Matcher, PropsResolver, TypeMap, UnitFrameworksComp, UnitMap, UnitProps } from '@zodui/core'
 import { useMemo } from 'react'
 
 import { Rndr } from '../components'
@@ -41,6 +41,9 @@ export function useCoreContextUnit<
   const topRndr = useMemo(() => {
     if (topMatchUnit) {
       let func: R
+      const resolveProps = (propsResolver: PropsResolver, props: Parameters<R>[0]) => typeof propsResolver === 'function'
+        ? propsResolver(props)
+        : propsResolver
       switch (typeof topMatchUnit) {
         case 'string':
           func = (props => <Rndr
@@ -50,26 +53,24 @@ export function useCoreContextUnit<
           break
         case 'object':
           if (Array.isArray(topMatchUnit)) {
-            const [target, propsOrPropsFunc] = topMatchUnit
+            const [target, propsResolver] = topMatchUnit
             func = (props => <Rndr
               target={target}
-              {...(typeof propsOrPropsFunc === 'function' ? propsOrPropsFunc(props) : propsOrPropsFunc)}
+              {...resolveProps(propsResolver, props)}
             />) as R
           }
           break
         case 'function': {
-          func = (props => {
-            const [target, propsOrPropsFunc] = topMatchUnit({ modes, ...props })
-            return <Rndr
-              target={target}
-              {...(typeof propsOrPropsFunc === 'function' ? propsOrPropsFunc(props) : propsOrPropsFunc)}
-            />
-          }) as R
+          const [target, propsResolver] = topMatchUnit({ modes, ...(opts as {}) })
+          func = (props => <Rndr
+            target={target}
+            {...resolveProps(propsResolver, props)}
+          />) as R
           break
         }
       }
       return func
     }
-  }, [modes, topMatchUnit])
+  }, [modes, opts, topMatchUnit])
   return (topRndr ?? matchUnit) as R
 }
