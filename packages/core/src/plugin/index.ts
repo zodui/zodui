@@ -52,11 +52,12 @@ export type Matcher<
 > =
   | [rule: Rule<N>, rndr: MatcherRndr<C, N, T>]
 
-export interface UnitMap<
-  // TODO support get value type from generic by higher order function
-  // M extends ZodSchema = any,
-  // V = TypeOf<M>
-> {
+// export interface UnitMap<
+//   // TODO support get value type from generic by higher order function
+//   // M extends ZodSchema = any,
+//   // V = TypeOf<M>
+// > {
+export interface UnitMap {
   [key: string]: {
     props: unknown
     options: unknown
