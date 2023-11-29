@@ -1,4 +1,4 @@
-import type { AllType, ComponentProps, TypeMap } from '@zodui/core'
+import type { AllType, ComponentProps, TypeMap, UnitProps } from '@zodui/core'
 
 import type { Context } from '../context'
 
@@ -17,8 +17,13 @@ type Rule<N extends keyof UnitMap> =
     : { (modes: string[], opts?: UnitMap[N]['options']): boolean }
 
 export type PropsResolver<
-  N extends keyof UnitMap = never
-> = Record<string, any> | ((props: UnitMap[N]['props']) => Record<string, any>)
+  N extends keyof UnitMap = never,
+  T extends AllType = never
+> = Record<string, any> | ((
+  props:
+    & Omit<UnitProps<T, TypeMap[T]>, keyof UnitMap[N]['props']>
+    & UnitMap[N]['props']
+) => Record<string, any>)
 
 type MatcherRndr<
   C,
@@ -35,10 +40,10 @@ type MatcherRndr<
           & { modelType: T }
           & UnitMap[N]['options']
       // TODO infer rndr props by target
-      ) => [rndrTarget: string, rndrProps: PropsResolver<N>])
+      ) => [rndrTarget: string, rndrProps: PropsResolver<N, T>])
       : C
   )
-  | [rndrTarget: string, rndrProps: PropsResolver<N>]
+  | [rndrTarget: string, rndrProps: PropsResolver<N, T>]
 
 export type Matcher<
   C = never,
@@ -47,17 +52,17 @@ export type Matcher<
 > =
   | [rule: Rule<N>, rndr: MatcherRndr<C, N, T>]
 
-export interface UnitMap {
+export interface UnitMap<
+  // TODO support get value type from generic by higher order function
+  // M extends ZodSchema = any,
+  // V = TypeOf<M>
+> {
   [key: string]: {
     props: unknown
     options: unknown
   }
   monad: {
     props: {
-      // TODO support get value type from generic by higher order function
-      value?: unknown
-      defaultValue?: unknown
-      onChange?: (value: unknown) => void | Promise<void>
     }
     options: {}
   }
