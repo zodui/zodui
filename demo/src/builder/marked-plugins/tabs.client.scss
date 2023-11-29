@@ -35,6 +35,8 @@
         border-bottom: 2px solid var(--pr-cr);
       }
       &-icon {
+        display: flex;
+        align-items: center;
         width: 24px;
         height: 24px;
       }
