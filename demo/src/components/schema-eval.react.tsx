@@ -38,10 +38,11 @@ export function Demo({
         if (module.default)
           setSchema([module.default])
       } catch (e) {
+        console.error(`key: ${k}\n`, code)
         console.error(e)
       }
     })()
-  }, [code])
+  }, [k, code])
 
   const refs = useRef<ListRef[]>([])
 
