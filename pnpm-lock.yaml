@@ -5,9 +5,15 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
+  '@rollup/plugin-virtual@3.0.2':
+    hash: rfxw3gwfkko7vkzit6lpq2amby
+    path: patches/@rollup+plugin-virtual+3.0.2.patch
   marked-highlight@2.0.7:
     hash: johwtlhctnbsi65koa4h5iktvi
     path: patches/marked-highlight@2.0.7.patch
+  vite-plugin-html@3.2.0:
+    hash: jiuil44c3xzxyokphiucxjr5jy
+    path: patches/vite-plugin-html+3.2.0.patch
 
 importers:
 
@@ -87,7 +93,7 @@ importers:
         version: 2.11.8
       '@rollup/plugin-virtual':
         specifier: ^3.0.2
-        version: 3.0.2(rollup@3.29.4)
+        version: 3.0.2(patch_hash=rfxw3gwfkko7vkzit6lpq2amby)(rollup@3.29.4)
       '@types/cheerio':
         specifier: ^0.22.35
         version: 0.22.35
@@ -132,7 +138,7 @@ importers:
         version: 4.5.0(@types/node@18.18.7)
       vite-plugin-html:
         specifier: ^3.2.0
-        version: 3.2.0(vite@4.5.0)
+        version: 3.2.0(patch_hash=jiuil44c3xzxyokphiucxjr5jy)(vite@4.5.0)
       vite-tsconfig-paths:
         specifier: ^4.0.5
         version: 4.0.5(typescript@4.9.5)
@@ -982,7 +988,7 @@ packages:
       rollup: 4.1.5
     dev: true
 
-  /@rollup/plugin-virtual@3.0.2(rollup@3.29.4):
+  /@rollup/plugin-virtual@3.0.2(patch_hash=rfxw3gwfkko7vkzit6lpq2amby)(rollup@3.29.4):
     resolution: {integrity: sha512-10monEYsBp3scM4/ND4LNH5Rxvh3e/cVeL3jWTgZ2SrQ+BmUoQcopVQvnaMcOnykb1VkxUFuDAN+0FnpTFRy2A==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -993,6 +999,7 @@ packages:
     dependencies:
       rollup: 3.29.4
     dev: true
+    patched: true
 
   /@rollup/pluginutils@4.2.1:
     resolution: {integrity: sha512-iKnFXr7NkdZAIHiIWE+BX5ULi/ucVFYWD6TbAV+rZctiRTY2PL6tsIKhoIOaoskiWAkgu+VsbXgUVDNLHf+InQ==}
@@ -5063,7 +5070,7 @@ packages:
     engines: {node: '>= 0.10'}
     dev: false
 
-  /vite-plugin-html@3.2.0(vite@4.5.0):
+  /vite-plugin-html@3.2.0(patch_hash=jiuil44c3xzxyokphiucxjr5jy)(vite@4.5.0):
     resolution: {integrity: sha512-2VLCeDiHmV/BqqNn5h2V+4280KRgQzCFN47cst3WiNK848klESPQnzuC3okH5XHtgwHH/6s1Ho/YV6yIO0pgoQ==}
     peerDependencies:
       vite: '>=2.0.0'
@@ -5082,6 +5089,7 @@ packages:
       pathe: 0.2.0
       vite: 4.5.0(@types/node@18.18.7)
     dev: true
+    patched: true
 
   /vite-tsconfig-paths@4.0.5(typescript@4.9.5):
     resolution: {integrity: sha512-/L/eHwySFYjwxoYt1WRJniuK/jPv+WGwgRGBYx3leciR5wBeqntQpUE6Js6+TJemChc+ter7fDBKieyEWDx4yQ==}

@@ -1,7 +1,7 @@
-diff --git a/node_modules/vite-plugin-html/dist/index.cjs b/node_modules/vite-plugin-html/dist/index.cjs
+diff --git a/dist/index.cjs b/dist/index.cjs
 index 704d055..8e64303 100644
---- a/node_modules/vite-plugin-html/dist/index.cjs
-+++ b/node_modules/vite-plugin-html/dist/index.cjs
+--- a/dist/index.cjs
++++ b/dist/index.cjs
 @@ -98,7 +98,10 @@ function createPlugin(userOptions = {}) {
          return {
            build: {
@@ -151,10 +151,10 @@ index 704d055..8e64303 100644
      to({ parsedUrl }) {
        const pathname = parsedUrl.pathname;
        const excludeBaseUrl = pathname.replace(baseUrl, "/");
-diff --git a/node_modules/vite-plugin-html/dist/index.d.ts b/node_modules/vite-plugin-html/dist/index.d.ts
+diff --git a/dist/index.d.ts b/dist/index.d.ts
 index 0925ff6..b6c8e82 100644
---- a/node_modules/vite-plugin-html/dist/index.d.ts
-+++ b/node_modules/vite-plugin-html/dist/index.d.ts
+--- a/dist/index.d.ts
++++ b/dist/index.d.ts
 @@ -6,7 +6,7 @@ interface InjectOptions {
      /**
       *  @description Data injected into the html template
