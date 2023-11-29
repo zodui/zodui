@@ -11,14 +11,16 @@
 }
 
 html[theme-mode='dark'] body > main {
-  background-color: #303845 !important;
-  color: #ebebf599;
+  --bg-cr: #303845aa;
+  --fr-cr: #ebebf599;
   > div.container > .markdown-body {
     --color-canvas-subtle: #333d;
   }
 }
 body > main {
   --padding: 100px;
+  --bg-cr: #f6f6f6aa;
+  --fr-cr: #2d2d2d;
 
   z-index: 0;
   display: flex;
@@ -28,11 +30,11 @@ body > main {
   padding-top: 60px;
   width: calc(100% - var(--padding) * 2);
   height: calc(100vh - 60px);
-  color: #2d2d2d;
+  color: var(--fr-cr);
   overflow: overlay;
   scroll-behavior: smooth;
   background-image: none !important;
-  background-color: #f6f6f6 !important;
+  background-color: var(--bg-cr) !important;
   a {
     display: inline-block;
     padding: 0;
@@ -85,6 +87,7 @@ body > main {
     flex-grow: 1;
     position: relative;
     padding: 0 50px;
+    width: 0;
     > div.pagination {
       position: relative;
       padding: 20px 0 150px;
@@ -150,17 +153,29 @@ body > main {
     position: sticky;
     top: 0;
     margin: 0;
-    padding: 10px 0;
-    min-width: 180px;
+    padding: 0 20px;
+    min-width: 200px;
     font-size: 1rem;
+    overflow: overlay;
   }
   > div.left-panel, > div.quick-access {
+    > h3 {
+      position: sticky;
+      top: 0;
+      padding: 10px;
+      margin: 0 -10px;
+      background-color: var(--bg-cr);
+      backdrop-filter: blur(5px);
+    }
+    > ul > li:first-child {
+      margin-top: 0;
+    }
     ul {
+      margin-top: 0;
       padding-inline-start: 0;
       font-size: 1.1rem;
       user-select: none;
       transition: .1s;
-      > h4 { margin-top: 0; }
       ul {
         padding-inline-start: 0;
         li {
