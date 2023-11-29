@@ -9,17 +9,10 @@ import { createHtmlPlugin } from 'vite-plugin-html'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 /* eslint-disable @typescript-eslint/no-restricted-imports */
-import { docsTemplateRender, MD_PLUGIN } from './src/builder'
-import Header from './src/builder/marked-plugins/header'
-import Preview from './src/builder/marked-plugins/preview'
+import { docsTemplateRender, mdPlugins } from './src/builder'
 /* eslint-enable @typescript-eslint/no-restricted-imports */
 
 const ZOD_EXTERNAL_FILE_PATH = path.join(__dirname, '../packages/core/src/external.ts')
-
-// TODO left documents tree panel
-// TODO bottom help us improve this page, such as edit in github, create issue, etc.
-// TODO bottom next and prev
-MD_PLUGIN.push(Preview, Header)
 
 function findFilesBy(
   dirPath: string,
@@ -116,7 +109,7 @@ const documentsPages: Exclude<Parameters<typeof createHtmlPlugin>[0], undefined>
           ...commonInjectOptionsData(),
           path: docFilePath,
           TITLE: `Docs[${docFilePath}]`,
-          GLOBAL_SCRIPTS: MD_PLUGIN.map(([, src]) => src).join('')
+          GLOBAL_SCRIPTS: mdPlugins.map(([, src]) => src).join('')
         }),
         ejsOptions
       },

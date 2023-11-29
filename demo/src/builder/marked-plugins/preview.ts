@@ -1,6 +1,4 @@
-import { marked } from 'marked'
-
-import { defineMDPlugin } from '../index'
+import { defineMDPlugin, marked } from '..'
 
 function uuid() {
   return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
@@ -43,7 +41,7 @@ export default defineMDPlugin({
         </div>
         <div class='wrap'>
           <div class='markdown-body'>
-            ${marked(`\`\`\`typescript\n${code}\n\`\`\``)}
+            ${marked.parse(`\`\`\`typescript\n${code}\n\`\`\``)}
           </div>
           <%- include('components/schema-eval', {
             key: '${id}'

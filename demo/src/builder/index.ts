@@ -1,7 +1,23 @@
 import fs from 'fs'
 import hljs from 'highlight.js'
-import { marked, Slugger } from 'marked'
+import { Marked, type RendererObject } from 'marked'
+import { markedHighlight } from 'marked-highlight'
 import path from 'path'
+
+import Header from './marked-plugins/header'
+import Preview from './marked-plugins/preview'
+import Tabs from './marked-plugins/tabs'
+import { slug } from './slug'
+
+export const marked = new Marked(
+  markedHighlight({
+    langPrefix: 'hljs language-',
+    highlight(code, lang) {
+      const language = hljs.getLanguage(lang) ? lang : 'plaintext'
+      return hljs.highlight(code, { language }).value
+    }
+  })
+)
 
 const reportBodyRender = (pWithoutExt: string) => `
 ## 文档路径
@@ -17,11 +33,15 @@ const reportBodyRender = (pWithoutExt: string) => `
 ## 建议的修改
 `.trim()
 
-export const MD_PLUGIN: (readonly [marked.RendererObject, string])[] = []
+export const mdPlugins = [Preview, Header, Tabs]
 
-export function defineMDPlugin(renderer: marked.RendererObject, src: string | string[]) {
+// TODO left documents tree panel
+// TODO bottom help us improve this page, such as edit in github, create issue, etc.
+// TODO bottom next and prev
+marked.use(...mdPlugins.map(([renderer]) => ({ renderer })))
+
+export function defineMDPlugin(renderer: RendererObject, src: string | string[]) {
   const srcs = Array.isArray(src) ? src : [src]
-  marked.use({ renderer })
   return [renderer, srcs.map(src => `<script type='module' src='${src}'></script>`).join('')] as const
 }
 
@@ -161,13 +181,12 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
     return activeClassification!.children![pageIndex + 1]
   })()
 
-  const slugger = new Slugger()
   const content = fs.readFileSync(path.resolve(process.cwd(), p), 'utf-8')
 
   const menu = marked.lexer(content).reduce((acc, cur) => {
     if (cur.type === 'heading') {
       const { depth, text } = cur
-      const title = slugger.slug(text)
+      const title = slug(text)
 
       if (depth === 2) {
         acc[text] = {
@@ -247,7 +266,7 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
     </div>
     <div class='container'>
       <div class='markdown-body'>
-        ${marked(content)}
+        ${marked.parse(content)}
       </div>
       <div class='operations'>
         <div class='report'>
@@ -290,9 +309,3 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
     ${menuHTML}
   `.trim()
 }
-
-marked.setOptions({
-  highlight(code: string, lang: string): string | void {
-    return hljs.highlightAuto(code, [lang]).value
-  }
-})
