@@ -34,9 +34,6 @@ marked.use(markedHighlight({
     return hljs.highlight(code, { language }).value
   }
 }))
-// TODO left documents tree panel
-// TODO bottom help us improve this page, such as edit in github, create issue, etc.
-// TODO bottom next and prev
 marked.use(...mdPlugins.map(([renderer]) => ({ renderer })))
 
 export function defineMDPlugin(renderer: RendererObject, src: string | string[]) {
