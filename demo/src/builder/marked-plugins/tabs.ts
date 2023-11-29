@@ -1,7 +1,6 @@
 import * as cheerio from 'cheerio'
-import { marked } from 'marked'
 
-import { defineMDPlugin } from '../index'
+import { defineMDPlugin, marked } from '..'
 
 /**
  * ```md
@@ -51,7 +50,7 @@ export default defineMDPlugin({
           ${tabs
             .map(tab => `<div
               class='docs-tabs__content-item'
-            >${marked(tab.content)}</div>`)
+            >${marked.parse(tab.content)}</div>`)
             .join('')}
         </div>
       </div>
