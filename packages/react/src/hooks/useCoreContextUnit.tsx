@@ -42,7 +42,8 @@ export function useCoreContextUnit<
     if (topMatchUnit) {
       let func: R
       const resolveProps = (propsResolver: PropsResolver, props: Parameters<R>[0]) => typeof propsResolver === 'function'
-        ? propsResolver(props)
+        // FIXME
+        ? propsResolver(props as any)
         : { ...propsResolver, ...props }
       switch (typeof topMatchUnit) {
         case 'string':
