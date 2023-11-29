@@ -6,7 +6,7 @@
 
 > ::tip
 >
-> 本篇基于你对前端以及 Node.js 有一定的了解，如果你并不了解，我们推荐你先去了解下 [Node.js](https://nodejs.org/zh-cn/) 以及 [npm](https://www.npmjs.com/)。
+> 本篇基于你对前端以及 Node.js 有一定的了解，如果你并不了解，我们推荐你先去了解下 [Node.js](https://nodejs.org/) 以及 [npm](https://www.npmjs.com/)。
 
 通过包管理工具下载 ZodUI。
 
