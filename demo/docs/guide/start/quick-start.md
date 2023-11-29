@@ -8,6 +8,8 @@
 >
 > 本篇基于你对前端以及 Node.js 有一定的了解，如果你并不了解，我们推荐你先去了解下 [Node.js](https://nodejs.org/) 以及 [npm](https://www.npmjs.com/)。
 
+### 下载
+
 通过包管理工具下载 ZodUI。
 
 <docs-tabs>
@@ -36,3 +38,86 @@ pnpm install @zodui/react
 ```
 </docs-tab>
 </docs-tabs>
+
+### 安装插件
+
+选择并安装一个你喜欢的 UI 库，比如 [TDesign](https://tdesign.tencent.com/)。
+
+<docs-tabs>
+<docs-tab
+  title="npm"
+  icon='<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg" />'
+>
+```bash
+npm install tdesign-react tdesign-icons-react @zodui/components-lib-tdesign
+```
+</docs-tab>
+<docs-tab
+  title="yarn"
+  icon='<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/yarn/yarn-original.svg" />'
+>
+```bash
+yarn add tdesign-react tdesign-icons-react @zodui/components-lib-tdesign
+```
+</docs-tab>
+<docs-tab
+  title="pnpm"
+  icon='<img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMjYiIGhlaWdodD0iMTYwIiBmaWxsPSJub25lIj48cGF0aCBmaWxsPSIjRjlBRDAwIiBkPSJNMjIxLjQ3OCA0OS43NTZoLTQ4Ljc4Vi45NzZoNDguNzh2NDguNzhaTTE2Ny44MSA0OS43NTZoLTQ4Ljc4MVYuOTc2aDQ4Ljc4MXY0OC43OFpNMTE0LjE1MSA0OS43NTZoLTQ4Ljc4Vi45NzZoNDguNzh2NDguNzhaTTIyMS40NzggMTAzLjQxNWgtNDguNzhWNTQuNjM0aDQ4Ljc4djQ4Ljc4MVoiLz48cGF0aCBmaWxsPSIjNEU0RTRFIiBkPSJNMTY3LjgxIDEwMy40MTVoLTQ4Ljc4MVY1NC42MzRoNDguNzgxdjQ4Ljc4MVpNMTY3LjgxIDE1Ny4wNzNoLTQ4Ljc4MXYtNDguNzhoNDguNzgxdjQ4Ljc4Wk0yMjEuNDc4IDE1Ny4wNzNoLTQ4Ljc4di00OC43OGg0OC43OHY0OC43OFpNMTE0LjE1MSAxNTcuMDczaC00OC43OHYtNDguNzhoNDguNzh2NDguNzhaTTEzLjA0MSA2OC4zNWMxLjY0IDAgMy4xNTUuMjE4IDQuNTQ5LjY1NSAxLjQyLjQxIDIuNjM2IDEuMDUyIDMuNjQ2IDEuOTI2IDEuMDExLjg3NCAxLjgwMyAxLjk4IDIuMzc3IDMuMzE5LjU3NCAxLjMxLjg2IDIuODgyLjg2IDQuNzEyIDAgMS43NDgtLjI0NSAzLjI3OC0uNzM3IDQuNTktLjQ5MiAxLjMxLTEuMTg4IDIuNDE3LTIuMDkgMy4zMTgtLjkwMS44NzQtMS45OTQgMS41My0zLjI3OCAxLjk2Ny0xLjI1Ni40MzctMi42NjMuNjU2LTQuMjIuNjU2LTEuMTc1IDAtMi4yNjgtLjE3OC0zLjI3OC0uNTMzdjYuODAyYy0uMjc0LjA4Mi0uNzEuMTY0LTEuMzEyLjI0Ni0uNi4xMDktMS4yMTUuMTY0LTEuODQ0LjE2NC0uNiAwLTEuMTQ3LS4wNDEtMS42MzktLjEyM2EyLjc0MiAyLjc0MiAwIDAgMS0xLjE4OC0uNDkyYy0uMzI4LS4yNDYtLjU3NC0uNTg3LS43MzctMS4wMjQtLjE2NC0uNDEtLjI0Ni0uOTU3LS4yNDYtMS42NFY3My4yMjZjMC0uNzM3LjE1LTEuMzM4LjQ1LTEuODAzLjMyOC0uNDY0Ljc2NS0uODg4IDEuMzEyLTEuMjcuODQ2LS41NDYgMS44OTgtLjk4MyAzLjE1NS0xLjMxMSAxLjI1Ni0uMzI4IDIuNjYzLS40OTIgNC4yMi0uNDkyWm0uMDgyIDE1LjY1MmMyLjgxNCAwIDQuMjItMS42OCA0LjIyLTUuMDQgMC0xLjc0OS0uMzU0LTMuMDQ2LTEuMDY1LTMuODkzLS42ODMtLjg0Ny0xLjY4LTEuMjctMi45OS0xLjI3LS41MiAwLS45ODQuMDY4LTEuMzk0LjIwNS0uNDEuMTEtLjc2NS4yNDYtMS4wNjUuNDF2OS4wMTRjLjMyNy4xNjQuNjgyLjMgMS4wNjUuNDEuMzgyLjExLjc5Mi4xNjQgMS4yMy4xNjRabTI3LjM3LTcuNzQ1YzAtLjg0Ni0uMjQ2LTEuNDYxLS43MzctMS44NDQtLjQ2NS0uNDEtMS4xMDctLjYxNC0xLjkyNi0uNjE0LS41NDcgMC0xLjA5My4wNjgtMS42NC4yMDUtLjUxOC4xMzYtLjk2OS4zNDEtMS4zNTEuNjE0djE0LjIxOWMtLjI3My4wODItLjcxLjE2NC0xLjMxMi4yNDYtLjU3My4wODItMS4xNzQuMTIzLTEuODAzLjEyMy0uNiAwLTEuMTQ3LS4wNDEtMS42MzktLjEyM2EyLjc0IDIuNzQgMCAwIDEtMS4xODgtLjQ5MiAyLjU1IDIuNTUgMCAwIDEtLjc3OC0uOTgzYy0uMTY0LS40MzctLjI0Ni0uOTk3LS4yNDYtMS42OFY3My42MzVjMC0uNzM4LjE1LTEuMzM5LjQ1LTEuODAzLjMyOC0uNDY0Ljc2NS0uODg4IDEuMzEyLTEuMjcuOTI4LS42NTYgMi4wOS0xLjE4OCAzLjQ4My0xLjU5OCAxLjQyLS40MSAyLjk5LS42MTUgNC43MTItLjYxNSAzLjA4NyAwIDUuNDYzLjY4MyA3LjEzIDIuMDQ5IDEuNjY2IDEuMzM5IDIuNSAzLjIxIDIuNSA1LjYxNHYxMi44MjVjLS4yNzQuMDgyLS43MTEuMTY0LTEuMzEyLjI0Ni0uNTc0LjA4Mi0xLjE3NS4xMjMtMS44MDMuMTIzLS42MDEgMC0xLjE0Ny0uMDQxLTEuNjM5LS4xMjNhMi43NCAyLjc0IDAgMCAxLTEuMTg4LS40OTIgMi41NSAyLjU1IDAgMCAxLS43NzktLjk4M2MtLjE2NC0uNDM3LS4yNDYtLjk5Ny0uMjQ2LTEuNjh2LTkuNjdaTTYwLjkgNjguMzVjMS42MzkgMCAzLjE1NS4yMTkgNC41NDguNjU2IDEuNDIuNDEgMi42MzYgMS4wNTIgMy42NDcgMS45MjYgMS4wMS44NzQgMS44MDIgMS45OCAyLjM3NiAzLjMxOS41NzQgMS4zMS44NiAyLjg4Mi44NiA0LjcxMiAwIDEuNzQ4LS4yNDUgMy4yNzgtLjczNyA0LjU5LS40OTIgMS4zMS0xLjE4OCAyLjQxNy0yLjA5IDMuMzE4LS45MDEuODc0LTEuOTk0IDEuNTMtMy4yNzggMS45NjctMS4yNTYuNDM3LTIuNjYzLjY1Ni00LjIyLjY1Ni0xLjE3NSAwLTIuMjY3LS4xNzgtMy4yNzgtLjUzM3Y2LjgwMmMtLjI3My4wODItLjcxLjE2NC0xLjMxMi4yNDYtLjYuMTA5LTEuMjE1LjE2NC0xLjg0My4xNjQtLjYwMSAwLTEuMTQ4LS4wNDEtMS42NC0uMTIzYTIuNzQyIDIuNzQyIDAgMCAxLTEuMTg4LS40OTJjLS4zMjgtLjI0Ni0uNTczLS41ODctLjczNy0xLjAyNC0uMTY0LS40MS0uMjQ2LS45NTctLjI0Ni0xLjY0VjczLjIyNmMwLS43MzcuMTUtMS4zMzguNDUtMS44MDMuMzI4LS40NjQuNzY1LS44ODggMS4zMTItMS4yNy44NDctLjU0NiAxLjg5OC0uOTgzIDMuMTU1LTEuMzExIDEuMjU3LS4zMjggMi42NjMtLjQ5MiA0LjIyLS40OTJabS4wODEgMTUuNjUzYzIuODE0IDAgNC4yMi0xLjY4IDQuMjItNS4wNCAwLTEuNzQ5LS4zNTQtMy4wNDYtMS4wNjQtMy44OTMtLjY4My0uODQ3LTEuNjgtMS4yNy0yLjk5Mi0xLjI3LS41MTkgMC0uOTgzLjA2OC0xLjM5My4yMDUtLjQxLjExLS43NjUuMjQ2LTEuMDY1LjQxdjkuMDE0Yy4zMjguMTY0LjY4My4zIDEuMDY1LjQxLjM4My4xMS43OTIuMTY0IDEuMjMuMTY0Wm0yNC4yOTctMTUuNjUzYzEuMTIgMCAyLjIxMy4xNjQgMy4yNzguNDkyIDEuMDkzLjMgMi4wMzUuNzY1IDIuODI4IDEuMzkzLjgyLS41NDYgMS43MzQtLjk5NyAyLjc0NS0xLjM1MiAxLjAzOC0uMzU1IDIuMjgxLS41MzMgMy43MjktLjUzMyAxLjAzOCAwIDIuMDQ5LjEzNyAzLjAzMi40MSAxLjAxMS4yNzMgMS44OTkuNzEgMi42NjMgMS4zMTEuNzkzLjU3NCAxLjQyMSAxLjM1MiAxLjg4NSAyLjMzNi40NjUuOTU2LjY5NyAyLjEzLjY5NyAzLjUyNHYxMi45MDdjLS4yNzMuMDgyLS43MS4xNjQtMS4zMTEuMjQ2LS41NzQuMDgyLTEuMTc1LjEyMy0xLjgwMy4xMjNhMTAgMTAgMCAwIDEtMS42MzktLjEyMyAyLjc0IDIuNzQgMCAwIDEtMS4xODktLjQ5MiAyLjU1NCAyLjU1NCAwIDAgMS0uNzc4LS45ODNjLS4xNjQtLjQzNy0uMjQ2LS45OTctLjI0Ni0xLjY4di05Ljc5M2MwLS44Mi0uMjMyLTEuNDA3LS42OTctMS43NjItLjQ2NC0uMzgzLTEuMDkyLS41NzQtMS44ODQtLjU3NC0uMzgzIDAtLjc5My4wOTUtMS4yMy4yODctLjQzNy4xNjQtLjc2NC4zNDEtLjk4My41MzIuMDI3LjExLjA0LjIxOS4wNC4zMjh2MTMuODkxYy0uMy4wODItLjc1LjE2NC0xLjM1MS4yNDYtLjU3NC4wODItMS4xNjEuMTIzLTEuNzYyLjEyM3MtMS4xNDgtLjA0MS0xLjY0LS4xMjNhMi43NCAyLjc0IDAgMCAxLTEuMTg4LS40OTIgMi41NSAyLjU1IDAgMCAxLS43NzgtLjk4M2MtLjE2NC0uNDM3LS4yNDYtLjk5Ny0uMjQ2LTEuNjh2LTkuNzkzYzAtLjgyLS4yNi0xLjQwNy0uNzc5LTEuNzYyLS40OTEtLjM4My0xLjA5Mi0uNTc0LTEuODAyLS41NzQtLjQ5MiAwLS45MTUuMDgyLTEuMjcuMjQ2YTcuMTggNy4xOCAwIDAgMC0uOTAyLjQxdjE0LjM4MmMtLjI3My4wODItLjcxLjE2NC0xLjMxMS4yNDZhMTIuNzQgMTIuNzQgMCAwIDEtMS44MDMuMTIzYy0uNjAxIDAtMS4xNDgtLjA0MS0xLjY0LS4xMjNhMi43NCAyLjc0IDAgMCAxLTEuMTg4LS40OTIgMi41NSAyLjU1IDAgMCAxLS43NzgtLjk4M2MtLjE2NC0uNDM3LS4yNDYtLjk5Ny0uMjQ2LTEuNjhWNzMuNTUzYzAtLjczNy4xNS0xLjMyNS40NS0xLjc2Mi4zMjktLjQzNy43NjYtLjg0NyAxLjMxMi0xLjIzLjkyOS0uNjU1IDIuMDc2LTEuMTg4IDMuNDQyLTEuNTk3YTE1LjMxMiAxNS4zMTIgMCAwIDEgNC4zNDMtLjYxNVoiLz48L3N2Zz4K" />'
+>
+```bash
+pnpm install tdesign-react tdesign-icons-react @zodui/components-lib-tdesign
+```
+</docs-tab>
+</docs-tabs>
+
+### 引入并使用
+
+在你的项目中引入 `@zodui/react` 和你选择的 UI 库。
+
+[//]: # (TODO: 分步骤高亮演示如何使用)
+
+```tsx
+// 引入样式文件
+import '@zodui/react/dist/index.css'
+import '@zodui/components-lib-tdesign/dist/index.css'
+
+// 引入组件库插件
+import { TDesignComponentsLibForReact } from '@zodui/components-lib-tdesign/react'
+import { Context } from '@zodui/core'
+import { List } from '@zodui/react'
+
+// 声明模型
+const schema = z.object({
+  foo: z.string()
+})
+
+export default function Params() {
+  // 注册组件库插件，在 React 中使用这种方式进行安装，有利于插件使用过程中进行热载
+  useEffect(() => {
+    const e0 = Context.global.use(TDesignComponentsLibForReact)
+    return () => e0()
+  }, [])
+  return <List
+    model={schema}
+    onChange={v => console.log(v)}
+  />
+}
+```
+
+完成了！现在你可以在你的项目中使用 ZodUI 了。
+
+## 问题反馈
+
+如果在使用过程中发现了问题或者有任何的建议，你可以尝试通过以下的几种方式进行解决：
+
+* 本项目开源在 GitHub 上面并进行托管，你可以按照以下的思路来解决你的问题。
+  * 首先在 [GitHub Issues](https://github.com/zodui/zodui/issues) 或 [GitHub Discussions](https://github.com/zodui/zodui/discussions) 中通过关键词搜索你的问题。
+  * 如果不存在你想要的解决方案，你可以先在 [GitHub Discussions](https://github.com/zodui/zodui/discussions/new/choose) 中选择一个合适的分类，然后和网络上的其他人一起讨论你的问题，我们也会在这里进行回复。
+  * 如果你的问题是一个 Bug 并且稳定复现，又或者是一个你认为的功能缺失，你可以在 [GitHub Issues](https://github.com/zodui/zodui/issues/new) 中创建一个新的 Issue，我们会在这里进行跟进。
+  * 如果你觉得我们的代码存在的问题你能够解决，并且你愿意为 ZodUI 贡献代码，通过 fork 本项目并创建一个新的 Pull Request，我们会审阅你的代码，如果合适并且通过，我们会按照迭代的计划将你的代码合并到主分支中并发布。\
+    虽然刚刚的描述看起来有点严格，但是相信我们，我们会尽可能的让你的代码合并到主分支中，只有严格的代码审阅才能保证 ZodUI 的质量并且保护每一位使用的用户（包括你）。\
+    除此之外在合适的时候我们邀请你进入我们的组织，欢迎你成为 ZodUI 的一员👏。
+* 如果你的问题不适合在 GitHub 上面进行讨论，你可以通过以下的方式联系我们。
+  * Telegram：[@zod_ui](https://t.me/zod_ui)
+  * QQ：None
+  * 邮箱：[yijie4188@gmail.com](mailto:yijie4188@gmai.com)
