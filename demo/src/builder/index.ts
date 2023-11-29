@@ -249,7 +249,7 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
       <div class='markdown-body'>
         ${marked(content)}
       </div>
-      <div class='operates'>
+      <div class='operations'>
         <div class='report'>
           <span class='material-icons'>report</span>
           <a href='${
