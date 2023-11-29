@@ -2,12 +2,15 @@ import './preview.client.scss'
 
 import hljs from 'highlight.js'
 import { marked } from 'marked'
+import { markedHighlight } from 'marked-highlight'
 
-marked.setOptions({
-  highlight(code: string, lang: string): string | void {
-    return hljs.highlightAuto(code, [lang]).value
+marked.use(markedHighlight({
+  langPrefix: 'hljs language-',
+  highlight(code, lang) {
+    const language = hljs.getLanguage(lang) ? lang : 'plaintext'
+    return hljs.highlight(code, { language }).value
   }
-})
+}))
 
 document.querySelectorAll<HTMLDivElement>('.zodui-preview')
   .forEach(ele => {

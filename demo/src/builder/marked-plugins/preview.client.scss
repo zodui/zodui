@@ -106,7 +106,7 @@ div.zodui-preview {
       max-height: 0;
       overflow: overlay;
       border-bottom: 1px solid #ccc;
-      transition: .1s;
+      transition: .2s;
       pre { margin-bottom: 0; border: none }
     }
     > .material-icons {
@@ -123,7 +123,6 @@ div.zodui-preview {
     }
     &.display {
       > .content {
-        padding: 10px;
         max-height: 250px;
       }
       > .material-icons {
