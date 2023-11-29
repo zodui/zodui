@@ -11,16 +11,26 @@
 }
 
 html[theme-mode='dark'] body > main {
-  --bg-cr: #303845aa;
+  --pr-cr: #3E67B1;
+  --pr-fr-cr: #fff;
+  --cp-cr: #444;
+  --bg-cr: #303845;
   --fr-cr: #ebebf599;
+  --bx-sd-l1: 0 0 4px #3335;
+  --bx-sd-l3: 0 0 6px #000a;
   > div.container > .markdown-body {
     --color-canvas-subtle: #333d;
   }
 }
 body > main {
   --padding: 100px;
+  --pr-cr: #3E67B1;
+  --pr-fr-cr: #fff;
+  --cp-cr: #f0f0f0aa;
   --bg-cr: #f6f6f6aa;
   --fr-cr: #2d2d2d;
+  --bx-sd-l1: 0 0 4px #5555;
+  --bx-sd-l3: 0 0 6px #333a;
 
   z-index: 0;
   display: flex;

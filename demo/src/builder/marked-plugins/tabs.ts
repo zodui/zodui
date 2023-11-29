@@ -27,12 +27,36 @@ export default defineMDPlugin({
       .toArray()
       .map(tab => ({
         title: tab.attribs['title'],
+        icon: tab.attribs['icon'],
         content: (
           tab.children[0] as { data: string }
         ).data
       }))
-    console.log('tabs', tabs)
-    return false
+    if (!tabs.length) {
+      return false
+    }
+    return `
+      <div class='docs-tabs'>
+        <div class='docs-tabs__header'>
+          ${tabs
+            .map((tab, index) => `<div
+              class="${'docs-tabs__header-item' + (index === 0 ? ' active' : '')}"
+            >
+              ${tab.icon ? `<div class='docs-tabs__header-item-icon'>${tab.icon}</div>` : ''}
+              ${tab.title}
+            </div>`)
+            .join('')}
+        </div>
+        <div class='docs-tabs__content'>
+          ${tabs
+            .map(tab => `<div
+              class='docs-tabs__content-item'
+            >${marked(tab.content)}</div>`)
+            .join('')}
+        </div>
+      </div>
+    `
   }
 }, [
+  '/src/builder/marked-plugins/tabs.client.ts'
 ])

@@ -1,0 +1,51 @@
+.docs-tabs {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  box-shadow: var(--bx-sd-l1);
+  transition: .2s;
+  &:hover {
+    box-shadow: var(--bx-sd-l3);
+  }
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px solid #ccc;
+    background-color: var(--cp-cr);
+    &-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      opacity: .6;
+      cursor: pointer;
+      transition: .2s;
+      &:hover, &.active {
+        opacity: 1;
+      }
+      &.active {
+        font-weight: bold;
+        border-bottom: 2px solid var(--pr-cr);
+      }
+      &-icon {
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+  &__content {
+    display: flex;
+    overflow: overlay;
+    &-item {
+      min-width: 100%;
+      > pre {
+        border-radius: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+}
