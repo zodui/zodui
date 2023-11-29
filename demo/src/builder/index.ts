@@ -26,7 +26,7 @@ const reportBodyRender = (pWithoutExt: string) => `
 ## 建议的修改
 `.trim()
 
-export const mdPlugins = [Preview, Header, Tabs, Copy]
+export const mdPlugins = [Copy, Preview, Header, Tabs]
 
 marked.use(markedHighlight({
   langPrefix: 'hljs language-',

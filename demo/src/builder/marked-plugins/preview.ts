@@ -48,7 +48,8 @@ export default defineMDPlugin({
           }) %>
         </div>
         <div class='output'>
-          <div class='content'></div>
+          <div class='content markdown-body'>
+          </div>
           <span class='material-icons down'>expand_more</span>
         </div>
       </div>

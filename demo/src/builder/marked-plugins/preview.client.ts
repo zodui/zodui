@@ -55,7 +55,7 @@ document.querySelectorAll<HTMLDivElement>('.zodui-preview')
     const eleOutput = ele.querySelector<HTMLDivElement>(':scope > .output')!
     const eleOutputContent = eleOutput.querySelector<HTMLDivElement>(':scope > .content')!
     const eleOutputDown = eleOutput.querySelector<HTMLSpanElement>(':scope > .down')!
-    eleOutputContent.innerText = 'null'
+    eleOutputContent.innerHTML = '<pre><code class=\'hljs language-json\'>null</code></pre>'
     evalerValueEmitter.on(schemaEvalKey, (value: unknown) => {
       eleOutputContent.innerHTML = marked(`\`\`\`json\n${JSON.stringify(value, null, 2)}\n\`\`\``)
     })
