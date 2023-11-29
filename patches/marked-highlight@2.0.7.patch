@@ -1,0 +1,54 @@
+diff --git a/lib/index.cjs b/lib/index.cjs
+index 8e3b668e1972061b3d6f23e2666506c737a096b8..0950c74ec48e567dbd4fe501c086e0562b6ddb34 100644
+--- a/lib/index.cjs
++++ b/lib/index.cjs
+@@ -17,31 +17,30 @@ function markedHighlight(options) {
+
+   return {
+     async: !!options.async,
+-    walkTokens(token) {
+-      if (token.type !== 'code') {
+-        return;
+-      }
+-
+-      const lang = getLang(token);
+-
+-      if (options.async) {
+-        return Promise.resolve(options.highlight(token.text, lang)).then(updateToken(token));
+-      }
+-
+-      const code = options.highlight(token.text, lang);
+-      if (code instanceof Promise) {
+-        throw new Error('markedHighlight is not set to async but the highlight function is async. Set the async option to true on markedHighlight to await the async highlight function.');
+-      }
+-      updateToken(token)(code);
+-    },
++    // walkTokens(token) {
++    //   if (token.type !== 'code') {
++    //     return;
++    //   }
++    //
++    //   const lang = getLang(token);
++    //
++    //   if (options.async) {
++    //     return Promise.resolve(options.highlight(token.text, lang)).then(updateToken(token));
++    //   }
++    //
++    //   const code = options.highlight(token.text, lang);
++    //   if (code instanceof Promise) {
++    //     throw new Error('markedHighlight is not set to async but the highlight function is async. Set the async option to true on markedHighlight to await the async highlight function.');
++    //   }
++    //   updateToken(token)(code);
++    // },
+     renderer: {
+       code(code, infoString, escaped) {
+         const lang = (infoString || '').match(/\S*/)[0];
+         const classAttr = lang
+           ? ` class="${options.langPrefix}${escape(lang)}"`
+           : '';
+-        code = code.replace(/\n$/, '');
+-        return `<pre><code${classAttr}>${escaped ? code : escape(code, true)}\n</code></pre>`;
++        return `<pre><code${classAttr}>${options.highlight(code, lang)}\n</code></pre>`;
+       }
+     }
+   };

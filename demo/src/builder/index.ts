@@ -9,15 +9,7 @@ import Preview from './marked-plugins/preview'
 import Tabs from './marked-plugins/tabs'
 import { slug } from './slug'
 
-export const marked = new Marked(
-  markedHighlight({
-    langPrefix: 'hljs language-',
-    highlight(code, lang) {
-      const language = hljs.getLanguage(lang) ? lang : 'plaintext'
-      return hljs.highlight(code, { language }).value
-    }
-  })
-)
+export const marked = new Marked()
 
 const reportBodyRender = (pWithoutExt: string) => `
 ## 文档路径
@@ -35,6 +27,13 @@ const reportBodyRender = (pWithoutExt: string) => `
 
 export const mdPlugins = [Preview, Header, Tabs]
 
+marked.use(markedHighlight({
+  langPrefix: 'hljs language-',
+  highlight(code, lang) {
+    const language = hljs.getLanguage(lang) ? lang : 'plaintext'
+    return hljs.highlight(code, { language }).value
+  }
+}))
 // TODO left documents tree panel
 // TODO bottom help us improve this page, such as edit in github, create issue, etc.
 // TODO bottom next and prev

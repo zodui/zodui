@@ -31,5 +31,10 @@
     "rollup-plugin-esbuild": "^6.1.0",
     "rollup-plugin-postcss": "^4.0.2",
     "typescript": "^4.9.5"
+  },
+  "pnpm": {
+    "patchedDependencies": {
+      "marked-highlight@2.0.7": "patches/marked-highlight@2.0.7.patch"
+    }
   }
 }

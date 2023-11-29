@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  marked-highlight@2.0.7:
+    hash: johwtlhctnbsi65koa4h5iktvi
+    path: patches/marked-highlight@2.0.7.patch
+
 importers:
 
   .:
@@ -89,9 +94,6 @@ importers:
       '@types/ejs':
         specifier: ^3.1.2
         version: 3.1.2
-      '@types/github-slugger':
-        specifier: ^1.3.0
-        version: 1.3.0
       '@types/react':
         specifier: ^16.14.50
         version: 16.14.50
@@ -107,9 +109,6 @@ importers:
       cheerio:
         specifier: 1.0.0-rc.12
         version: 1.0.0-rc.12
-      github-slugger:
-        specifier: ^1.5.0
-        version: 1.5.0
       highlight.js:
         specifier: ^11.7.0
         version: 11.7.0
@@ -118,7 +117,7 @@ importers:
         version: 10.0.0
       marked-highlight:
         specifier: ^2.0.7
-        version: 2.0.7(marked@10.0.0)
+        version: 2.0.7(patch_hash=johwtlhctnbsi65koa4h5iktvi)(marked@10.0.0)
       react:
         specifier: ^16.13.1
         version: 16.14.0
@@ -1141,10 +1140,6 @@ packages:
     resolution: {integrity: sha512-OMcQKnlrkrOI0TaZ/MgVDA8LYFl7CykzFsjMj9l5x3un2nFxCY20ZFlnqrM0lcqlbs0Yro2HbnZlmopyRaoJ5w==}
     dependencies:
       '@types/node': 18.18.7
-    dev: true
-
-  /@types/github-slugger@1.3.0:
-    resolution: {integrity: sha512-J/rMZa7RqiH/rT29TEVZO4nBoDP9XJOjnbbIofg7GQKs4JIduEO3WLpte+6WeUz/TcrXKlY+bM7FYrp8yFB+3g==}
     dev: true
 
   /@types/glob@7.2.0:
@@ -2752,10 +2747,6 @@ packages:
       resolve-pkg-maps: 1.0.0
     dev: true
 
-  /github-slugger@1.5.0:
-    resolution: {integrity: sha512-wIh+gKBI9Nshz2o46B0B3f5k/W+WI9ZAv6y5Dn5WJ5SK1t0TnDimB4WE5rmTD05ZAIn8HALCZVmCsvj0w0v0lw==}
-    dev: true
-
   /glob-parent@5.1.2:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
@@ -3456,13 +3447,14 @@ packages:
     dev: true
     optional: true
 
-  /marked-highlight@2.0.7(marked@10.0.0):
+  /marked-highlight@2.0.7(patch_hash=johwtlhctnbsi65koa4h5iktvi)(marked@10.0.0):
     resolution: {integrity: sha512-3IjgV879kEihgjWwVv8HGDkyuKDyR8hssDEjMUAH5LNVhIcZge+u6UKhxPA+daEVMVZeKEHo5gWrLVlLPF1m3g==}
     peerDependencies:
       marked: '>=4 <11'
     dependencies:
       marked: 10.0.0
     dev: true
+    patched: true
 
   /marked@10.0.0:
     resolution: {integrity: sha512-YiGcYcWj50YrwBgNzFoYhQ1hT6GmQbFG8SksnYJX1z4BXTHSOrz1GB5/Jm2yQvMg4nN1FHP4M6r03R10KrVUiA==}
