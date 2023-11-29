@@ -4,6 +4,7 @@ import { Marked, type RendererObject } from 'marked'
 import { markedHighlight } from 'marked-highlight'
 import path from 'path'
 
+import Copy from './marked-plugins/copy'
 import Header from './marked-plugins/header'
 import Preview from './marked-plugins/preview'
 import Tabs from './marked-plugins/tabs'
@@ -25,7 +26,7 @@ const reportBodyRender = (pWithoutExt: string) => `
 ## 建议的修改
 `.trim()
 
-export const mdPlugins = [Preview, Header, Tabs]
+export const mdPlugins = [Preview, Header, Tabs, Copy]
 
 marked.use(markedHighlight({
   langPrefix: 'hljs language-',

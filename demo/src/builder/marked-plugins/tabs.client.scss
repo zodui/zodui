@@ -48,10 +48,9 @@
     transition: .2s;
     &-item {
       min-width: 100%;
-      > pre {
-        border-radius: 0;
+      pre {
         margin-bottom: 0;
-        padding: 0;
+        border: none !important;
       }
     }
   }

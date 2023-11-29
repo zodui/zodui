@@ -14,12 +14,13 @@ html[theme-mode='dark'] body > main {
   --pr-cr: #3E67B1;
   --pr-fr-cr: #fff;
   --cp-cr: #444;
-  --bg-cr: #303845;
+  --bg-cr: #101623;
   --fr-cr: #ebebf599;
+  --br-cr: #5555;
   --bx-sd-l1: 0 0 4px #3335;
   --bx-sd-l3: 0 0 6px #000a;
   > div.container > .markdown-body {
-    --color-canvas-subtle: #333d;
+    --color-canvas-subtle: #303845;
   }
 }
 body > main {
@@ -29,8 +30,12 @@ body > main {
   --cp-cr: #f0f0f0aa;
   --bg-cr: #f6f6f6aa;
   --fr-cr: #2d2d2d;
+  --br-cr: #d9d9d9;
   --bx-sd-l1: 0 0 4px #5555;
   --bx-sd-l3: 0 0 6px #333a;
+  > div.container > .markdown-body {
+    --color-canvas-subtle: #fff;
+  }
 
   z-index: 0;
   display: flex;
@@ -59,7 +64,7 @@ body > main {
     position: sticky;
     top: 0;
     min-width: 300px;
-    border-right: 1px solid #d9d9d9;
+    border-right: 1px solid var(--br-cr);
     > .selector > .schema-eval-container > .zodui-composer-list {
       background-color: transparent;
       > .zodui-item {
@@ -80,7 +85,7 @@ body > main {
     > .tabs {
       display: flex;
       justify-content: space-between;
-      border-bottom: 1px solid #d9d9d9;
+      border-bottom: 1px solid var(--br-cr);
       font-size: 1.2rem;
       user-select: none;
       > .tab {
@@ -92,9 +97,6 @@ body > main {
         }
       }
     }
-    > .classifications {
-      padding: 15px 0;
-    }
   }
   > div.container {
     flex-grow: 1;
@@ -105,7 +107,7 @@ body > main {
       position: relative;
       padding: 20px 0 150px;
       margin-top: 20px;
-      border-top: 1px solid #d9d9d9;
+      border-top: 1px solid var(--br-cr);
       > a:has(> .prev) {
         float: left;
       }
@@ -157,9 +159,12 @@ body > main {
       }
     }
     > .markdown-body {
-      --color-canvas-subtle: #fff;
       > h1, > h2, > h3, > h4, > h5, > h6 {
         margin-top: 40px !important;
+      }
+      pre {
+        padding: 0;
+        border: 1px solid var(--br-cr);
       }
     }
   }
@@ -180,9 +185,7 @@ body > main {
       margin: 0 -10px;
       background-color: var(--bg-cr);
       backdrop-filter: blur(5px);
-    }
-    > ul > li:first-child {
-      margin-top: 0;
+      border-bottom: 1px solid var(--br-cr);
     }
     ul {
       margin-top: 0;

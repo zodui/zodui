@@ -72,9 +72,10 @@ div.zodui-preview {
         top: 0;
       }
       pre {
-        display: block;
-        min-height: calc(100% - 30px);
+        margin-bottom: 0;
+        min-height: 100%;
         border-radius: 0;
+        border: none !important;
       }
     }
     > .schema-eval-container {
@@ -84,6 +85,11 @@ div.zodui-preview {
       transition: .15s;
       > * {
         height: 100%;
+      }
+      .zodui-composer-list .inline-md {
+        border: none;
+        background-color: unset;
+        font-size: 12px;
       }
     }
   }
