@@ -1,7 +1,6 @@
 const main = document.querySelector<HTMLDivElement>('body > main')
 const mainPages = document.querySelector('body > main > .pages')
 const pList = main.querySelectorAll(':scope > div[class^="p"]')
-console.log(mainPages, pList)
 
 // eslint-disable-next-line no-unused-labels
 initMainPages: {
