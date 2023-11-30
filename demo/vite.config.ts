@@ -39,8 +39,7 @@ const tabs = [
     filename: 'docs',
     template: 'src/docs.html',
     // TODO auto analysis dep files
-    depFiles: [/templates/, /components/],
-    disabled: true
+    depFiles: [/templates/, /components/]
   },
   {
     title: 'Handbook',
@@ -215,6 +214,7 @@ export default defineConfig({
           // TODO auto analysis dep files
           depFiles: [/templates/, /components/]
         },
+        ...documentsPages,
         ...tabs
           .filter(p => !p.disabled)
           .map(p => ({
@@ -228,8 +228,7 @@ export default defineConfig({
               }),
               ejsOptions
             }
-          })),
-        ...documentsPages
+          }))
       ]
     })
   ]

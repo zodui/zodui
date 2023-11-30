@@ -1,0 +1,52 @@
+body > main {
+  html[theme-mode='dark'] & {
+    img[src$='#dark'] {
+      display: block;
+    }
+    img[src$='#light'] {
+      display: none;
+    }
+  }
+  img[src$='#dark'] {
+    display: none;
+  }
+}
+body > main {
+  --padding: 200px;
+
+  display: flex;
+  position: relative;
+  margin-top: -60px;
+  padding: 0 var(--padding);
+  padding-top: 60px;
+  width: calc(100% - var(--padding) * 2);
+  height: calc(100vh - 60px);
+  color: var(--fr-cr);
+  overflow: overlay;
+  > .tips {
+    margin: 100px auto 0;
+    > div.tip {
+      border-radius: 0.5rem;
+      overflow: hidden;
+      color: var(--fr-cr);
+      background-color: var(--cp-cr);
+      box-shadow: var(--bx-sd-l1);
+      backdrop-filter: blur(5px);
+      > h2 {
+        margin: 0;
+        padding: 1rem;
+        font-size: 1.5rem;
+      }
+      > img {
+        width: 1000px;
+        height: 400px;
+      }
+      > .description {
+        padding: 1rem;
+        margin: 0;
+        color: var(--pl-cr);
+        font-size: 1.2rem;
+      }
+    }
+  }
+}

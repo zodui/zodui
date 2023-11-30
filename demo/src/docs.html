@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('components/meta') %>
+  <%- include('templates/lib') %>
+  <link rel='stylesheet' href='/style/github-markdown.css'>
+  <script type='module'>import './docs.scss'</script>
+</head>
+<body>
+<%- include('templates/header') %>
+<main>
+  <div class='tips'>
+    <div class='tip'>
+      <img src='/gifs/selector-tip.zh-Hans.dark.gif#dark' alt='selector-tip'>
+      <img src='/gifs/selector-tip.zh-Hans.light.gif#light' alt='selector-tip'>
+      <h2 class='title'>选择器</h2>
+      <pre class='description'>左上角有框架与组件库等选项，你可以通过选择你需要使用组件库和框架以及对应版本用来选择你的开发环境。</pre>
+    </div>
+  </div>
+  <div class='classifications'>
+    <div class='classification'></div>
+    <div class='classification'></div>
+    <div class='classification'></div>
+  </div>
+</main>
+</body>
+</html>
