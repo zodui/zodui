@@ -40,8 +40,8 @@ const mouse = {
   _x: 0,
   _y: 0,
   update(event: MouseEvent) {
-    this.x = this._x - event.offsetX
-    this.y = event.offsetY - this._y
+    this.x = event.offsetX - this._x
+    this.y = this._y - event.offsetY
   },
   setOrigin(e: HTMLElement) {
     this._x = e.offsetWidth / 2
