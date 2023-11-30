@@ -2,6 +2,7 @@
   "title": "指南",
   "children": [
     "start",
-    "basic"
+    "basic",
+    "advanced"
   ]
 }
