@@ -10,11 +10,17 @@
 <%- include('templates/header') %>
 <main>
   <div class='tips'>
-    <div class='tip'>
+    <div class='tip active'>
       <img src='/gifs/selector-tip.zh-Hans.dark.gif#dark' alt='selector-tip'>
       <img src='/gifs/selector-tip.zh-Hans.light.gif#light' alt='selector-tip'>
       <h2 class='title'>选择器</h2>
       <pre class='description'>左上角有框架与组件库等选项，你可以通过选择你需要使用组件库和框架以及对应版本用来选择你的开发环境。</pre>
+    </div>
+    <div class='tip'>
+      <img src='/gifs/classifications-tip.zh-Hans.dark.gif#dark' alt='classifications-tip'>
+      <img src='/gifs/classifications-tip.zh-Hans.light.gif#light' alt='classifications-tip'>
+      <h2 class='title'>文档分类</h2>
+      <pre class='description'>在左侧环境选择器的下方是我们的文档分类，以及当前分类下的文档结构，你可以通过点击文档目录切换到分类下的不同文档。</pre>
     </div>
   </div>
   <div class='classifications'>
@@ -23,5 +29,6 @@
     <div class='classification'></div>
   </div>
 </main>
+<script type='module' src='/src/docs.ts'></script>
 </body>
 </html>
