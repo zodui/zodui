@@ -1,15 +1,42 @@
 :root {
 }
-html[theme-mode='dark'] body > main {
-  background-image: linear-gradient(120deg, #1d3259 20%, #354e7e 80%);
-}
 html {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 body {
+  --pr-cr: #3E67B1;
+  --pr-fr-cr: #fff;
+  --cp-cr: #f3f3f3;
+  --bg-cr: #fff0;
+  --fr-cr: #2d2d2d;
+  --pl-cr: #666;
+  --br-cr: #d9d9d9;
+  --bx-sd-l1: 0 0 4px #5555;
+  --bx-sd-l3: 0 0 6px #333a;
+
   display: flex;
   margin: 0;
   padding-top: 60px;
+  html[theme-mode='dark'] & {
+    --pr-cr: #3E67B1;
+    --pr-fr-cr: #fff;
+    --cp-cr: #444;
+    --bg-cr: #101623;
+    --fr-cr: #ebebf5;
+    --pl-cr: #adadad;
+    --br-cr: #5555;
+    --bx-sd-l1: 0 0 4px #3335;
+    --bx-sd-l3: 0 0 6px #000a;
+    .markdown-body {
+      --color-canvas-subtle: #303845;
+    }
+    > main {
+      background-image: linear-gradient(120deg, #1d3259 20%, #354e7e 80%);
+    }
+  }
+  .markdown-body {
+    --color-canvas-subtle: #fafafa;
+  }
   > main {
     width: 100%;
     height: calc(100vh - 60px);
