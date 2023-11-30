@@ -1,11 +1,13 @@
 .zodui-item {
+  --padding-top-and-bottom: 8px;
+
   position: relative;
   display: flex;
   align-items: start;
   justify-content: space-between;
   gap: 10px;
-  padding: 10px 20px 10px 50px;
-  width: calc(100% - 70px);
+  padding: var(--padding-top-and-bottom) 18px var(--padding-top-and-bottom) 50px;
+  width: calc(100% - 68px);
   border-bottom: var(--zodui-border);
   transition: .3s;
   &.wrap:not(.nowrap) {
@@ -28,8 +30,8 @@
   }
   &__more {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: var(--padding-top-and-bottom);
+    left: 8px;
   }
   &__label {
     position: relative;
@@ -37,7 +39,7 @@
     flex-direction: column;
     flex-grow: 1;
     width: 0;
-    font-size: 18px;
+    font-size: var(--zodui-label-font-size);
     line-height: 32px;
     &:not(.is-optional)::after {
       content: '*';
@@ -46,17 +48,18 @@
       color: var(--zodui-error-color);
     }
     &-description {
-      font-size: 12px;
+      font-size: var(--zodui-description-font-size);
       text-wrap: wrap;
       color: var(--zodui-text-color-placeholder);
     }
   }
   &__error {
-    padding: 10px 5px;
-    border-left: 4px solid var(--zodui-error-color);
+    padding: 8px 6px;
+    border-left: 2px solid var(--zodui-error-color);
     border-bottom: var(--zodui-border);
     color: var(--zodui-error-color);
     background-color: var(--zodui-error-color__bg);
+    font-size: var(--zodui-description-font-size);
     overflow: hidden;
     transition: .3s;
     &.none {
