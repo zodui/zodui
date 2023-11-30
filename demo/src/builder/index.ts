@@ -311,7 +311,17 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
           </div>
         </a>` : ''}
       </div>
-      <div class='comments'></div>
+      <script
+        src='https://utteranc.es/client.js'
+        repo='zodui/zodui'
+        issue-term='Documents${
+          process.env.NODE_ENV === 'development' ? '[Dev]' : ''
+        }: ${p}'
+        label='discussion'
+        theme='github-light'
+        crossorigin='anonymous'
+        async>
+      </script>
     </div>
     ${menuHTML}
   `.trim()

@@ -111,7 +111,7 @@ body > main {
     width: 0;
     > div.pagination {
       position: relative;
-      padding: 20px 0 150px;
+      padding: 20px 0 100px;
       margin-top: 20px;
       border-top: 1px solid var(--br-cr);
       > a:has(> .prev) {
@@ -172,6 +172,9 @@ body > main {
         padding: 0;
         border: 1px solid var(--br-cr);
       }
+    }
+    > .utterances {
+      min-height: 270px;
     }
   }
   > div.quick-access {
