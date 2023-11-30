@@ -32,10 +32,12 @@ body > main {
   color: var(--fr-cr);
   overflow: overlay;
   > .tips {
+    position: relative;
     margin: 100px auto 0;
     > div.tip {
       position: relative;
       display: none;
+      max-height: 500px;
       border-radius: 0.5rem;
       overflow: hidden;
       color: var(--fr-cr);
@@ -70,6 +72,25 @@ body > main {
         margin: 0;
         color: var(--pl-cr);
         font-size: 1.2rem;
+      }
+    }
+    > .next {
+      position: absolute;
+      top: 510px;
+      right: 0;
+      padding-right: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: .3s;
+      &:hover {
+        filter: drop-shadow(0 0 2px var(--pr-cr));
+      }
+      > span {
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.5rem;
+        background-color: var(--pr-cr);
+        font-weight: bold;
+        color: var(--pr-fr-cr);
       }
     }
   }

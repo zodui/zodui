@@ -33,3 +33,15 @@ tipElements
       }, 10 * 1000 - (endTime - startTime)) as unknown as number
     })
   })
+
+tips.querySelector(':scope > .next')
+  ?.addEventListener('click', () => {
+    activeTip()
+    clearInterval(timer)
+    startTime = Date.now()
+    endTime = undefined
+    timer = setInterval(() => {
+      startTime = Date.now()
+      activeTip()
+    }, 10 * 1000) as unknown as number
+  })
