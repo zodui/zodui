@@ -31,7 +31,7 @@ document.querySelectorAll('a[href^="#"]')
       const aLinkEle = e.currentTarget as HTMLAnchorElement
       const hash = aLinkEle.getAttribute('href')
       if (!hash) return
-      const header = document.querySelector<HTMLHeadElement>(hash)
+      const header = document.querySelector<HTMLHeadElement>(decodeURIComponent(hash))
       if (!header) return
       main.scrollTo({ top: header.offsetTop - 10 })
       history.pushState(null, '', hash)
