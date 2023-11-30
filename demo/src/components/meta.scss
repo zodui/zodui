@@ -37,27 +37,27 @@ body {
   .markdown-body {
     --color-canvas-subtle: #fafafa;
   }
-  a {
-    display: inline-block;
-    padding: 0;
-    text-decoration: none;
-    transition: .15s;
-    color: inherit;
-    &:hover {
-      color: #3E67B1;
-      text-decoration: underline;
-    }
-    &[href^='http'] {
-      &::after {
-        content: ' ↗';
-        font-size: 1rem;
-      }
-    }
-  }
   > main {
     width: 100%;
     height: calc(100vh - 60px);
     background-image: linear-gradient(120deg, #cfd7ea 20%, #a1c4fd 80%);
+    a {
+      display: inline-block;
+      padding: 0;
+      text-decoration: none;
+      transition: .15s;
+      color: inherit;
+      &:hover {
+        color: #3E67B1;
+        text-decoration: underline;
+      }
+      &[href^='http'] {
+        &::after {
+          content: ' ↗';
+          font-size: 1rem;
+        }
+      }
+    }
   }
 }
 code {
