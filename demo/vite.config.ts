@@ -92,7 +92,7 @@ const ejsOptions: EJSOptions = {
   }
 }
 
-const documentsContent = fs.readFileSync(path.resolve(__dirname, './src/docs.html'), 'utf-8')
+const documentTemplateContent = fs.readFileSync(path.resolve(__dirname, './src/docs-template.html'), 'utf-8')
 const documentsPages: Exclude<Parameters<typeof createHtmlPlugin>[0], undefined>['pages'] = []
 {
   const documentsBasePath = path.resolve(__dirname, './docs')
@@ -103,7 +103,7 @@ const documentsPages: Exclude<Parameters<typeof createHtmlPlugin>[0], undefined>
     }`
     documentsPages.push({
       filename,
-      template: 'src/docs.html',
+      template: 'src/docs-template.html',
       injectOptions: {
         data: () => ({
           ...commonInjectOptionsData(),
@@ -196,7 +196,7 @@ export default defineConfig({
     tsconfigPaths(),
     process.env.NODE_ENV !== 'development' && virtual(
       documentsPages.reduce((input, { filename }) => {
-        input[`${filename}.html`] = documentsContent
+        input[`${filename}.html`] = documentTemplateContent
         return input
       }, {} as Record<string, string>)
     ),

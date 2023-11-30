@@ -8,7 +8,7 @@
     import 'highlight.js/scss/atom-one-dark.scss'
     // TODO support auto detect dark mode or light mode
     // import 'highlight.js/scss/atom-one-light.scss'
-    import '/src/docs.scss'
+    import '/src/docs-template.scss'
   </script>
 </head>
 <body>
@@ -19,6 +19,6 @@
   <% if (locals.GLOBAL_SCRIPTS) { %>
     <%- GLOBAL_SCRIPTS %>
   <% } %>
-  <script type='module' src='/src/docs.ts'></script>
+  <script type='module' src='/src/docs-template.ts'></script>
 </body>
 </html>
