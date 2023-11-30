@@ -28,22 +28,6 @@ body > main {
   scroll-behavior: smooth;
   background-image: none !important;
   background-color: var(--bg-cr) !important;
-  a {
-    display: inline-block;
-    padding: 0;
-    text-decoration: none;
-    transition: .15s;
-    color: inherit;
-    &:hover {
-      color: #3E67B1;
-    }
-    &[href^='http'] {
-      &::after {
-        content: ' ↗';
-        font-size: 1rem;
-      }
-    }
-  }
   > div.left-panel {
     position: sticky;
     top: 0;

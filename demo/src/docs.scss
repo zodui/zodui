@@ -23,6 +23,7 @@ body > main {
   --padding: 200px;
 
   display: flex;
+  flex-direction: column;
   position: relative;
   margin-top: -60px;
   padding: 0 var(--padding);
@@ -33,7 +34,7 @@ body > main {
   overflow: overlay;
   > .tips {
     position: relative;
-    margin: 100px auto 0;
+    margin: 100px auto 70px;
     > div.tip {
       position: relative;
       display: none;
@@ -91,6 +92,39 @@ body > main {
         background-color: var(--pr-cr);
         font-weight: bold;
         color: var(--pr-fr-cr);
+      }
+    }
+  }
+  > .classifications {
+    display: flex;
+    gap: 20px;
+    > .classification {
+      flex-grow: 1;
+      padding: 10px;
+      width: 0;
+      height: 200px;
+      border-radius: 0.5rem;
+      background-color: var(--cp-cr);
+      box-shadow: var(--bx-sd-l1);
+      h2 { margin: 0; }
+      > .description {
+        margin: 10px 0;
+        padding: 0;
+        color: var(--pl-cr);
+        font-size: 1rem;
+      }
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        li {
+          margin-top: 0.25rem;
+          font-size: 1.2rem;
+          color: var(--pl-cr);
+          a {
+            color: var(--pr-cr);
+          }
+        }
       }
     }
   }
