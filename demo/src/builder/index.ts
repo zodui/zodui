@@ -323,6 +323,10 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
         async>
       </script>
     </div>
+    <div class='quick-operates'>
+      <div class='material-icons back-to-top hide'>arrow_upward</div>
+      <div class='material-icons go-to-comments'>comment</div>
+    </div>
     ${menuHTML}
   `.trim()
 }

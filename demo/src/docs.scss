@@ -177,6 +177,35 @@ body > main {
       min-height: 270px;
     }
   }
+  > div.quick-operates {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    > .material-icons {
+      padding: 10px;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      font-size: 2rem;
+      color: var(--fr-cr);
+      border: 1px solid var(--br-cr);
+      box-shadow: var(--bx-sd-l1);
+      transition: .15s;
+      &:hover {
+        color: var(--pr-fr-cr);
+        background-color: var(--pr-cr);
+        box-shadow: var(--bx-sd-l3);
+      }
+      &.hide {
+        visibility: hidden;
+        opacity: 0;
+      }
+    }
+  }
   > div.quick-access {
     position: sticky;
     top: 0;
