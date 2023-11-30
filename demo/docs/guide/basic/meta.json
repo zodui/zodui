@@ -3,7 +3,6 @@
   "children": [
     "types.md",
     "calc-type.md",
-    "create-a-form.md",
-    "custom-mode.md"
+    "create-a-form.md"
   ]
 }
