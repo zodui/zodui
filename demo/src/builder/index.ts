@@ -35,6 +35,16 @@ marked.use(markedHighlight({
     return hljs.highlight(code, { language }).value
   }
 }))
+marked.use({
+  renderer: {
+    link(href: string, title: string | null | undefined, text: string) {
+      const isExternal = /^https?:\/\//.test(href)
+      if (!isExternal) return false
+
+      return `<a href='${href}' target='_blank'>${text}</a>`
+    }
+  }
+})
 marked.use(...mdPlugins.map(([renderer]) => ({ renderer })))
 
 export function defineMDPlugin(renderer: RendererObject, src: string | string[]) {
