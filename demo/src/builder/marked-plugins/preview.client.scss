@@ -1,24 +1,8 @@
-html[theme-mode='dark'] div.zodui-preview {
-  --bg-color: #3A4F7A;
-  --bg-color-for-component: #242424;
-  --bg-hover-color: #5675bd;
-  --fr-color: #F5F5F5;
-  --fr-color-for-component: #fff;
-  > .wrap {
-    box-shadow: 0 4px 6px #0002;
-  }
-}
-
 div.zodui-preview {
-  --bg-color: #3E67B1;
-  --bg-color-for-component: #fff;
-  --bg-hover-color: #3A4F7A;
-  --fr-color: #F5F5F5;
-  --fr-color-for-component: #33333388;
-
   position: relative;
   margin-top: 20px;
-  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: .5rem;
   .markdown-body pre {
     margin-bottom: 0;
     padding: 0;
@@ -34,12 +18,12 @@ div.zodui-preview {
     right: -36px;
     width: 160px;
     height: 24px;
-    background-color: var(--bg-color);
-    color: var(--fr-color);
-    border-radius: 0 8px 8px 0;
+    background-color: var(--pr-cr);
+    color: var(--pr-fr-cr);
+    border-radius: 0 .5rem .5rem 0;
     transition: .3s;
     &:not(.display):hover {
-      background-color: var(--bg-hover-color);
+      box-shadow: var(--bx-sd-l3);
     }
     &.display {
       right: -176px;
@@ -63,8 +47,7 @@ div.zodui-preview {
     z-index: 3;
     position: relative;
     overflow: hidden;
-    border-radius: 8px 8px 0 0;
-    box-shadow: 0 4px 6px #5552;
+    border-radius: .5rem .5rem 0 0;
     > .markdown-body {
       z-index: 10000;
       position: absolute;
@@ -101,9 +84,9 @@ div.zodui-preview {
     position: relative;
     z-index: 2;
     padding-bottom: 24px;
-    color: var(--fr-color-for-component);
-    background-color: var(--bg-color-for-component);
-    border-radius: 0 0 8px 8px;
+    color: var(--fr-cr);
+    background-color: var(--cp-cr);
+    border-radius: 0 0 .5rem .5rem;
     > .content {
       padding: 0;
       margin: 0;
