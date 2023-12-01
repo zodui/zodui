@@ -8,6 +8,14 @@ div.zodui-preview {
     padding: 0;
     border: none;
   }
+  + .markdown-body {
+    margin-top: 20px;
+    h1, h2, h3, h4, h5, h6 {
+      &:first-child {
+        margin-top: 20px !important;
+      }
+    }
+  }
   > .draw-bar-wrap {
     z-index: 1;
     position: absolute;
