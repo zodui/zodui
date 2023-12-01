@@ -2,11 +2,10 @@
   z-index: 1;
   background-color: #3E67B1bb !important;
   > .header-left > .tabs {
-    color: #dededeaa !important;
+    color: var(--pr-fr-cr) !important;
   }
-  > .header-left > .tabs > .tab:not(.disabled) {
-    color: #1c1c1caa !important;
-    &:hover { color: #0648b7 !important }
+  > .header-left > .tabs > .tab.disabled {
+    color: #dededeaa !important;
   }
 }
 
