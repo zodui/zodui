@@ -8,14 +8,22 @@ div.zodui-preview {
     padding: 0;
     border: none;
   }
-  > .draw-bar {
+  > .draw-bar-wrap {
+    z-index: 1;
+    position: absolute;
+    padding: 24px 0;
+    margin-left: 100%;
+    width: 0;
+    height: calc(100% - 48px);
+  }
+  > .draw-bar-wrap > .draw-bar {
     z-index: 1;
     display: flex;
     gap: 10px;
     padding: 8px;
-    position: absolute;
-    top: calc(100% - 64px);
-    right: -36px;
+    position: sticky;
+    top: 20px;
+    margin-left: -136px;
     width: 160px;
     height: 24px;
     background-color: var(--pr-cr);
@@ -26,7 +34,7 @@ div.zodui-preview {
       box-shadow: var(--bx-sd-l3);
     }
     &.display {
-      right: -176px;
+      margin-left: 0;
       > .icon[data-key="open/close"] {
         transform: rotate(180deg);
       }
