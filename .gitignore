@@ -1,6 +1,7 @@
 # Temp files
 .temp.tsconfig.*
 temp
+.temp.publish
 
 # IDE
 .vscode

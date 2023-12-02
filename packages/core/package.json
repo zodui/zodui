@@ -1,30 +1,48 @@
 {
   "name": "@zodui/core",
-  "version": "0.2.0-alpha.1",
+  "version": "0.2.0-alpha.2",
   "license": "MIT",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
-  "types": "dist/esm/index.d.ts",
+  "types": "dist/dts/index.d.ts",
   "typesVersions": {
-    "*": { "*": [ "dist/dts/*" ] }
+    "<5.0": { "*": [ "*", "dist/dts/*", "dist/dts/*/index.d.ts" ] }
   },
   "exports": {
+    "./package.json": "./package.json",
     ".": {
       "inner-src": "./src/index.ts",
-      "import": "./dist/esm/index.js",
-      "require": "./dist/esm/index.js"
+      "import": {
+        "types": "./dist/dts/index.d.ts",
+        "default": "./dist/esm/index.js"
+      },
+      "require": {
+        "types": "./dist/dts/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      }
     },
     "./utils": {
       "inner-src": "./src/utils.ts",
-      "import": "./dist/esm/utils.js",
-      "require": "./dist/cjs/utils.js"
+      "import": {
+        "types": "./dist/dts/utils.d.ts",
+        "default": "./dist/esm/utils.js"
+      },
+      "require": {
+        "types": "./dist/dts/utils.d.ts",
+        "default": "./dist/cjs/utils.js"
+      }
     },
     "./external": {
       "inner-src": "./src/external.ts",
-      "import": "./dist/esm/external.js",
-      "require": "./dist/cjs/external.js"
-    },
-    "./package.json": "./package.json"
+      "import": {
+        "types": "./dist/dts/external.d.ts",
+        "default": "./dist/esm/external.js"
+      },
+      "require": {
+        "types": "./dist/dts/external.d.ts",
+        "default": "./dist/cjs/external.js"
+      }
+    }
   },
   "files": [
     "dist/cjs",

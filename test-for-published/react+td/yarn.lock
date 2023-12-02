@@ -454,45 +454,29 @@
     "@types/babel__core" "^7.20.3"
     react-refresh "^0.14.0"
 
-"@zodui/components-lib-tdesign@^0.1.1":
-  version "0.1.1"
-  resolved "https://mirrors.tencent.com/npm/@zodui/components-lib-tdesign/-/components-lib-tdesign-0.1.1.tgz#2b14aed75415dfdeaddecd0fedecb026149e4edc"
-  integrity sha512-4xwsTT7h4+JfpTgnDOwvOlmCjFVXZ2n/RPJ0If5Ao6m+Z1Sd3+Ha2c+3mJkF1ixPzOjpXDlP4r95JGOO4/nyJA==
+"@zodui/components-lib-tdesign@^0.2.0-alpha.2":
+  version "0.2.0-alpha.2"
+  resolved "https://mirrors.tencent.com/npm/@zodui/components-lib-tdesign/-/components-lib-tdesign-0.2.0-alpha.2.tgz#81947c97c5dad47ae5a846ecef2a5dc3c5c0b6b0"
+  integrity sha512-pBNBHWEd96WBqh2p9/hATzxjhXIGuGPTBoeIOjRHcRV6X8Mm0Q143PGHDr1QaiUC6Siwx88wSaURw203D+gw0A==
   dependencies:
-    "@zodui/core" "^0.1.0"
-    "@zodui/react" "^0.1.3"
+    "@zodui/core" "^0.2.0-alpha.2"
+    "@zodui/react" "^0.2.0-alpha.2"
     tdesign-icons-react "^0.3.2"
-    tdesign-react "^1.3.0"
+    tdesign-react "^1.4.0"
 
-"@zodui/core@^0.1.0", "@zodui/core@^0.1.1":
-  version "0.1.1"
-  resolved "https://mirrors.tencent.com/npm/@zodui/core/-/core-0.1.1.tgz#24580e35006b85ce7a62a9e96036735fe370432e"
-  integrity sha512-0m/TnV9b2nU1ZKak8iX43W1gzYLILYEuQp1nIZKMCnH6GwuTmALPuo0s3wNNQ0OPPRW2KzBwEwlGdi2BRjtvfw==
+"@zodui/core@^0.2.0-alpha.2":
+  version "0.2.0-alpha.2"
+  resolved "https://mirrors.tencent.com/npm/@zodui/core/-/core-0.2.0-alpha.2.tgz#cdb752b74df91a69078a6d0ece047b5a3d9a0326"
+  integrity sha512-uAq1X2XxyS+dqG4Tp/mfoUN2BgPhYgcmZQfBv/uzBSCbJdTKdCyfWrNKG03MvzwkqsRcvhbC2r32/OZhkMowwg==
   dependencies:
     zod "^3.21.4"
 
-"@zodui/core@^0.1.2":
-  version "0.1.2"
-  resolved "https://mirrors.tencent.com/npm/@zodui/core/-/core-0.1.2.tgz#b14b5321606e60d54f23000ce9eb05e48d4a4101"
-  integrity sha512-TK7JO/SWxcjCUQJjZvVXYkw6pf5Pn2rBd1La7dJknwKXC8Cdotf8HX7Br7uxos555IfZkAxv2SF8iIhseuUtRA==
+"@zodui/react@^0.2.0-alpha.2":
+  version "0.2.0-alpha.2"
+  resolved "https://mirrors.tencent.com/npm/@zodui/react/-/react-0.2.0-alpha.2.tgz#37d7c2fc3773f457b2ed1e3e0a02031af9c1d53d"
+  integrity sha512-QLKctbyewNxmKwpsn3f2UmXCvPglhJm0dGyaRPN6fobmJD9HT+O4uw1nKbGLxik6scwh4t5/kTeKw6FIyCAP1A==
   dependencies:
-    zod "^3.21.4"
-
-"@zodui/react@^0.1.3":
-  version "0.1.4"
-  resolved "https://mirrors.tencent.com/npm/@zodui/react/-/react-0.1.4.tgz#f1efc15e87a1a4cb96b59a615883aebf175140e0"
-  integrity sha512-5qers75n2f+a26wvYbn7oPrFD2JSOPs4PYcxvds7nRCEK7MF82fJTMvxEAEsHtwGmAQxjKxS3qPfoG+dO+T5zw==
-  dependencies:
-    "@zodui/core" "^0.1.1"
-    react "^16.13.1"
-    zod "^3.21.4"
-
-"@zodui/react@^0.1.8":
-  version "0.1.10"
-  resolved "https://mirrors.tencent.com/npm/@zodui/react/-/react-0.1.10.tgz#ccd14af09e7348a03ffbe7d33b71403b5c6650a7"
-  integrity sha512-dlxzCeEZ2uCb7ULi24lGUiH58NE3WCw3CiCA3lXwOg2ITenEKUeb7XKill2cZYLqgk7zDR68Bf6J3lI64JHxVA==
-  dependencies:
-    "@zodui/core" "^0.1.2"
+    "@zodui/core" "^0.2.0-alpha.2"
     react "^16.13.1"
     zod "^3.21.4"
 
@@ -1101,6 +1085,31 @@ tdesign-react@^1.3.0:
     tslib "~2.3.1"
     validator "~13.7.0"
 
+tdesign-react@^1.4.0:
+  version "1.4.0"
+  resolved "https://mirrors.tencent.com/npm/tdesign-react/-/tdesign-react-1.4.0.tgz#12012002213e1cc2eab774ac3777dc5169a06a25"
+  integrity sha512-MY92MeeM0sXIvqYrFi2eZaTYeg61lV3rUXvEtzs8tuT5HQjfzrEQKQo1g01J236S4yREcItOQHSLzjmcT8Ccjw==
+  dependencies:
+    "@babel/runtime" "~7.17.2"
+    "@popperjs/core" "~2.11.2"
+    "@types/sortablejs" "^1.10.7"
+    "@types/tinycolor2" "^1.4.3"
+    "@types/validator" "^13.1.3"
+    classnames "~2.3.1"
+    dayjs "~1.11.4"
+    hoist-non-react-statics "~3.3.2"
+    lodash "~4.17.15"
+    mitt "^3.0.0"
+    raf "~3.4.1"
+    react-is "^18.2.0"
+    react-popper "~2.3.0"
+    react-transition-group "~4.4.1"
+    sortablejs "^1.15.0"
+    tdesign-icons-react "^0.3.0"
+    tinycolor2 "^1.4.2"
+    tslib "~2.3.1"
+    validator "~13.7.0"
+
 tinycolor2@^1.4.2:
   version "1.6.0"
   resolved "https://registry.npmjs.org/tinycolor2/-/tinycolor2-1.6.0.tgz#f98007460169b0263b97072c5ae92484ce02d09e"
@@ -1127,6 +1136,11 @@ tslib@~2.3.1:
   version "2.3.1"
   resolved "https://registry.npmjs.org/tslib/-/tslib-2.3.1.tgz#e8a335add5ceae51aa261d32a490158ef042ef01"
   integrity sha512-77EbyPPpMz+FRFRuAFlWMtmgUWGe9UOG2Z25NqCwiIjRhOf5iKGuzSe5P2w1laq+FkRy4p+PCuVkJSGkzTEKVw==
+
+typescript@4:
+  version "4.9.5"
+  resolved "https://mirrors.tencent.com/npm/typescript/-/typescript-4.9.5.tgz#095979f9bcc0d09da324d58d03ce8f8374cbe65a"
+  integrity sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==
 
 update-browserslist-db@^1.0.13:
   version "1.0.13"

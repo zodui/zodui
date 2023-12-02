@@ -1,6 +1,6 @@
 {
   "name": "@zodui/components-lib-tdesign",
-  "version": "0.1.1",
+  "version": "0.2.0-alpha.2",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zodui/zodui.git",
@@ -12,24 +12,22 @@
   "homepage": "https://github.com/zodui/zodui",
   "author": "YiJie <yijie4188@gmail.com>",
   "license": "MIT",
-  "main": "dist/index.esm.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
-  "files": ["dist", "README.md"],
+  "main": "index.esm.js",
+  "module": "index.esm.js",
+  "types": "index.d.ts",
   "exports": {
-    "./dist/*": "./dist/*",
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.esm.js",
+      "types": "./index.d.ts",
+      "import": "./index.esm.js",
       "inner-src": "./src/index.ts"
     },
     "./react": {
-      "types": "./dist/react.d.ts",
-      "import": "./dist/react.esm.js",
+      "types": "./react.d.ts",
+      "import": "./react.esm.js",
       "inner-src": "./src/react.ts"
     },
     "./react.fix": {
-      "types": "./dist/react.fix.d.ts",
+      "types": "./react.fix.d.ts",
       "inner-src": "./src/react.fix.d.ts"
     }
   },
@@ -42,7 +40,7 @@
   "dependencies": {
     "@zodui/core": "workspace:^",
     "@zodui/react": "workspace:^",
-    "tdesign-react": "^1.3.1",
+    "tdesign-react": "^1.4.0",
     "tdesign-icons-react": "^0.3.2"
   },
   "devDependencies": {

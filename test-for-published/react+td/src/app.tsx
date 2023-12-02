@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-restricted-imports */
-import '@zodui/react/dist/index.css'
-import '@zodui/components-lib-tdesign/dist/index.css'
+import '@zodui/react/index.css'
+import '@zodui/components-lib-tdesign/index.css'
 
 import { TDesignComponentsLibForReact } from '@zodui/components-lib-tdesign/react'
 import { Context } from '@zodui/core'
@@ -31,11 +30,11 @@ export default function App() {
       model={z.object({
         // foo: z.string(),
         fuo: z.string().default('1'),
-        bar: z.array(z.object({
-          path: z.string(),
-          type: z.string(),
-          nums: z.number()
-        })),
+        bar: z.record(z.string()),
+        bmr: z.array(z.object({
+          path: z.boolean(),
+          type: z.string()
+        })).mode('wrap'),
         // baz: z.union([z.string(), z.number()]),
         // bor: z.discriminatedUnion('type', [
         //   z.object({
@@ -48,10 +47,10 @@ export default function App() {
         //     type: z.literal('2')
         //   })
         // ])
-        // boz: z.object({
-        //   path: z.string(),
-        //   type: z.string()
-        // }),
+        boz: z.object({
+          path: z.string(),
+          type: z.string()
+        }).mode('wrap'),
         // bkr: z.record(z.string(), z.string()),
       })}
       value={value}

@@ -1,7 +1,7 @@
 {
   "name": "@zodui/react",
   "description": "Zod UI for React",
-  "version": "0.1.11",
+  "version": "0.2.0-alpha.2",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zodui/zodui.git",
@@ -13,13 +13,12 @@
   "homepage": "https://github.com/zodui/zodui",
   "author": "YiJie <yijie4188@gmail.com>",
   "license": "MIT",
-  "main": "dist/index.esm.js",
-  "module": "dist/index.esm.js",
-  "unpkg": "dist/index.umd.js",
-  "jsdelivr": "dist/index.umd.js",
-  "browser": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
-  "files": ["dist", "README.md"],
+  "main": "index.esm.js",
+  "module": "index.esm.js",
+  "unpkg": "index.umd.js",
+  "jsdelivr": "index.umd.js",
+  "browser": "index.esm.js",
+  "types": "index.d.ts",
   "scripts": {
     "build": "rollup -c"
   },

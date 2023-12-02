@@ -5,10 +5,12 @@
   "description": "Zod UI workspaces",
   "version": "0.1.0",
   "scripts": {
+    "pub": "node -r esbuild-register ./scripts/publish.ts",
     "lint": "eslint --cache --cache-location=node_modules/.cache/.eslintcache/ ./ --max-warnings=0",
     "serve": "pnpm --filter @zodui/demo run serve"
   },
   "devDependencies": {
+    "@pnpm/workspace.find-packages": "^1.1.4",
     "@rollup/plugin-json": "^6.0.1",
     "@types/chai": "^4.3.9",
     "@types/mocha": "^10.0.3",
@@ -17,6 +19,7 @@
     "@typescript-eslint/parser": "^5.62.0",
     "autoprefixer": "^10.4.16",
     "chai": "^4.3.10",
+    "commander": "^11.1.0",
     "esbuild": "^0.19.5",
     "esbuild-register": "^3.5.0",
     "eslint": "^8.52.0",
