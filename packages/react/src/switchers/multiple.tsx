@@ -56,8 +56,16 @@ export function Multiple({
           return acc
         }, {} as ZodRawShape)
     }
+    if (isWhatType(model, AllTypes.ZodRecord)) {
+      return Object
+        .entries(props.value ?? props.defaultValue ?? {})
+        .reduce((acc, [key]) => {
+          acc[key] = model.valueSchema
+          return acc
+        }, {} as ZodRawShape)
+    }
     return {}
-  }, [model])
+  }, [model, props.defaultValue, props.value])
   const getSchema = useCallback((index?: number) => {
     if (isWhatType(model, AllTypes.ZodArray)) {
       return model._def.type
@@ -85,7 +93,7 @@ export function Multiple({
     commonDef.typeName
   ])
   const schemasLength = useMemo(() => {
-    if (isWhatType(model, AllTypes.ZodArray) || isWhatType(model, AllTypes.ZodSet)) {
+    if (isWhatTypes(model, [AllTypes.ZodArray, AllTypes.ZodSet])) {
       return Infinity
     }
     if (isWhatType(model, AllTypes.ZodTuple)) {
@@ -93,6 +101,9 @@ export function Multiple({
     }
     if (isWhatType(model, AllTypes.ZodObject)) {
       return Object.entries(model._def.shape() ?? {}).length
+    }
+    if (isWhatType(model, AllTypes.ZodRecord)) {
+      return Object.entries(props.value ?? props.defaultValue ?? {}).length
     }
     return 0
   // FIXME the next line
@@ -170,6 +181,9 @@ export function Multiple({
         ...acc,
         [dictKeys[i] ?? keys[i] ?? i]: v
       }), {})
+    }
+    if (isWhatType(model, AllTypes.ZodMap)) {
+      v = new Map(Object.entries(v))
     }
     onChange?.(v)
   }, [model, onChange, dictKeys, keys])
