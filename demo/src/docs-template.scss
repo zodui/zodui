@@ -64,6 +64,16 @@ body > main {
         }
       }
     }
+    > ul {
+      > li {
+        font-size: 1.3rem;
+        font-weight: bold;
+      }
+      > li > ul {
+        font-size: .8em;
+        font-weight: normal;
+      }
+    }
   }
   > div.container {
     flex-grow: 1;
