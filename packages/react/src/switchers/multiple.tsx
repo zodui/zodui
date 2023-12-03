@@ -167,9 +167,10 @@ export function Multiple({
   }, [schemas, initValue])
 
   const dictKeys = useMemo(() => Object.keys(dict ?? {}), [dict])
-  const [keys, setKeys] = useState<string[]>([])
+  const keysRef = useRef<string[]>([])
 
   const changeList = useCallback((value?: any[]) => {
+    const keys = keysRef.current
     if (value !== undefined) {
       listRef.current = value
     }
@@ -179,19 +180,14 @@ export function Multiple({
     } else {
       v = listRef.current.reduce((acc, v, i) => ({
         ...acc,
-        [dictKeys[i] ?? keys[i] ?? i]: v
+        [keys[i] ?? dictKeys[i] ?? i]: v
       }), {})
     }
     if (isWhatType(model, AllTypes.ZodMap)) {
       v = new Map(Object.entries(v))
     }
     onChange?.(v)
-  }, [model, onChange, dictKeys, keys])
-  // TODO check logic and if not need to remove the next lines which commented
-  // emit init list value
-  // useEffect(() => {
-  //   changeList()
-  // }, [changeList])
+  }, [model, onChange, dictKeys])
 
   const addNewItem = useCallback((type: 'append' | 'prepend' = 'append') => {
     const l = listRef.current
@@ -253,12 +249,14 @@ export function Multiple({
               ? <Input
                 className='key-input'
                 placeholder='请输入键名'
-                value={keys[index]}
-                onChange={v => setKeys(keys => {
+                value={keysRef.current[index]}
+                onChange={v => {
+                  const keys = keysRef.current
                   const nKeys = keys.slice()
                   nKeys[index] = v.toString()
-                  return nKeys
-                })}
+                  keysRef.current = nKeys
+                  setRigger(r => !r)
+                }}
               />
               : itemSchema._def.label ?? dictKeys[index]}
           </div>}
