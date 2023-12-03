@@ -21,11 +21,6 @@ export default function App() {
   })
 
   return <>
-    Hello ZodUI!
-    <br />
-    <button onClick={() => listRef.current.reset()}>
-      Reset
-    </button>
     <List
       ref={listRef}
       model={z.object({
@@ -44,8 +39,8 @@ export default function App() {
           }),
           z.object({
             path: z.string(),
-            name: z.string(),
-            type: z.literal('2')
+            type: z.literal('2'),
+            name: z.string()
           })
         ]),
         boz: z.object({
