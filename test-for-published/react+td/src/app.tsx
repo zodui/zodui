@@ -26,6 +26,8 @@ export default function App() {
       model={z.object({
         foo: z.string(),
         fuo: z.string().default('1'),
+        bbr: z.array(z.string()),
+        bcr: z.map(z.string(), z.string()),
         bar: z.record(z.string()),
         bmr: z.array(z.object({
           path: z.boolean(),
