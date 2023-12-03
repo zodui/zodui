@@ -68,10 +68,12 @@ body > main {
       > li {
         font-size: 1.3rem;
         font-weight: bold;
+        color: var(--fr-cr);
       }
       > li > ul {
         font-size: .8em;
         font-weight: normal;
+        color: var(--pl-cr);
       }
     }
   }
@@ -224,6 +226,7 @@ body > main {
     overflow: overlay;
     > ul {
       font-size: 1rem;
+      color: var(--pl-cr);
     }
   }
 }
