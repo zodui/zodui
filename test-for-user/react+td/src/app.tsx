@@ -16,40 +16,39 @@ export default function App() {
   }, [])
   const listRef = useRef<ListRef>()
   const [value, setValue] = useState({
-    boz: { path: '2' },
-    bar: { path: '2' }
+    boz: { path: '2' }
   })
 
   return <>
     <List
       ref={listRef}
       model={z.object({
-        foo: z.string(),
-        fuo: z.string().default('1'),
-        bbr: z.array(z.string()),
-        bcr: z.map(z.string(), z.string()),
+        // foo: z.string(),
+        // fuo: z.string().default('1'),
+        // bbr: z.array(z.string()),
+        // bcr: z.map(z.string(), z.string()),
         bar: z.record(z.string()),
-        bmr: z.array(z.object({
-          path: z.boolean(),
-          type: z.string()
-        })).mode('wrap'),
-        baz: z.union([z.string(), z.number()]),
-        bor: z.discriminatedUnion('type', [
-          z.object({
-            path: z.string(),
-            type: z.literal('1')
-          }),
-          z.object({
-            path: z.string(),
-            type: z.literal('2'),
-            name: z.string()
-          })
-        ]),
-        boz: z.object({
-          path: z.string(),
-          type: z.string()
-        }).mode('wrap'),
-        bkr: z.record(z.string(), z.string()),
+        // bmr: z.array(z.object({
+        //   path: z.boolean(),
+        //   type: z.string()
+        // })).mode('wrap'),
+        // baz: z.union([z.string(), z.number()]),
+        // bor: z.discriminatedUnion('type', [
+        //   z.object({
+        //     path: z.string(),
+        //     type: z.literal('1')
+        //   }),
+        //   z.object({
+        //     path: z.string(),
+        //     type: z.literal('2'),
+        //     name: z.string()
+        //   })
+        // ]),
+        // boz: z.object({
+        //   path: z.string(),
+        //   type: z.string()
+        // }).mode('wrap'),
+        // bkr: z.record(z.string(), z.string()),
       })}
       value={value}
       onChange={v => {
