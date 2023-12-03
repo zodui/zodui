@@ -1,6 +1,6 @@
 {
   "name": "@zodui/components-lib-tdesign",
-  "version": "0.2.0-alpha.2",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zodui/zodui.git",
@@ -15,19 +15,23 @@
   "main": "index.esm.js",
   "module": "index.esm.js",
   "types": "index.d.ts",
+  "typesVersions": {
+    "<5.0": { "*": [ "*", "dist/*", "dist/*/index.d.ts" ] }
+  },
   "exports": {
+    "./package.json": "./package.json",
     ".": {
-      "types": "./index.d.ts",
-      "import": "./index.esm.js",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.js",
       "inner-src": "./src/index.ts"
     },
     "./react": {
-      "types": "./react.d.ts",
-      "import": "./react.esm.js",
+      "types": "./dist/react.d.ts",
+      "import": "./dist/react.esm.js",
       "inner-src": "./src/react.ts"
     },
     "./react.fix": {
-      "types": "./react.fix.d.ts",
+      "types": "./dist/react.fix.d.ts",
       "inner-src": "./src/react.fix.d.ts"
     }
   },
@@ -35,13 +39,13 @@
     "build": "rollup -c"
   },
   "peerDependencies": {
-    "react": "^16.13.1"
-  },
-  "dependencies": {
-    "@zodui/core": "workspace:^",
     "@zodui/react": "workspace:^",
+    "react": "^16.13.1",
     "tdesign-react": "^1.4.0",
     "tdesign-icons-react": "^0.3.2"
+  },
+  "dependencies": {
+    "@zodui/core": "workspace:^"
   },
   "devDependencies": {
     "@types/react": "^16.14.50"

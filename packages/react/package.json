@@ -1,7 +1,7 @@
 {
   "name": "@zodui/react",
   "description": "Zod UI for React",
-  "version": "0.2.0-alpha.2",
+  "version": "0.2.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zodui/zodui.git",
@@ -13,19 +13,31 @@
   "homepage": "https://github.com/zodui/zodui",
   "author": "YiJie <yijie4188@gmail.com>",
   "license": "MIT",
-  "main": "index.esm.js",
-  "module": "index.esm.js",
-  "unpkg": "index.umd.js",
-  "jsdelivr": "index.umd.js",
-  "browser": "index.esm.js",
-  "types": "index.d.ts",
   "scripts": {
     "build": "rollup -c"
   },
+  "main": "dist/index.esm.js",
+  "module": "dist/index.esm.js",
+  "unpkg": "dist/index.umd.js",
+  "jsdelivr": "dist/index.umd.js",
+  "browser": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    "./index.css": "./dist/index.css",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.umd.js",
+      "default": "./dist/index.esm.js"
+    }
+  },
+  "optionalDependencies": {
+    "react": "^16.13.1",
+    "zod": "^3.21.4"
+  },
   "dependencies": {
-    "@zodui/core": "workspace:^",
-    "zod": "^3.21.4",
-    "react": "^16.13.1"
+    "@zodui/core": "workspace:^"
   },
   "devDependencies": {
     "@types/react": "^16.14.50",

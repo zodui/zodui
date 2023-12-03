@@ -1,6 +1,6 @@
 {
   "name": "@zodui/core",
-  "version": "0.2.0-alpha.2",
+  "version": "0.2.0",
   "license": "MIT",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",

@@ -5,7 +5,6 @@
   "description": "Zod UI workspaces",
   "version": "0.1.0",
   "scripts": {
-    "pub": "node -r esbuild-register ./scripts/publish.ts",
     "lint": "eslint --cache --cache-location=node_modules/.cache/.eslintcache/ ./ --max-warnings=0",
     "serve": "pnpm --filter @zodui/demo run serve"
   },
