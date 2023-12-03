@@ -180,6 +180,7 @@ body > main {
     }
   }
   > div.left-panel, > div.quick-access {
+    font-size: 1.1rem;
     > h3 {
       position: sticky;
       top: 0;
@@ -189,10 +190,12 @@ body > main {
       backdrop-filter: blur(5px);
       border-bottom: 1px solid var(--br-cr);
     }
+    a {
+      padding: 5px 0;
+    }
     ul {
       margin-top: 0;
       padding-inline-start: 0;
-      font-size: 1.1rem;
       user-select: none;
       transition: .1s;
       ul {
@@ -202,16 +205,16 @@ body > main {
         }
       }
       li {
-        margin-top: 8px;
         padding: 0;
         list-style: none;
         box-sizing: border-box;
         border-left: 2px solid transparent;
         transition: padding .1s;
         &.active {
-          padding: 0 0 0 10px;
           font-weight: bold;
           border-left: 2px solid #3E67B1;
+          background-color: var(--active-bg-cr);
+          color: var(--active-fr-cr);
         }
       }
     }
@@ -227,6 +230,10 @@ body > main {
     > ul {
       font-size: 1rem;
       color: var(--pl-cr);
+      > li {
+        padding: 0 10px;
+        margin: 0 -10px;
+      }
     }
   }
 }

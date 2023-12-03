@@ -5,6 +5,8 @@ html {
 }
 body {
   --pr-cr: #3E67B1;
+  --active-bg-cr: color-mix(in srgb, var(--pr-cr), #fff8 80%);
+  --active-fr-cr: color-mix(in srgb, var(--fr-cr), #fff8 20%);
   --pr-fr-cr: #fff;
   --cp-cr: #f3f3f3;
   --bg-cr: #fff0;
@@ -19,6 +21,7 @@ body {
   padding-top: 60px;
   html[theme-mode='dark'] & {
     --pr-cr: #3E67B1;
+    --active-bg-cr: color-mix(in srgb, var(--pr-cr), #0003 80%);
     --pr-fr-cr: #fff;
     --cp-cr: #444;
     --bg-cr: #101623;
