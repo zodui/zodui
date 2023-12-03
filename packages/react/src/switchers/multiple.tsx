@@ -256,6 +256,7 @@ export function Multiple({
                   nKeys[index] = v.toString()
                   keysRef.current = nKeys
                   setRigger(r => !r)
+                  changeList()
                 }}
               />
               : itemSchema._def.label ?? dictKeys[index]}
