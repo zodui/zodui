@@ -11,6 +11,7 @@ import { zodI18nMap } from 'zod-i18n-map'
 
 import translation from '../locales/zh-Hans.json'
 
+// TODO add more languages support
 i18next.init({
   lng: 'zh-Hans',
   resources: {
