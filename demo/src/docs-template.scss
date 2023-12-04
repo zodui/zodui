@@ -1,11 +1,13 @@
 #header {
   z-index: 1;
-  background-color: #3E67B1bb !important;
-  > .header-left > .tabs {
-    color: var(--pr-fr-cr) !important;
-  }
-  > .header-left > .tabs > .tab.disabled {
-    color: #dededeaa !important;
+  background-color: #fff8 !important;
+  box-shadow: 0 0 6px #0003;
+  border-bottom: 1px solid #0003;
+  > .header-left > .tabs > .tab {
+    color: var(--fr-cr) !important;
+    &.disabled {
+      color: var(--pl-cr) !important;
+    }
   }
 }
 

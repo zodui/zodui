@@ -1,20 +1,13 @@
-html[theme-mode='dark'] #header {
-  background-color: #31518c11 !important;
-  > .header-left > .tabs {
-    color: #666 !important;
-  }
-  > .header-left > .tabs > .tab:not(.disabled) {
-    color: #aaa !important;
-    &:hover { color: #0648b7 !important }
-  }
-}
 #header {
   background-color: #3E67B100 !important;
-  > .header-left > .tabs {
-    color: #888 !important;
+  > .header-left > .tabs > .tab {
+    color: var(--fr-cr) !important;
+    &.disabled {
+      color: var(--pl-cr) !important;
+    }
   }
-  > .header-left > .tabs > .tab:not(.disabled) {
-    color: #666 !important;
+  html[theme-mode='dark'] & {
+    background-color: #31518c11 !important;
   }
 }
 
