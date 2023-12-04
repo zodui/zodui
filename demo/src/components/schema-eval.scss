@@ -14,4 +14,14 @@
     font-weight: bold;
     background-color: var(--cp-cr);
   }
+  > div.catched-error {
+    background-color: var(--cp-cr);
+    overflow: overlay;
+    > pre {
+      margin: 0;
+      padding: 1rem;
+      font-size: 1.2rem;
+      color: #ff5370;
+    }
+  }
 }
