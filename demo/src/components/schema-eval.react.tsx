@@ -1,10 +1,23 @@
 import { TDesignComponentsLibForReact } from '@zodui/components-lib-tdesign'
 import { Context } from '@zodui/core'
+import { z } from '@zodui/core/external'
 import { CommonPluginForReact } from '@zodui/plugin-common'
 import type { ItemConfigure, ListRef } from '@zodui/react'
 import { List, useItemConfigurer } from '@zodui/react'
+import i18next from 'i18next'
 import React, { useEffect, useRef, useState } from 'react'
 import type { ZodSchema } from 'zod'
+import { zodI18nMap } from 'zod-i18n-map'
+
+import translation from '../locales/zh-Hans.json'
+
+i18next.init({
+  lng: 'zh-Hans',
+  resources: {
+    'zh-Hans': { zod: translation }
+  }
+})
+z.setErrorMap(zodI18nMap)
 
 Context.global.use(TDesignComponentsLibForReact)
 Context.global.use(CommonPluginForReact)
