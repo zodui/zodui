@@ -9,6 +9,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import type { ZodSchema } from 'zod'
 import { zodI18nMap } from 'zod-i18n-map'
 
+// @ts-ignore
 import translation from '../locales/zh-Hans.json'
 
 // TODO add more languages support
