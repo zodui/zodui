@@ -122,8 +122,8 @@ importers:
         specifier: 1.0.0-rc.12
         version: 1.0.0-rc.12
       highlight.js:
-        specifier: ^11.7.0
-        version: 11.7.0
+        specifier: ^11.9.0
+        version: 11.9.0
       i18next:
         specifier: ^23.7.7
         version: 23.7.7
@@ -3473,8 +3473,8 @@ packages:
     hasBin: true
     dev: true
 
-  /highlight.js@11.7.0:
-    resolution: {integrity: sha512-1rRqesRFhMO/PRF+G86evnyJkCgaZFOI+Z6kdj15TA18funfoqJXvgPCLSf0SWq3SRfg1j3HlDs8o4s3EGq1oQ==}
+  /highlight.js@11.9.0:
+    resolution: {integrity: sha512-fJ7cW7fQGCYAkgv4CPfwFHrfd/cLS4Hau96JuJ+ZTOWhjnhoeN1ub1tFmALm/+lW5z4WCAuAV9bm05AP0mS6Gw==}
     engines: {node: '>=12.0.0'}
     dev: true
 
