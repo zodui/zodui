@@ -1,7 +1,7 @@
 div.zodui-preview {
   position: relative;
   margin-top: 20px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--br-cr);
   border-radius: .5rem;
   .markdown-body pre {
     margin-bottom: 0;
@@ -108,7 +108,7 @@ div.zodui-preview {
       margin: 0;
       max-height: 0;
       overflow: overlay;
-      border-bottom: 1px solid #ccc;
+      border-bottom: 1px solid var(--br-cr);
       transition: .2s;
     }
     > .material-icons {
