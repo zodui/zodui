@@ -9,6 +9,9 @@
       color: var(--pl-cr) !important;
     }
   }
+  html[theme-mode='dark'] & {
+    background-color: #10162388 !important;
+  }
 }
 
 html[theme-mode='dark'] {
