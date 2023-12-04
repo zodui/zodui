@@ -64,10 +64,16 @@ body > main {
         }
       }
     }
-    > ul {
-      > li {
-        font-size: 1.3rem;
+    > .classifications {
+      .classification {
+        border: none;
+      }
+      .classification-title {
+        padding: 8px 0;
+        font-size: 1.2rem;
         font-weight: bold;
+      }
+      > li {
         color: var(--fr-cr);
       }
       > li > ul {
@@ -181,15 +187,6 @@ body > main {
   }
   > div.left-panel, > div.quick-access {
     font-size: 1.1rem;
-    > h3 {
-      position: sticky;
-      top: 0;
-      padding: 10px;
-      margin: 0 -10px;
-      background-color: var(--bg-cr);
-      backdrop-filter: blur(5px);
-      border-bottom: 1px solid var(--br-cr);
-    }
     a {
       padding: 5px 0;
     }
@@ -227,6 +224,15 @@ body > main {
     width: 200px;
     max-width: 200px;
     overflow: overlay;
+    > h3 {
+      position: sticky;
+      top: 0;
+      padding: 12px;
+      margin: 0 -10px;
+      background-color: var(--bg-cr);
+      backdrop-filter: blur(5px);
+      border-bottom: 1px solid var(--br-cr);
+    }
     > ul {
       font-size: 1rem;
       color: var(--pl-cr);

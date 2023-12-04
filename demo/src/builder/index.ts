@@ -259,7 +259,7 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
       </div>
       ${activeClassification ? `<ul class='classifications'>
         ${activeTab.children.map(classification => `<li class='classification'>
-          ${classification.title}
+          <div class='classification-title'>${classification.title}</div>
           <ul class='classification-pages'>
             ${classification.children.map(page => `<li class='${
               'classification-page'
