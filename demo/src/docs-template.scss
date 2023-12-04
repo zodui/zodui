@@ -36,11 +36,13 @@ body > main {
   background-image: none !important;
   background-color: var(--bg-cr) !important;
   > div.left-panel {
+    display: flex;
+    flex-direction: column;
     position: sticky;
     top: 0;
     min-width: 300px;
     border-right: 1px solid var(--br-cr);
-    > .selector > .schema-eval-container > .zodui-composer-list {
+    > .schema-eval-container[data-key="document-selector"] > .zodui-composer-list {
       background-color: transparent;
       > .zodui-item {
         padding: 8px;
@@ -70,6 +72,9 @@ body > main {
       }
     }
     > .classifications {
+      height: 0;
+      flex-grow: 1;
+      overflow: overlay;
       .classification {
         border: none;
       }

@@ -239,12 +239,10 @@ export function docsTemplateRender(p: string, base: string, urlBase: string) {
   })
   return `
     <div class='left-panel'>
-      <div class='selector'>
-        <%- include('components/schema-eval', {
-          key: 'document-selector',
-          code: \`${documentSelectorSchemaString}\`,
-        }) %>
-      </div>
+      <%- include('components/schema-eval', {
+        key: 'document-selector',
+        code: \`${documentSelectorSchemaString}\`,
+      }) %>
       <div class='tabs'>
         ${tabs.map(tab => `<div class='${
           'tab'
