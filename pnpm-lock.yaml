@@ -8,9 +8,9 @@ patchedDependencies:
   '@rollup/plugin-virtual@3.0.2':
     hash: rfxw3gwfkko7vkzit6lpq2amby
     path: patches/@rollup+plugin-virtual+3.0.2.patch
-  marked-highlight@2.0.7:
+  marked-highlight@2.0.9:
     hash: johwtlhctnbsi65koa4h5iktvi
-    path: patches/marked-highlight@2.0.7.patch
+    path: patches/marked-highlight@2.0.9.patch
   vite-plugin-html@3.2.0:
     hash: jiuil44c3xzxyokphiucxjr5jy
     path: patches/vite-plugin-html+3.2.0.patch
@@ -131,8 +131,8 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0
       marked-highlight:
-        specifier: ^2.0.7
-        version: 2.0.7(patch_hash=johwtlhctnbsi65koa4h5iktvi)(marked@10.0.0)
+        specifier: ^2.0.9
+        version: 2.0.9(patch_hash=johwtlhctnbsi65koa4h5iktvi)(marked@10.0.0)
       react:
         specifier: ^16.13.1
         version: 16.14.0
@@ -4113,10 +4113,10 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /marked-highlight@2.0.7(patch_hash=johwtlhctnbsi65koa4h5iktvi)(marked@10.0.0):
-    resolution: {integrity: sha512-3IjgV879kEihgjWwVv8HGDkyuKDyR8hssDEjMUAH5LNVhIcZge+u6UKhxPA+daEVMVZeKEHo5gWrLVlLPF1m3g==}
+  /marked-highlight@2.0.9(patch_hash=johwtlhctnbsi65koa4h5iktvi)(marked@10.0.0):
+    resolution: {integrity: sha512-HAK1WJSK6CGVDzplOf6layWFz1lHm8Fsjd+SEUYmLhAZmM8TlYmErC/hTphoiOxogYqGQGt3Ghug3Yhs+s+3jw==}
     peerDependencies:
-      marked: '>=4 <11'
+      marked: '>=4 <12'
     dependencies:
       marked: 10.0.0
     dev: true

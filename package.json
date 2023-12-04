@@ -36,7 +36,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "marked-highlight@2.0.7": "patches/marked-highlight@2.0.7.patch",
+      "marked-highlight@2.0.9": "patches/marked-highlight@2.0.9.patch",
       "@rollup/plugin-virtual@3.0.2": "patches/@rollup+plugin-virtual+3.0.2.patch",
       "vite-plugin-html@3.2.0": "patches/vite-plugin-html+3.2.0.patch"
     }
