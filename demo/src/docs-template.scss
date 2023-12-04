@@ -42,17 +42,20 @@ body > main {
     top: 0;
     min-width: 300px;
     border-right: 1px solid var(--br-cr);
-    > .schema-eval-container[data-key="document-selector"] > .zodui-composer-list {
-      background-color: transparent;
-      > .zodui-item {
-        padding: 8px;
-        width: calc(100% - 16px);
-        .zodui-item__more {
-          display: none;
-        }
-        .zodui-item__label {
-          font-size: 1.1rem;
-          &::after { display: none; }
+    > .schema-eval-container[data-key="document-selector"] {
+      max-height: 300px;
+      > .zodui-composer-list {
+        background-color: transparent;
+        > .zodui-item {
+          padding: 8px;
+          width: calc(100% - 16px);
+          .zodui-item__more {
+            display: none;
+          }
+          .zodui-item__label {
+            font-size: 1.1rem;
+            &::after { display: none; }
+          }
         }
       }
     }

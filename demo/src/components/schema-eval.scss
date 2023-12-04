@@ -1,0 +1,17 @@
+.schema-eval-container {
+  transition: .1s;
+  &:has(> div.empty) {
+    height: 50px;
+    max-height: 50px;
+  }
+  > div.empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    font-size: 1.5rem;
+    color: var(--pl-cr);
+    font-weight: bold;
+    background-color: var(--cp-cr);
+  }
+}

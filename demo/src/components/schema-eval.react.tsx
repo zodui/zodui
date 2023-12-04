@@ -87,5 +87,5 @@ export function Demo({
         verify
       </button>
     </>}
-  </ItemConfigurer> : null
+  </ItemConfigurer> : <div className='empty'>loading...</div>
 }
