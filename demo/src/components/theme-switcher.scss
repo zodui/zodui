@@ -41,7 +41,7 @@ html[theme-mode='dark'] .theme-switcher {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    filter: grayscale(1);
+    filter: grayscale(.8);
     cursor: pointer;
     transition: .3s;
     &:hover {
@@ -50,15 +50,25 @@ html[theme-mode='dark'] .theme-switcher {
     }
     &.active {
       filter: grayscale(0);
-      background-color: rgba(100, 100, 100, .6);
+      background-color: rgba(100, 100, 100, .4);
+
+      > svg {
+        &:first-child {
+          color: orange;
+          border-right: 2px dashed #fff;
+        }
+        &:last-child {
+          color: yellow;
+        }
+      }
     }
     > svg {
       &:first-child {
-        border-right: 2px dashed white;
-        color: orange;
+        color: #aaa;
+        border-right: 2px dashed #999;
       }
       &:last-child {
-        color: yellow;
+        color: #888;
       }
     }
   }
