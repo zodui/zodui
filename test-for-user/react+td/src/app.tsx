@@ -7,7 +7,19 @@ import { Context } from '@zodui/core'
 import { z } from '@zodui/core/external'
 import type { ListRef } from '@zodui/react'
 import { List } from '@zodui/react'
+import i18next from 'i18next'
 import { useEffect, useRef, useState } from 'react'
+import { zodI18nMap } from 'zod-i18n-map'
+
+import translation from './locales/zh-Hans.json'
+
+i18next.init({
+  lng: 'zh-Hans',
+  resources: {
+    'zh-Hans': { zod: translation }
+  }
+})
+z.setErrorMap(zodI18nMap)
 
 export default function App() {
   useEffect(() => {
