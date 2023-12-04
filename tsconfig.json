@@ -13,5 +13,6 @@
       "@zodui/plugin-*": ["packages/plugins/*/src"]
     }
   },
-  "exclude": ["pages"]
+  "exclude": ["pages"],
+  "include": ["**/*.ts","**/*.tsx","**/*.json"]
 }
