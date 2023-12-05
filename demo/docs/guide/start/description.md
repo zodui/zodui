@@ -46,7 +46,13 @@ schema.parse({ name: 'zod', age: '18' })
 
 ### 为什么不是 yup ？
 
-说实话俩个差不多。
+Yup 功能相对齐全，最开始使用 vanilla JS 实现，后来用 TypeScript 重写。
+
+* 支持类型的转化（Cast）和处理（Transform）
+* 默认情况下，所有字段都是可选的
+* 缺少 Promise 类型
+* 缺少 Function 类型
+* 缺少并集和交集类型
 
 ### 为什么不是 io-ts ？
 
