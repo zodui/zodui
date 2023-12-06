@@ -26,18 +26,16 @@ export default [
       }
     ],
     plugins: [
-      postcss({
-        plugins: [autoprefixer],
-        minimize: true,
-        sourceMap: true,
-        extract: 'index.css'
-      }),
+      skip({ patterns: [/\.s?css$/] }),
       esbuild()
     ],
     external
   },
-  {
-    input: 'src/index.ts',
+  ...Object.entries({
+    index: 'src/index.ts',
+    react: 'src/react.tsx'
+  }).map(([name, input]) => ({
+    input: input,
     output: [
       {
         ...commonOutputOptions,
@@ -52,11 +50,16 @@ export default [
       }
     ],
     plugins: [
-      skip({ patterns: [/\.s?css$/] }),
+      postcss({
+        plugins: [autoprefixer],
+        minimize: true,
+        sourceMap: true,
+        extract: `${name}.css`
+      }),
       esbuild()
     ],
     external
-  },
+  })),
   {
     input: ['src/index.ts', 'src/react.tsx'],
     output: {
