@@ -1,5 +1,5 @@
 import autoprefixer from 'autoprefixer'
-import { defineConfig } from 'rollup'
+import type { RollupOptions } from 'rollup'
 import copy from 'rollup-plugin-copy'
 import { dts } from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
@@ -17,7 +17,7 @@ const external = (Object.keys(pkg.dependencies) as (string | RegExp)[])
   // TODO 处理 exports 或者是处理所有的 sub path import dependency
   .concat(/@zodui\/core\/.*/)
 
-export default defineConfig([
+export default [
   {
     input: ['src/index.ts', 'src/react.tsx'],
     output: [
@@ -25,7 +25,7 @@ export default defineConfig([
         ...commonOutputOptions,
         format: 'esm',
         entryFileNames: '[name].esm.js'
-      },
+      }
       // {
       //   ...commonOutputOptions,
       //   format: 'iife',
@@ -61,6 +61,7 @@ export default defineConfig([
           if (id.endsWith('.scss')) {
             return { code: `export default {}`, map: null }
           }
+          return null
         }
       },
       dts({ tsconfig: './tsconfig.dts.json' }),
@@ -72,4 +73,4 @@ export default defineConfig([
     ],
     external
   }
-])
+] as RollupOptions[]
