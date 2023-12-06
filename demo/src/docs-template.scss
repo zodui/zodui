@@ -40,8 +40,11 @@ body > main {
     flex-direction: column;
     position: sticky;
     top: 0;
+    margin-left: calc(-1 * var(--padding));
+    padding-left: calc(var(--padding));
     min-width: 300px;
     border-right: 1px solid var(--br-cr);
+    background-color: var(--cp-cr);
     > .schema-eval-container[data-key="document-selector"] {
       max-height: 300px;
       > .zodui-composer-list {
