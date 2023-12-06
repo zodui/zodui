@@ -1,6 +1,6 @@
 {
   "name": "@zodui/components-lib-tdesign",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zodui/zodui.git",
@@ -12,9 +12,9 @@
   "homepage": "https://github.com/zodui/zodui",
   "author": "YiJie <yijie4188@gmail.com>",
   "license": "MIT",
-  "main": "index.esm.js",
-  "module": "index.esm.js",
-  "types": "index.d.ts",
+  "main": "dist/index.esm.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
   "typesVersions": {
     "<5.0": { "*": [ "*", "dist/*", "dist/*/index.d.ts" ] }
   },
