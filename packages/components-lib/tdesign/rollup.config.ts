@@ -27,17 +27,6 @@ export default [
         format: 'esm',
         entryFileNames: '[name].esm.js'
       }
-      // {
-      //   ...commonOutputOptions,
-      //   format: 'iife',
-      //   entryFileNames: '[name].iife.js'
-      // },
-      // {
-      //   ...commonOutputOptions,
-      //   name: 'ZodReact',
-      //   format: 'umd',
-      //   entryFileNames: '[name].umd.js'
-      // }
     ],
     plugins: [
       postcss({
@@ -51,15 +40,34 @@ export default [
     external
   },
   {
+    input: 'src/index.ts',
+    output: [
+      {
+        ...commonOutputOptions,
+        format: 'iife',
+        entryFileNames: '[name].iife.js'
+      },
+      {
+        ...commonOutputOptions,
+        name: 'ZodUIComponentsLibTDesign',
+        format: 'umd',
+        entryFileNames: '[name].umd.js'
+      }
+    ],
+    plugins: [
+      skip({ patterns: [/\.s?css$/] }),
+      esbuild()
+    ],
+    external
+  },
+  {
     input: ['src/index.ts', 'src/react.tsx'],
     output: {
       dir: 'dist',
       entryFileNames: ({ name }) => `${name.replace(/^src\//, '')}.d.ts`
     },
     plugins: [
-      skip({
-        patterns: [/\.s?css$/]
-      }),
+      skip({ patterns: [/\.s?css$/] }),
       dts({ tsconfig: './tsconfig.dts.json' }),
       copy({
         targets: [
