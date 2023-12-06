@@ -27,7 +27,8 @@ export default [
       {
         ...commonOutputOptions,
         format: 'esm',
-        entryFileNames: '[name].esm.js'
+        entryFileNames: '[name].esm.js',
+        preserveModules: true
       }
     ],
     plugins: [
