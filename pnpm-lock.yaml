@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 patchedDependencies:
   '@rollup/plugin-virtual@3.0.2':
     hash: rfxw3gwfkko7vkzit6lpq2amby
@@ -75,6 +79,9 @@ importers:
       rollup:
         specifier: ^4.1.5
         version: 4.1.5
+      rollup-helper:
+        specifier: workspace:^
+        version: link:packages-inner/rollup-helper
       rollup-plugin-copy:
         specifier: ^3.5.0
         version: 3.5.0
@@ -87,6 +94,9 @@ importers:
       rollup-plugin-postcss:
         specifier: ^4.0.2
         version: 4.0.2(postcss@8.4.31)
+      tsconfig-paths:
+        specifier: ^4.2.0
+        version: 4.2.0
       typescript:
         specifier: ^4.9.5
         version: 4.9.5
@@ -165,6 +175,8 @@ importers:
       dotenv:
         specifier: ^16.3.1
         version: 16.3.1
+
+  packages-inner/rollup-helper: {}
 
   packages/components-lib/antdesign: {}
 
@@ -5686,6 +5698,11 @@ packages:
       ansi-regex: 5.0.1
     dev: true
 
+  /strip-bom@3.0.0:
+    resolution: {integrity: sha512-vavAMRXOgBVNF6nyEEmL3DBK19iRpDcoIwW+swQ+CbGiu7lju6t+JklA1MHweoWtadgt4ISVUsXLyDq34ddcwA==}
+    engines: {node: '>=4'}
+    dev: true
+
   /strip-bom@4.0.0:
     resolution: {integrity: sha512-3xurFv5tEgii33Zi8Jtp55wEIILR9eh34FAW00PZf+JnSsTmV/ioewSgQl97JHvgjoRGwPShsWm+IdrxB35d0w==}
     engines: {node: '>=8'}
@@ -5856,6 +5873,15 @@ packages:
         optional: true
     dependencies:
       typescript: 4.9.5
+    dev: true
+
+  /tsconfig-paths@4.2.0:
+    resolution: {integrity: sha512-NoZ4roiN7LnbKn9QqE1amc9DJfzvZXxF4xDavcOWt1BPkdx+m+0gJuPM+S0vCe7zTJMYUP0R8pO2XMr+Y8oLIg==}
+    engines: {node: '>=6'}
+    dependencies:
+      json5: 2.2.3
+      minimist: 1.2.8
+      strip-bom: 3.0.0
     dev: true
 
   /tslib@1.14.1:
@@ -6265,7 +6291,3 @@ packages:
 
   /zod@3.21.4:
     resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
-
-settings:
-  autoInstallPeers: true
-  excludeLinksFromLockfile: false

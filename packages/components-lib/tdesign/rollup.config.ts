@@ -1,5 +1,6 @@
 import autoprefixer from 'autoprefixer'
 import type { RollupOptions } from 'rollup'
+import skip from 'rollup-helper/plugins/skip'
 import copy from 'rollup-plugin-copy'
 import { dts } from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
@@ -56,14 +57,9 @@ export default [
       entryFileNames: ({ name }) => `${name.replace(/^src\//, '')}.d.ts`
     },
     plugins: [
-      {
-        transform(code, id) {
-          if (id.endsWith('.scss')) {
-            return { code: `export default {}`, map: null }
-          }
-          return null
-        }
-      },
+      skip({
+        patterns: [/\.s?css$/]
+      }),
       dts({ tsconfig: './tsconfig.dts.json' }),
       copy({
         targets: [

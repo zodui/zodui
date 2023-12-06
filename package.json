@@ -29,10 +29,12 @@
     "mocha": "^10.2.0",
     "patch-package": "^6.5.1",
     "rollup": "^4.1.5",
+    "rollup-helper": "workspace:^",
     "rollup-plugin-copy": "^3.5.0",
     "rollup-plugin-dts": "^6.1.0",
     "rollup-plugin-esbuild": "^6.1.0",
     "rollup-plugin-postcss": "^4.0.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^4.9.5"
   },
   "pnpm": {
