@@ -67,7 +67,7 @@ export default [
       dts({ tsconfig: './tsconfig.dts.json' }),
       copy({
         targets: [
-          { src: 'src/react.fix.d.ts', dest: 'dist' },
+          { src: 'src/react.fix.d.ts', dest: 'dist' }
         ]
       })
     ],
