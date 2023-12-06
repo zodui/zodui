@@ -1,12 +1,11 @@
 import autoprefixer from 'autoprefixer'
 import type { RollupOptions } from 'rollup'
 import skip from 'rollup-helper/plugins/skip'
+import externalResolver from 'rollup-helper/utils/externalResolver'
 import copy from 'rollup-plugin-copy'
 import { dts } from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
 import postcss from 'rollup-plugin-postcss'
-
-import pkg from './package.json' assert { type: 'json' }
 
 const commonOutputOptions = {
   dir: 'dist',
@@ -14,9 +13,7 @@ const commonOutputOptions = {
   sourcemap: true
 }
 
-const external = (Object.keys(pkg.dependencies) as (string | RegExp)[])
-  // TODO 处理 exports 或者是处理所有的 sub path import dependency
-  .concat(/@zodui\/core\/.*/)
+const external = externalResolver()
 
 export default [
   {
