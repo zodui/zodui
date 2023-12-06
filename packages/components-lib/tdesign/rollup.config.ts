@@ -69,7 +69,8 @@ export default [
     input: exportsEntries,
     output: {
       dir: 'dist',
-      entryFileNames: ({ name }) => `${name.replace(/^src\//, '')}.d.ts`
+      entryFileNames: ({ name }) => `${name.replace(/^src\//, '')}.d.ts`,
+      preserveModules: true
     },
     plugins: [
       skip({ patterns: [/\.s?css$/] }),
