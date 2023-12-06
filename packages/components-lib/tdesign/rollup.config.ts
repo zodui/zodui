@@ -15,9 +15,14 @@ const commonOutputOptions = {
 
 const external = externalResolver()
 
+const exportsEntries = {
+  index: 'src/index.ts',
+  react: 'src/react.tsx'
+}
+
 export default [
   {
-    input: ['src/index.ts', 'src/react.tsx'],
+    input: exportsEntries,
     output: [
       {
         ...commonOutputOptions,
@@ -31,10 +36,7 @@ export default [
     ],
     external
   },
-  ...Object.entries({
-    index: 'src/index.ts',
-    react: 'src/react.tsx'
-  }).map(([name, input]) => ({
+  ...Object.entries(exportsEntries).map(([name, input]) => ({
     input: input,
     output: [
       {
@@ -63,7 +65,7 @@ export default [
     external
   })),
   {
-    input: ['src/index.ts', 'src/react.tsx'],
+    input: exportsEntries,
     output: {
       dir: 'dist',
       entryFileNames: ({ name }) => `${name.replace(/^src\//, '')}.d.ts`
