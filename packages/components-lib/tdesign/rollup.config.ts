@@ -44,7 +44,9 @@ export default [
       },
       {
         ...commonOutputOptions,
-        name: 'ZodUIComponentsLibTDesign',
+        name: 'ZodUIComponentsLibTDesign' + name === 'index' ? '' : (
+          name[0].toUpperCase() + name.slice(1)
+        ),
         format: 'umd',
         entryFileNames: '[name].umd.js'
       }
