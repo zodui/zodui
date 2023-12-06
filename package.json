@@ -19,6 +19,7 @@
     "autoprefixer": "^10.4.16",
     "chai": "^4.3.10",
     "commander": "^11.1.0",
+    "crrc": "workspace:^",
     "esbuild": "^0.19.5",
     "esbuild-register": "^3.5.0",
     "eslint": "^8.52.0",

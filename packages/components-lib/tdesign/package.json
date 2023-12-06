@@ -36,7 +36,7 @@
     }
   },
   "scripts": {
-    "build": "rollup -c"
+    "build": "crrc rollup -c"
   },
   "peerDependencies": {
     "@zodui/react": "workspace:^",

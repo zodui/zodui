@@ -1,6 +1,5 @@
-// @ts-check
-import { defineConfig } from 'rollup'
 import autoprefixer from 'autoprefixer'
+import { defineConfig } from 'rollup'
 import copy from 'rollup-plugin-copy'
 import { dts } from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
@@ -14,8 +13,7 @@ const commonOutputOptions = {
   sourcemap: true
 }
 
-const external = Object
-  .keys(pkg.dependencies)
+const external = (Object.keys(pkg.dependencies) as (string | RegExp)[])
   // TODO 处理 exports 或者是处理所有的 sub path import dependency
   .concat(/@zodui\/core\/.*/)
 
@@ -61,7 +59,7 @@ export default defineConfig([
       {
         transform(code, id) {
           if (id.endsWith('.scss')) {
-            return { code: `export default undefined`, map: null }
+            return { code: `export default {}`, map: null }
           }
         }
       },
