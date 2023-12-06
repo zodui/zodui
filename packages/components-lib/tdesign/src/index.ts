@@ -16,4 +16,4 @@ export const TDesignComponentsLib = definePlugin('TDesign', ctx => {
 
 export default TDesignComponentsLib
 
-export { TDesignComponentsLibForReact } from './react'
+export * from './react'
