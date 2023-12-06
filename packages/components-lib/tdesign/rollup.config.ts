@@ -17,7 +17,7 @@ const external = externalResolver()
 
 const exportsEntries = {
   index: 'src/index.ts',
-  react: 'src/react.tsx'
+  react: 'src/react/index.tsx'
 }
 
 export default [
