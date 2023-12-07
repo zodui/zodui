@@ -42,6 +42,9 @@ export default [
     output: [
       {
         ...commonOutputOptions,
+        name: 'ZodUIComponentsLibTDesign' + name === 'index' ? '' : (
+          name[0].toUpperCase() + name.slice(1)
+        ),
         format: 'iife',
         entryFileNames: '[name].iife.js'
       },
