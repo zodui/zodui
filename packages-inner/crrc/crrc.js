@@ -36,7 +36,7 @@ const env = Object.keys(envs)
   .map((key) => `${key}='${
     envs[key]
       .replace(/'/g, '\\\'')
-      .replace('{{P_ROOT}}', workspaceRoot)
+      .replace('{{P_ROOT}}', `file:${workspaceRoot}`)
   }'`)
   .join(' ')
 const prefix = `node ${crossEnvBin} ${env}`
