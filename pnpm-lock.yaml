@@ -172,9 +172,6 @@ importers:
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
-      dotenv:
-        specifier: ^16.3.1
-        version: 16.3.1
 
   packages-inner/rollup-helper: {}
 
@@ -2745,6 +2742,7 @@ packages:
   /dotenv@16.3.1:
     resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
     engines: {node: '>=12'}
+    dev: true
 
   /ejs@3.1.9:
     resolution: {integrity: sha512-rC+QVNMJWv+MtPgkt0y+0rVEIdbtxVADApW9JXrUVlzHetgcyczP/E7DJmWJ4fJCZF2cPcBk0laWO9ZHMG3DmQ==}

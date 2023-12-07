@@ -2,6 +2,7 @@ import autoprefixer from 'autoprefixer'
 import type { RollupOptions } from 'rollup'
 import skip from 'rollup-helper/plugins/skip'
 import externalResolver from 'rollup-helper/utils/externalResolver'
+import globalResolver from 'rollup-helper/utils/globalResolver'
 import copy from 'rollup-plugin-copy'
 import { dts } from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
@@ -15,10 +16,14 @@ const commonOutputOptions = {
 
 const external = externalResolver()
 
+let globals = {}
+
 const exportsEntries = {
   index: 'src/index.ts',
   react: 'src/react/index.tsx'
 }
+
+const dependencies = new Set([])
 
 export default [
   {
@@ -32,10 +37,25 @@ export default [
       }
     ],
     plugins: [
+      {
+        resolveId(id) {
+          if (external.some(dep => dep instanceof RegExp ? dep.test(id) : dep === id)) {
+            dependencies.add(id)
+            return { id, external: true }
+          }
+          return null
+        },
+        outputOptions(options) {
+          globals = [...dependencies].reduce((acc, value) => ({
+            ...acc,
+            [value]: globalResolver(value)
+          }), {})
+          return { ...options, globals }
+        }
+      },
       skip({ patterns: [/\.s?css$/] }),
       esbuild()
-    ],
-    external
+    ]
   },
   ...Object.entries(exportsEntries).map(([name, input]) => ({
     input: input,
@@ -58,6 +78,9 @@ export default [
       }
     ],
     plugins: [
+      {
+        outputOptions: (options: any) => ({ ...options, globals })
+      },
       postcss({
         plugins: [autoprefixer],
         minimize: true,
