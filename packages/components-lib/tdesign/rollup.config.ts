@@ -2,6 +2,7 @@ import autoprefixer from 'autoprefixer'
 import type { RollupOptions } from 'rollup'
 import { createGlobalsLinkage } from 'rollup-helper/plugins/globals'
 import skip from 'rollup-helper/plugins/skip'
+import { commonOutputOptions } from 'rollup-helper/utils/commonOptions'
 import externalResolver from 'rollup-helper/utils/externalResolver'
 import copy from 'rollup-plugin-copy'
 import { dts } from 'rollup-plugin-dts'
@@ -9,12 +10,6 @@ import esbuild from 'rollup-plugin-esbuild'
 import postcss from 'rollup-plugin-postcss'
 
 const [globalsRegister, globalsOutput] = createGlobalsLinkage()
-
-const commonOutputOptions = {
-  dir: 'dist',
-  exports: 'named',
-  sourcemap: true
-}
 
 const external = externalResolver()
 
