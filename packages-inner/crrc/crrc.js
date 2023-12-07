@@ -27,15 +27,18 @@ function findWorkspaceRoot() {
   }
   return cwd
 }
+const workspaceRoot = findWorkspaceRoot()
 const envs = {
-  ...dotenv.config({ path: path.join(findWorkspaceRoot(), '.env') }).parsed,
-  ...dotenv.config({ path: path.join(findWorkspaceRoot(), '.env.local') }).parsed,
-  ...dotenv.config({ path: path.join(findWorkspaceRoot(), '.env.dev') }).parsed
+  ...dotenv.config({ path: path.join(workspaceRoot, '.env') }).parsed,
+  ...dotenv.config({ path: path.join(workspaceRoot, '.env.local') }).parsed,
+  ...dotenv.config({ path: path.join(workspaceRoot, '.env.dev') }).parsed
 }
 
 const env = Object.keys(envs)
   .map((key) => `${key}='${
-    envs[key].replace(/'/g, '\\\'')
+    envs[key]
+      .replace(/'/g, '\\\'')
+      .replace('{{P_ROOT}}', workspaceRoot)
   }'`)
   .join(' ')
 const prefix = `node ${crossEnvBin} ${env}`
