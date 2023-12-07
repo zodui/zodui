@@ -19,6 +19,9 @@ importers:
 
   .:
     devDependencies:
+      '@pnpm/find-workspace-dir':
+        specifier: ^6.0.2
+        version: 6.0.2
       '@pnpm/workspace.find-packages':
         specifier: ^1.1.4
         version: 1.1.4(@pnpm/logger@5.0.0)
@@ -1148,6 +1151,14 @@ packages:
       '@pnpm/resolver-base': 11.0.0
       '@pnpm/types': 9.4.0
       '@types/ssri': 7.1.5
+    dev: true
+
+  /@pnpm/find-workspace-dir@6.0.2:
+    resolution: {integrity: sha512-JSrpQUFCs4vY1D5tOmj7qBb+oE2j/lO6341giEdUpvYf3FijY8CY13l8rPjfHV2y3m//utzl0An+q+qx14S6Nw==}
+    engines: {node: '>=16.14'}
+    dependencies:
+      '@pnpm/error': 5.0.2
+      find-up: 5.0.0
     dev: true
 
   /@pnpm/fs.find-packages@2.0.8:
