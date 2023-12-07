@@ -1,4 +1,6 @@
 import autoprefixer from 'autoprefixer'
+import { resolve } from 'path'
+import { getWorkspaceDir } from 'pnpm-helper/getWorkspaceDir'
 import type { RollupOptions } from 'rollup'
 import { createGlobalsLinkage } from 'rollup-helper/plugins/globals'
 import skip from 'rollup-helper/plugins/skip'
@@ -9,6 +11,10 @@ import { dts } from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
 import postcss from 'rollup-plugin-postcss'
 
+const workspaceRoot = getWorkspaceDir()
+function resolveWorkspacePath(p: string) {
+  return resolve(workspaceRoot, p)
+}
 const [globalsRegister, globalsOutput] = createGlobalsLinkage()
 
 const external = externalResolver()
@@ -76,7 +82,7 @@ export default [
     },
     plugins: [
       skip({ patterns: [/\.s?css$/] }),
-      dts({ tsconfig: './tsconfig.dts.json' }),
+      dts({ tsconfig: resolveWorkspacePath('tsconfig.dts.json') }),
       copy({
         targets: [
           { src: 'src/react.fix.d.ts', dest: 'dist' }
