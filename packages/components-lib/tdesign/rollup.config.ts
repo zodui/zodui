@@ -50,7 +50,7 @@ export default [
           name[0].toUpperCase() + name.slice(1)
         ),
         format: 'iife',
-        entryFileNames: '[name].iife.js'
+        entryFileNames: `${name}.iife.js`
       },
       {
         ...commonOutputOptions,
@@ -58,7 +58,7 @@ export default [
           name[0].toUpperCase() + name.slice(1)
         ),
         format: 'umd',
-        entryFileNames: '[name].umd.js'
+        entryFileNames: `${name}.umd.js`
       }
     ],
     plugins: [
