@@ -9,7 +9,6 @@
     "serve": "pnpm --filter @zodui/demo run serve"
   },
   "devDependencies": {
-    "@pnpm/find-workspace-dir": "^6.0.2",
     "@pnpm/workspace.find-packages": "^1.1.4",
     "@rollup/plugin-json": "^6.0.1",
     "@types/chai": "^4.3.9",
@@ -29,6 +28,7 @@
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "mocha": "^10.2.0",
     "patch-package": "^6.5.1",
+    "pnpm-helper": "workspace:^",
     "rollup": "^4.1.5",
     "rollup-helper": "workspace:^",
     "rollup-plugin-copy": "^3.5.0",
