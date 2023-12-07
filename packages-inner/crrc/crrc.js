@@ -11,21 +11,19 @@ const crossEnvBin = path.join(
 )
 
 function findWorkspaceRoot() {
-  const cwd = process.cwd()
-  const parts = cwd.split('/')
-  while (parts.length) {
-    const root = parts.join('/')
-    // check the children are included the pnpm-workspace.yaml
-    if (root === '/') {
-      break
-    }
+  let root = process.cwd()
+  while (
+    root !== '/'
+    // windows
+    || /^[a-zA-Z]:\\$/.test(root)
+  ) {
     const children = require('fs').readdirSync(root)
     if (children.includes('pnpm-workspace.yaml')) {
       return root
     }
-    parts.pop()
+    root = path.dirname(root)
   }
-  return cwd
+  throw new Error('workspace root not found')
 }
 const workspaceRoot = findWorkspaceRoot()
 const envs = {
