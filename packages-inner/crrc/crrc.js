@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires,no-undef */
 const { spawn } = require('node:child_process')
 const path = require('node:path')
-const dotenv = require('dotenv')
 
 const args = process.argv.slice(2)
 
@@ -26,18 +25,14 @@ function findWorkspaceRoot() {
   throw new Error('workspace root not found')
 }
 const workspaceRoot = findWorkspaceRoot()
-const envs = {
-  ...dotenv.config({ path: path.join(workspaceRoot, '.env') }).parsed,
-  ...dotenv.config({ path: path.join(workspaceRoot, '.env.local') }).parsed,
-  ...dotenv.config({ path: path.join(workspaceRoot, '.env.dev') }).parsed
-}
+const envFileContent = require('fs')
+  .readFileSync(path.join(workspaceRoot, '.env.dev'))
+  .toString()
+  .replace('{{P_ROOT}}', `file:${workspaceRoot}`)
 
-const env = Object.keys(envs)
-  .map((key) => `${key}='${
-    envs[key]
-      .replace(/'/g, '\\\'')
-      .replace('{{P_ROOT}}', `file:${workspaceRoot}`)
-  }'`)
+const env = envFileContent
+  .split('\n')
+  .filter((line) => !line.startsWith('#'))
   .join(' ')
 const prefix = `node ${crossEnvBin} ${env}`
 const command = `${prefix} ${args.join(' ')}`

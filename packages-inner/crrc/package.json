@@ -2,7 +2,6 @@
   "name": "crrc",
   "bin": "crrc.js",
   "dependencies": {
-    "cross-env": "^7.0.3",
-    "dotenv": "^16.3.1"
+    "cross-env": "^7.0.3"
   }
 }
