@@ -67,9 +67,7 @@ export default defineConfig({
   ],
   plugins: [
     JSONPlugin(),
-    esbuild({
-      tsconfig: './tsconfig.build.json'
-    })
+    esbuild()
   ],
   external: Object.keys(pkg.dependencies)
 })
