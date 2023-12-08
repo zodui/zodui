@@ -2,58 +2,55 @@
   "name": "@zodui/core",
   "version": "0.2.0",
   "license": "MIT",
-  "main": "dist/esm/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/dts/index.d.ts",
+  "main": "dist/index.esm.js",
+  "module": "dist/index.emd.js",
+  "types": "dist/index.d.ts",
   "typesVersions": {
-    "<5.0": { "*": [ "*", "dist/dts/*", "dist/dts/*/index.d.ts" ] }
+    "<5.0": { "*": [ "*", "dist/*", "dist/*/index.d.ts" ] }
   },
   "exports": {
     "./package.json": "./package.json",
     ".": {
       "inner-src": "./src/index.ts",
       "import": {
-        "types": "./dist/dts/index.d.ts",
-        "default": "./dist/esm/index.js"
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.esm.js"
       },
       "require": {
-        "types": "./dist/dts/index.d.ts",
-        "default": "./dist/cjs/index.js"
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.umd.js"
       }
     },
     "./utils": {
       "inner-src": "./src/utils.ts",
       "import": {
-        "types": "./dist/dts/utils.d.ts",
-        "default": "./dist/esm/utils.js"
+        "types": "./dist/utils.d.ts",
+        "default": "./dist/utils.esm.js"
       },
       "require": {
-        "types": "./dist/dts/utils.d.ts",
-        "default": "./dist/cjs/utils.js"
+        "types": "./dist/utils.d.ts",
+        "default": "./dist/utils.umd.js"
       }
     },
     "./external": {
       "inner-src": "./src/external.ts",
       "import": {
-        "types": "./dist/dts/external.d.ts",
-        "default": "./dist/esm/external.js"
+        "types": "./dist/external.d.ts",
+        "default": "./dist/external.esm.js"
       },
       "require": {
-        "types": "./dist/dts/external.d.ts",
-        "default": "./dist/cjs/external.js"
+        "types": "./dist/external.d.ts",
+        "default": "./dist/external.umd.js"
       }
     }
   },
   "files": [
-    "dist/cjs",
-    "dist/esm",
-    "dist/dts",
+    "dist",
     "README.md",
     "LICENSE"
   ],
   "scripts": {
-    "build": "rollup -c && yarn build:dts",
-    "build:dts": "tsc -p tsconfig.dts.json --outDir dist/dts"
+    "build": "crrc rollup -c"
   },
   "dependencies": {
     "zod": "^3.21.4"

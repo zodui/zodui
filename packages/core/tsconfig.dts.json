@@ -1,8 +1,0 @@
-{
-  "extends": "../../tsconfig.dts.json",
-  "compilerOptions": {
-    "rootDir": "./src"
-  },
-  "include": ["src"],
-  "exclude": ["tests"]
-}
