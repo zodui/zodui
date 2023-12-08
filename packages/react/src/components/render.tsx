@@ -19,7 +19,7 @@ export function Rndr<
   target: P | (string & {})
 } & Props) {
   const errorHandler = useErrorHandlerContext()
-  const Ctrl = useCoreContextField<(props: any) => ReactElement>(`framework.react.ctrls.${target.replace('.', ':')}`)
+  const Ctrl = useCoreContextField<(props: any) => ReactElement>(`framework.react.rndrs.${target.replace('.', ':')}`)
 
   const error = useMemo(() => {
     if (!Ctrl) {

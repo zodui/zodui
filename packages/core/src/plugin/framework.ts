@@ -102,7 +102,7 @@ export class Framework<
     InnerProps = RevealPropsByPath<P, InnerRenderPropsMap<Renders>>,
     Props = InnerProps extends AsProps<infer P> ? P : never
   >(path: P | (string & {}), Ctrl: FrameworkRndr<Props>[K]) {
-    this.ctx.set(`framework.${this.key}.ctrls.${path}`, Ctrl)
+    this.ctx.set(`framework.${this.key}.rndrs.${path}`, Ctrl)
     return this
   }
   defineRndr = this.defineRender
