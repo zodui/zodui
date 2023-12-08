@@ -1,7 +1,6 @@
 import type { ModesMap } from '@zodui/core'
 import type { Schema, ZodDefaultDef, ZodObject, ZodRawShape, ZodTypeAny } from 'zod'
 import * as z from 'zod'
-import { ZodType } from 'zod'
 
 declare module 'zod' {
   export interface ZodTypeDef {
@@ -33,14 +32,14 @@ declare module 'zod' {
 
 function defineMetaField(key: string) {
   try {
-    !Object.hasOwn(ZodType.prototype, `_${key}`)
-      && Object.defineProperty(ZodType.prototype, `_${key}`, {
+    !Object.hasOwn(z.ZodType.prototype, `_${key}`)
+      && Object.defineProperty(z.ZodType.prototype, `_${key}`, {
         get() {
           return this._def[key]
         }
       })
-    !Object.hasOwn(ZodType.prototype, key)
-      && Object.defineProperty(ZodType.prototype, key, {
+    !Object.hasOwn(z.ZodType.prototype, key)
+      && Object.defineProperty(z.ZodType.prototype, key, {
         get() {
           return (val: any) => {
             const This = (this as any).constructor
@@ -59,8 +58,8 @@ function defineMetaField(key: string) {
 defineMetaField('mode')
 defineMetaField('label')
 
-!Object.hasOwn(ZodType.prototype, 'type')
-  && Object.defineProperty(ZodType.prototype, 'type', {
+!Object.hasOwn(z.ZodType.prototype, 'type')
+  && Object.defineProperty(z.ZodType.prototype, 'type', {
     get() {
       return this._def
         ?.typeName
