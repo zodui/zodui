@@ -1,4 +1,4 @@
-import rollupTemplate from 'packages-inner/rollup-helper/rollup.template'
+import rollupTemplate from 'rollup-helper/rollup.template'
 import copy from 'rollup-plugin-copy'
 
 export default rollupTemplate({
