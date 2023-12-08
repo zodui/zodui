@@ -70,9 +70,9 @@ defineMetaField('label')
     }
   })
 
-const nz = { ...z }
+const nz = { ...z } as typeof z
 
-export default nz as typeof z
+export default nz
 
 export function clazz<T extends ZodRawShape>(clazz: { new(): T }): Schema<T> {
   return z.object(new clazz()) as any
