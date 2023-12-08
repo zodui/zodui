@@ -9,9 +9,7 @@ import type {
 } from 'react'
 
 export * from './base'
-export {
-  Icon
-} from './icon'
+export { Icon } from './icon'
 export { Rndr } from './render'
 
 declare module '@zodui/core' {

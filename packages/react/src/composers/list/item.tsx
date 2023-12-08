@@ -16,9 +16,8 @@ import {
 import type { Schema } from 'zod'
 import { ZodError } from 'zod'
 
-import {
-  Button, Dropdown
-} from '../../components'
+import { Button } from '../../components/button'
+import { Dropdown } from '../../components/dropdown'
 import {
   useErrorHandler, useItemConfigurerContext, useItemSerter
 } from '../../contexts'

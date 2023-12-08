@@ -15,7 +15,8 @@ import type {
   ZodTypeDef
 } from 'zod'
 
-import { Button, Input } from '../components'
+import { Button } from '../components/button'
+import { Input } from '../components/input'
 import { useErrorHandlerContext } from '../contexts'
 import { useCoreContextUnit } from '../hooks/useCoreContextUnit'
 import type { SwitcherPropsForReact } from './index'
