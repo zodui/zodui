@@ -14,7 +14,7 @@
   "author": "YiJie <yijie4188@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "rollup -c"
+    "build": "crrc rollup -c"
   },
   "main": "dist/index.esm.js",
   "module": "dist/index.esm.js",
@@ -29,7 +29,8 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.esm.js",
       "require": "./dist/index.umd.js",
-      "default": "./dist/index.esm.js"
+      "default": "./dist/index.esm.js",
+      "inner-src": "./src/index.ts"
     }
   },
   "peerDependencies": {
