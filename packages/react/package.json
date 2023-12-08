@@ -32,7 +32,7 @@
       "default": "./dist/index.esm.js"
     }
   },
-  "optionalDependencies": {
+  "peerDependencies": {
     "react": "^16.13.1",
     "zod": "^3.21.4"
   },
