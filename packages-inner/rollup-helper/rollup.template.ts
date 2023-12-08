@@ -20,6 +20,7 @@ function resolveWorkspacePath(p: string) {
 const pkgJson = JSON.parse(fs.readFileSync(resolve(process.cwd(), 'package.json'), 'utf-8')) as {
   name: string
   exports?: Record<string, {
+    import: string
     'inner-src': string
   }>
 }
@@ -28,7 +29,10 @@ const namePrefix = pkgJson
   .replace(/[@|/-](\w)/g, (_, $1) => $1.toUpperCase())
 const exportsEntriesFromPkgJSON = Object.fromEntries(
   Object.entries(pkgJson.exports)
-    .filter(([key]) => !key.endsWith('.json'))
+    // filter static files
+    .filter(([key]) => !/\.(json|css|scss)$/.test(key))
+    // filter no `inner-src` or `import` field entries
+    .filter(([, value]) => value['inner-src'] && value['import'])
     .map(([key, value]) => [
       key
         .replace(/^\.$/, 'index')
@@ -37,24 +41,27 @@ const exportsEntriesFromPkgJSON = Object.fromEntries(
     ])
 )
 
-export default (exportsEntries: Record<string, string> = exportsEntriesFromPkgJSON, {
-  styled = false,
-  plugins: {
-    index: indexPlugins = [],
-    entry: entryPlugins = [],
-    dts: dtsPlugins = []
-  } = {}
-}: {
-  /**
-   * include styles files
-   */
-  styled?: boolean
-  plugins?: {
-    index?: InputPluginOption
-    entry?: InputPluginOption
-    dts?: InputPluginOption
-  }
-} = {}) => {
+export default (
+  {
+    styled = false,
+    plugins: {
+      index: indexPlugins = [],
+      entry: entryPlugins = [],
+      dts: dtsPlugins = []
+    } = {}
+  }: {
+    /**
+     * include styles files
+     */
+    styled?: boolean
+    plugins?: {
+      index?: InputPluginOption
+      entry?: InputPluginOption
+      dts?: InputPluginOption
+    }
+  } = {},
+  exportsEntries: Record<string, string> = exportsEntriesFromPkgJSON
+) => {
   const [globalsRegister, globalsOutput] = createGlobalsLinkage()
   const external = externalResolver()
 
