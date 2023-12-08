@@ -13,21 +13,10 @@
   <main class='loading'>
     <div class='code-editor'>
       <div class='menu'>
-        <span class='item settings'>
-          <span class='material-icons'>settings</span>
-        </span>
-        <span class='item share'>
-          <span class='material-icons'>share</span>
-        </span>
+        <span class='item material-icons settings'>settings</span>
+        <span class='item material-icons share'>share</span>
 
-        <span class='item right fold'>
-          <span class='material-icons' style='transform: rotate(180deg)'>double_arrow</span>
-        </span>
-        <span class='item right' style='display: none;'>
-          Components Lib
-          &
-          Framework
-        </span>
+        <span class='item material-icons right fold' style='transform: rotate(180deg)'>double_arrow</span>
       </div>
       <%- include('components/monaco', {
         key: 'playground',

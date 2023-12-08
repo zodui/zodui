@@ -1,11 +1,3 @@
-html[theme-mode='dark'] .code-editor > .menu {
-  color: white;
-  background-color: #333;
-  border-bottom: 1px solid #252526;
-  > span.item:hover {
-    background: rgba(0, 0, 0, 0.2);
-  }
-}
 main {
   display: flex;
   > * {
@@ -22,29 +14,27 @@ main {
     > div.menu {
       z-index: 1;
       height: 30px;
-      background-color: #fff;
-      border-bottom: 1px solid lightgray;
+      color: var(--pl-cr);
+      background-color: var(--cp-cr);
+      border-bottom: 1px solid var(--br-cr);
       box-shadow: var(--bx-sd-l1);
-      > span.item {
+      > span.item.material-icons {
         float: left;
         display: flex;
         align-items: center;
-        justify-self: center;
-        gap: 8px;
-        padding: 0 20px;
+        justify-content: center;
+        width: 30px;
         height: 100%;
-        font-size: 1rem;
         cursor: pointer;
+        user-select: none;
+        font-size: 1.2rem;
         transition: 0.3s;
         &:hover {
-          background: rgba(0, 0, 0, 0.1);
+          color: var(--active-fr-cr);
+          background: var(--active-bg-cr);
         }
         &.right {
           float: right;
-        }
-        > span.material-icons {
-          user-select: none;
-          font-size: 1.2rem;
         }
       }
     }
