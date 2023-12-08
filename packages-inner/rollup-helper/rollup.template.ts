@@ -20,7 +20,9 @@ function resolveWorkspacePath(p: string) {
 const pkgJson = JSON.parse(fs.readFileSync(resolve(process.cwd(), 'package.json'), 'utf-8')) as {
   name: string
 }
-const namePrefix = pkgJson.name.replace(/^[@/-](\w)/, (_, $1) => $1.toUpperCase())
+const namePrefix = pkgJson
+  .name
+  .replace(/[@|/-](\w)/g, (_, $1) => $1.toUpperCase())
 
 export default (exportsEntries: Record<string, string>, {
   styled = false,
@@ -63,7 +65,7 @@ export default (exportsEntries: Record<string, string>, {
     },
     ...Object.entries(exportsEntries).map(([name, input]) => {
       const outputName = namePrefix + (
-        ['index', '.'].includes(name) ? '' : (
+        name === 'index' ? '' : (
           name[0].toUpperCase() + name.slice(1)
         )
       )
