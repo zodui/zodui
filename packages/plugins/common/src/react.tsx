@@ -6,7 +6,7 @@ import type { ZodLiteral, ZodUnion } from 'zod'
 import Common from './index'
 import { isEqual } from './utils'
 
-export const CommonPluginForReact = definePlugin('CommonPlugin', ctx => {
+export const CommonPluginForReact = definePlugin('CommonPlugin.React', ctx => {
   ctx.use(Common)
   ctx
     .framework('react')
