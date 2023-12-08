@@ -16,6 +16,7 @@ export default function (external: string) {
     // https://cdn.jsdelivr.net/npm/tdesign-react@1.4.0/dist/tdesign.css
     'tdesign-icons-react': 'TDesignIconReact',
     // https://cdn.jsdelivr.net/npm/tdesign-icons-react@1.4.0/dist/index.js
+    zod: 'Zod',
     '@zodui/core': 'ZodUICore',
     '@zodui/core/utils': 'ZodUICoreUtils',
     '@zodui/react': 'ZodUIReact'
