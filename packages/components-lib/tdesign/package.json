@@ -12,7 +12,7 @@
   "homepage": "https://github.com/zodui/zodui",
   "author": "YiJie <yijie4188@gmail.com>",
   "license": "MIT",
-  "main": "dist/index.esm.js",
+  "main": "dist/index.umd.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "typesVersions": {
@@ -29,7 +29,7 @@
     "./react": {
       "types": "./dist/react.d.ts",
       "import": "./dist/react.esm.js",
-      "inner-src": "./src/react.ts"
+      "inner-src": "./src/react/index.ts"
     },
     "./react.fix": {
       "types": "./dist/react.fix.d.ts",
