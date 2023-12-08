@@ -20,9 +20,11 @@ main {
     height: 100%;
     transition: .3s;
     > div.menu {
-      height: 52px;
+      z-index: 1;
+      height: 30px;
       background-color: #fff;
       border-bottom: 1px solid lightgray;
+      box-shadow: var(--bx-sd-l1);
       > span.item {
         float: left;
         display: flex;
@@ -31,7 +33,7 @@ main {
         gap: 8px;
         padding: 0 20px;
         height: 100%;
-        font-size: 14px;
+        font-size: 1rem;
         cursor: pointer;
         transition: 0.3s;
         &:hover {
@@ -42,16 +44,17 @@ main {
         }
         > span.material-icons {
           user-select: none;
+          font-size: 1.2rem;
         }
       }
     }
     > div.menu-page {
       position: absolute;
-      top: 53px;
+      top: 31px;
       left: -100%;
       width: 100%;
-      height: calc(100% - 53px);
-      background-color: #333;
+      height: calc(100% - 31px);
+      background-color: var(--cp-cr);
       opacity: 0;
       transition: .3s;
       &.show {
@@ -69,7 +72,7 @@ main {
       width: 500px;
       min-width: 412px !important;
       max-width: 100%;
-      height: calc(100% - 53px);
+      height: calc(100% - 31px);
     }
   }
   > .schema-eval-container {
