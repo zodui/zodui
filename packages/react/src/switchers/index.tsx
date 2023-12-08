@@ -35,7 +35,6 @@ declare module '@zodui/core' {
   }
 }
 
-// TODO support literal type display
 const switchers = [
   ['monad', monad, Monad],
   ['complex', complex, Complex],
