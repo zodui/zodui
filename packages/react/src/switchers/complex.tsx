@@ -153,7 +153,7 @@ export function Complex({
       defaultValue={defaultValue}
       onChange={changeValue}
     />
-    // TODO support `'' | (string & {})` type
+    // TODO support `'' | (string & {})` type and `0 | (number & {})` type
     //      display select input
     : <>
       {isWhatType(model, AllTypes.ZodUnion) && <>
