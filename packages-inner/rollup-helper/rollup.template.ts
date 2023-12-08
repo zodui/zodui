@@ -39,7 +39,7 @@ export default (exportsEntries: Record<string, string>, {
     entry?: InputPluginOption
     dts?: InputPluginOption
   }
-}) => {
+} = {}) => {
   const [globalsRegister, globalsOutput] = createGlobalsLinkage()
   const external = externalResolver()
 
