@@ -46,7 +46,7 @@ export default [
     output: [
       {
         ...commonOutputOptions,
-        name: 'ZodUIComponentsLibTDesign' + name === 'index' ? '' : (
+        name: 'ZoduiComponentsLibTDesign' + name === 'index' ? '' : (
           name[0].toUpperCase() + name.slice(1)
         ),
         format: 'iife',
@@ -54,7 +54,7 @@ export default [
       },
       {
         ...commonOutputOptions,
-        name: 'ZodUIComponentsLibTDesign' + name === 'index' ? '' : (
+        name: 'ZoduiComponentsLibTDesign' + name === 'index' ? '' : (
           name[0].toUpperCase() + name.slice(1)
         ),
         format: 'umd',
