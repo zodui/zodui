@@ -1,8 +1,8 @@
 import type { Frameworks, Icons } from '@zodui/core'
 import { useMemo } from 'react'
 
-import { Icon } from '../components'
 import { useCoreContextComponent } from '../contexts'
+import { Icon } from './icon'
 
 type InnerButton = Frameworks['react']['Components']['Button']
 
