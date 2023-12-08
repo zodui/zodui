@@ -61,39 +61,42 @@ export default (exportsEntries: Record<string, string>, {
         indexPlugins
       ]
     },
-    ...Object.entries(exportsEntries).map(([name, input]) => ({
-      input: input,
-      output: [
-        {
-          ...commonOutputOptions,
-          name: namePrefix + name === 'index' ? '' : (
-            name[0].toUpperCase() + name.slice(1)
-          ),
-          format: 'iife',
-          entryFileNames: `${name}.iife.js`
-        },
-        {
-          ...commonOutputOptions,
-          name: namePrefix + name === 'index' ? '' : (
-            name[0].toUpperCase() + name.slice(1)
-          ),
-          format: 'umd',
-          entryFileNames: `${name}.umd.js`
-        }
-      ],
-      plugins: [
-        globalsOutput,
-        styled && postcss({
-          plugins: [autoprefixer],
-          minimize: true,
-          sourceMap: true,
-          extract: `${name}.css`
-        }),
-        esbuild(),
-        entryPlugins
-      ],
-      external
-    })),
+    ...Object.entries(exportsEntries).map(([name, input]) => {
+      const outputName = namePrefix + (
+        ['index', '.'].includes(name) ? '' : (
+          name[0].toUpperCase() + name.slice(1)
+        )
+      )
+      return {
+        input: input,
+        output: [
+          {
+            ...commonOutputOptions,
+            name: outputName,
+            format: 'iife',
+            entryFileNames: `${name}.iife.js`
+          },
+          {
+            ...commonOutputOptions,
+            name: outputName,
+            format: 'umd',
+            entryFileNames: `${name}.umd.js`
+          }
+        ],
+        plugins: [
+          globalsOutput,
+          styled && postcss({
+            plugins: [autoprefixer],
+            minimize: true,
+            sourceMap: true,
+            extract: `${name}.css`
+          }),
+          esbuild(),
+          entryPlugins
+        ],
+        external
+      }
+    }),
     {
       input: exportsEntries,
       output: {
