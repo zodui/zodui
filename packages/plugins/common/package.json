@@ -34,7 +34,7 @@
     }
   },
   "scripts": {
-    "build": "rollup -c"
+    "build": "crrc rollup -c"
   },
   "peerDependencies": {
     "react": "^16.13.1",
