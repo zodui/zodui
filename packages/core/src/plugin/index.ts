@@ -1,6 +1,6 @@
-import type { AllType, TypeMap, UnitProps } from '@zodui/core'
-
 import type { Context } from '../context'
+import type { AllType, TypeMap } from '../type'
+import type { UnitProps } from './base'
 import type { ComponentProps } from './components'
 
 export * from './base'
