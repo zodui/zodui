@@ -123,7 +123,7 @@ export function Switcher<M extends ZodSchema>(props: SwitcherPropsForReact<M>) {
     defineSwitcher(AllTypes.ZodLiteral, ({ model }) => <>{JSON.stringify(model.value)}</>)
   ] as const
   return <div className={classnames(
-    'zodui-controller',
+    'zodui-switcher',
     ...(InnerSwitcher ? [
       name,
       model.type,

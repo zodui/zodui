@@ -1,4 +1,4 @@
-.zodui-composer-list, .zodui-item, .zodui-controller {
+.zodui-composer-list, .zodui-item, .zodui-switcher {
   --zodui-text-color: var(--td-text-color-primary);
   --zodui-text-color-placeholder: var(--td-text-color-placeholder);
 
@@ -56,7 +56,7 @@
   }
 }
 
-.zodui-controller {
+.zodui-switcher {
   /** resolve number type */
   .t-input-number {
     width: 100%;

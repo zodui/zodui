@@ -1,7 +1,7 @@
 .zodui-item.wrap:not(.nowrap) {
-  .zodui-controller.complex {
+  .zodui-switcher.complex {
     width: 100%;
-    > .zodui-controller.multiple {
+    > .zodui-switcher.multiple {
       &.dict, &.object, &.map, &.record {
         margin-left: 0;
       }
@@ -9,10 +9,10 @@
   }
 }
 
-.zodui-controller.complex {
+.zodui-switcher.complex {
   flex-direction: column;
   gap: 10px;
-  > .zodui-controller.multiple {
+  > .zodui-switcher.multiple {
     &.dict, &.object, &.map, &.record {
       margin-left: -84px;
     }
