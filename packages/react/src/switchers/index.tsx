@@ -124,11 +124,9 @@ export function Switcher<M extends ZodSchema>(props: SwitcherPropsForReact<M>) {
   ] as const
   return <div className={classnames(
     'zodui-switcher',
-    ...(InnerSwitcher ? [
-      name,
-      model.type,
-      subClassName
-    ] : [])
+    !!InnerSwitcher && name,
+    model.type,
+    subClassName
   )}>
     <ControllerClassName>
       {InnerSwitcher
