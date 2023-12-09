@@ -27,6 +27,6 @@
     "vite-plugin-html": "^3.2.0",
     "vite-tsconfig-paths": "^4.0.5",
     "zod": "^3.21.4",
-    "zod-i18n-map": "^2.21.0"
+    "zod-i18n-map": "^2.22.0"
   }
 }

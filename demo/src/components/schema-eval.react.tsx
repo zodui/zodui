@@ -5,14 +5,13 @@ import i18next from 'i18next'
 import React, { useEffect, useRef, useState } from 'react'
 import type { ZodSchema } from 'zod'
 import { zodI18nMap } from 'zod-i18n-map'
-
-import translation from '../locales/zh-Hans.json'
+import translation from 'zod-i18n-map/locales/zh-CN/zod.json'
 
 // TODO add more languages support
 i18next.init({
-  lng: 'zh-Hans',
+  lng: 'zh-CN',
   resources: {
-    'zh-Hans': { zod: translation }
+    'zh-CN': { zod: translation }
   }
 })
 z.setErrorMap(zodI18nMap)

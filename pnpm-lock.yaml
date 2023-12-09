@@ -167,8 +167,8 @@ importers:
         specifier: ^3.21.4
         version: 3.21.4
       zod-i18n-map:
-        specifier: ^2.21.0
-        version: 2.21.0(i18next@23.7.7)(zod@3.21.4)
+        specifier: ^2.22.0
+        version: 2.22.0(i18next@23.7.7)(zod@3.21.4)
 
   packages-inner/crrc:
     dependencies:
@@ -6281,8 +6281,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zod-i18n-map@2.21.0(i18next@23.7.7)(zod@3.21.4):
-    resolution: {integrity: sha512-5yyL8m6GDfaNH2u9GC7QE3U8XTPYOGjXMFgxhXzK8N/HCTZHyBQR5X0Y76n4AscbHNmBfxLKXLwkjWXpx6JZaw==}
+  /zod-i18n-map@2.22.0(i18next@23.7.7)(zod@3.21.4):
+    resolution: {integrity: sha512-prgPGhqst66gUvhFqOi4bCrr6Ld/HKBX+IrSHSNUcNgHOTXlIJ3YCD2UrFpo8W++++TMaM4HBRHO0haplWkTLQ==}
     peerDependencies:
       i18next: '>=21.3.0'
       zod: '>=3.17.0'

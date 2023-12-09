@@ -1162,10 +1162,10 @@ yallist@^3.0.2:
   resolved "https://mirrors.tencent.com/npm/yallist/-/yallist-3.1.1.tgz#dbb7daf9bfd8bac9ab45ebf602b8cbad0d5d08fd"
   integrity sha512-a4UGQaWPH59mOXUYnAG2ewncQS4i4F43Tv3JoAM+s2VDAmS9NsK8GpDMLrCHPksFT7h3K6TOoUNn2pb7RoXx4g==
 
-zod-i18n-map@^2.21.0:
-  version "2.21.0"
-  resolved "https://mirrors.tencent.com/npm/zod-i18n-map/-/zod-i18n-map-2.21.0.tgz#e0bbfc540a9696d8967263fd4184e41b43518994"
-  integrity sha512-5yyL8m6GDfaNH2u9GC7QE3U8XTPYOGjXMFgxhXzK8N/HCTZHyBQR5X0Y76n4AscbHNmBfxLKXLwkjWXpx6JZaw==
+zod-i18n-map@^2.22.0:
+  version "2.22.0"
+  resolved "https://registry.npmjs.org/zod-i18n-map/-/zod-i18n-map-2.22.0.tgz#991dcdb1645868351e9e614b81918adf23a0f5d2"
+  integrity sha512-prgPGhqst66gUvhFqOi4bCrr6Ld/HKBX+IrSHSNUcNgHOTXlIJ3YCD2UrFpo8W++++TMaM4HBRHO0haplWkTLQ==
 
 zod@^3.21.4:
   version "3.22.4"
