@@ -1,7 +1,7 @@
 {
   "name": "@zodui/react",
-  "description": "Zod UI for React",
-  "version": "0.2.1",
+  "description": "ZodUI for React",
+  "version": "0.2.2",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/zodui/zodui.git",
@@ -10,7 +10,7 @@
   "bugs": {
     "url": "https://github.com/zodui/zodui/issues"
   },
-  "homepage": "https://github.com/zodui/zodui",
+  "homepage": "https://github.com/zodui/zodui/tree/master/packages/react#readme",
   "author": "YiJie <yijie4188@gmail.com>",
   "license": "MIT",
   "scripts": {
@@ -19,7 +19,7 @@
   "main": "dist/index.umd.js",
   "unpkg": "dist/index.umd.js",
   "jsdelivr": "dist/index.umd.js",
-  "browser": "dist/index.esm.js",
+  "browser": "dist/index.umd.js",
   "module": "dist/index.esm.js",
   "types": "dist/index.d.ts",
   "exports": {

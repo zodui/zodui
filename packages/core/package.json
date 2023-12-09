@@ -1,11 +1,22 @@
 {
   "name": "@zodui/core",
-  "version": "0.2.0",
+  "description": "ZodUI core library.",
+  "version": "0.2.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zodui/zodui.git",
+    "directory": "packages/core"
+  },
+  "bugs": {
+    "url": "https://github.com/zodui/zodui/issues"
+  },
+  "homepage": "https://github.com/zodui/zodui/tree/master/packages/core#readme",
+  "author": "YiJie <yijie4188@gmail.com>",
   "license": "MIT",
   "main": "dist/index.umd.js",
   "unpkg": "dist/index.umd.js",
   "jsdelivr": "dist/index.umd.js",
-  "browser": "dist/index.esm.js",
+  "browser": "dist/index.umd.js",
   "module": "dist/index.emd.js",
   "types": "dist/index.d.ts",
   "typesVersions": {

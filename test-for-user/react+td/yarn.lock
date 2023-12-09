@@ -454,29 +454,33 @@
     "@types/babel__core" "^7.20.4"
     react-refresh "^0.14.0"
 
-"@zodui/components-lib-tdesign@^0.2.0":
-  version "0.2.0"
-  resolved "https://mirrors.tencent.com/npm/@zodui/components-lib-tdesign/-/components-lib-tdesign-0.2.0.tgz#5c674e1f10040ac8db0ba4c33225c641201ea11c"
-  integrity sha512-lz2dc2wZOrXsSSnkt8Uxaj0w/sZIpekIwTx9WtkWHbis7bwODm2AEo2SxPw0ivvb6NNVVmpp1KoYQ3GYA83iGg==
+"@zodui/components-lib-tdesign@^0.2.2":
+  version "0.2.2"
+  resolved "https://registry.npmjs.org/@zodui/components-lib-tdesign/-/components-lib-tdesign-0.2.2.tgz#2330f455b2dfa97b56efe207b276c3815fb9242f"
+  integrity sha512-ZbFiJcXFaWSfUGFW+6yis+MWS1xhsO/Qde5aN8oeUixYW+mrB543QOdtPbHMxUatlWzC1O26GjpPs6HU1XlzUw==
   dependencies:
-    "@zodui/core" "^0.2.0"
+    "@zodui/core" "^0.2.1"
 
-"@zodui/core@^0.2.0":
-  version "0.2.0"
-  resolved "https://mirrors.tencent.com/npm/@zodui/core/-/core-0.2.0.tgz#d096da1327f7eb409dc3808a6446c494fc62394b"
-  integrity sha512-looaxdivf1RiEboQoWhmillEzBSbl9DtLgZfIxud0SIIIXCLBWRHTrosehgf+bluSuAegdOci2+NTlEmR3wRSw==
-  dependencies:
-    zod "^3.21.4"
-
-"@zodui/react@^0.2.1":
+"@zodui/core@^0.2.1":
   version "0.2.1"
-  resolved "https://mirrors.tencent.com/npm/@zodui/react/-/react-0.2.1.tgz#0080b5735d724aef5effe6b8e3adf3216d20250a"
-  integrity sha512-83C3J8dKOk9qZm75+4CuBf4wL0Or7Ryoo3hG034xO8NOGSkAIQYcYZ4amwLeTBneImyshnkjISBTlaiACJI3xw==
+  resolved "https://registry.npmjs.org/@zodui/core/-/core-0.2.1.tgz#a44499fdac69c9a4d38dee05e0b477dd3a474b93"
+  integrity sha512-o7/pUDtcNqzqqST+0Ehdee9+g7wWp+THSPCCf33iKlH6j1VIGt57SMoybuRelOXuZqcTySEijuKSDNVFQYRwhQ==
   dependencies:
-    "@zodui/core" "^0.2.0"
-  optionalDependencies:
-    react "^16.13.1"
     zod "^3.21.4"
+
+"@zodui/plugin-common@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.npmjs.org/@zodui/plugin-common/-/plugin-common-0.2.0.tgz#bba9a8d57faf5e491c624b9d15b8c7ca5a2a93ed"
+  integrity sha512-Muy8u93kxtvGJrdChR910MUHrG2YTIJlfu+KAcLl0IEUPdRLEUnhdpnvrv/DfLUk+83f+jqC8lerpJWsxFv8wA==
+  dependencies:
+    "@zodui/core" "^0.2.1"
+
+"@zodui/react@0.2.2":
+  version "0.2.2"
+  resolved "https://registry.npmjs.org/@zodui/react/-/react-0.2.2.tgz#21cec3f5e16974f5d7d4637c1d9567e317aa4538"
+  integrity sha512-wnlpfZEo2T+3WMld7+EHgOnAdnzBl9iVcLY1oZ2joPFobezebwenHlDkO8mcH0Anl6/tph7Cp4HeBtHBouDAbw==
+  dependencies:
+    "@zodui/core" "^0.2.1"
 
 ansi-styles@^3.2.1:
   version "3.2.1"
