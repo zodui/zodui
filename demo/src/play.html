@@ -31,17 +31,21 @@
 export default z.object({
   mode: z
     .union([
-      z.literal('default').label('Default'),
-      z.literal('card').label('Card'),
+      z
+        .literal('full')
+        .label('Full'),
+      z
+        .literal('card')
+        .label('Card'),
     ])
-    .default('default')
+    .default('card')
     .label('Mode')
     .describe('Controls the style of the form'),
   width: z
     .tuple([
       z
         .number()
-        .default(80)
+        .default(60)
         .mode('split')
         .label('Value'),
       z
