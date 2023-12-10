@@ -81,8 +81,12 @@ main {
 
       position: relative;
       align-items: center;
-      filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
       > .zodui-composer-list {
+        filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.1));
+        transition: .3s;
+        &:hover {
+          filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.3));
+        }
         &:first-child {
           margin-top: 10%;
           border-radius: var(--br) var(--br) 0 0;
