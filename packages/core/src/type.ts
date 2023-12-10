@@ -2,7 +2,21 @@ import type { ZodRawShape, ZodUnionOptions } from 'zod'
 import type z from 'zod'
 import { ZodFirstPartyTypeKind } from 'zod'
 
-export interface ZodTypeMap {
+type IsEqual<A, B> = (
+  <T>() => T extends A ? 1 : 2
+) extends (
+  <T>() => T extends B ? 1 : 2
+) ? true : false
+
+export interface ZodTypeMap<
+  /* eslint-disable @typescript-eslint/no-unnecessary-type-constraint, @typescript-eslint/no-unused-vars */
+  A extends any = any,
+  B extends any = any,
+  C extends any = any,
+  D extends any = any,
+  E extends any = any
+  /* eslint-enable @typescript-eslint/no-unnecessary-type-constraint, @typescript-eslint/no-unused-vars */
+> {
   ZodString: z.ZodString
   ZodNumber: z.ZodNumber
   ZodNaN: z.ZodNaN
@@ -16,31 +30,44 @@ export interface ZodTypeMap {
   ZodUnknown: z.ZodUnknown
   ZodNever: z.ZodNever
   ZodVoid: z.ZodVoid
-  ZodArray: z.ZodArray<any>
-  ZodObject: z.ZodObject<ZodRawShape>
+  // FIXME
+  ZodArray: z.ZodArray<A>
+  ZodObject: z.ZodObject<
+    IsEqual<A, any> extends true
+      ? ZodRawShape
+      : A
+  >
   ZodUnion: z.ZodUnion<ZodUnionOptions>
-  ZodDiscriminatedUnion: z.ZodDiscriminatedUnion<any, any>
-  ZodIntersection: z.ZodIntersection<any, any>
+  ZodDiscriminatedUnion: z.ZodDiscriminatedUnion<A, B>
+  ZodIntersection: z.ZodIntersection<A, B>
   ZodTuple: z.ZodTuple
   ZodRecord: z.ZodRecord
   ZodMap: z.ZodMap
   ZodSet: z.ZodSet
-  ZodFunction: z.ZodFunction<any, any>
-  ZodLazy: z.ZodLazy<any>
-  ZodLiteral: z.ZodLiteral<any>
-  ZodEnum: z.ZodEnum<any>
-  ZodEffects: z.ZodEffects<any>
-  ZodNativeEnum: z.ZodNativeEnum<any>
-  ZodOptional: z.ZodOptional<any>
-  ZodNullable: z.ZodNullable<any>
-  ZodDefault: z.ZodDefault<any>
-  ZodCatch: z.ZodCatch<any>
-  ZodPromise: z.ZodPromise<any>
-  ZodBranded: z.ZodBranded<any, any>
-  ZodPipeline: z.ZodPipeline<any, any>
+  ZodFunction: z.ZodFunction<A, B>
+  ZodLazy: z.ZodLazy<A>
+  ZodLiteral: z.ZodLiteral<A>
+  ZodEnum: z.ZodEnum<A>
+  ZodEffects: z.ZodEffects<A>
+  ZodNativeEnum: z.ZodNativeEnum<A>
+  ZodOptional: z.ZodOptional<A>
+  ZodNullable: z.ZodNullable<A>
+  ZodDefault: z.ZodDefault<A>
+  ZodCatch: z.ZodCatch<A>
+  ZodPromise: z.ZodPromise<A>
+  ZodBranded: z.ZodBranded<A, B>
+  ZodPipeline: z.ZodPipeline<A, B>
 }
 
-export interface ZodTypeDefMap {
+export interface ZodTypeDefMap<
+  /* eslint-disable @typescript-eslint/no-unnecessary-type-constraint, @typescript-eslint/no-unused-vars */
+  A extends any = any,
+  B extends any = any,
+  C extends any = any,
+  D extends any = any,
+  E extends any = any
+  /* eslint-enable @typescript-eslint/no-unnecessary-type-constraint, @typescript-eslint/no-unused-vars */
+> {
   ZodString: z.ZodStringDef
   ZodNumber: z.ZodNumberDef
   ZodNaN: z.ZodNaNDef
@@ -57,7 +84,7 @@ export interface ZodTypeDefMap {
   ZodArray: z.ZodArrayDef
   ZodObject: z.ZodObjectDef
   ZodUnion: z.ZodUnionDef
-  ZodDiscriminatedUnion: z.ZodDiscriminatedUnionDef<any>
+  ZodDiscriminatedUnion: z.ZodDiscriminatedUnionDef<A>
   ZodIntersection: z.ZodIntersectionDef
   ZodTuple: z.ZodTupleDef
   ZodRecord: z.ZodRecordDef
@@ -74,13 +101,29 @@ export interface ZodTypeDefMap {
   ZodDefault: z.ZodDefaultDef
   ZodCatch: z.ZodCatchDef
   ZodPromise: z.ZodPromiseDef
-  ZodBranded: z.ZodBrandedDef<any>
-  ZodPipeline: z.ZodPipelineDef<any, any>
+  ZodBranded: z.ZodBrandedDef<A>
+  ZodPipeline: z.ZodPipelineDef<A, B>
 }
 
-export interface TypeMap extends ZodTypeMap {}
+export interface TypeMap<
+  /* eslint-disable @typescript-eslint/no-unnecessary-type-constraint, @typescript-eslint/no-unused-vars */
+  A extends any = any,
+  B extends any = any,
+  C extends any = any,
+  D extends any = any,
+  E extends any = any
+  /* eslint-enable @typescript-eslint/no-unnecessary-type-constraint, @typescript-eslint/no-unused-vars */
+> extends ZodTypeMap<A, B, C, D, E> {}
 
-export interface TypeDefMap extends ZodTypeDefMap {}
+export interface TypeDefMap<
+  /* eslint-disable @typescript-eslint/no-unnecessary-type-constraint, @typescript-eslint/no-unused-vars */
+  A extends any = any,
+  B extends any = any,
+  C extends any = any,
+  D extends any = any,
+  E extends any = any
+  /* eslint-enable @typescript-eslint/no-unnecessary-type-constraint, @typescript-eslint/no-unused-vars */
+> extends ZodTypeDefMap<A, B, C, D, E> {}
 
 export enum InnerTypes {}
 
