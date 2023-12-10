@@ -130,12 +130,15 @@ function InnerItem<M extends Schema>(props: ItemProps<M>, ref: ForwardedRef<Item
   return <ItemSerter>
     <ErrorHandler>
       <div
-        className={classnames(`${prefix} ${model.type}`, {
-          error: !!error,
-          wrap: wrapDefault,
-          [model._mode]: !!model._mode,
-          [className]: !!className
-        })}>
+        className={classnames(
+          `${prefix} ${model.type}`,
+          {
+            error: !!error,
+            wrap: wrapDefault,
+            [model._mode]: !!model._mode
+          },
+          !!className && className
+        )}>
         <div className={`${prefix}__more`}>
           <Dropdown
             menu={[
