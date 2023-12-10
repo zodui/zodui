@@ -2,7 +2,7 @@ import '@zodui/react/components-lib/tdesign'
 
 import type { Schema as ZodSchema } from 'zod'
 import { useEffect, useState } from 'react'
-import { Schema } from '@zodui/react'
+import { List } from '@zodui/react'
 
 export function SchemaReact() {
   const [[schema] = [], setSchema] = useState<[ZodSchema]>()
@@ -16,5 +16,5 @@ export function SchemaReact() {
       }
     })
   }, [])
-  return schema ? <Schema model={schema} /> : null
+  return schema ? <List model={schema} /> : null
 }
