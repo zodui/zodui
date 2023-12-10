@@ -37,7 +37,7 @@
     "build": "crrc rollup -c"
   },
   "peerDependencies": {
-    "react": "^16.13.1",
+    "react": ">=16.13.1",
     "@zodui/react": "workspace:^"
   },
   "dependencies": {
@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@types/react": "^16.14.50",
+    "react": "^16.14.0",
     "zod": "^3.21.4"
   }
 }
