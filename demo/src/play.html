@@ -141,14 +141,12 @@ export default z.object({
         delete playgroundSchemaEvaler.dataset.mode
       }
 
-      ;[...playgroundSchemaEvaler.children]
-        .forEach(ele => {
-          if (mode === 'card') {
-            ele.style.width = `${widthValue}${unit}`
-          } else {
-            ele.style.width = ''
-          }
-        })
+      // width css variable
+      if (mode === 'card') {
+        playgroundSchemaEvaler.style.setProperty('--width', `${widthValue}${unit}`)
+      } else {
+        playgroundSchemaEvaler.style.removeProperty('--width')
+      }
       // cache settings in url query
       const hash = location.hash
       const search = new URLSearchParams(location.search)

@@ -74,6 +74,7 @@ main {
     height: 100%;
     overflow: overlay;
     > .zodui-composer-list {
+      min-width: 100%;
       transition: .3s;
     }
     &[data-mode="card"] {
@@ -82,6 +83,7 @@ main {
       position: relative;
       align-items: center;
       > .zodui-composer-list {
+        min-width: var(--width);
         filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.1));
         transition: .3s;
         &:hover {
