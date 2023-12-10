@@ -21,6 +21,7 @@ import { Dropdown } from '../../components/dropdown'
 import {
   useErrorHandler, useItemConfigurerContext, useItemSerter
 } from '../../contexts'
+import { useRetimer } from '../../hooks/useRetimer'
 import {
   Switcher
 } from '../../switchers'
@@ -32,17 +33,6 @@ export interface ItemRef extends DescriptorRef {
 
 export interface ItemProps<M extends Schema = any> extends DescriptorProps<M> {
   className?: string
-}
-
-export const useRetimer = () => {
-  const timerIdRef = useRef<number>()
-
-  return useCallback((timerId?: number) => {
-    if (typeof timerIdRef.current === 'number') {
-      clearTimeout(timerIdRef.current)
-    }
-    timerIdRef.current = timerId
-  }, [])
 }
 
 function InnerItem<M extends Schema>(props: ItemProps<M>, ref: ForwardedRef<ItemRef>) {
