@@ -71,7 +71,7 @@ export class Framework<
   K extends FrameworkKeys,
   N extends string = string,
   Components = Frameworks[K]['Components'],
-  Renders = Frameworks[K]['Renders'],
+  Renders = Frameworks[K]['Renders']
 > {
   defineUnit: DefineUnit<N, K>
   constructor(
@@ -106,13 +106,6 @@ export class Framework<
     return this
   }
   defineRndr = this.defineRender
-  // defineComposer(): Framework<K>
-  // defineCpsr(): Framework<K>
-  // defineDescriptor(): Framework<K>
-  // defineDesc(): Framework<K>
-  // defineSwitcher(): Framework<K>
-  // defineSwch(): Framework<K>
-  // defineUnit(): Framework<K>
 }
 
 export interface Frameworks {
