@@ -91,6 +91,9 @@ main {
           margin-bottom: 10%;
           border-radius: 0 0 var(--br) var(--br);
         }
+        &:first-child:last-child {
+          border-radius: var(--br);
+        }
       }
     }
   }
