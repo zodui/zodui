@@ -28,7 +28,7 @@ const namePrefix = pkgJson
   .name
   .replace(/[@|/-](\w)/g, (_, $1) => $1.toUpperCase())
 const exportsEntriesFromPkgJSON = Object.fromEntries(
-  Object.entries(pkgJson.exports)
+  Object.entries(pkgJson.exports ?? {})
     // filter static files
     .filter(([key]) => !/\.(json|css|scss)$/.test(key))
     // filter no `inner-src` or `import` field entries
