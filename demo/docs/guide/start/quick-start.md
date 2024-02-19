@@ -110,7 +110,7 @@ pnpm install zod
 ```tsx
 // 引入样式文件
 import '@zodui/react/index.css'
-import '@zodui/components-lib-tdesign/index.css'
+import '@zodui/components-lib-tdesign/react.css'
 
 // 引入组件库插件
 import { TDesignComponentsLibForReact } from '@zodui/components-lib-tdesign/react'

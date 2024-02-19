@@ -1,6 +1,6 @@
 /* eslint-disable comma-dangle */
 import '@zodui/react/index.css'
-import '@zodui/components-lib-tdesign/index.css'
+import '@zodui/components-lib-tdesign/react.css'
 
 import { TDesignComponentsLibForReact } from '@zodui/components-lib-tdesign/react'
 import { Context } from '@zodui/core'

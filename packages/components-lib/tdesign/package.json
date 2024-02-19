@@ -24,7 +24,7 @@
   },
   "exports": {
     "./package.json": "./package.json",
-    "./react.css": "./react.css",
+    "./react.css": "./dist/react.css",
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.esm.js",
