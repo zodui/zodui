@@ -1,5 +1,5 @@
-import type { Schema, ZodTypeDef } from 'zod'
-import { ZodFirstPartyTypeKind } from 'zod'
+import type { Schema, ZodTypeAny, ZodTypeDef, ZodUnionOptions } from 'zod'
+import { ZodFirstPartyTypeKind, ZodUnion } from 'zod'
 
 import type { AllType, TypeMap } from './type'
 
@@ -121,4 +121,17 @@ export function classnames(...args: (string | undefined | null | false | Record<
       }
       return Object.keys(arg).filter(key => arg[key]).join(' ')
     }).join(' ')
+}
+
+export const flatUnwrapUnion = <
+  T extends ZodUnionOptions = readonly [ZodTypeAny, ...ZodTypeAny[]]
+>(
+    t: ZodUnion<T>
+  ): Mutable<T> => {
+  return t.options.flatMap((x) => {
+    if (x instanceof ZodUnion) {
+      return flatUnwrapUnion(x)
+    }
+    return x
+  }) as unknown as T
 }
