@@ -110,7 +110,7 @@ export function Complex({
       return
     }
     return option
-  }, [dependKeys, dependKeysOptions, dependValues, index, model])
+  }, [dependKeys, dependKeysOptions, dependValues, index, model, modelOptions])
   useEffect(() => {
     const v = value
     let index = -1
