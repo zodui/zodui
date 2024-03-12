@@ -1,5 +1,6 @@
-import type { Dispatch,
-  PropsWithChildren, ReactElement, SetStateAction } from 'react'
+import type {
+  Dispatch, PropsWithChildren, ReactNode, SetStateAction
+} from 'react'
 import {
   createContext,
   useCallback,
@@ -10,16 +11,16 @@ import {
 
 interface ErrorHandler {
   reset: () => void
-  error: Error
-  throwError: (error: string | Error) => ReactElement
+  error?: Error
+  throwError: (error: string | Error) => ReactNode
   ThrowError: (props: {
     error: string | Error
-  }) => ReactElement
+  }) => ReactNode
 }
 
-const ErrorHandler = createContext<ErrorHandler>(null)
+const ErrorHandler = createContext<ErrorHandler | null>(null)
 
-function ErrorComp({ error, setE }: { error: Error, setE: Dispatch<SetStateAction<Error>> }) {
+function ErrorComp({ error, setE }: { error: Error, setE: Dispatch<SetStateAction<Error | undefined>> }) {
   useEffect(() => {
     setE(error)
   }, [error, setE])

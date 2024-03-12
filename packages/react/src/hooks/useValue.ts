@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 export function useValue<T>(
-  value: T, defaultValue: T, onChange?: (value: T) => void
+  value?: T, defaultValue?: T, onChange?: (value: T) => void | Promise<void>
 ) {
-  const changeValue = useCallback((v: T) => {
+  const changeValue = useCallback((v?: T) => {
     setValue(v)
     onChange?.(v)
   }, [onChange])
@@ -14,8 +14,7 @@ export function useValue<T>(
       setValue(value)
     } else {
       isMounted.current = true
-      const nv = value ?? defaultValue
-      changeValue(nv)
+      changeValue(value ?? defaultValue)
     }
   }, [changeValue, defaultValue, value])
   return [vState, changeValue] as const

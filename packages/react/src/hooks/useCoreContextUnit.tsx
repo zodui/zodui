@@ -15,7 +15,7 @@ export function useCoreContextUnit<
 >(
   name: N,
   type: T,
-  modes: string[],
+  modes: string[] = [],
   opts?: UnitMap[N]['options']
 ): R {
   const suffix = `${name}.${type}`

@@ -72,7 +72,7 @@ export function Multiple({
       return model._def.type
     }
     if (isWhatType(model, AllTypes.ZodTuple)) {
-      return model._def.items[index]
+      return model._def.items[index as number]
     }
     if (
       isWhatType(model, AllTypes.ZodSet)
@@ -82,7 +82,7 @@ export function Multiple({
       return model._def.valueType
     }
     if (isWhatType(model, AllTypes.ZodObject)) {
-      return Object.values(dict)[index]
+      return Object.values(dict)[index as number]
     }
     return null
   // FIXME the next line
@@ -209,7 +209,7 @@ export function Multiple({
   const Unit = useCoreContextUnit('multiple', model._def.typeName, modes, { schemas })
 
   if (schemas.length === 0 && model._def.typeName === AllTypes.ZodTuple) {
-    return errorHandler.throwError(new Error('Tuple 类型必须包含一个元素'))
+    return errorHandler?.throwError(new Error('Tuple 类型必须包含一个元素'))
   }
 
   return Unit

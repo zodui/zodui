@@ -12,7 +12,7 @@ import {
   isWhatType,
   isWhatTypes
 } from '@zodui/core/utils'
-import type { ReactElement } from 'react'
+import type { ReactElement, ReactNode } from 'react'
 import { useMemo } from 'react'
 import type { ZodTypeDef } from 'zod'
 import type z from 'zod'
@@ -35,6 +35,7 @@ declare module '@zodui/core' {
   }
 }
 
+
 const switchers = [
   ['monad', monad, Monad],
   ['complex', complex, Complex],
@@ -47,7 +48,7 @@ function isWhatTypesSwitcherMatcher<T extends AllType>(
     z.Schema<any, ZodTypeDef & {
       typeName?: AllType
     }, any>,
-    (props: SwitcherPropsForReact<any>) => ReactElement
+    (props: SwitcherPropsForReact<any>) => ReactNode
   ]
 ): tuple is [TypeMap[T], (props: SwitcherPropsForReact<TypeMap[T]>) => ReactElement] {
   return isWhatTypes(tuple[0], types)
@@ -132,7 +133,7 @@ export function Switcher<M extends ZodSchema>(props: SwitcherPropsForReact<M>) {
       {InnerSwitcher
         ? InnerSwitcher
         : SpecialSwitchers
-          .reduce<ReactElement>((acc, [type, SpecialSwitcher]) => {
+          .reduce<ReactNode>((acc, [type, SpecialSwitcher]) => {
             if (isWhatType(model, type)) {
               return <SpecialSwitcher model={model} />
             }

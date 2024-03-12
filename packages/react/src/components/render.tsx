@@ -32,13 +32,13 @@ export function Rndr<
   }, [Ctrl, target])
 
   useEffect(() => {
-    if (error === undefined && errorHandler.error !== undefined) {
+    if (error === undefined && errorHandler && errorHandler.error !== undefined) {
       errorHandler.reset()
     }
   }, [error, errorHandler])
 
   if (error) {
-    return errorHandler.throwError(error)
+    return errorHandler?.throwError(error)
   }
 
   return <Ctrl {...props} />

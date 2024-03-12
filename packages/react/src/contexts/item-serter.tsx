@@ -1,7 +1,4 @@
-import type {
-  PropsWithChildren,
-  ReactElement,
-  ReactNode } from 'react'
+import type { PropsWithChildren, ReactNode } from 'react'
 import {
   createContext, useCallback,
   useContext,
@@ -13,10 +10,10 @@ interface RenderProps extends PropsWithChildren<{}> {
 }
 
 interface ItemSerterContext {
-  Append?: (props: RenderProps) => ReactElement
+  Append?: (props: RenderProps) => ReactNode
 }
 
-const ItemSerterContext = createContext<ItemSerterContext>(null)
+const ItemSerterContext = createContext<ItemSerterContext | null>(null)
 
 export function useItemSerter() {
   const prevChangeListener = useRef<(v: any) => any>()

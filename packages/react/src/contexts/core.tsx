@@ -5,7 +5,7 @@ import { createContext, useContext, useEffect, useState } from 'react'
 
 import type { ReactFramework } from '../components'
 
-const CoreContext = createContext<InnerCoreContext>(null)
+const CoreContext = createContext<InnerCoreContext | null>(null)
 
 export const CoreContextProvider = (props: PropsWithChildren<{}>) => {
   const ctx = useContext(CoreContext) ?? Context.global

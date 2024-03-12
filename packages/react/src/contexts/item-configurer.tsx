@@ -9,7 +9,7 @@ export interface ItemConfigure {
 interface ItemConfigurerContext extends ItemConfigure {
 }
 
-const ItemConfigurer = createContext<ItemConfigurerContext>(null)
+const ItemConfigurer = createContext<ItemConfigurerContext | null>(null)
 
 export function useItemConfigurer(c: ItemConfigure = {}) {
   const pConfigure = useContext(ItemConfigurer)

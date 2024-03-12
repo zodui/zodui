@@ -41,7 +41,7 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: ForwardedRef<List
     onChange?.(v)
   }, [onChange])
 
-  const itemRefs = useRef<Record<string, ItemRef>>({})
+  const itemRefs = useRef<Record<string, ItemRef | null>>({})
 
   useImperativeHandle(ref, () => ({
     async verify() {
@@ -72,7 +72,8 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: ForwardedRef<List
             disabled={disabled}
             model={def.left}
             value={valueRef.current}
-            onChange={async v => changeValue(merge(valueRef.current, v))}
+            // FIXME literal type and primitive type
+            onChange={async v => changeValue(merge(valueRef.current ?? {}, v))}
       />
       <List prefix='intersect::right'
             className={props.className}
@@ -80,7 +81,8 @@ function InnerList<M extends Schema>(props: ListProps<M>, ref: ForwardedRef<List
             disabled={disabled}
             model={def.right}
             value={valueRef.current}
-            onChange={async v => changeValue(merge(valueRef.current, v))}
+            // FIXME literal type and primitive type
+            onChange={async v => changeValue(merge(valueRef.current ?? {}, v))}
       />
     </>
   }

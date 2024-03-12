@@ -1,5 +1,5 @@
 import type { MonadType, TypeMap } from '@zodui/core'
-import type { ReactElement } from 'react'
+import type { ReactNode } from 'react'
 
 import { Input, Switch } from '../components'
 import { useCoreContextUnit } from '../hooks/useCoreContextUnit'
@@ -24,7 +24,7 @@ export function Monad({
     onChange: changeValue
   }
 
-  let InnerComp: ReactElement = null
+  let InnerComp: ReactNode = null
   switch (model._def.typeName) {
     case 'ZodNumber':
       InnerComp = <Input type='number' {...props as any} />

@@ -5,7 +5,7 @@ interface ControllerClassNameContext {
   setClassName: (className: string) => void
 }
 
-const ControllerClassName = createContext<ControllerClassNameContext>(null)
+const ControllerClassName = createContext<ControllerClassNameContext | null>(null)
 
 export function useControllerClassName() {
   const [className, setClassName] = useState('')
