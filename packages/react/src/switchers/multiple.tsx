@@ -35,7 +35,7 @@ export function Multiple({
   onChange,
   ...props
 }: MultipleProps) {
-  const commonDef = model._def as (
+  const commonDef = model._def as unknown as (
     & Partial<ZodArrayDef<any>>
     & Partial<ZodTupleDef>
     & Partial<ZodSetDef>
