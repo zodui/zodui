@@ -69,12 +69,12 @@ export function createDefineUnit<
   // bind will lose fields, so we need bind ctx when create du
   // bind type infer is not good, so we need to use `as` to fix it
   du = du.bind(innerThis) as DU
-  du.composer = function (types, matchers) {
+  du.composer = function () {
     // TODO set it to store
     return this
   }
   du.composer = du.composer.bind(innerThis)
-  du.switcher = function (types, matchers) {
+  du.switcher = function () {
     // TODO set it to store
     return this
   }

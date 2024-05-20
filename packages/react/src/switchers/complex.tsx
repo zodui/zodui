@@ -2,9 +2,9 @@ import './complex.scss'
 
 import type { ComplexType, ComponentProps, TypeMap } from '@zodui/core'
 import { AllTypes } from '@zodui/core'
-import { isWhatType } from '@zodui/core/utils'
+import { flatUnwrapUnion, isWhatType } from '@zodui/core/utils'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import type { ZodLiteral, ZodUnion } from 'zod'
+import type { ZodAny, ZodLiteral, ZodUnion } from 'zod'
 import type { ZodTypeAny, ZodUnionOptions } from 'zod'
 
 import { Select } from '../components'
@@ -36,13 +36,22 @@ export function Complex({
 }: SwitcherPropsForReact<TypeMap[ComplexType]>) {
   const [value, changeValue] = useValue(_value, defaultValue, rest.onChange)
   const [index, setIndex] = useState<number>(undefined)
+  const modelOptions = useMemo(() => {
+    if (isWhatType(model, AllTypes.ZodUnion)) {
+      return flatUnwrapUnion(model)
+    }
+    if (isWhatType(model, AllTypes.ZodDiscriminatedUnion)) {
+      return model.options
+    }
+    throw new Error('model is not union or discriminated union')
+  }, [model])
   const changeIndex = useCallback((v: number) => {
     setIndex(v)
-    const optionModel = model.options[v]
+    const optionModel = modelOptions[v]
     if (isWhatType(optionModel, AllTypes.ZodLiteral)) {
       changeValue?.(optionModel._def.value)
     }
-  }, [model.options, changeValue])
+  }, [modelOptions, changeValue])
   const dependKeys = useMemo(() => {
     if (isWhatType(model, AllTypes.ZodDiscriminatedUnion))
       return [model.discriminator]
@@ -53,7 +62,7 @@ export function Complex({
   }, [dependKeys, value])
   const dependKeysOptions = useMemo(() => {
     const map = new Map<string, ZodTypeAny[]>()
-    model.options.forEach((option: ZodTypeAny) => {
+    modelOptions.forEach((option: ZodTypeAny) => {
       if (isWhatType(option, AllTypes.ZodObject)) {
         dependKeys.forEach(key => {
           if (option.shape[key]) {
@@ -66,8 +75,8 @@ export function Complex({
       }
     })
     return map
-  }, [dependKeys, model.options])
-  const options = useMemo(() => resolveSchemas(model.options), [model.options])
+  }, [dependKeys, modelOptions])
+  const options = useMemo(() => resolveSchemas(modelOptions), [modelOptions])
   const activeOption = useMemo(() => {
     if (isWhatType(model, AllTypes.ZodDiscriminatedUnion)) {
       const key = model.discriminator
@@ -84,7 +93,7 @@ export function Complex({
         }
       }
 
-      const template = model.options[index]
+      const template = modelOptions[index]
       if (isWhatType(template, AllTypes.ZodObject)) {
         return template.setKey(key, literals.label(
           // FIXME remove type assert
@@ -94,36 +103,36 @@ export function Complex({
       return
     }
 
-    const option = model.options[index] as ZodTypeAny | undefined
+    const option = modelOptions[index] as ZodTypeAny | undefined
     if (index === undefined) return
-    if (index < 0 || index >= model.options.length) {
+    if (index < 0 || index >= modelOptions.length) {
       setIndex(undefined)
       return
     }
     return option
-  }, [dependKeys, dependKeysOptions, dependValues, index, model])
+  }, [dependKeys, dependKeysOptions, dependValues, index, model, modelOptions])
   useEffect(() => {
     const v = value
     let index = -1
     if (isWhatType(model, AllTypes.ZodUnion)) {
-      index = model.options
-        .findIndex(option => isWhatType(option, AllTypes.ZodLiteral) && option._def.value === v)
+      index = modelOptions
+        .findIndex((option: ZodAny) => isWhatType(option, AllTypes.ZodLiteral) && option._def.value === v)
     }
     if (isWhatType(model, AllTypes.ZodDiscriminatedUnion)) {
-      // console.log(model, model.options)
+      // console.log(model, modelOptions)
       // TODO support calc index when model has default value or value
     }
     if (index === -1) return
 
     setIndex(index)
-  }, [value, model.options, model])
+  }, [value, modelOptions, model])
 
   const ItemSerter = useItemSerterContext()
 
   const OptionsRender = activeOption && <>
     <ItemSerter.Append deps={[
       modes,
-      model.options, activeOption, changeValue
+      modelOptions, activeOption, changeValue
     ]}>
       {/* 在里面控制是因为在 modes 修改后，将 append 内容清空 */}
       {modes.includes('append') && activeOption._def.typeName !== AllTypes.ZodLiteral
