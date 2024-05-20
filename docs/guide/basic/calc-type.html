@@ -1,0 +1,360 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><link rel="alternate icon" class="js-site-favicon" type="image/png" href="/zodui/favicon.png"><link rel="icon" class="js-site-favicon" type="image/svg+xml" href="/zodui/favicon.svg"><title>Zod UI - Docs[guide/basic/calc-type.md]</title><link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"><style data-name="default">body{display:flex;margin:0;padding-top:60px;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif}div.main{display:flex;width:100%}</style><style data-name="message">div.message{position:fixed;top:10px;left:50%;transform:translate(-50%,-150%);padding:1em;background-color:#fff;border:1px solid var(--br-cr);border-radius:5px;box-shadow:0 0 10px rgba(0,0,0,.2);opacity:0;transition:.3s ease-in-out}div.message.show{opacity:1;transform:translateX(-50%)}</style><template id="message-template"><div class="message">{{content}}</div></template><style data-name="popper">html[theme-mode=dark] .popper{background-color:#3d3d3d;color:#fff;box-shadow:0 0 4px rgba(255,255,255,.1)}html[theme-mode=dark] .popper .menu-item{border-color:#4d4d4d}html[theme-mode=dark] .popper .menu-item:hover{background-color:#2d2d2d}.popper{background-color:#fff;color:#000;font-weight:700;padding:4px 8px;font-size:13px;border-radius:4px;opacity:0;pointer-events:none;box-shadow:0 0 8px rgba(0,0,0,.2);transition:.3s ease-in-out}.popper[data-show]{opacity:1;pointer-events:auto}.popper[data-popper-reference-hidden]{visibility:hidden;pointer-events:none}.popper>.arrow,.popper>.arrow::before{position:absolute;width:8px;height:8px;background:inherit}.popper>.arrow{visibility:hidden}.popper>.arrow::before{visibility:visible;content:'';transform:rotate(45deg)}.popper[data-popper-placement^=top]>.arrow{bottom:-4px}.popper[data-popper-placement^=bottom]>.arrow{top:-4px}.popper[data-popper-placement^=left]>.arrow{right:-4px}.popper[data-popper-placement^=right]>.arrow{left:-4px}.popper .menu-item{padding:10px 20px;border-bottom:1px solid #d3d3d3;cursor:pointer;transition:.3s}.popper .menu-item:last-child{border-bottom:none}.popper .menu-item:hover{background-color:#f0f0f0}</style><template id="popper"><div class="popper"><div class="arrow" data-popper-arrow></div>{{content}}</div></template><link rel="stylesheet" href="/zodui/style/github-markdown.css"><script type="importmap">{"imports":{"zod":"/zodui/assets/zodui.external-1716232751336.js","zodui":"/zodui/assets/zodui.external-1716232751336.js","@zodui/core/external":"/zodui/assets/zodui.external-1716232751336.js"}}</script><script type="module" crossorigin src="/zodui/assets/docs/guide/basic/calc-type-995af3a2.js"></script><link rel="modulepreload" crossorigin href="/zodui/assets/theme-switcher-4ee9bded.js"><link rel="modulepreload" crossorigin href="/zodui/assets/react-64d51446.js"><link rel="modulepreload" crossorigin href="/zodui/assets/docs-template-1a6f675c.js"><link rel="modulepreload" crossorigin href="/zodui/assets/tdesign-icons-react-1b74273e.js"><link rel="modulepreload" crossorigin href="/zodui/assets/tdesign-react-90877bd8.js"><link rel="modulepreload" crossorigin href="/zodui/assets/comps-lib-tdesign-b131519f.js"><link rel="modulepreload" crossorigin href="/zodui/assets/schema-eval-f25a10fb.js"><link rel="stylesheet" href="/zodui/assets/theme-switcher-0988eae6.css"><link rel="stylesheet" href="/zodui/assets/docs-template-fcd034fe.css"><link rel="stylesheet" href="/zodui/assets/schema-eval-eac5dbfe.css"><link rel="stylesheet" href="/zodui/assets/comps-lib-tdesign-0d0304e3.css"><link rel="stylesheet" href="/zodui/assets/tdesign-react-4c888f02.css"></head><body><style data-name="header">html[theme-mode=dark] #header{background-color:#31518c}#header{z-index:1;position:absolute;top:0;left:0;display:flex;align-items:center;justify-content:space-between;padding:5px 30px;width:calc(100vw - 60px);height:50px;background-color:#3e67b1;backdrop-filter:blur(6px);transition:.3s;overflow:hidden}#header>.header-left{display:flex;align-items:center;gap:20px}#header>.header-left>a{display:flex;align-items:center;text-decoration:none;transition:.3s}#header>.header-left>.tabs{position:relative;display:flex;gap:20px;height:100%;color:#aaa;font-size:16px}#header>.header-left>.tabs>.active-bar{position:absolute;bottom:-25px;left:0;width:100px;height:5px;background-color:#6f92e3;transition:.3s}#header>.header-left>.tabs>.tab{padding:4px;width:100px;text-align:center;user-select:none;cursor:pointer;color:var(--pr-fr-cr);font-size:16px;font-weight:700;transition:.3s}#header>.header-left>.tabs>.tab.disabled{color:var(--pr-pl-cr);cursor:not-allowed}#header>.header-left>.tabs>.tab:not(.disabled):hover{color:#0648b7!important;background-color:#fffa;border-radius:4px}#header>.header-left>.tabs>.tab>a{color:inherit;text-decoration:none}#header>.header-right{display:flex;gap:5px;user-select:none}#header>.header-right>a{display:flex;align-items:center}#header>.header-right>a:active,#header>.header-right>a:hover{filter:drop-shadow(0 0 8px lightgray)}</style><div id="header"><div class="header-left"><a href="/zodui/"><img src="/zodui/favicon.svg" alt="ZodUI" width="48" height="48"></a><div class="tabs"><div class="active-bar"></div><div class="tab"><a href="/zodui/docs">Docs</a></div><div class="tab disabled">Handbook</div><div class="tab"><a href="/zodui/play">Playground</a></div><div class="tab disabled">Community</div></div></div><div class="header-right"><div class="theme-switcher"><div class="dark-and-light" data-mode="light"><div class="light" data-mode="light"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M9.99996 3.15217C10.5252 3.15217 10.951 2.72636 10.951 2.20109C10.951 1.67582 10.5252 1.25 9.99996 1.25C9.47469 1.25 9.04887 1.67582 9.04887 2.20109C9.04887 2.72636 9.47469 3.15217 9.99996 3.15217Z"></path><path fill="currentColor" d="M9.99992 4.29348C6.84829 4.29348 4.2934 6.84838 4.2934 10C4.2934 13.1516 6.84829 15.7065 9.99992 15.7065C13.1515 15.7065 15.7064 13.1516 15.7064 10C15.7064 6.84838 13.1515 4.29348 9.99992 4.29348Z"></path><path fill="currentColor" d="M16.4673 4.4837C16.4673 5.00896 16.0415 5.43478 15.5162 5.43478C14.991 5.43478 14.5652 5.00896 14.5652 4.4837C14.5652 3.95843 14.991 3.53261 15.5162 3.53261C16.0415 3.53261 16.4673 3.95843 16.4673 4.4837Z"></path><path fill="currentColor" d="M17.7989 10.9511C18.3241 10.9511 18.75 10.5253 18.75 10C18.75 9.47474 18.3241 9.04891 17.7989 9.04891C17.2736 9.04891 16.8478 9.47474 16.8478 10C16.8478 10.5253 17.2736 10.9511 17.7989 10.9511Z"></path><path fill="currentColor" d="M16.4673 15.5163C16.4673 16.0416 16.0415 16.4674 15.5162 16.4674C14.991 16.4674 14.5652 16.0416 14.5652 15.5163C14.5652 14.991 14.991 14.5652 15.5162 14.5652C16.0415 14.5652 16.4673 14.991 16.4673 15.5163Z"></path><path fill="currentColor" d="M9.99996 18.75C10.5252 18.75 10.951 18.3242 10.951 17.7989C10.951 17.2736 10.5252 16.8478 9.99996 16.8478C9.47469 16.8478 9.04887 17.2736 9.04887 17.7989C9.04887 18.3242 9.47469 18.75 9.99996 18.75Z"></path><path fill="currentColor" d="M5.43469 15.5163C5.43469 16.0416 5.00887 16.4674 4.4836 16.4674C3.95833 16.4674 3.53252 16.0416 3.53252 15.5163C3.53252 14.991 3.95833 14.5652 4.4836 14.5652C5.00887 14.5652 5.43469 14.991 5.43469 15.5163Z"></path><path fill="currentColor" d="M2.20096 10.9511C2.72623 10.9511 3.15205 10.5253 3.15205 10C3.15205 9.47474 2.72623 9.04891 2.20096 9.04891C1.67569 9.04891 1.24988 9.47474 1.24988 10C1.24988 10.5253 1.67569 10.9511 2.20096 10.9511Z"></path><path fill="currentColor" d="M5.43469 4.4837C5.43469 5.00896 5.00887 5.43478 4.4836 5.43478C3.95833 5.43478 3.53252 5.00896 3.53252 4.4837C3.53252 3.95843 3.95833 3.53261 4.4836 3.53261C5.00887 3.53261 5.43469 3.95843 5.43469 4.4837Z"></path></svg></div><div class="dark" data-mode="dark"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M9.99993 3.12494C6.20294 3.12494 3.12488 6.203 3.12488 10C3.12488 13.797 6.20294 16.8751 9.99993 16.8751C13.7969 16.8751 16.875 13.797 16.875 10C16.875 9.52352 16.8264 9.0577 16.7337 8.6075C16.6752 8.32295 16.4282 8.11628 16.1378 8.10872C15.8474 8.10117 15.5901 8.29473 15.5168 8.57585C15.1411 10.0167 13.8302 11.0795 12.2727 11.0795C10.4212 11.0795 8.92039 9.57869 8.92039 7.72726C8.92039 6.16969 9.98319 4.85879 11.4241 4.48312C11.7052 4.40983 11.8988 4.15249 11.8912 3.86207C11.8836 3.57165 11.677 3.32473 11.3924 3.26616C10.9422 3.1735 10.4764 3.12494 9.99993 3.12494Z"></path></svg></div></div><div class="auto" data-mode="auto" title="auto detect by system" style="transform:rotate(45deg)"><svg width="10" height="20" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M9.99996 3.15217C10.5252 3.15217 10.951 2.72636 10.951 2.20109C10.951 1.67582 10.5252 1.25 9.99996 1.25C9.47469 1.25 9.04887 1.67582 9.04887 2.20109C9.04887 2.72636 9.47469 3.15217 9.99996 3.15217Z"></path><path fill="currentColor" d="M9.99992 4.29348C6.84829 4.29348 4.2934 6.84838 4.2934 10C4.2934 13.1516 6.84829 15.7065 9.99992 15.7065C13.1515 15.7065 15.7064 13.1516 15.7064 10C15.7064 6.84838 13.1515 4.29348 9.99992 4.29348Z"></path><path fill="currentColor" d="M16.4673 4.4837C16.4673 5.00896 16.0415 5.43478 15.5162 5.43478C14.991 5.43478 14.5652 5.00896 14.5652 4.4837C14.5652 3.95843 14.991 3.53261 15.5162 3.53261C16.0415 3.53261 16.4673 3.95843 16.4673 4.4837Z"></path><path fill="currentColor" d="M17.7989 10.9511C18.3241 10.9511 18.75 10.5253 18.75 10C18.75 9.47474 18.3241 9.04891 17.7989 9.04891C17.2736 9.04891 16.8478 9.47474 16.8478 10C16.8478 10.5253 17.2736 10.9511 17.7989 10.9511Z"></path><path fill="currentColor" d="M16.4673 15.5163C16.4673 16.0416 16.0415 16.4674 15.5162 16.4674C14.991 16.4674 14.5652 16.0416 14.5652 15.5163C14.5652 14.991 14.991 14.5652 15.5162 14.5652C16.0415 14.5652 16.4673 14.991 16.4673 15.5163Z"></path><path fill="currentColor" d="M9.99996 18.75C10.5252 18.75 10.951 18.3242 10.951 17.7989C10.951 17.2736 10.5252 16.8478 9.99996 16.8478C9.47469 16.8478 9.04887 17.2736 9.04887 17.7989C9.04887 18.3242 9.47469 18.75 9.99996 18.75Z"></path><path fill="currentColor" d="M5.43469 15.5163C5.43469 16.0416 5.00887 16.4674 4.4836 16.4674C3.95833 16.4674 3.53252 16.0416 3.53252 15.5163C3.53252 14.991 3.95833 14.5652 4.4836 14.5652C5.00887 14.5652 5.43469 14.991 5.43469 15.5163Z"></path><path fill="currentColor" d="M2.20096 10.9511C2.72623 10.9511 3.15205 10.5253 3.15205 10C3.15205 9.47474 2.72623 9.04891 2.20096 9.04891C1.67569 9.04891 1.24988 9.47474 1.24988 10C1.24988 10.5253 1.67569 10.9511 2.20096 10.9511Z"></path><path fill="currentColor" d="M5.43469 4.4837C5.43469 5.00896 5.00887 5.43478 4.4836 5.43478C3.95833 5.43478 3.53252 5.00896 3.53252 4.4837C3.53252 3.95843 3.95833 3.53261 4.4836 3.53261C5.00887 3.53261 5.43469 3.95843 5.43469 4.4837Z"></path></svg> <svg width="10" height="20" viewBox="10 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M9.99993 3.12494C6.20294 3.12494 3.12488 6.203 3.12488 10C3.12488 13.797 6.20294 16.8751 9.99993 16.8751C13.7969 16.8751 16.875 13.797 16.875 10C16.875 9.52352 16.8264 9.0577 16.7337 8.6075C16.6752 8.32295 16.4282 8.11628 16.1378 8.10872C15.8474 8.10117 15.5901 8.29473 15.5168 8.57585C15.1411 10.0167 13.8302 11.0795 12.2727 11.0795C10.4212 11.0795 8.92039 9.57869 8.92039 7.72726C8.92039 6.16969 9.98319 4.85879 11.4241 4.48312C11.7052 4.40983 11.8988 4.15249 11.8912 3.86207C11.8836 3.57165 11.677 3.32473 11.3924 3.26616C10.9422 3.1735 10.4764 3.12494 9.99993 3.12494Z"></path></svg></div></div><a href="https://github.com/zodui/zodui" target="_blank"><img src="https://github.githubassets.com/favicons/favicon.svg" alt="GitHub ZodUI Repsitory" width="20" height="20"></a></div></div><script data-name="tab-controller">window.TABS = [{"title":"Docs","filename":"docs","template":"src/docs.html","href":"/zodui/docs"},{"title":"Handbook","filename":"handbook","template":"src/handbook.html","disabled":true,"href":"/zodui/handbook"},{"title":"Playground","filename":"play","template":"src/play.html","href":"/zodui/play"},{"title":"Community","filename":"docs","template":"src/community.html","disabled":true,"href":"/zodui/docs"}]
+
+  ;window.addEventListener('load', () => {
+    /** @type {HTMLDivElement} */
+    const activeBar = document.querySelector('#header .tabs .active-bar')
+    const index = window.TABS.findIndex(t => t.href === window.location.pathname)
+    if (index > -1) {
+      activeBar.style.bottom = '-20px'
+      activeBar.style.left = `${index * 130}px`
+    }
+  })</script><main><div class="left-panel"><div class="schema-eval-container" data-key="document-selector" data-code="import z from &#39;zod&#39;
+
+export default z.object({
+  framework: z
+    .union([
+      z.literal(&#39;React&#39;).label(&#39;React&#39;),
+      z.literal(&#39;Vue&#39;).label(&#39;Vue&#39;),
+      // z.literal(&#39;angular&#39;),
+    ])
+    .default(&#39;React&#39;)
+    .label(&#39;框架&#39;),
+  &#39;components-lib&#39;: z
+    .union([
+      z.literal(&#39;TDesign&#39;).label(&#39;TDesign&#39;),
+      z.literal(&#39;Ant Design&#39;).label(&#39;Ant Design&#39;),
+    ])
+    .default(&#39;TDesign&#39;)
+    .label(&#39;组件库&#39;),
+})"><div class="empty">loading...</div></div><div class="tabs"><div class="tab active"><a href="/zodui/docs/guide/start/description">指南</a></div><div class="tab"><a href="/zodui/docs/api/frames/composer">API</a></div><div class="tab"><a href="/zodui/docs/design">设计理念</a></div></div><ul class="classifications"><li class="classification"><div class="classification-title">开始</div><ul class="classification-pages"><li class="classification-page"><a href="/zodui/docs/guide/start/description">介绍</a></li><li class="classification-page"><a href="/zodui/docs/guide/start/quick-start">快速开始</a></li><li class="classification-page"><a href="/zodui/docs/guide/start/i18n">多语言</a></li></ul></li><li class="classification"><div class="classification-title">基础</div><ul class="classification-pages"><li class="classification-page"><a href="/zodui/docs/guide/basic/types">类型</a></li><li class="classification-page active"><a href="/zodui/docs/guide/basic/calc-type">运算类型</a></li><li class="classification-page"><a href="/zodui/docs/guide/basic/create-a-form">创建表单</a></li></ul></li><li class="classification"><div class="classification-title">进阶</div><ul class="classification-pages"><li class="classification-page"><a href="/zodui/docs/guide/advanced/plugin-system">插件系统</a></li></ul></li></ul></div><div class="container"><div class="markdown-body"><h1 class="anchor-point" id="运算类型"><a href="#">#</a> 运算类型</h1><p>如果你对 TypeScript 有所了解，那么你应该知道 TypeScript 中的类型运算符，Zod 也支持了一些类型运算符，这些类型运算符可以帮助你更好的描述你的类型。</p><h2 class="anchor-point" id="联合类型"><a href="#联合类型">#</a> 联合类型</h2><p>在 TypeScript 中我们可以通过 <code>|</code>（联合） 运算符来实现的，同样的 Zod 也支持了这一种类型运算的定义方式，通过使用 <code>z.union</code> 便可以定义你需要的联合类型。</p><p>在这里我们可以先观察一个最简单的联合类型的例子。</p></div><div class="zodui-preview" data-schema-eval-key="yp0pk6dgea7z6w7oq0v45" data-code="import%20*%20as%20z%20from%20%27zod%27%0A%0Aexport%20default%20%5B%0A%20%20z%0A%20%20%20%20.union(%5B%0A%20%20%20%20%20%20z.string().label(%27%E5%AD%97%E7%AC%A6%E4%B8%B2%27)%2C%0A%20%20%20%20%20%20z.number().label(%27%E6%95%B0%E5%AD%97%27)%0A%20%20%20%20%5D)%0A%20%20%20%20.label(%27%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%88%96%E6%95%B0%E5%AD%97%27)%0A%20%20%20%20.describe(%0A%20%20%20%20%20%20%27%E8%81%94%E5%90%88%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%EF%BC%8C%E8%BE%93%E5%85%A5%E6%A1%86%E9%A6%96%E5%85%88%E5%B0%86%E4%BC%9A%E6%B8%B2%E6%9F%93%E4%B8%BA%E4%B8%80%E4%B8%AA%E4%B8%8B%E6%8B%89%E6%A1%86%EF%BC%8C%E4%BD%A0%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87%E5%8D%95%E5%87%BB%E4%B8%8B%E6%8B%89%E6%A1%86%E6%9D%A5%E9%80%89%E6%8B%A9%E9%9C%80%E8%A6%81%E7%9A%84%E7%B1%BB%E5%9E%8B%E3%80%82%5Cn%27%20%2B%0A%20%20%20%20%20%20%27%E4%B8%8B%E6%8B%89%E6%A1%86%E7%9A%84%E9%80%89%E9%A1%B9%E7%9A%84%E6%96%87%E6%9C%AC%E7%94%B1%E5%AF%B9%E5%BA%94%E7%9A%84%E7%B1%BB%E5%9E%8B%E7%9A%84%20label%20%E5%B1%9E%E6%80%A7%E5%86%B3%E5%AE%9A%EF%BC%8C%E4%BD%A0%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87%20label%20%E5%B1%9E%E6%80%A7%E6%9D%A5%E4%BF%AE%E6%94%B9%E5%AF%B9%E5%BA%94%E7%9A%84%E6%96%87%E6%9C%AC%E3%80%82%5Cn%27%20%2B%0A%20%20%20%20%20%20%27%E5%BD%93%E4%BD%A0%E9%80%89%E6%8B%A9%E4%BA%86%E5%AF%B9%E5%BA%94%E7%9A%84%E7%B1%BB%E5%9E%8B%E4%B9%8B%E5%90%8E%EF%BC%8C%E8%BE%93%E5%85%A5%E6%A1%86%E5%B0%86%E4%BC%9A%E6%B8%B2%E6%9F%93%E4%B8%BA%E5%AF%B9%E5%BA%94%E7%9A%84%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%BE%93%E5%85%A5%E6%A1%86%EF%BC%8C%E4%BD%A0%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87%E4%BA%A4%E4%BA%92%E6%9D%A5%E8%BE%93%E5%85%A5%E5%AF%B9%E5%BA%94%E7%9A%84%E5%86%85%E5%AE%B9%E3%80%82%27%0A%20%20%20%20)%2C%0A%20%20z%0A%20%20%20%20.union(%5B%0A%20%20%20%20%20%20z.literal(%27a%27).label(%27A%27)%2C%0A%20%20%20%20%20%20z.literal(%27b%27).label(%27B%27)%2C%0A%20%20%20%20%20%20z.literal(true)%2C%0A%20%20%20%20%20%20z.literal(1).label(%27%E6%95%B0%E5%AD%97%201%27)%2C%0A%20%20%20%20%20%20z.literal(%7B%0A%20%20%20%20%20%20%20%20type%3A%20%27%E7%B1%BB%E5%9E%8B%27%2C%0A%20%20%20%20%20%20%20%20name%3A%20%27%E5%90%8D%E7%A7%B0%27%0A%20%20%20%20%20%20%7D).label(%27%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%27)%0A%20%20%20%20%5D)%0A%20%20%20%20.label(%27A%20%E6%88%96%20B%20%E6%88%96%E8%80%85%E5%85%B6%E4%BB%96%E7%9A%84%20literal%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%20%E7%B1%BB%E5%9E%8B%27)%0A%20%20%20%20.describe(%0A%20%20%20%20%20%20%27%E8%81%94%E5%90%88%20literal%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%EF%BC%8C%E8%BE%93%E5%85%A5%E6%A1%86%E9%A6%96%E5%85%88%E5%B0%86%E4%BC%9A%E6%B8%B2%E6%9F%93%E4%B8%BA%E4%B8%80%E4%B8%AA%E4%B8%8B%E6%8B%89%E6%A1%86%EF%BC%8C%E4%BD%A0%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87%E5%8D%95%E5%87%BB%E4%B8%8B%E6%8B%89%E6%A1%86%E6%9D%A5%E9%80%89%E6%8B%A9%E9%9C%80%E8%A6%81%E7%9A%84%E7%B1%BB%E5%9E%8B%E3%80%82%27%0A%20%20%20%20)%0A%5D"><div class="draw-bar-wrap"><div class="draw-bar"><div class="icon" data-key="StackBlitz" title="open in StackBlitz"><svg viewBox="0 0 28 28" height="24"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div><div class="icon" data-key="CodeSandBox" title="open in CodeSandBox"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div><div class="icon" data-key="Code" title="display code"><div class="material-icons">code</div></div><div class="icon" data-key="Playground" title="open in Playground"><div class="material-icons">play_arrow</div></div><div class="icon" data-key="open/close"><div class="material-icons">chevron_right</div></div></div></div><div class="wrap"><div class="markdown-body"><div class="copy-wrap"><div class="copy-btn material-icons" data-clipboard-text="[
+  z
+    .union([
+      z.string().label(&#039;字符串&#039;),
+      z.number().label(&#039;数字&#039;)
+    ])
+    .label(&#039;字符串或数字&#039;)
+    .describe(
+      &#039;联合基础类型的情况下，输入框首先将会渲染为一个下拉框，你可以通过单击下拉框来选择需要的类型。\n&#039; +
+      &#039;下拉框的选项的文本由对应的类型的 label 属性决定，你可以通过 label 属性来修改对应的文本。\n&#039; +
+      &#039;当你选择了对应的类型之后，输入框将会渲染为对应的类型的输入框，你可以通过交互来输入对应的内容。&#039;
+    ),
+  z
+    .union([
+      z.literal(&#039;a&#039;).label(&#039;A&#039;),
+      z.literal(&#039;b&#039;).label(&#039;B&#039;),
+      z.literal(true),
+      z.literal(1).label(&#039;数字 1&#039;),
+      z.literal({
+        type: &#039;类型&#039;,
+        name: &#039;名称&#039;
+      }).label(&#039;一个对象&#039;)
+    ])
+    .label(&#039;A 或 B 或者其他的 literal（字面量） 类型&#039;)
+    .describe(
+      &#039;联合 literal（字面量）类型的情况下，输入框首先将会渲染为一个下拉框，你可以通过单击下拉框来选择需要的类型。&#039;
+    )
+]" title="Copy">content_copy</div><pre><code class="hljs language-typescript">[
+  z
+    .<span class="hljs-title function_">union</span>([
+      z.<span class="hljs-title function_">string</span>().<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;字符串&#x27;</span>),
+      z.<span class="hljs-title function_">number</span>().<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;数字&#x27;</span>)
+    ])
+    .<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;字符串或数字&#x27;</span>)
+    .<span class="hljs-title function_">describe</span>(
+      <span class="hljs-string">&#x27;联合基础类型的情况下，输入框首先将会渲染为一个下拉框，你可以通过单击下拉框来选择需要的类型。\n&#x27;</span> +
+      <span class="hljs-string">&#x27;下拉框的选项的文本由对应的类型的 label 属性决定，你可以通过 label 属性来修改对应的文本。\n&#x27;</span> +
+      <span class="hljs-string">&#x27;当你选择了对应的类型之后，输入框将会渲染为对应的类型的输入框，你可以通过交互来输入对应的内容。&#x27;</span>
+    ),
+  z
+    .<span class="hljs-title function_">union</span>([
+      z.<span class="hljs-title function_">literal</span>(<span class="hljs-string">&#x27;a&#x27;</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;A&#x27;</span>),
+      z.<span class="hljs-title function_">literal</span>(<span class="hljs-string">&#x27;b&#x27;</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;B&#x27;</span>),
+      z.<span class="hljs-title function_">literal</span>(<span class="hljs-literal">true</span>),
+      z.<span class="hljs-title function_">literal</span>(<span class="hljs-number">1</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;数字 1&#x27;</span>),
+      z.<span class="hljs-title function_">literal</span>({
+        <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;类型&#x27;</span>,
+        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;名称&#x27;</span>
+      }).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;一个对象&#x27;</span>)
+    ])
+    .<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;A 或 B 或者其他的 literal（字面量） 类型&#x27;</span>)
+    .<span class="hljs-title function_">describe</span>(
+      <span class="hljs-string">&#x27;联合 literal（字面量）类型的情况下，输入框首先将会渲染为一个下拉框，你可以通过单击下拉框来选择需要的类型。&#x27;</span>
+    )
+]
+</code></pre></div></div><div class="schema-eval-container" data-key="yp0pk6dgea7z6w7oq0v45"><div class="empty">loading...</div></div></div><div class="output"><div class="content markdown-body"></div><span class="material-icons down">expand_more</span></div></div><div class="markdown-body"><blockquote><p>相对于某一类<a href="#%E8%A1%A8%E5%8D%95%E7%9A%84%E8%81%94%E5%8A%A8">特殊的类型</a>来说在 TypeScript 中它可被称作为<a href="https://zh.wikipedia.org/zh-cn/%E4%BB%A3%E6%95%B0%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B" target="_blank">「Algebraic Data Types（代数数据类型）」</a>。</p></blockquote><h3 class="anchor-point" id="可供调整的交互模式"><a href="#可供调整的交互模式">#</a> 可供调整的交互模式</h3><p>除了默认的 select 交互模式你还可以选择使用 radio 的方式来进行渲染，你可以通过 <code>z.union</code> 的 <code>mode</code> 方法来进行设置。</p></div><div class="zodui-preview" data-schema-eval-key="bd7ww4gphn93kezzycc0v2" data-code="import%20*%20as%20z%20from%20%27zod%27%0A%0Aexport%20default%20%5B%0A%20%20z%0A%20%20%20%20.union(%5B%0A%20%20%20%20%20%20z.literal(%27a%27).label(%27A%27)%2C%0A%20%20%20%20%20%20z.literal(%27b%27).label(%27B%27)%2C%0A%20%20%20%20%20%20z.literal(1).label(%27%E6%95%B0%E5%AD%97%201%27)%2C%0A%20%20%20%20%20%20z.literal(%7B%0A%20%20%20%20%20%20%20%20type%3A%20%27%E7%B1%BB%E5%9E%8B%27%2C%0A%20%20%20%20%20%20%20%20name%3A%20%27%E5%90%8D%E7%A7%B0%27%0A%20%20%20%20%20%20%7D).label(%27%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%27)%0A%20%20%20%20%5D)%0A%20%20%20%20.mode(%27radio%27)%0A%20%20%20%20.label(%27A%2FB%2FC%3F%27)%0A%20%20%20%20.describe(%0A%20%20%20%20%20%20%27%E8%81%94%E5%90%88%20literal%EF%BC%88%E5%AD%97%E9%9D%A2%E9%87%8F%EF%BC%89%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%EF%BC%8C%E8%BE%93%E5%85%A5%E6%A1%86%E9%A6%96%E5%85%88%E5%B0%86%E4%BC%9A%E6%B8%B2%E6%9F%93%E4%B8%BA%E4%B8%80%E4%B8%AA%E5%8D%95%E9%80%89%E6%A1%86%EF%BC%8C%E4%BD%A0%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87%E5%8D%95%E5%87%BB%E5%8D%95%E9%80%89%E6%A1%86%E6%9D%A5%E9%80%89%E6%8B%A9%E9%9C%80%E8%A6%81%E7%9A%84%E7%B1%BB%E5%9E%8B%E3%80%82%5Cn%27%20%2B%0A%20%20%20%20%20%20%27%E5%8D%95%E9%80%89%E6%A1%86%E7%9A%84%E9%80%89%E9%A1%B9%E7%9A%84%E6%96%87%E6%9C%AC%E7%94%B1%E5%AF%B9%E5%BA%94%E7%9A%84%E7%B1%BB%E5%9E%8B%E7%9A%84%20label%20%E5%B1%9E%E6%80%A7%E5%86%B3%E5%AE%9A%EF%BC%8C%E4%BD%A0%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87%20label%20%E5%B1%9E%E6%80%A7%E6%9D%A5%E4%BF%AE%E6%94%B9%E5%AF%B9%E5%BA%94%E7%9A%84%E6%96%87%E6%9C%AC%E3%80%82%27%0A%20%20%20%20)%2C%0A%20%20z%0A%20%20%20%20.union(%5B%0A%20%20%20%20%20%20z.literal(%27a%27).label(%27A%27)%2C%0A%20%20%20%20%20%20z.literal(%27b%27).label(%27B%27)%2C%0A%20%20%20%20%20%20z.literal(1).label(%27%E6%95%B0%E5%AD%97%201%27)%0A%20%20%20%20%5D)%0A%20%20%20%20.mode(%27radio%20direction-column%27)%0A%20%20%20%20.label(%27A%2FB%2FC%3F%27)%0A%20%20%20%20.describe(%27%E5%8D%95%E9%80%89%E6%A1%86%E7%9A%84%E6%96%B9%E5%90%91%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87%20%60direction-column%60%20%E6%9D%A5%E8%BF%9B%E8%A1%8C%E8%AE%BE%E7%BD%AE%E3%80%82%27)%2C%0A%20%20z%0A%20%20%20%20.union(%5B%0A%20%20%20%20%20%20z.literal(%27a%27).label(%27A%27)%2C%0A%20%20%20%20%20%20z.literal(%27b%27).label(%27B%27)%2C%0A%20%20%20%20%20%20z.literal(1).label(%27%E6%95%B0%E5%AD%97%201%27)%0A%20%20%20%20%5D)%0A%20%20%20%20.mode(%27radio%20direction-column%20wrap%27)%0A%20%20%20%20.label(%27A%2FB%2FC%3F%27)%0A%20%20%20%20.describe(%27%E5%A6%82%E6%9E%9C%E5%9C%A8%E5%8F%B3%E4%BE%A7%E7%9A%84%E7%A9%BA%E9%97%B4%E4%B8%8D%E8%B6%B3%E4%BB%A5%E5%AE%B9%E7%BA%B3%E6%89%80%E6%9C%89%E7%9A%84%E9%80%89%E9%A1%B9%EF%BC%8C%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87%20%60wrap%60%20%E6%9D%A5%E8%AE%BE%E7%BD%AE%E5%88%87%E6%8D%A2%E5%88%B0%E4%B8%8B%E4%B8%80%E8%A1%8C%E3%80%82%27)%2C%0A%20%20z%0A%20%20%20%20.union(%5B%0A%20%20%20%20%20%20z.literal(%27a%27).label(%27A%27)%2C%0A%20%20%20%20%20%20z.literal(%27b%27).label(%27B%27)%0A%20%20%20%20%5D)%0A%20%20%20%20.mode(%27radio-outline%27)%0A%20%20%20%20.label(%27A%2FB%27)%0A%20%20%20%20.describe(%27%E6%8D%A2%E4%B8%AA%E6%A0%B7%E5%AD%90%EF%BC%9F%27)%2C%0A%20%20z%0A%20%20%20%20.union(%5B%0A%20%20%20%20%20%20z.literal(%27a%27).label(%27A%27)%2C%0A%20%20%20%20%20%20z.literal(%27b%27).label(%27B%27)%0A%20%20%20%20%5D)%0A%20%20%20%20.mode(%27radio-card%27)%0A%20%20%20%20.label(%27A%2FB%2FC%3F%27)%0A%20%20%20%20.describe(%27%E8%BF%98%E6%98%AF%E8%AF%B4%E4%BD%A0%E5%96%9C%E6%AC%A2%E8%BF%99%E4%B8%AA%EF%BC%9F%27)%2C%0A%5D"><div class="draw-bar-wrap"><div class="draw-bar"><div class="icon" data-key="StackBlitz" title="open in StackBlitz"><svg viewBox="0 0 28 28" height="24"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div><div class="icon" data-key="CodeSandBox" title="open in CodeSandBox"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div><div class="icon" data-key="Code" title="display code"><div class="material-icons">code</div></div><div class="icon" data-key="Playground" title="open in Playground"><div class="material-icons">play_arrow</div></div><div class="icon" data-key="open/close"><div class="material-icons">chevron_right</div></div></div></div><div class="wrap"><div class="markdown-body"><div class="copy-wrap"><div class="copy-btn material-icons" data-clipboard-text="[
+  z
+    .union([
+      z.literal(&#039;a&#039;).label(&#039;A&#039;),
+      z.literal(&#039;b&#039;).label(&#039;B&#039;),
+      z.literal(1).label(&#039;数字 1&#039;),
+      z.literal({
+        type: &#039;类型&#039;,
+        name: &#039;名称&#039;
+      }).label(&#039;一个对象&#039;)
+    ])
+    .mode(&#039;radio&#039;)
+    .label(&#039;A/B/C?&#039;)
+    .describe(
+      &#039;联合 literal（字面量）类型的情况下，输入框首先将会渲染为一个单选框，你可以通过单击单选框来选择需要的类型。\n&#039; +
+      &#039;单选框的选项的文本由对应的类型的 label 属性决定，你可以通过 label 属性来修改对应的文本。&#039;
+    ),
+  z
+    .union([
+      z.literal(&#039;a&#039;).label(&#039;A&#039;),
+      z.literal(&#039;b&#039;).label(&#039;B&#039;),
+      z.literal(1).label(&#039;数字 1&#039;)
+    ])
+    .mode(&#039;radio direction-column&#039;)
+    .label(&#039;A/B/C?&#039;)
+    .describe(&#039;单选框的方向可以通过 &#x60;direction-column&#x60; 来进行设置。&#039;),
+  z
+    .union([
+      z.literal(&#039;a&#039;).label(&#039;A&#039;),
+      z.literal(&#039;b&#039;).label(&#039;B&#039;),
+      z.literal(1).label(&#039;数字 1&#039;)
+    ])
+    .mode(&#039;radio direction-column wrap&#039;)
+    .label(&#039;A/B/C?&#039;)
+    .describe(&#039;如果在右侧的空间不足以容纳所有的选项，可以通过 &#x60;wrap&#x60; 来设置切换到下一行。&#039;),
+  z
+    .union([
+      z.literal(&#039;a&#039;).label(&#039;A&#039;),
+      z.literal(&#039;b&#039;).label(&#039;B&#039;)
+    ])
+    .mode(&#039;radio-outline&#039;)
+    .label(&#039;A/B&#039;)
+    .describe(&#039;换个样子？&#039;),
+  z
+    .union([
+      z.literal(&#039;a&#039;).label(&#039;A&#039;),
+      z.literal(&#039;b&#039;).label(&#039;B&#039;)
+    ])
+    .mode(&#039;radio-card&#039;)
+    .label(&#039;A/B/C?&#039;)
+    .describe(&#039;还是说你喜欢这个？&#039;),
+]" title="Copy">content_copy</div><pre><code class="hljs language-typescript">[
+  z
+    .<span class="hljs-title function_">union</span>([
+      z.<span class="hljs-title function_">literal</span>(<span class="hljs-string">&#x27;a&#x27;</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;A&#x27;</span>),
+      z.<span class="hljs-title function_">literal</span>(<span class="hljs-string">&#x27;b&#x27;</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;B&#x27;</span>),
+      z.<span class="hljs-title function_">literal</span>(<span class="hljs-number">1</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;数字 1&#x27;</span>),
+      z.<span class="hljs-title function_">literal</span>({
+        <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;类型&#x27;</span>,
+        <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;名称&#x27;</span>
+      }).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;一个对象&#x27;</span>)
+    ])
+    .<span class="hljs-title function_">mode</span>(<span class="hljs-string">&#x27;radio&#x27;</span>)
+    .<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;A/B/C?&#x27;</span>)
+    .<span class="hljs-title function_">describe</span>(
+      <span class="hljs-string">&#x27;联合 literal（字面量）类型的情况下，输入框首先将会渲染为一个单选框，你可以通过单击单选框来选择需要的类型。\n&#x27;</span> +
+      <span class="hljs-string">&#x27;单选框的选项的文本由对应的类型的 label 属性决定，你可以通过 label 属性来修改对应的文本。&#x27;</span>
+    ),
+  z
+    .<span class="hljs-title function_">union</span>([
+      z.<span class="hljs-title function_">literal</span>(<span class="hljs-string">&#x27;a&#x27;</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;A&#x27;</span>),
+      z.<span class="hljs-title function_">literal</span>(<span class="hljs-string">&#x27;b&#x27;</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;B&#x27;</span>),
+      z.<span class="hljs-title function_">literal</span>(<span class="hljs-number">1</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;数字 1&#x27;</span>)
+    ])
+    .<span class="hljs-title function_">mode</span>(<span class="hljs-string">&#x27;radio direction-column&#x27;</span>)
+    .<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;A/B/C?&#x27;</span>)
+    .<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;单选框的方向可以通过 `direction-column` 来进行设置。&#x27;</span>),
+  z
+    .<span class="hljs-title function_">union</span>([
+      z.<span class="hljs-title function_">literal</span>(<span class="hljs-string">&#x27;a&#x27;</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;A&#x27;</span>),
+      z.<span class="hljs-title function_">literal</span>(<span class="hljs-string">&#x27;b&#x27;</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;B&#x27;</span>),
+      z.<span class="hljs-title function_">literal</span>(<span class="hljs-number">1</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;数字 1&#x27;</span>)
+    ])
+    .<span class="hljs-title function_">mode</span>(<span class="hljs-string">&#x27;radio direction-column wrap&#x27;</span>)
+    .<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;A/B/C?&#x27;</span>)
+    .<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;如果在右侧的空间不足以容纳所有的选项，可以通过 `wrap` 来设置切换到下一行。&#x27;</span>),
+  z
+    .<span class="hljs-title function_">union</span>([
+      z.<span class="hljs-title function_">literal</span>(<span class="hljs-string">&#x27;a&#x27;</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;A&#x27;</span>),
+      z.<span class="hljs-title function_">literal</span>(<span class="hljs-string">&#x27;b&#x27;</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;B&#x27;</span>)
+    ])
+    .<span class="hljs-title function_">mode</span>(<span class="hljs-string">&#x27;radio-outline&#x27;</span>)
+    .<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;A/B&#x27;</span>)
+    .<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;换个样子？&#x27;</span>),
+  z
+    .<span class="hljs-title function_">union</span>([
+      z.<span class="hljs-title function_">literal</span>(<span class="hljs-string">&#x27;a&#x27;</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;A&#x27;</span>),
+      z.<span class="hljs-title function_">literal</span>(<span class="hljs-string">&#x27;b&#x27;</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;B&#x27;</span>)
+    ])
+    .<span class="hljs-title function_">mode</span>(<span class="hljs-string">&#x27;radio-card&#x27;</span>)
+    .<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;A/B/C?&#x27;</span>)
+    .<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;还是说你喜欢这个？&#x27;</span>),
+]
+</code></pre></div></div><div class="schema-eval-container" data-key="bd7ww4gphn93kezzycc0v2"><div class="empty">loading...</div></div></div><div class="output"><div class="content markdown-body"></div><span class="material-icons down">expand_more</span></div></div><div class="markdown-body"><h3 class="anchor-point" id="插入在下方的选项"><a href="#插入在下方的选项">#</a> 插入在下方的选项</h3><p>一般情况下我们会选择将选项直接放在右侧的操作区域内，但是有些场景下其实我们是没办法从右侧交互来进行操作的，这个时候我们可能会想到 <code>wrap</code> 的模式，但是这个的能力也不是无限的。<br>但是在这里，我们通过提供了一个 <code>append</code> 的模式来解决这个问题，这个模式下，我们可以将选项插入到下方的操作区域内，这样我们就可以通过下方的操作区域来进行交互了。</p></div><div class="zodui-preview" data-schema-eval-key="mhxfnvrl18g91fm1u5xqmb" data-code="import%20*%20as%20z%20from%20%27zod%27%0A%0Aexport%20default%20z%0A%20%20.union(%5B%0A%20%20%20%20z.literal(false).label(%27%E4%B8%8D%E6%84%BF%E9%80%8F%E9%9C%B2%27)%2C%0A%20%20%20%20z.object(%7B%0A%20%20%20%20%20%20name%3A%20z.string().label(%27%E5%90%8D%E7%A7%B0%27)%2C%0A%20%20%20%20%20%20birthday%3A%20z%0A%20%20%20%20%20%20%20%20.date()%0A%20%20%20%20%20%20%20%20.mode(%27datetime%20panel%20wrap%27)%0A%20%20%20%20%20%20%20%20.label(%27%E7%94%9F%E6%97%A5%27)%0A%20%20%20%20%7D).label(%27%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF%27)%2C%0A%20%20%5D)%0A%20%20.mode(%27append%27)%0A%20%20.label(%27A%2FB%2FC%3F%27)%0A%20%20.describe(%0A%20%20%20%20%27%E9%80%9A%E8%BF%87%20%60append%60%20%E6%A8%A1%E5%BC%8F%EF%BC%8C%E6%88%91%E4%BB%AC%E5%8F%AF%E4%BB%A5%E5%B0%86%E9%80%89%E9%A1%B9%E6%8F%92%E5%85%A5%E5%88%B0%E4%B8%8B%E6%96%B9%E6%96%B0%E7%9A%84%E6%93%8D%E4%BD%9C%E5%8C%BA%E5%9F%9F%E5%86%85%EF%BC%8C%E7%8E%B0%E5%9C%A8%E4%BD%A0%E5%8F%AF%E4%BB%A5%E9%80%89%E6%8B%A9%E5%8F%B3%E4%BE%A7%E7%9A%84%60%E5%A1%AB%E5%86%99%E4%BF%A1%E6%81%AF%60%E9%80%89%E9%A1%B9%E8%AF%95%E8%AF%95%E7%9C%8B%E3%80%82%27%0A%20%20)"><div class="draw-bar-wrap"><div class="draw-bar"><div class="icon" data-key="StackBlitz" title="open in StackBlitz"><svg viewBox="0 0 28 28" height="24"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div><div class="icon" data-key="CodeSandBox" title="open in CodeSandBox"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div><div class="icon" data-key="Code" title="display code"><div class="material-icons">code</div></div><div class="icon" data-key="Playground" title="open in Playground"><div class="material-icons">play_arrow</div></div><div class="icon" data-key="open/close"><div class="material-icons">chevron_right</div></div></div></div><div class="wrap"><div class="markdown-body"><div class="copy-wrap"><div class="copy-btn material-icons" data-clipboard-text="z
+  .union([
+    z.literal(false).label(&#039;不愿透露&#039;),
+    z.object({
+      name: z.string().label(&#039;名称&#039;),
+      birthday: z
+        .date()
+        .mode(&#039;datetime panel wrap&#039;)
+        .label(&#039;生日&#039;)
+    }).label(&#039;基本信息&#039;),
+  ])
+  .mode(&#039;append&#039;)
+  .label(&#039;A/B/C?&#039;)
+  .describe(
+    &#039;通过 &#x60;append&#x60; 模式，我们可以将选项插入到下方新的操作区域内，现在你可以选择右侧的&#x60;填写信息&#x60;选项试试看。&#039;
+  )" title="Copy">content_copy</div><pre><code class="hljs language-typescript">z
+  .<span class="hljs-title function_">union</span>([
+    z.<span class="hljs-title function_">literal</span>(<span class="hljs-literal">false</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;不愿透露&#x27;</span>),
+    z.<span class="hljs-title function_">object</span>({
+      <span class="hljs-attr">name</span>: z.<span class="hljs-title function_">string</span>().<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;名称&#x27;</span>),
+      <span class="hljs-attr">birthday</span>: z
+        .<span class="hljs-title function_">date</span>()
+        .<span class="hljs-title function_">mode</span>(<span class="hljs-string">&#x27;datetime panel wrap&#x27;</span>)
+        .<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;生日&#x27;</span>)
+    }).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;基本信息&#x27;</span>),
+  ])
+  .<span class="hljs-title function_">mode</span>(<span class="hljs-string">&#x27;append&#x27;</span>)
+  .<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;A/B/C?&#x27;</span>)
+  .<span class="hljs-title function_">describe</span>(
+    <span class="hljs-string">&#x27;通过 `append` 模式，我们可以将选项插入到下方新的操作区域内，现在你可以选择右侧的`填写信息`选项试试看。&#x27;</span>
+  )
+</code></pre></div></div><div class="schema-eval-container" data-key="mhxfnvrl18g91fm1u5xqmb"><div class="empty">loading...</div></div></div><div class="output"><div class="content markdown-body"></div><span class="material-icons down">expand_more</span></div></div><div class="markdown-body"><h3 class="anchor-point" id="表单的联动"><a href="#表单的联动">#</a> 表单的联动</h3><p>此外，你也可以善用联合类型来实现一些较为复杂的表单联动的需求。</p><blockquote><p>熟悉 TypeScript 的应该对「Discriminated Union（鉴别式联合）」或称「Tagged Union（标记式联合）」的这个概念不会陌生，如果不记得了可以在这里阅读官方的定义 <a href="https://www.typescriptlang.org/docs/handbook/2/narrowing.html#discriminated-unions" target="_blank">TypeScript Handbook/narrowing#discriminated-unions</a>。<br>除此之外你还可以阅读「<a href="https://www.geeksforgeeks.org/what-are-discriminated-union-types/" target="_blank">什么是鉴别式联合类型？</a>」对其进行进一步的了解。</p></blockquote><p>假设我们正在设计一个表单，这个表单中有两个选项，分别是 <code>A</code> 和 <code>B</code>，当我们选择了 <code>A</code> 的时候，我们需要填写 <code>名称</code>，当我们选择了 <code>B</code> 的时候，我们需要填写 <code>年龄</code>，这个时候我们就可以通过联合类型来实现这个需求。<br>首先我们可以使用 TypeScript 对类型进行定义，然后再将其转换为 Zod 的类型。</p><div class="copy-wrap"><div class="copy-btn material-icons" data-clipboard-text="type AOrB =
+| {
+  type: &#039;a&#039;
+  name: string
+}
+| {
+  type: &#039;b&#039;
+  age: number
+}" title="Copy">content_copy</div><pre><code class="hljs language-typescript"><span class="hljs-keyword">type</span> <span class="hljs-title class_">AOrB</span> =
+| {
+  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;a&#x27;</span>
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>
+}
+| {
+  <span class="hljs-attr">type</span>: <span class="hljs-string">&#x27;b&#x27;</span>
+  <span class="hljs-attr">age</span>: <span class="hljs-built_in">number</span>
+}
+</code></pre></div><p>我们可以使用 <a href="https://zod.dev/?id=discriminated-unions" target="_blank"><code>zod.discriminatedUnion</code></a> 来实现这个需求，这个方法接受两个参数，第一个参数是一个字符串，这个字符串是用来区分联合类型的，第二个参数是一个数组，这个数组中包含了所有的联合类型的定义。<br>在这里我们将 <code>type</code> 作为区分联合类型的元素，然后将 <code>A</code> 和 <code>B</code> 作为联合类型的定义，这样我们就可以实现这个需求了。</p></div><div class="zodui-preview" data-schema-eval-key="71hawljalaufl2zkmyabg6" data-code="import%20*%20as%20z%20from%20%27zod%27%0A%0Aexport%20default%20%5B%0A%20%20z%0A%20%20%20%20.discriminatedUnion(%27type%27%2C%20%5B%0A%20%20%20%20%20%20z.object(%7B%0A%20%20%20%20%20%20%20%20type%3A%20z.literal(%27a%27).label(%27A%27)%2C%0A%20%20%20%20%20%20%20%20name%3A%20z.string().label(%27%E5%90%8D%E7%A7%B0%27)%0A%20%20%20%20%20%20%7D)%2C%0A%20%20%20%20%20%20z.object(%7B%0A%20%20%20%20%20%20%20%20type%3A%20z.literal(%27b%27).label(%27B%27)%2C%0A%20%20%20%20%20%20%20%20age%3A%20z.number().mode(%27split%27).label(%27%E5%B9%B4%E9%BE%84%27)%0A%20%20%20%20%20%20%7D)%0A%20%20%20%20%5D)%0A%20%20%20%20.label(%27A%2FB%3F%27)%0A%20%20%20%20.describe(%0A%20%20%20%20%20%20%27%E7%8E%B0%E5%9C%A8%E4%BD%A0%E5%8F%AF%E4%BB%A5%E9%80%89%E6%8B%A9%E5%8F%B3%E4%BE%A7%E7%9A%84%60A%60%E6%88%96%60B%60%E9%80%89%E9%A1%B9%E8%AF%95%E8%AF%95%E7%9C%8B%E3%80%82%27%0A%20%20%20%20)%2C%0A%20%20z%0A%20%20%20%20.discriminatedUnion(%27displayAge%27%2C%20%5B%0A%20%20%20%20%20%20z.object(%7B%0A%20%20%20%20%20%20%20%20name%3A%20z.string().label(%27%E5%90%8D%E7%A7%B0%27)%2C%0A%20%20%20%20%20%20%20%20displayAge%3A%20z.literal(false).label(%27%E6%98%BE%E7%A4%BA%E5%B9%B4%E9%BE%84%27)%0A%20%20%20%20%20%20%7D)%2C%0A%20%20%20%20%20%20z.object(%7B%0A%20%20%20%20%20%20%20%20name%3A%20z.string().label(%27%E5%90%8D%E7%A7%B0%27)%2C%0A%20%20%20%20%20%20%20%20displayAge%3A%20z.literal(true).label(%27%E6%98%BE%E7%A4%BA%E5%B9%B4%E9%BE%84%27)%2C%0A%20%20%20%20%20%20%20%20age%3A%20z.number().mode(%27split%27).label(%27%E5%B9%B4%E9%BE%84%27)%0A%20%20%20%20%20%20%7D)%0A%20%20%20%20%5D)%0A%20%20%20%20.label(%27%E5%BC%80%E5%85%B3%27)%0A%20%20%20%20.describe(%0A%20%20%20%20%20%20%27%E8%A7%89%E5%BE%97%E5%B9%B4%E9%BE%84%E4%BF%A1%E6%81%AF%E6%97%A0%E6%89%80%E8%B0%93%EF%BC%9F%E8%AF%95%E8%AF%95%E7%82%B9%E5%87%BB%E5%8F%B3%E4%BE%A7%E7%9A%84%60%E6%98%BE%E7%A4%BA%E5%B9%B4%E9%BE%84%60%E9%80%89%E9%A1%B9%E3%80%82%27%0A%20%20%20%20)%0A%5D"><div class="draw-bar-wrap"><div class="draw-bar"><div class="icon" data-key="StackBlitz" title="open in StackBlitz"><svg viewBox="0 0 28 28" height="24"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div><div class="icon" data-key="CodeSandBox" title="open in CodeSandBox"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div><div class="icon" data-key="Code" title="display code"><div class="material-icons">code</div></div><div class="icon" data-key="Playground" title="open in Playground"><div class="material-icons">play_arrow</div></div><div class="icon" data-key="open/close"><div class="material-icons">chevron_right</div></div></div></div><div class="wrap"><div class="markdown-body"><div class="copy-wrap"><div class="copy-btn material-icons" data-clipboard-text="[
+  z
+    .discriminatedUnion(&#039;type&#039;, [
+      z.object({
+        type: z.literal(&#039;a&#039;).label(&#039;A&#039;),
+        name: z.string().label(&#039;名称&#039;)
+      }),
+      z.object({
+        type: z.literal(&#039;b&#039;).label(&#039;B&#039;),
+        age: z.number().mode(&#039;split&#039;).label(&#039;年龄&#039;)
+      })
+    ])
+    .label(&#039;A/B?&#039;)
+    .describe(
+      &#039;现在你可以选择右侧的&#x60;A&#x60;或&#x60;B&#x60;选项试试看。&#039;
+    ),
+  z
+    .discriminatedUnion(&#039;displayAge&#039;, [
+      z.object({
+        name: z.string().label(&#039;名称&#039;),
+        displayAge: z.literal(false).label(&#039;显示年龄&#039;)
+      }),
+      z.object({
+        name: z.string().label(&#039;名称&#039;),
+        displayAge: z.literal(true).label(&#039;显示年龄&#039;),
+        age: z.number().mode(&#039;split&#039;).label(&#039;年龄&#039;)
+      })
+    ])
+    .label(&#039;开关&#039;)
+    .describe(
+      &#039;觉得年龄信息无所谓？试试点击右侧的&#x60;显示年龄&#x60;选项。&#039;
+    )
+]" title="Copy">content_copy</div><pre><code class="hljs language-typescript">[
+  z
+    .<span class="hljs-title function_">discriminatedUnion</span>(<span class="hljs-string">&#x27;type&#x27;</span>, [
+      z.<span class="hljs-title function_">object</span>({
+        <span class="hljs-attr">type</span>: z.<span class="hljs-title function_">literal</span>(<span class="hljs-string">&#x27;a&#x27;</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;A&#x27;</span>),
+        <span class="hljs-attr">name</span>: z.<span class="hljs-title function_">string</span>().<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;名称&#x27;</span>)
+      }),
+      z.<span class="hljs-title function_">object</span>({
+        <span class="hljs-attr">type</span>: z.<span class="hljs-title function_">literal</span>(<span class="hljs-string">&#x27;b&#x27;</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;B&#x27;</span>),
+        <span class="hljs-attr">age</span>: z.<span class="hljs-title function_">number</span>().<span class="hljs-title function_">mode</span>(<span class="hljs-string">&#x27;split&#x27;</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;年龄&#x27;</span>)
+      })
+    ])
+    .<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;A/B?&#x27;</span>)
+    .<span class="hljs-title function_">describe</span>(
+      <span class="hljs-string">&#x27;现在你可以选择右侧的`A`或`B`选项试试看。&#x27;</span>
+    ),
+  z
+    .<span class="hljs-title function_">discriminatedUnion</span>(<span class="hljs-string">&#x27;displayAge&#x27;</span>, [
+      z.<span class="hljs-title function_">object</span>({
+        <span class="hljs-attr">name</span>: z.<span class="hljs-title function_">string</span>().<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;名称&#x27;</span>),
+        <span class="hljs-attr">displayAge</span>: z.<span class="hljs-title function_">literal</span>(<span class="hljs-literal">false</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;显示年龄&#x27;</span>)
+      }),
+      z.<span class="hljs-title function_">object</span>({
+        <span class="hljs-attr">name</span>: z.<span class="hljs-title function_">string</span>().<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;名称&#x27;</span>),
+        <span class="hljs-attr">displayAge</span>: z.<span class="hljs-title function_">literal</span>(<span class="hljs-literal">true</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;显示年龄&#x27;</span>),
+        <span class="hljs-attr">age</span>: z.<span class="hljs-title function_">number</span>().<span class="hljs-title function_">mode</span>(<span class="hljs-string">&#x27;split&#x27;</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;年龄&#x27;</span>)
+      })
+    ])
+    .<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;开关&#x27;</span>)
+    .<span class="hljs-title function_">describe</span>(
+      <span class="hljs-string">&#x27;觉得年龄信息无所谓？试试点击右侧的`显示年龄`选项。&#x27;</span>
+    )
+]
+</code></pre></div></div><div class="schema-eval-container" data-key="71hawljalaufl2zkmyabg6"><div class="empty">loading...</div></div></div><div class="output"><div class="content markdown-body"></div><span class="material-icons down">expand_more</span></div></div><div class="markdown-body"><p>没写好，没想好，没设计好，别看这块😭（<del>或者一起来建设</del>）。</p></div><div class="zodui-preview" data-schema-eval-key="vj9mst04vu7mg5diaopp7" data-code="import%20*%20as%20z%20from%20%27zod%27%0A%0Aexport%20default%20z%0A%20%20.union(%5B%0A%20%20%20%20z.object(%7B%0A%20%20%20%20%20%20type%3A%20z.string()%2C%0A%20%20%20%20%7D)%2C%0A%20%20%20%20z.object(%7B%0A%20%20%20%20%20%20type%3A%20z.literal(%27a%27).label(%27A%27)%2C%0A%20%20%20%20%20%20name%3A%20z.string().label(%27%E5%90%8D%E7%A7%B0%27)%0A%20%20%20%20%7D)%2C%0A%20%20%20%20z.object(%7B%0A%20%20%20%20%20%20type%3A%20z.literal(%27b%27).label(%27B%27)%2C%0A%20%20%20%20%20%20age%3A%20z.number().label(%27%E5%B9%B4%E9%BE%84%27)%0A%20%20%20%20%7D)%0A%20%20%5D)"><div class="draw-bar-wrap"><div class="draw-bar"><div class="icon" data-key="StackBlitz" title="open in StackBlitz"><svg viewBox="0 0 28 28" height="24"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div><div class="icon" data-key="CodeSandBox" title="open in CodeSandBox"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div><div class="icon" data-key="Code" title="display code"><div class="material-icons">code</div></div><div class="icon" data-key="Playground" title="open in Playground"><div class="material-icons">play_arrow</div></div><div class="icon" data-key="open/close"><div class="material-icons">chevron_right</div></div></div></div><div class="wrap"><div class="markdown-body"><div class="copy-wrap"><div class="copy-btn material-icons" data-clipboard-text="z
+  .union([
+    z.object({
+      type: z.string(),
+    }),
+    z.object({
+      type: z.literal(&#039;a&#039;).label(&#039;A&#039;),
+      name: z.string().label(&#039;名称&#039;)
+    }),
+    z.object({
+      type: z.literal(&#039;b&#039;).label(&#039;B&#039;),
+      age: z.number().label(&#039;年龄&#039;)
+    })
+  ])" title="Copy">content_copy</div><pre><code class="hljs language-typescript">z
+  .<span class="hljs-title function_">union</span>([
+    z.<span class="hljs-title function_">object</span>({
+      <span class="hljs-attr">type</span>: z.<span class="hljs-title function_">string</span>(),
+    }),
+    z.<span class="hljs-title function_">object</span>({
+      <span class="hljs-attr">type</span>: z.<span class="hljs-title function_">literal</span>(<span class="hljs-string">&#x27;a&#x27;</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;A&#x27;</span>),
+      <span class="hljs-attr">name</span>: z.<span class="hljs-title function_">string</span>().<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;名称&#x27;</span>)
+    }),
+    z.<span class="hljs-title function_">object</span>({
+      <span class="hljs-attr">type</span>: z.<span class="hljs-title function_">literal</span>(<span class="hljs-string">&#x27;b&#x27;</span>).<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;B&#x27;</span>),
+      <span class="hljs-attr">age</span>: z.<span class="hljs-title function_">number</span>().<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;年龄&#x27;</span>)
+    })
+  ])
+</code></pre></div></div><div class="schema-eval-container" data-key="vj9mst04vu7mg5diaopp7"><div class="empty">loading...</div></div></div><div class="output"><div class="content markdown-body"></div><span class="material-icons down">expand_more</span></div></div><div class="markdown-body"><h2 class="anchor-point" id="交叉类型"><a href="#交叉类型">#</a> 交叉类型</h2><p>在 TypeScript 中我们可以通过 <code>&amp;</code>（交叉） 运算符来实现的，同样的 Zod 也支持了这一种类型运算的定义方式，通过使用 <code>z.intersection</code> 便可以定义你需要的交叉类型。</p></div><div class="zodui-preview" data-schema-eval-key="c8vua9tqs06kxp9s2jfn1s" data-code="import%20*%20as%20z%20from%20%27zod%27%0A%0Aexport%20default%20z%0A%20%20.intersection(%0A%20%20%20%20z%0A%20%20%20%20%20%20.object(%7B%0A%20%20%20%20%20%20%20%20name%3A%20z.string().label(%27%E5%90%8D%E7%A7%B0%27)%2C%0A%20%20%20%20%20%20%20%20age%3A%20z.number().label(%27%E5%B9%B4%E9%BE%84%27)%0A%20%20%20%20%20%20%7D)%0A%20%20%20%20%20%20.label(%27%E5%9F%BA%E7%A1%80%E4%BF%A1%E6%81%AF%27)%2C%0A%20%20%20%20z%0A%20%20%20%20%20%20.object(%7B%0A%20%20%20%20%20%20%20%20location%3A%20z.string().label(%27%E4%BD%8D%E7%BD%AE%27)%2C%0A%20%20%20%20%20%20%20%20address%3A%20z.string().label(%27%E5%9C%B0%E5%9D%80%27)%0A%20%20%20%20%20%20%7D)%0A%20%20%20%20%20%20.label(%27%E8%83%8C%E6%99%AF%E4%BF%A1%E6%81%AF%27)%0A%20%20)%0A%20%20.label(%27%E5%90%8D%E7%A7%B0%E4%B8%8E%E5%B9%B4%E9%BE%84%27)%0A%20%20.describe(%27%E4%BA%A4%E5%8F%89%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%83%85%E5%86%B5%E4%B8%8B%EF%BC%8C%E8%BE%93%E5%85%A5%E6%A1%86%E5%B0%86%E4%BC%9A%E6%B8%B2%E6%9F%93%E4%B8%BA%E4%B8%A4%E4%B8%AA%E8%BE%93%E5%85%A5%E6%A1%86%EF%BC%8C%E4%BD%A0%E5%8F%AF%E4%BB%A5%E9%80%9A%E8%BF%87%E4%BA%A4%E4%BA%92%E6%9D%A5%E8%BE%93%E5%85%A5%E5%AF%B9%E5%BA%94%E7%9A%84%E5%86%85%E5%AE%B9%E3%80%82%27)"><div class="draw-bar-wrap"><div class="draw-bar"><div class="icon" data-key="StackBlitz" title="open in StackBlitz"><svg viewBox="0 0 28 28" height="24"><path fill="currentColor" d="M12.747 16.273h-7.46L18.925 1.5l-3.671 10.227h7.46L9.075 26.5l3.671-10.227z"></path></svg></div><div class="icon" data-key="CodeSandBox" title="open in CodeSandBox"><svg fill="none" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><g clip-rule="evenodd" fill-rule="evenodd"><path d="m11.5 11.6166v11.1704c.1945 0 .3223-.0422.4969-.1419l8.9445-5.1111c.3531-.2024.4971-.5158.4971-.9229v-10.36419c0-.2042-.043-.32636-.1422-.49691l-9.5102 5.3735c-.1769.1011-.2861.2893-.2861.4931zm4.9691 6.4143c0 .2839-.1064.4259-.3549.5679l-2.9815 1.7037c-.2129.1419-.4969.071-.4969-.213v-7.5957c0-.2032.1788-.4665.3549-.5679l6.8149-3.90429c.1893-.10894.3549.06554.3549.28395v4.04634c0 .2097-.0989.3982-.284.4969l-3.0524 1.6327c-.1851.0987-.355.2871-.355.4969z" fill="currentColor"></path><path d="m1.56152 16.611v-10.36416c0-.40759.21402-.7916.5679-.99383l8.66048-4.898146c.1866-.098883.4969-.141973.7099-.141973s.5415.052741.7099.141975l8.5895 4.898144c.1699.10042.4008.33172.4969.49692l-9.5124 5.39507c-.1769.1011-.2839.2931-.2839.4969v11.1451c-.1945 0-.3933-.0423-.5679-.142l-8.73149-5.0401c-.35389-.2023-.63889-.5863-.63889-.9939zm1.27778-8.30552v4.04632c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28395.142.35494.3549.35494.5679v2.8395c0 .2839.07099.4259.35494.5679l2.98148 1.7037c.28392.142.49692.071.49692-.213v-7.5956c0-.213-.071-.426-.3549-.5679l-6.67289-3.83338c-.21296-.14197-.49691-.07099-.49691.21296zm11.642-4.82716-2.6266 1.49074c-.2129.14198-.4969.14198-.7098 0l-2.62659-1.49074c-.17289-.09772-.39472-.09722-.5679 0l-3.26543 1.84568c-.28395.14198-.28395.42593 0 .5679l6.53082 3.76235c.1748.10006.3932.10006.5679 0l6.5309-3.76235c.213-.14197.284-.42592 0-.5679l-3.2654-1.84568c-.1732-.09722-.395-.09772-.5679 0z" fill="currentColor"></path></g></svg></div><div class="icon" data-key="Code" title="display code"><div class="material-icons">code</div></div><div class="icon" data-key="Playground" title="open in Playground"><div class="material-icons">play_arrow</div></div><div class="icon" data-key="open/close"><div class="material-icons">chevron_right</div></div></div></div><div class="wrap"><div class="markdown-body"><div class="copy-wrap"><div class="copy-btn material-icons" data-clipboard-text="z
+  .intersection(
+    z
+      .object({
+        name: z.string().label(&#039;名称&#039;),
+        age: z.number().label(&#039;年龄&#039;)
+      })
+      .label(&#039;基础信息&#039;),
+    z
+      .object({
+        location: z.string().label(&#039;位置&#039;),
+        address: z.string().label(&#039;地址&#039;)
+      })
+      .label(&#039;背景信息&#039;)
+  )
+  .label(&#039;名称与年龄&#039;)
+  .describe(&#039;交叉类型的情况下，输入框将会渲染为两个输入框，你可以通过交互来输入对应的内容。&#039;)" title="Copy">content_copy</div><pre><code class="hljs language-typescript">z
+  .<span class="hljs-title function_">intersection</span>(
+    z
+      .<span class="hljs-title function_">object</span>({
+        <span class="hljs-attr">name</span>: z.<span class="hljs-title function_">string</span>().<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;名称&#x27;</span>),
+        <span class="hljs-attr">age</span>: z.<span class="hljs-title function_">number</span>().<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;年龄&#x27;</span>)
+      })
+      .<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;基础信息&#x27;</span>),
+    z
+      .<span class="hljs-title function_">object</span>({
+        <span class="hljs-attr">location</span>: z.<span class="hljs-title function_">string</span>().<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;位置&#x27;</span>),
+        <span class="hljs-attr">address</span>: z.<span class="hljs-title function_">string</span>().<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;地址&#x27;</span>)
+      })
+      .<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;背景信息&#x27;</span>)
+  )
+  .<span class="hljs-title function_">label</span>(<span class="hljs-string">&#x27;名称与年龄&#x27;</span>)
+  .<span class="hljs-title function_">describe</span>(<span class="hljs-string">&#x27;交叉类型的情况下，输入框将会渲染为两个输入框，你可以通过交互来输入对应的内容。&#x27;</span>)
+</code></pre></div></div><div class="schema-eval-container" data-key="c8vua9tqs06kxp9s2jfn1s"><div class="empty">loading...</div></div></div><div class="output"><div class="content markdown-body"></div><span class="material-icons down">expand_more</span></div></div><div class="markdown-body"></div><div class="operations"><div class="report"><span class="material-icons">report</span> <a href="https://github.com/zodui/zodui/issues/new?labels=documentation&title=Doc%3A+docs%2Fguide%2Fbasic%2Fcalc-type&body=%23%23+%E6%96%87%E6%A1%A3%E8%B7%AF%E5%BE%84%0A%0A%E7%BD%91%E7%BB%9C%E4%BD%8D%E7%BD%AE%EF%BC%9A%5B%2Fdocs%2Fguide%2Fbasic%2Fcalc-type%5D%28https%3A%2F%2Fzodui.github.io%2Fzodui%2Fdocs%2Fdocs%2Fguide%2Fbasic%2Fcalc-type%29%0A%0A%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE%EF%BC%9A%5B%2Fdemo%2Fdocs%2Fguide%2Fbasic%2Fcalc-type.md%5D%28https%3A%2F%2Fgithub.com%2Fzodui%2Fzodui%2Fblob%2Fmaster%2Fdemo%2Fdocs%2Fguide%2Fbasic%2Fcalc-type.md%29%0A%0A%23%23+%E5%87%BA%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98%0A%0A%23%23+%E6%9C%9F%E6%9C%9B%E7%9A%84%E7%BB%93%E6%9E%9C%0A%0A%23%23+%E5%BB%BA%E8%AE%AE%E7%9A%84%E4%BF%AE%E6%94%B9" target="_blank">报告此页</a></div><div class="edit-in-github"><span class="material-icons">edit</span> <a href="https://github.com/zodui/zodui/edit/master/demo/docs/guide/basic/calc-type.md" target="_blank">在 Github 上编辑此页</a></div></div><div class="pagination"><a href="/zodui/docs/guide/basic/types"><div class="prev"><div class="operate"><span class="material-icons">chevron_left</span> 上一篇</div><br><div class="title">类型</div></div></a><a href="/zodui/docs/guide/basic/create-a-form"><div class="next"><div class="operate">下一篇 <span class="material-icons">chevron_right</span></div><br><div class="title">创建表单</div></div></a></div><script src="https://utteranc.es/client.js" repo="zodui/zodui" issue-term="Documents: docs/guide/basic/calc-type.md" label="discussion" theme="github-light" crossorigin="anonymous" async></script></div><div class="quick-operates"><div class="material-icons back-to-top hide">arrow_upward</div><div class="material-icons go-to-comments">comment</div></div><div class="quick-access"><h3>摘要</h3><ul><li class="menu-item"><a href="#联合类型">联合类型</a><ul class="menu-sub"><li class="menu-sub-item"><a href="#可供调整的交互模式">可供调整的交互模式</a></li><li class="menu-sub-item"><a href="#插入在下方的选项">插入在下方的选项</a></li><li class="menu-sub-item"><a href="#表单的联动">表单的联动</a></li></ul></li><li class="menu-item"><a href="#交叉类型">交叉类型</a></li></ul></div></main></body></html>
