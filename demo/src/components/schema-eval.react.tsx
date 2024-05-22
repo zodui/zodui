@@ -63,13 +63,19 @@ export function Demo({
     {Array.isArray(schema)
       ? schema.map((s, i) => <List
         key={i}
-        ref={r => refs.current = [...refs.current, r]}
+        ref={r => {
+          if (r === null) return
+          refs.current = [...refs.current, r]
+        }}
         model={s}
         value={value}
         onChange={v => window.evalerValueEmitter.emit(k, v)}
       />)
       : <List
-        ref={r => refs.current = [r]}
+        ref={r => {
+          if (r === null) return
+          refs.current = [r]
+        }}
         model={schema}
         value={value}
         onChange={v => window.evalerValueEmitter.emit(k, v)}
