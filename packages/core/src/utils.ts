@@ -88,7 +88,8 @@ export function merge<T extends {}, U extends {}>(a: T, b: U): T & U {
         break
       }
       if (typeof aItem === 'object' && typeof bItem === 'object') {
-        target[key] = merge(aItem, bItem)
+        // TODO remove as any
+        target[key] = merge(aItem as any, bItem)
         break
       }
     }
@@ -114,7 +115,7 @@ export function debounce<T extends (...args: any[]) => any>(fn: T, delay: number
 
 export function classnames(...args: (string | undefined | null | false | Record<string, boolean>)[]) {
   return args
-    .filter(<T>(v: T | boolean): v is T => Boolean(v))
+    .filter(<T>(v: T | boolean | null | undefined): v is T => Boolean(v))
     .map(arg => {
       if (typeof arg === 'string') {
         return arg

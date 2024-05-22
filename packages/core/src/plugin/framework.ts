@@ -78,7 +78,8 @@ export class Framework<
     public readonly key: K,
     private readonly ctx: Context<N>
   ) {
-    this.defineUnit = createDefineUnit(ctx, this)
+    // TODO remove as any
+    this.defineUnit = createDefineUnit(ctx, this as any)
   }
   defineComp<
     Type extends keyof Components & string,

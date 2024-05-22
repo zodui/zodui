@@ -1,6 +1,7 @@
-import type { ZodRawShape, ZodUnionOptions } from 'zod'
+import type { RecordType, ZodRawShape, ZodUnionOptions } from 'zod'
 import type z from 'zod'
 import { ZodFirstPartyTypeKind } from 'zod'
+import { EnumLike, number, string, ZodDiscriminatedUnionOption, ZodTuple, ZodTypeAny } from 'zod/lib/types'
 
 type IsEqual<A, B> = (
   <T>() => T extends A ? 1 : 2
@@ -31,32 +32,32 @@ export interface ZodTypeMap<
   ZodNever: z.ZodNever
   ZodVoid: z.ZodVoid
   // FIXME
-  ZodArray: z.ZodArray<A>
+  ZodArray: z.ZodArray<A & ZodTypeAny>
   ZodObject: z.ZodObject<
     IsEqual<A, any> extends true
       ? ZodRawShape
-      : A
+      : A & ZodRawShape
   >
   ZodUnion: z.ZodUnion<ZodUnionOptions>
-  ZodDiscriminatedUnion: z.ZodDiscriminatedUnion<A, B>
-  ZodIntersection: z.ZodIntersection<A, B>
+  ZodDiscriminatedUnion: z.ZodDiscriminatedUnion<A & string, ZodDiscriminatedUnionOption<A & string>[]>
+  ZodIntersection: z.ZodIntersection<A & ZodTypeAny, B & ZodTypeAny>
   ZodTuple: z.ZodTuple
   ZodRecord: z.ZodRecord
   ZodMap: z.ZodMap
   ZodSet: z.ZodSet
-  ZodFunction: z.ZodFunction<A, B>
-  ZodLazy: z.ZodLazy<A>
+  ZodFunction: z.ZodFunction<A & ZodTuple<any, any>, B & ZodTypeAny>
+  ZodLazy: z.ZodLazy<A & ZodTypeAny>
   ZodLiteral: z.ZodLiteral<A>
-  ZodEnum: z.ZodEnum<A>
-  ZodEffects: z.ZodEffects<A>
-  ZodNativeEnum: z.ZodNativeEnum<A>
-  ZodOptional: z.ZodOptional<A>
-  ZodNullable: z.ZodNullable<A>
-  ZodDefault: z.ZodDefault<A>
-  ZodCatch: z.ZodCatch<A>
-  ZodPromise: z.ZodPromise<A>
-  ZodBranded: z.ZodBranded<A, B>
-  ZodPipeline: z.ZodPipeline<A, B>
+  ZodEnum: z.ZodEnum<A & [string, ...string[]]>
+  ZodEffects: z.ZodEffects<A & ZodTypeAny>
+  ZodNativeEnum: z.ZodNativeEnum<A & EnumLike>
+  ZodOptional: z.ZodOptional<A & ZodTypeAny>
+  ZodNullable: z.ZodNullable<A & ZodTypeAny>
+  ZodDefault: z.ZodDefault<A & ZodTypeAny>
+  ZodCatch: z.ZodCatch<A & ZodTypeAny>
+  ZodPromise: z.ZodPromise<A & ZodTypeAny>
+  ZodBranded: z.ZodBranded<A & ZodTypeAny, B & (string | number | symbol)>
+  ZodPipeline: z.ZodPipeline<A & ZodTypeAny, B & ZodTypeAny>
 }
 
 export interface ZodTypeDefMap<
@@ -84,7 +85,7 @@ export interface ZodTypeDefMap<
   ZodArray: z.ZodArrayDef
   ZodObject: z.ZodObjectDef
   ZodUnion: z.ZodUnionDef
-  ZodDiscriminatedUnion: z.ZodDiscriminatedUnionDef<A>
+  ZodDiscriminatedUnion: z.ZodDiscriminatedUnionDef<A & string>
   ZodIntersection: z.ZodIntersectionDef
   ZodTuple: z.ZodTupleDef
   ZodRecord: z.ZodRecordDef
@@ -101,8 +102,8 @@ export interface ZodTypeDefMap<
   ZodDefault: z.ZodDefaultDef
   ZodCatch: z.ZodCatchDef
   ZodPromise: z.ZodPromiseDef
-  ZodBranded: z.ZodBrandedDef<A>
-  ZodPipeline: z.ZodPipelineDef<A, B>
+  ZodBranded: z.ZodBrandedDef<A & ZodTypeAny>
+  ZodPipeline: z.ZodPipelineDef<A & ZodTypeAny, B & ZodTypeAny>
 }
 
 export interface TypeMap<
