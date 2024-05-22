@@ -13,50 +13,10 @@
   "homepage": "https://github.com/zodui/zodui/tree/master/packages/core#readme",
   "author": "YiJie <yijie4188@gmail.com>",
   "license": "MIT",
-  "main": "dist/index.umd.js",
-  "unpkg": "dist/index.umd.js",
-  "jsdelivr": "dist/index.umd.js",
-  "browser": "dist/index.umd.js",
-  "module": "dist/index.emd.js",
-  "types": "dist/index.d.ts",
-  "typesVersions": {
-    "<5.0": { "*": [ "*", "dist/*", "dist/*/index.d.ts" ] }
-  },
   "exports": {
-    "./package.json": "./package.json",
-    ".": {
-      "inner-src": "./src/index.ts",
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.esm.js"
-      },
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.umd.js"
-      }
-    },
-    "./utils": {
-      "inner-src": "./src/utils.ts",
-      "import": {
-        "types": "./dist/utils.d.ts",
-        "default": "./dist/utils.esm.js"
-      },
-      "require": {
-        "types": "./dist/utils.d.ts",
-        "default": "./dist/utils.umd.js"
-      }
-    },
-    "./external": {
-      "inner-src": "./src/external.ts",
-      "import": {
-        "types": "./dist/external.d.ts",
-        "default": "./dist/external.esm.js"
-      },
-      "require": {
-        "types": "./dist/external.d.ts",
-        "default": "./dist/external.umd.js"
-      }
-    }
+    ".": "./src/index.ts",
+    "./utils": "./src/utils.ts",
+    "./external": "./src/external.ts"
   },
   "files": [
     "dist",
