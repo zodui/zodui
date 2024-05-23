@@ -25,7 +25,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
-    "jiek": "^0.4.1",
+    "jiek": "^0.4.2",
     "mocha": "^10.2.0",
     "patch-package": "^6.5.1",
     "pnpm-helper": "workspace:^",

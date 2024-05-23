@@ -68,8 +68,8 @@ importers:
         specifier: ^10.0.0
         version: 10.0.0(eslint@8.52.0)
       jiek:
-        specifier: ^0.4.1
-        version: 0.4.1(@pnpm/logger@5.0.0)(esbuild@0.19.5)(postcss@8.4.31)(typescript@4.9.5)
+        specifier: ^0.4.2
+        version: 0.4.2(@pnpm/logger@5.0.0)(esbuild@0.19.5)(postcss@8.4.31)(typescript@4.9.5)
       mocha:
         specifier: ^10.2.0
         version: 10.2.0
@@ -4491,8 +4491,8 @@ packages:
       minimatch: 3.1.2
     dev: true
 
-  /jiek@0.4.1(@pnpm/logger@5.0.0)(esbuild@0.19.5)(postcss@8.4.31)(typescript@4.9.5):
-    resolution: {integrity: sha512-3nvLrqWv4WsQGWGbVkAFQ+/U49oa+fjnQMvwCFWYB6aKhJ2Wxk2vqpLsfXJ+tDAIkCmymsXyGZsnZpLt/P86TA==}
+  /jiek@0.4.2(@pnpm/logger@5.0.0)(esbuild@0.19.5)(postcss@8.4.31)(typescript@4.9.5):
+    resolution: {integrity: sha512-TQ/FjZA42bQawEmxMp2+6fsTh69++pMPY4VKhYtMtyW2lga4WFX+WV7WSyyUS0HG95LxR28FfkcTu1o1vAjO5A==}
     hasBin: true
     dependencies:
       '@jiek/pkger': 0.1.9
