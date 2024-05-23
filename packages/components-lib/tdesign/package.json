@@ -45,7 +45,7 @@
   },
   "peerDependencies": {
     "@zodui/react": "workspace:^",
-    "react": ">=16.13.1",
+    "react": "^16.13.1 || ^17.0.0 || ^18.0.0 || ^19.0.0",
     "tdesign-react": "^1.4.0",
     "tdesign-icons-react": "^0.3.2"
   },

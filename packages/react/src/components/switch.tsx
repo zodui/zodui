@@ -12,7 +12,7 @@ const OriginalSwitch: Switch = props => {
     onChange,
     ...rest
   } = props
-  const [checked, setChecked] = useState<boolean>(value ?? defaultValue)
+  const [checked, setChecked] = useState<boolean | undefined>(value ?? defaultValue)
   useEffect(() => {
     setChecked(value ?? defaultValue)
   }, [value, defaultValue])

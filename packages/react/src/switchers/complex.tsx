@@ -35,7 +35,7 @@ export function Complex({
   ...rest
 }: SwitcherPropsForReact<TypeMap[ComplexType]>) {
   const [value, changeValue] = useValue(_value, defaultValue, rest.onChange)
-  const [index, setIndex] = useState<number>(undefined)
+  const [index, setIndex] = useState<number | undefined>(undefined)
   const modelOptions = useMemo(() => {
     if (isWhatType(model, AllTypes.ZodUnion)) {
       return flatUnwrapUnion(model)
@@ -67,9 +67,7 @@ export function Complex({
         dependKeys.forEach(key => {
           if (option.shape[key]) {
             if (!map.has(key)) map.set(key, [])
-            map
-              .get(key)
-              .push(option.shape[key])
+            map.get(key)?.push(option.shape[key])
           }
         })
       }
@@ -102,14 +100,12 @@ export function Complex({
       }
       return
     }
-
-    const option = modelOptions[index] as ZodTypeAny | undefined
     if (index === undefined) return
     if (index < 0 || index >= modelOptions.length) {
       setIndex(undefined)
       return
     }
-    return option
+    return modelOptions[index] as ZodTypeAny
   }, [dependKeys, dependKeysOptions, dependValues, index, model, modelOptions])
   useEffect(() => {
     const v = value
@@ -129,19 +125,19 @@ export function Complex({
 
   const ItemSerter = useItemSerterContext()
 
-  const OptionsRender = activeOption && <>
+  const OptionsRender = ItemSerter?.Append && activeOption && <>
     <ItemSerter.Append deps={[
       modes,
       modelOptions, activeOption, changeValue
     ]}>
       {/* 在里面控制是因为在 modes 修改后，将 append 内容清空 */}
-      {modes.includes('append') && activeOption._def.typeName !== AllTypes.ZodLiteral
+      {modes?.includes('append') && activeOption._def.typeName !== AllTypes.ZodLiteral
         && <List
           model={activeOption}
           onChange={changeValue}
         />}
     </ItemSerter.Append>
-    {!modes.includes('append') && activeOption._def.typeName !== AllTypes.ZodLiteral && <>
+    {!modes?.includes('append') && activeOption._def.typeName !== AllTypes.ZodLiteral && <>
       <Switcher
         model={activeOption}
         onChange={changeValue}

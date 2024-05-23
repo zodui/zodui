@@ -19,7 +19,7 @@ export const Input: Input = (props) => {
     value={value ?? defaultValue ?? ''}
     onChange={e => {
       const value = e.target.value
-      type Value = Parameters<typeof onChange>[0]
+      type Value = Parameters<NonNullable<typeof onChange>>[0]
       if (props.type === 'number') {
         onChange?.(Number(value) as Value)
         return

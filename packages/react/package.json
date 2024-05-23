@@ -13,25 +13,12 @@
   "homepage": "https://github.com/zodui/zodui/tree/master/packages/react#readme",
   "author": "YiJie <yijie4188@gmail.com>",
   "license": "MIT",
-  "scripts": {
-    "build": "crrc rollup -c"
+  "jiek": {
+    "styled": true
   },
-  "main": "dist/index.umd.js",
-  "unpkg": "dist/index.umd.js",
-  "jsdelivr": "dist/index.umd.js",
-  "browser": "dist/index.umd.js",
-  "module": "dist/index.esm.js",
-  "types": "dist/index.d.ts",
   "exports": {
-    "./package.json": "./package.json",
     "./index.css": "./dist/index.css",
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.esm.js",
-      "require": "./dist/index.umd.js",
-      "default": "./dist/index.esm.js",
-      "inner-src": "./src/index.ts"
-    }
+    ".": "./src/index.ts"
   },
   "peerDependencies": {
     "react": "^16.13.1 || ^17.0.0 || ^18.0.0 || ^19.0.0",

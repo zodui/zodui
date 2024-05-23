@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 export function useValue<T>(
-  value?: T, defaultValue?: T, onChange?: (value: T) => void | Promise<void>
+  value?: T, defaultValue?: T, onChange?: (value?: T) => void | Promise<void>
 ) {
   const changeValue = useCallback((v?: T) => {
     setValue(v)
