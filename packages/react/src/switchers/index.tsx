@@ -27,6 +27,7 @@ import type { StyledProps } from '../type'
 import { Complex } from './complex'
 import { Monad } from './monad'
 import { Multiple } from './multiple'
+import { MultipleV2 } from './multiple.v2'
 
 declare module '@zodui/core' {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -35,10 +36,12 @@ declare module '@zodui/core' {
   }
 }
 
+const multipleV2 = [AllTypes.ZodArray] as [typeof AllTypes.ZodArray]
 
 const switchers = [
   ['monad', monad, Monad],
   ['complex', complex, Complex],
+  ['multiple.v2', multipleV2, MultipleV2],
   ['multiple', multiple, Multiple]
 ] as const
 
