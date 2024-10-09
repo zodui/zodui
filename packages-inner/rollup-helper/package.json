@@ -1,3 +1,11 @@
 {
-  "name": "rollup-helper"
+  "name": "rollup-helper",
+  "dependencies": {
+    "rollup": "^4.1.5",
+    "@rollup/plugin-json": "^6.0.1",
+    "rollup-plugin-copy": "^3.5.0",
+    "rollup-plugin-dts": "^6.1.0",
+    "rollup-plugin-esbuild": "^6.1.0",
+    "rollup-plugin-postcss": "^4.0.2"
+  }
 }
